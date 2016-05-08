@@ -1,0 +1,22 @@
+{
+  "extends": "standard",
+  "parser": "babel-eslint",
+  "plugins": ["react"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true,
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "es6": true,
+      "classes": true,
+    },
+  },
+  "rules": {
+    "max-len": [1, 180, 4],
+    "react/jsx-uses-react": [1],
+    "react/jsx-uses-vars": [1],
+  },
+}
