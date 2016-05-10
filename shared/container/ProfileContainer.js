@@ -67,6 +67,7 @@ class ProfileContainer extends Component {
           <Form onSubmit={this.handleSubmit.bind(this)} model={user}
             updateModel={this.updateModel.bind(this)}
             errors={this.state.errors}>
+
             <TextField
               path={['name', 'first']}
               label='First Name'

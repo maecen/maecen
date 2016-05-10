@@ -10,9 +10,18 @@
     "seeAll": "See all maecenates"
   },
   "user": {
+    "firstName": "First name",
+    "firstNamePlaceholder": "Your first name",
+    "lastName": "Last name",
+    "lastNamePlaceholder": "Your last name",
     "email": "Email",
     "emailPlaceholder": "Your email address",
+    "password": "Password",
+    "passwordPlaceholder": "Choose a password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
     "loginPassword": "Password",
-    "loginPasswordPlaceholder": "Your password"
+    "loginPasswordPlaceholder": "Your password",
+    "buttonRegister": "Register"
   }
 }
