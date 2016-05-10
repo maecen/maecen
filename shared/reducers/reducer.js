@@ -9,6 +9,8 @@ const app = (state = Immutable({
   switch (action.type) {
     case ActionTypes.SET_AUTH_USER:
       return state.set('authUser', action.id)
+    case ActionTypes.CLEAR_AUTH_USER:
+      return state.set('authUser', null)
     case ActionTypes.SET_MAECENATE:
       return state.set('maecenate', action.id)
     case ActionTypes.SET_MAECENATE_LIST:

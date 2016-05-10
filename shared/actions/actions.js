@@ -1,7 +1,7 @@
 import * as ActionTypes from '../constants/constants'
 import * as sharedConfig from '../../shared/config'
 import { push } from 'react-router-redux'
-import fetch from 'isomorphic-fetch'
+import axios from 'axios'
 
 const baseURL = (typeof window === 'undefined' ? sharedConfig.host : '') + '/api'
 
@@ -14,8 +14,23 @@ export function setAuthUser (id, entities) {
 }
 
 export function authUser (credentials) {
-  return (dispatch) => {
+  return (dispatch) => { }
+}
 
+function clearAuthUser () {
+  return {
+    type: ActionTypes.CLEAR_AUTH_USER
+  }
+}
+
+export function clearAuth () {
+  return (dispatch) => {
+    axios.post(`${baseURL}/clearAuth`)
+      .then(res => res.data)
+      .then(data => {
+        dispatch(clearAuthUser())
+        dispatch(push('/'))
+      })
   }
 }
 
@@ -54,8 +69,8 @@ function fetchMaecenateSuccess (data) {
 export function fetchMaecenate (slug) {
   return (dispatch) => {
     dispatch(setMaecenate(null))
-    return fetch(`${baseURL}/getMaecenate/${slug}`)
-      .then(res => res.json())
+    return axios.get(`${baseURL}/getMaecenate/${slug}`)
+      .then(res => res.data)
       .then(data => dispatch(fetchMaecenateSuccess(data)))
       .catch(err => console.log(err.stack))
   }
@@ -73,8 +88,8 @@ function fetchMaecenateListSuccess (data) {
 
 export function fetchMaecenateList (slug) {
   return (dispatch) => {
-    return fetch(`${baseURL}/getMaecenates`)
-      .then(res => res.json())
+    return axios.get(`${baseURL}/getMaecenates`)
+      .then(res => res.data)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
       .catch(err => console.log(err.stack))
   }

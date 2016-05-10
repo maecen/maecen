@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import { translate } from 'react-i18next'
 import HeaderContainer from './HeaderContainer'
 import * as Actions from '../actions/actions'
 
@@ -33,6 +34,11 @@ class ProfileContainer extends Component {
     }
   }
 
+  clearAuth () {
+    const { dispatch } = this.props
+    dispatch(Actions.clearAuth())
+  }
+
   handleSubmit (e) {
     e.preventDefault()
     const { dispatch } = this.props
@@ -51,6 +57,7 @@ class ProfileContainer extends Component {
 
   render () {
     const { isEdit, user } = this.state
+    const { t } = this.props
 
     return (
       <div>
@@ -87,6 +94,10 @@ class ProfileContainer extends Component {
                   <button>Update</button>
                 </div>
             }
+
+            <button type='button' onClick={this.clearAuth.bind(this)}>
+              {t('logout')}
+            </button>
           </Form>
 
         </div>
@@ -106,4 +117,6 @@ function mapStateToProps (store) {
   }
 }
 
-export default connect(mapStateToProps)(ProfileContainer)
+export default translate(['common'])(
+  connect(mapStateToProps)(ProfileContainer)
+)

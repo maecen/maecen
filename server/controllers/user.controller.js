@@ -43,7 +43,7 @@ export function getAuthUser (req, res, next) {
 }
 
 export function authUser (req, res, next) {
-  const { auth: { email, password } } = req.body
+  const { credentials: { email, password } } = req.body
 
   User.findOne({ email: email.toLowerCase() }).then((user) => {
     if (user !== null) {
@@ -70,6 +70,11 @@ export function authUser (req, res, next) {
     delete user.password
     return res.json(normalizeResponse({ users: user }))
   }).catch(next)
+}
+
+export function clearAuth (req, res, next) {
+  res.clearCookie('id_token', { httpOnly: true })
+  res.json({success: true})
 }
 
 export function setUserLanguage (req, res, next) {
