@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import Immutable from 'seamless-immutable'
 import * as ActionTypes from '../constants/constants'
 
@@ -75,7 +74,5 @@ const postReducer = (state = initialState, action) => {
 
 */
 
-export default combineReducers({
-  app,
-  entities
-})
+export { app }
+export { entities }

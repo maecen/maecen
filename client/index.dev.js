@@ -3,6 +3,7 @@ import routes from '../shared/routes'
 import DevTools from '../shared/container/DevTools/DevTools'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
+import { syncHistoryWithStore } from 'react-router-redux'
 import { Router, browserHistory } from 'react-router'
 import { configureStore } from '../shared/store/configureStore'
 import mapInitialState from '../shared/lib/mapInitialState'
@@ -17,7 +18,7 @@ i18n.addResourceBundle(window.__i18n.locale, 'common',
 const initialState = mapInitialState(window.__INITIAL_STATE__)
 
 const store = configureStore(initialState)
-const history = browserHistory
+const history = syncHistoryWithStore(browserHistory, store)
 const dest = document.getElementById('root')
 
 let toRender

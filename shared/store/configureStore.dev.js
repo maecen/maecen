@@ -1,25 +1,32 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
+import { routerMiddleware, routerReducer } from 'react-router-redux'
+import { browserHistory } from 'react-router'
 import DevTools from '../container/DevTools/DevTools'
-import rootReducer from '../reducers/reducer'
+import * as reducers from '../reducers/reducer'
 
 export function configureStore (initialState = {}) {
+  const enhancerServer = applyMiddleware(thunk)
   let enhancerClient
+
   if (process.env.CLIENT) {
     enhancerClient = compose(
-      applyMiddleware(thunk),
+      applyMiddleware(thunk, routerMiddleware(browserHistory)),
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument()
     )
   }
 
-  const enhancerServer = applyMiddleware(thunk)
+  const reducer = combineReducers({
+    ...reducers,
+    routing: routerReducer
+  })
 
   let store
 
   if (process.env.CLIENT) {
-    store = createStore(rootReducer, initialState, enhancerClient)
+    store = createStore(reducer, initialState, enhancerClient)
   } else {
-    store = createStore(rootReducer, initialState, enhancerServer)
+    store = createStore(reducer, initialState, enhancerServer)
   }
 
   if (module.hot) {

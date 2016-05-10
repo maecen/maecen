@@ -1,5 +1,6 @@
 import * as ActionTypes from '../constants/constants'
 import * as sharedConfig from '../../shared/config'
+import { push } from 'react-router-redux'
 import fetch from 'isomorphic-fetch'
 
 const baseURL = (typeof window === 'undefined' ? sharedConfig.host : '') + '/api'
@@ -26,7 +27,11 @@ export function updateEntities (entities) {
 }
 
 export function createMaecenateSuccess (data) {
-  return updateEntities(data.entities)
+  return (dispatch) => {
+    const slug = data.entities.maecenates[data.result[0]].slug
+    dispatch(updateEntities(data.entities))
+    dispatch(push(`/maecenate/${slug}`))
+  }
 }
 
 function setMaecenate (id) {

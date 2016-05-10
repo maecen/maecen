@@ -5,9 +5,8 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
 class HomeContainer extends Component {
-
   render () {
-    const {t} = this.props
+    const { t } = this.props
 
     return (
       <div>

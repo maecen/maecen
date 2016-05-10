@@ -49,6 +49,7 @@
     "react-i18next": "^1.4.0",
     "react-redux": "^4.1.2",
     "react-router": "^2.0.0-rc5",
+    "react-router-redux": "^4.0.4",
     "redux": "^3.5.2",
     "redux-thunk": "^1.0.3",
     "sanitize-html": "^1.11.3",

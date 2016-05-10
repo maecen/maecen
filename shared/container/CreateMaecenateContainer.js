@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import HeaderContainer from './HeaderContainer'
@@ -31,17 +30,14 @@ class CreateMaecenateContainer extends Component {
     const { dispatch } = this.props
     const { maecenate } = this.state
 
-    axios.post('/api/createMaecenate', { maecenate }).then((res) => {
-      return res.data
-    }).then((data) => {
-      dispatch(Actions.createMaecenateSuccess(data))
-      const id = data.result[0]
-      const {slug} = data.entities.maecenates[id]
-      this.setState({ errors: null })
-      browserHistory.push(`/maecenate/${slug}`)
-    }, (res) => {
-      this.setState({ errors: res.data.errors })
-    })
+    axios.post('/api/createMaecenate', { maecenate })
+      .then(res => res.data)
+      .then((data) => {
+        this.setState({ errors: null })
+        dispatch(Actions.createMaecenateSuccess(data))
+      }, (res) => {
+        this.setState({ errors: res.data.errors })
+      })
   }
 
   render () {
