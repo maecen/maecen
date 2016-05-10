@@ -1,3 +1,8 @@
+// Load all environment variables for the development env
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').load()
+}
+
 require('babel-register');
 require('babel-polyfill');
 var hook = require('css-modules-require-hook');

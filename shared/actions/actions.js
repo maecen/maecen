@@ -29,6 +29,13 @@ export function createMaecenateSuccess (data) {
   return updateEntities(data.entities)
 }
 
+function setMaecenate (id) {
+  return {
+    type: ActionTypes.SET_MAECENATE,
+    id
+  }
+}
+
 function fetchMaecenateSuccess (data) {
   const id = data.result[0]
 
@@ -41,6 +48,7 @@ function fetchMaecenateSuccess (data) {
 
 export function fetchMaecenate (slug) {
   return (dispatch) => {
+    dispatch(setMaecenate(null))
     return fetch(`${baseURL}/getMaecenate/${slug}`)
       .then(res => res.json())
       .then(data => dispatch(fetchMaecenateSuccess(data)))

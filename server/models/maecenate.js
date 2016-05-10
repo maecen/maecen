@@ -5,6 +5,8 @@ const Schema = mongoose.Schema
 const maecenateSchema = new Schema({
   title: { type: 'String', required: [true, 'The Maecenate needs a title'] },
   slug: { type: 'String', required: true },
+  logoUrl: { type: 'String', required: [true, 'You need to add a logo'] },
+  coverUrl: { type: 'String', required: [true, 'You need to add a cover'] },
   // category: { type: 'String', required: [true, 'You need to pick a category'] },
   teaser: { type: 'String', required: [true, 'You need to write a teaser'] },
   description: { type: 'String', required: [true, 'You need to write a description'] },
@@ -29,4 +31,4 @@ maecenateSchema.pre('validate', function (next) {
   next()
 })
 
-export default mongoose.model('Post', maecenateSchema)
+export default mongoose.model('Maecenate', maecenateSchema)

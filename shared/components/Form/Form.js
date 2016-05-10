@@ -2,8 +2,12 @@ import React, { PropTypes, Component } from 'react'
 
 export default class Form extends Component {
 
+  // If e is an event with a value property use that, otherwise use e as the
+  // value
   updateValue (path, e) {
-    const value = e.target.value
+    const value = e.target && e.target.value
+      ? e.target.value
+      : e
     this.props.updateModel(path, value)
   }
 

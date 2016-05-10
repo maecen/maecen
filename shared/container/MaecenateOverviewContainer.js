@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { browserHistory } from 'react-router'
 import map from 'lodash/map'
 import HeaderContainer from './HeaderContainer'
 import * as Actions from '../actions/actions'
 
+import MaecenateCard from '../components/Maecenate/MaecenateCard'
+
 class MaecenateOverviewContainer extends Component {
+
+  gotoMaecenate (maecenate) {
+    browserHistory.push(`/maecenate/${maecenate.slug}`)
+  }
 
   componentDidMount () {
     const {dispatch, params} = this.props
@@ -20,13 +26,12 @@ class MaecenateOverviewContainer extends Component {
         <HeaderContainer />
         <div className='container'>
 
-        {map(maecenates, maecenate =>
-          <div key={maecenate._id}>
-            <Link to={`/maecenate/${maecenate.slug}`}>
-              {maecenate.title}
-            </Link>
-          </div>
-        )}
+          {map(maecenates, maecenate =>
+            <MaecenateCard
+              maecenate={maecenate}
+              onClick={this.gotoMaecenate.bind(this, maecenate)}
+              key={maecenate._id} />
+          )}
 
         </div>
       </div>

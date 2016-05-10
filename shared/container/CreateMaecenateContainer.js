@@ -9,6 +9,7 @@ import * as Actions from '../actions/actions'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
 import SelectField from '../components/Form/SelectField'
+import ImageField from '../components/Form/ImageField'
 
 class CreateMaecenateContainer extends Component {
 
@@ -36,8 +37,8 @@ class CreateMaecenateContainer extends Component {
       dispatch(Actions.createMaecenateSuccess(data))
       const id = data.result[0]
       const {slug} = data.entities.maecenates[id]
-      browserHistory.push(`/maecenate/${slug}`)
       this.setState({ errors: null })
+      browserHistory.push(`/maecenate/${slug}`)
     }, (res) => {
       this.setState({ errors: res.data.errors })
     })
@@ -59,6 +60,11 @@ class CreateMaecenateContainer extends Component {
               path={['title']}
               label='Title'
               placeholder='Dodo and the dodos' />
+
+            <ImageField
+              label='Logo'
+              path={['logoUrl']}
+              dataUriPath={['logoDataUri']} />
 
             <SelectField
               path={['category']}
@@ -83,6 +89,11 @@ class CreateMaecenateContainer extends Component {
               path={['url']}
               label='Website'
               placeholder='Your website' />
+
+            <ImageField
+              label='Cover'
+              path={['coverUrl']}
+              dataUriPath={['coverDataUri']} />
 
             <button>Create Maecenate</button>
           </Form>

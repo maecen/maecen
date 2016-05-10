@@ -6,11 +6,9 @@ import * as Actions from '../actions/actions'
 class MaecenateContainer extends Component {
 
   componentDidMount () {
-    const {dispatch, params, maecenate} = this.props
+    const { dispatch, params } = this.props
 
-    if (!maecenate) {
-      dispatch(this.constructor.need[0](params))
-    }
+    dispatch(this.constructor.need[0](params))
   }
 
   render () {
@@ -24,8 +22,10 @@ class MaecenateContainer extends Component {
         {maecenate
           ? <div>
               <h2>{maecenate.title}</h2>
+              <img src={maecenate.logoUrl} />
               <div>{maecenate.teaser}</div>
               <div>{maecenate.description}</div>
+              <img src={maecenate.coverUrl} />
             </div>
           : <div>Loading...</div>
         }
