@@ -22,6 +22,7 @@
   "dependencies": {
     "axios": "^0.11.0",
     "babel-core": "^6.4.5",
+    "babel-preset-stage-2": "^6.5.0",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.3.5",
     "body-parser": "^1.14.2",
