@@ -8,5 +8,11 @@
   "maecenate": {
     "create": "Create Maecenate",
     "seeAll": "See all maecenates"
+  },
+  "user": {
+    "email": "Email",
+    "emailPlaceholder": "Your email address",
+    "loginPassword": "Password",
+    "loginPasswordPlaceholder": "Your password"
   }
 }

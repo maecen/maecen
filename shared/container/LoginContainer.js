@@ -7,6 +7,10 @@ import { translate } from 'react-i18next'
 import HeaderContainer from './HeaderContainer'
 import * as Actions from '../actions/actions'
 
+import Form from '../components/Form/Form'
+import TextField from '../components/Form/TextField'
+import PasswordField from '../components/Form/PasswordField'
+
 class LoginContainer extends Component {
 
   constructor () {
@@ -57,17 +61,13 @@ class LoginContainer extends Component {
               label={t('user.email')}
               placeholder={t('user.emailPlaceholder')}/>
 
-          </Form>
-
-          <form onSubmit={this.handleSubmit.bind(this)}>
-            <label>Email</label>
-            <input type='email' placeholder='Your email address' ref='email' />
-
-            <label>Password</label>
-            <input type='password' placeholder='Your password' ref='password' />
+            <PasswordField
+              path={['password']}
+              label={t('user.loginPassword')}
+              placeholder={t('user.loginPasswordPlaceholder')}/>
 
             <button>Login</button>
-          </form>
+          </Form>
           <Link to='/register'>Register</Link>
 
         </div>
