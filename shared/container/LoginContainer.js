@@ -35,11 +35,10 @@ class LoginContainer extends Component {
     axios.post('/api/authUser', { credentials }).then((res) => {
       return res.data
     }).then((data) => {
-      console.log('auth User', data)
       dispatch(Actions.setAuthUser(data.result[0], data.entities))
       browserHistory.push('/')
     }, (res) => {
-      this.setState({ type: 'danger', message: res.data.errors.join('. ') })
+      this.setState({ errors: res.data.errors })
     })
   }
 
