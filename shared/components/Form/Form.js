@@ -20,8 +20,14 @@ export default class Form extends Component {
   }
 
   render () {
+    const { errors } = this.props
+    const error = errors && errors['_'] || null
+
     return (
       <form onSubmit={this.props.onSubmit}>
+        {error &&
+          <div style={{color: '#ff0000'}}>{error}</div>
+        }
         {this.props.children}
       </form>
     )

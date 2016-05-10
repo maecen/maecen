@@ -59,8 +59,7 @@ class CreateMaecenateContainer extends Component {
 
             <ImageField
               label='Logo'
-              path={['logoUrl']}
-              dataUriPath={['logoDataUri']} />
+              path={['logoUrl']} />
 
             <SelectField
               path={['category']}
@@ -88,8 +87,7 @@ class CreateMaecenateContainer extends Component {
 
             <ImageField
               label='Cover'
-              path={['coverUrl']}
-              dataUriPath={['coverDataUri']} />
+              path={['coverUrl']} />
 
             <button>Create Maecenate</button>
           </Form>

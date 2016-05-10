@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt-nodejs'
 import { promisify } from 'bluebird'
-import { formatMongooseError, normalizeResponse } from '../util/ctrlHelpers'
+import { formatResponseError, normalizeResponse } from '../util/ctrlHelpers'
 import * as config from '../../shared/config'
 import User from '../models/user'
 
@@ -14,7 +14,7 @@ export function createUser (req, res, next) {
 
   user.save((error) => {
     if (error) {
-      const errors = formatMongooseError(error)
+      const errors = formatResponseError(error)
       return res.status(400).json({ errors })
     }
 
@@ -87,7 +87,7 @@ export function setUserLanguage (req, res, next) {
 function userResponseHandler (res, user) {
   return (error) => {
     if (error) {
-      const errors = formatMongooseError(error)
+      const errors = formatResponseError(error)
       return res.status(400).json({ errors })
     }
 

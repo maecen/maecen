@@ -2,8 +2,16 @@ import mapValues from 'lodash/mapValues'
 import mapKeys from 'lodash/mapKeys'
 import map from 'lodash/map'
 
-export function formatMongooseError (error) {
-  return mapValues(error.errors, err => err.message)
+export function formatResponseError (error) {
+  if (typeof error === 'string') {
+    return { _: error }
+  } else if (error instanceof Error) {
+    if (error.errors) {
+      return mapValues(error.errors, err => err.message)
+    } else {
+      return { _: error.message }
+    }
+  }
 }
 
 export function normalizeResponse (data, responseObject) {

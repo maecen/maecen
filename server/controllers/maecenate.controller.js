@@ -1,4 +1,4 @@
-import { formatMongooseError, normalizeResponse } from '../util/ctrlHelpers'
+import { formatResponseError, normalizeResponse } from '../util/ctrlHelpers'
 import { uploadDataUri } from '../util/fileUploader'
 import Maecenate from '../models/maecenate'
 
@@ -17,40 +17,35 @@ export function getMaecenates (req, res, next) {
 
 export function createMaecenate (req, res, next) {
   const { maecenate: data } = req.body
-  let { logoDataUri, coverDataUri } = data
-
-  delete data.logoDataUri
-  delete data.coverDataUri
+  const { logoUrl, coverUrl } = data
 
   let maecenate = new Maecenate(data)
 
-  return Promise.resolve().then(() => {
+  return maecenate.validate().then(() => {
     let imageUploads = []
 
     // Do the upload after the save! (so we validate first)
-    if (logoDataUri) {
+    if (logoUrl) {
       const path = `maecenate/${maecenate._id}-logo`
-      imageUploads.push(uploadDataUri(logoDataUri, path).then((result) => {
+      imageUploads.push(uploadDataUri(logoUrl, path).then((result) => {
         maecenate.logoUrl = result.secure_url
       }))
     }
 
-    if (coverDataUri) {
+    if (coverUrl) {
       const path = `maecenate/${maecenate._id}-cover`
-      imageUploads.push(uploadDataUri(coverDataUri, path).then((result) => {
+      imageUploads.push(uploadDataUri(coverUrl, path).then((result) => {
         maecenate.coverUrl = result.secure_url
       }))
     }
 
     return Promise.all(imageUploads)
   }).then(() => {
-    maecenate.save((error) => {
-      if (error) {
-        const errors = formatMongooseError(error)
-        return res.status(400).json({ errors })
-      }
-
-      return res.json(normalizeResponse({ maecenates: maecenate }))
-    })
-  }).catch(next)
+    return maecenate.save()
+  }).then(() => {
+    return res.json(normalizeResponse({ maecenates: maecenate }))
+  }).catch((error) => {
+    const errors = formatResponseError(error)
+    return res.status(400).json({ errors })
+  })
 }

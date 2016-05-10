@@ -1,3 +1,4 @@
+import { startsWith } from 'strman'
 import React, { Component, PropTypes } from 'react'
 
 class ImageField extends Component {
@@ -11,7 +12,7 @@ class ImageField extends Component {
     e.preventDefault()
 
     const { updateValue } = this.context
-    const { dataUriPath } = this.props
+    const { path } = this.props
     const reader = new FileReader()
     const file = e.target.files[0]
 
@@ -20,7 +21,7 @@ class ImageField extends Component {
         file: file,
         imagePreviewUrl: reader.result
       })
-      updateValue(dataUriPath, reader.result)
+      updateValue(path, reader.result)
     }
 
     reader.readAsDataURL(file)
@@ -31,18 +32,7 @@ class ImageField extends Component {
     const path = Array.isArray(props.path) ? props.path.join('.') : props.path
     const error = context.errors[path] || null
 
-    const {imagePreviewUrl} = this.state
-    let $imagePreview = null
-    if (imagePreviewUrl) {
-      $imagePreview = (
-        <img src={imagePreviewUrl}
-          style={{maxWidth: '50px', maxHeight: '50px'}}/>
-      )
-    } else {
-      $imagePreview = (
-        <div className='previewText'>Please select an Image for Preview</div>
-      )
-    }
+    const { imagePreviewUrl } = this.state
 
     return (
       <div>
@@ -51,7 +41,7 @@ class ImageField extends Component {
         }
         <input type='file'
           onChange={this.handleChange.bind(this)} />
-        {$imagePreview}
+        {renderImagePreview(imagePreviewUrl)}
         {error &&
           <div style={{color: '#ff0000'}}>{error}</div>
         }
@@ -60,12 +50,17 @@ class ImageField extends Component {
   }
 }
 
+function renderImagePreview (imagePreviewUrl) {
+  if (imagePreviewUrl && startsWith(imagePreviewUrl, 'data:image') === true) {
+    return (
+      <img src={imagePreviewUrl}
+        style={{maxWidth: '50px', maxHeight: '50px'}}/>
+    )
+  }
+}
+
 ImageField.propTypes = {
   path: React.PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.string
-  ]).isRequired,
-  dataUriPath: React.PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string
   ]).isRequired,
