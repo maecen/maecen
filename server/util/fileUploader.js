@@ -22,7 +22,7 @@ export function uploadBuffer (buffer, path) {
 }
 
 export function uploadDataUri (dataUri, path) {
-  const data = dataUri.replace(/^data:image\/png;base64,/, '')
+  const data = dataUri.replace(/^data:image\/(png|jpeg);base64,/, '')
   const buffer = new Buffer(data, 'base64')
   return uploadBuffer(buffer, path)
 }
