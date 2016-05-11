@@ -7,11 +7,23 @@ export function formatResponseError (error) {
     return { _: error }
   } else if (error instanceof Error) {
     if (error.errors) {
-      return mapValues(error.errors, err => err.message)
+      return mapValues(error.errors,
+        err => err.message ? err.message : err)
     } else {
       return { _: error.message }
     }
+  } else {
+    return error
   }
+}
+
+export function createError (obj) {
+  let error = new Error()
+  error.errors = {}
+  for (let key in obj) {
+    error.errors[key] = obj[key]
+  }
+  return error
 }
 
 export function normalizeResponse (data, responseObject) {

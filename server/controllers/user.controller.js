@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt-nodejs'
 import { promisify } from 'bluebird'
-import { formatResponseError, normalizeResponse } from '../util/ctrlHelpers'
+import { formatResponseError, normalizeResponse, createError } from '../util/ctrlHelpers'
 import * as config from '../../shared/config'
 import User from '../models/user'
 
@@ -43,7 +43,9 @@ export function getAuthUser (req, res, next) {
 }
 
 export function authUser (req, res, next) {
-  const { credentials: { email, password } } = req.body
+  const { credentials } = req.body
+  const email = credentials.email || ''
+  const password = credentials.password || ''
 
   User.findOne({ email: email.toLowerCase() }).then((user) => {
     if (user !== null) {
@@ -51,14 +53,14 @@ export function authUser (req, res, next) {
         if (match === true) {
           return user
         }
-        return 'This password doesn\'t match the email'
+        return createError({ password: 'This password doesn\'t match the email' })
       })
     } else {
-      return 'No user exists with this email'
+      return createError({ email: 'No user exists with this email' })
     }
   }).then(arg => {
-    if (typeof arg === 'string') {
-      return res.status(500).json({ errors: { general: arg } })
+    if (arg instanceof Error) {
+      return res.status(500).json({errors: formatResponseError(arg)})
     }
 
     const user = arg.toObject()
