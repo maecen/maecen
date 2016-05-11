@@ -5,13 +5,13 @@
   "scripts": {
     "test": "",
     "test:server": "",
-    "start": "cross-env NODE_ENV=development nodemon index.js",
-    "start:prod": "cross-env NODE_ENV=production node index.js",
-    "minify": "cleancss -o static/css/app.min.css static/css/app.css",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js && npm run minify",
+    "start": "node_modules/.bin/cross-env NODE_ENV=development nodemon index.js",
+    "start:prod": "node_modules/.bin/cross-env NODE_ENV=production node index.js",
+    "bs": "npm run build && npm run start:prod",
+    "build": "node_modules/.bin/cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rimraf static/dist",
     "slate": "rimraf node_modules && npm install",
-    "lint": "eslint client server shared"
+    "lint": "node_modules/.bin/eslint client server shared"
   },
   "pre-commit": [
     "lint"
