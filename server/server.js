@@ -15,16 +15,17 @@ import i18nMiddleware from 'i18next-express-middleware'
 import { I18nextProvider } from 'react-i18next'
 
 
-// Webpack Requirements
-import webpack from 'webpack'
-import webpackConfig from '../webpack.config.dev'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
 
 // Initialize the Express App
 const app = new Express()
 
 if (process.env.NODE_ENV !== 'production') {
+  // Webpack Requirements
+  const webpack = require('webpack')
+  const webpackConfig = require('../webpack.config.dev')
+  const webpackDevMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
+
   const compiler = webpack(webpackConfig)
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
