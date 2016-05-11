@@ -14,8 +14,6 @@ import i18n from './i18n-server'
 import i18nMiddleware from 'i18next-express-middleware'
 import { I18nextProvider } from 'react-i18next'
 
-
-
 // Initialize the Express App
 const app = new Express()
 
