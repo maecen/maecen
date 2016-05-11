@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react'
+import Immutable from 'seamless-immutable'
 import { get } from 'object-path'
 import MaterialTextField from 'material-ui/TextField'
 
 export default function TextField (props, context) {
+  props = Immutable(props)
   const path = Array.isArray(props.path) ? props.path.join('.') : props.path
   const error = context.errors[path] || null
 
@@ -13,8 +15,7 @@ export default function TextField (props, context) {
       value={get(context.model, path) || ''}
       onChange={context.updateValue.bind(null, props.path)}
       errorText={error}
-      type={props.type}
-      {...props} />
+      {...props.without('placeholder', 'label', 'path')} />
   )
 }
 
@@ -29,12 +30,7 @@ TextField.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string
   ]).isRequired,
-  placeholder: PropTypes.string,
-  label: PropTypes.string,
-  rows: PropTypes.string,
-  maxLength: PropTypes.string,
-  multiLine: PropTypes.bool,
-  type: PropTypes.string
+  placeholder: PropTypes.string
 }
 
 TextField.contextTypes = {

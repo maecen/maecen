@@ -77,7 +77,7 @@ class CreateMaecenateContainer extends Component {
               path={['description']}
               label='Description'
               placeholder='Description of the maecenate'
-              rows='5'
+              rows={2}
               multiLine={true} />
 
             <TextField
