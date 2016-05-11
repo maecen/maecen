@@ -1,20 +1,20 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-
+import React, { PropTypes } from 'react'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import './App.scss'
 
-class App extends Component {
-  render () {
-    return (
-      <div>
-        { this.props.children }
-      </div>
-    )
-  }
+const muiTheme = getMuiTheme({ })
+
+function App (props) {
+  return (
+    <MuiThemeProvider muiTheme={muiTheme}>
+      { props.children }
+    </MuiThemeProvider>
+  )
 }
 
 App.propTypes = {
   children: PropTypes.object.isRequired
 }
 
-export default connect()(App)
+export default App

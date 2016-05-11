@@ -1,35 +1,27 @@
 import React, { PropTypes } from 'react'
 import { get } from 'object-path'
+import MaterialTextField from 'material-ui/TextField'
 
 export default function TextField (props, context) {
   const path = Array.isArray(props.path) ? props.path.join('.') : props.path
   const error = context.errors[path] || null
 
-  const TextInput = props.multiline ? 'textarea' : 'input'
-
   return (
-    <div>
-      { props.label &&
-        <label>{props.label}</label>
-      }
-      <TextInput type='text'
-        value={get(context.model, path) || ''}
-        onChange={context.updateValue.bind(null, props.path)}
-        placeholder={props.placeholder}
-        readOnly={props.readOnly}
-        maxLength={props.maxLength}
-        rows={props.rows} />
-      {error &&
-        <div style={{color: '#ff0000'}}>{error}</div>
-      }
-    </div>
+    <MaterialTextField
+      floatingLabelText={props.label}
+      hintText={props.placeholder}
+      value={get(context.model, path) || ''}
+      onChange={context.updateValue.bind(null, props.path)}
+      errorText={error}
+      type={props.type}
+      {...props} />
   )
 }
 
 TextField.defaultProps = {
   readOnly: false,
   maxLength: null,
-  multiline: false
+  type: 'text'
 }
 
 TextField.propTypes = {
@@ -40,9 +32,9 @@ TextField.propTypes = {
   placeholder: PropTypes.string,
   label: PropTypes.string,
   rows: PropTypes.string,
-  readOnly: PropTypes.bool,
   maxLength: PropTypes.string,
-  multiline: PropTypes.bool
+  multiLine: PropTypes.bool,
+  type: PropTypes.string
 }
 
 TextField.contextTypes = {

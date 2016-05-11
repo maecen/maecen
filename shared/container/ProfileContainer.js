@@ -72,19 +72,19 @@ class ProfileContainer extends Component {
               path={['name', 'first']}
               label='First Name'
               placeholder='Your first name'
-              readOnly={!isEdit} />
+              disabled={!isEdit} />
 
             <TextField
               path={['name', 'last']}
               label='Last Name'
               placeholder='Your last name'
-              readOnly={!isEdit} />
+              disabled={!isEdit} />
 
             <TextField
               path='email'
               label='Email'
               placeholder='Your email address'
-              readOnly={!isEdit} />
+              disabled={!isEdit} />
 
             { isEdit === false
               ? <button type='button'

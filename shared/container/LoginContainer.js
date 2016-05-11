@@ -9,7 +9,7 @@ import * as Actions from '../actions/actions'
 
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
-import PasswordField from '../components/Form/PasswordField'
+import Button from '../components/Form/Button'
 
 class LoginContainer extends Component {
 
@@ -60,12 +60,13 @@ class LoginContainer extends Component {
               label={t('user.email')}
               placeholder={t('user.emailPlaceholder')}/>
 
-            <PasswordField
+            <TextField
+              type='password'
               path={['password']}
               label={t('user.loginPassword')}
               placeholder={t('user.loginPasswordPlaceholder')}/>
 
-            <button>Login</button>
+            <Button type='submit' label='Login'/>
           </Form>
           <Link to='/register'>Register</Link>
 
