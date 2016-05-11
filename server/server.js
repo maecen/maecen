@@ -81,7 +81,7 @@ app.use('/api', apiRoutes)
 
 // Render Initial HTML
 const renderFullPage = (html, initialState, i18n) => {
-  const cssPath = process.env.NODE_ENV === 'production' ? '/css/app.min.css' : '/css/app.css'
+  const cssPath = '/dist/app.css'
   return `
     <!doctype html>
     <html>
