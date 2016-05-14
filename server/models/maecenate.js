@@ -20,7 +20,7 @@ maecenateSchema.path('teaser').validate((value) => {
 
 maecenateSchema.path('description').validate((value) => {
   return value.length >= 30
-}, 'The teaser has to be at least 30 characters')
+}, 'The description has to be at least 30 characters')
 
 // We set the slug pre validate
 maecenateSchema.pre('validate', function (next) {
