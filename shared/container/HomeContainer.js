@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
@@ -16,6 +17,7 @@ class HomeContainer extends Component {
           {t('tagline')}
           <Link to='/maecenates'>{t('maecenate.seeAll')}</Link>
         </div>
+        <FooterContainer />
       </div>
     )
   }

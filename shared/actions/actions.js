@@ -95,6 +95,18 @@ export function fetchMaecenateList (slug) {
   }
 }
 
+export function changeLanguage (lang) {
+  return (dispatch) => {
+    return axios.put(`${baseURL}/setUserLanguage`, { lng: lang })
+      .then(res => res.data)
+      .then(res => {
+        if (res.success === true) {
+          window.location.reload()
+        }
+      })
+  }
+}
+
 /*
 
 export function addPost(post) {

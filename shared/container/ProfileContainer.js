@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { translate } from 'react-i18next'
 import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
 import * as Actions from '../actions/actions'
 
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
+import Button from '../components/Form/Button'
 
 class ProfileContainer extends Component {
 
@@ -73,35 +75,40 @@ class ProfileContainer extends Component {
               label='First Name'
               placeholder='Your first name'
               disabled={!isEdit} />
+            <br />
 
             <TextField
               path={['name', 'last']}
               label='Last Name'
               placeholder='Your last name'
               disabled={!isEdit} />
+            <br />
 
             <TextField
               path='email'
               label='Email'
               placeholder='Your email address'
               disabled={!isEdit} />
+            <br />
 
             { isEdit === false
-              ? <button type='button'
-                  onClick={this.toggleEdit.bind(this)}>Edit profile</button>
+              ? <Button type='button'
+                  onClick={this.toggleEdit.bind(this)}
+                  label='Edit profile' />
               : <div>
-                  <button type='button'
-                    onClick={this.toggleEdit.bind(this)}>Cancel</button>
-                  <button>Update</button>
+                  <Button
+                    onClick={this.toggleEdit.bind(this)}
+                    label='Cancel' />
+                  <Button label='Update' primary={true} />
                 </div>
             }
 
-            <button type='button' onClick={this.clearAuth.bind(this)}>
-              {t('logout')}
-            </button>
+            <Button onClick={this.clearAuth.bind(this)}
+              label={t('logout')} />
           </Form>
 
         </div>
+        <FooterContainer />
       </div>
     )
   }

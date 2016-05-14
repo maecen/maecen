@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
-import HeaderContainer from './HeaderContainer'
-import * as Actions from '../actions/actions'
+import { Grid } from 'react-flexbox-grid/lib'
 
+import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
+import * as Actions from '../actions/actions'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
 import SelectField from '../components/Form/SelectField'
@@ -46,7 +48,7 @@ class CreateMaecenateContainer extends Component {
     return (
       <div>
         <HeaderContainer />
-        <div className='container'>
+        <Grid>
 
           <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
             updateModel={this.updateModel.bind(this)}
@@ -56,22 +58,26 @@ class CreateMaecenateContainer extends Component {
               path={['title']}
               label='Title'
               placeholder='Dodo and the dodos' />
+            <br />
 
             <ImageField
               label='Logo'
               path={['logoUrl']} />
+            <br />
 
             <SelectField
               path={['category']}
               label='Category'>
               <option value=''>Pick a category...</option>
             </SelectField>
+            <br />
 
             <TextField
               path={['teaser']}
               label='Teaser'
               placeholder='Max 140 characters'
               maxLength='140' />
+            <br />
 
             <TextField
               path={['description']}
@@ -79,20 +85,24 @@ class CreateMaecenateContainer extends Component {
               placeholder='Description of the maecenate'
               rows={2}
               multiLine={true} />
+            <br />
 
             <TextField
               path={['url']}
               label='Website'
               placeholder='Your website' />
+            <br />
 
             <ImageField
               label='Cover'
               path={['coverUrl']} />
+            <br />
 
             <button>Create Maecenate</button>
           </Form>
 
-        </div>
+        </Grid>
+        <FooterContainer />
       </div>
     )
   }

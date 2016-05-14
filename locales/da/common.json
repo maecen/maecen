@@ -1,10 +1,27 @@
 {
-  "maecen": "Maecen",
+  "maecen": "Mæcen",
   "home": "Hjem",
   "profile": "Profil",
+  "login": "Login",
+  "logout": "Log ud",
   "tagline": "\"A person who supports art and science financially\"",
   "maecenate": {
-    "create": "Create Maecenate",
-    "seeAll": "See all maecenates"
+    "create": "Opret Mæcenat",
+    "seeAll": "Se alle Mæcenater"
+  },
+  "user": {
+    "firstName": "Fornavn",
+    "firstNamePlaceholder": "Dit firnavn",
+    "lastName": "Efternavn",
+    "lastNamePlaceholder": "Dit efternavn",
+    "email": "Email",
+    "emailPlaceholder": "Din email address",
+    "password": "Kodeord",
+    "passwordPlaceholder": "Vælg et kodeord",
+    "confirmPassword": "Bekræft kodeord",
+    "confirmPasswordPlaceholder": "Bekræft kodeord",
+    "loginPassword": "Kodeord",
+    "loginPasswordPlaceholder": "Dit kodeord",
+    "buttonRegisterUser": "Opret bruger"
   }
 }

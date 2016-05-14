@@ -76,14 +76,14 @@ export function authUser (req, res, next) {
 
 export function clearAuth (req, res, next) {
   res.clearCookie('id_token', { httpOnly: true })
-  res.json({success: true})
+  return res.json({success: true})
 }
 
 export function setUserLanguage (req, res, next) {
   const {lng} = req.body
   const expire = 365 * 24 * 60 * 60 // in 1 year
   res.cookie('i18n', lng, { maxAge: 1000 * expire, httpOnly: true })
-  res.json({success: true})
+  return res.json({success: true})
 }
 
 function userResponseHandler (res, user) {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import map from 'lodash/map'
 import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
 import * as Actions from '../actions/actions'
 
 import MaecenateCard from '../components/Maecenate/MaecenateCard'
@@ -34,6 +35,7 @@ class MaecenateOverviewContainer extends Component {
           )}
 
         </div>
+        <FooterContainer />
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
 import * as Actions from '../actions/actions'
 
 class MaecenateContainer extends Component {
@@ -30,6 +31,7 @@ class MaecenateContainer extends Component {
           : <div>Loading...</div>
         }
         </div>
+        <FooterContainer />
       </div>
     )
   }

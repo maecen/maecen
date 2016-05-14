@@ -5,6 +5,7 @@ import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
 import * as Actions from '../actions/actions'
 
 import Form from '../components/Form/Form'
@@ -59,18 +60,21 @@ class LoginContainer extends Component {
               path={['email']}
               label={t('user.email')}
               placeholder={t('user.emailPlaceholder')}/>
+            <br />
 
             <TextField
               type='password'
               path={['password']}
               label={t('user.loginPassword')}
               placeholder={t('user.loginPasswordPlaceholder')}/>
+            <br />
 
             <Button type='submit' label='Login'/>
           </Form>
           <Link to='/register'>Register</Link>
 
         </div>
+        <FooterContainer />
       </div>
     )
   }

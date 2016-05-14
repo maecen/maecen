@@ -5,9 +5,9 @@ import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 
 import HeaderContainer from './HeaderContainer'
+import FooterContainer from './FooterContainer'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
-import PasswordField from '../components/Form/PasswordField'
 import Button from '../components/Form/Button'
 
 class RegisterContainer extends Component {
@@ -74,19 +74,22 @@ class RegisterContainer extends Component {
               label={t('user.email')}
               placeholder={t('user.emailPlaceholder')} />
 
-            <PasswordField
+            <TextField
+              type='password'
               path={['password']}
               label={t('user.password')}
               placeholder={t('user.passwordPlaceholder')} />
 
-            <PasswordField
+            <TextField
+              type='password'
               path={['confirmPassword']}
               label={t('user.confirmPassword')}
               placeholder={t('user.confirmPasswordPlaceholder')} />
 
-            <Button type='submit' label={t('user.buttonRegister')} />
+            <Button type='submit' label={t('user.buttonRegisterUser')} />
           </Form>
         </div>
+        <FooterContainer />
       </div>
     )
   }

@@ -23,7 +23,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         loaders: [
           'style-loader',
           `css-loader?${JSON.stringify({
