@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { verifyAuth } from '../util/permissions'
 import * as MaecenateController from '../controllers/maecenate.controller'
 const router = new Router()
 
@@ -9,7 +10,7 @@ router.get('/getMaecenate/:slug', MaecenateController.getMaecenate)
 router.get('/getMaecenates', MaecenateController.getMaecenates)
 
 // Create Maecenate
-router.post('/createMaecenate', MaecenateController.createMaecenate)
+router.post('/createMaecenate', verifyAuth, MaecenateController.createMaecenate)
 
 export default router
 
