@@ -87,6 +87,7 @@ const renderFullPage = (html, initialState, i18n) => {
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- TO-DO we need to translate this -->
         <title>Mæcen</title>
         <link rel="stylesheet" href=${cssPath} />
       </head>
