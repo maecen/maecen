@@ -9,12 +9,12 @@ const languageNames = {
 }
 
 function Footer (props, context) {
-  const { lang, langOptions, changeLang } = props
+  const { lang, langOptions, changeLang, t } = props
 
   return (
     <footer className={s.footer}>
       <Grid>
-        Change language
+        <span className={s.langSelectText}>{t('changeLanguage')}</span>
         <select onChange={changeLang} defaultValue={lang}>
           {langOptions.map((option) =>
             <option value={option} key={option}>{languageNames[option]}</option>

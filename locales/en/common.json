@@ -5,6 +5,7 @@
   "login": "Login",
   "logout": "Log out",
   "tagline": "\"A person who supports art and science financially\"",
+  "changeLanguage": "Change Language",
   "maecenate": {
     "create": "Create Maecenate",
     "seeAll": "See all maecenates"
