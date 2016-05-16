@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { translate } from 'react-i18next'
-import HeaderContainer from './HeaderContainer'
-import FooterContainer from './FooterContainer'
+import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../actions/actions'
 
 import Form from '../components/Form/Form'
@@ -62,54 +61,48 @@ class ProfileContainer extends Component {
     const { t } = this.props
 
     return (
-      <div>
-        <HeaderContainer />
-        <div className='container'>
+      <ContentWrapper>
+        <Form onSubmit={this.handleSubmit.bind(this)} model={user}
+          updateModel={this.updateModel.bind(this)}
+          errors={this.state.errors}>
 
-          <Form onSubmit={this.handleSubmit.bind(this)} model={user}
-            updateModel={this.updateModel.bind(this)}
-            errors={this.state.errors}>
+          <TextField
+            path={['name', 'first']}
+            label='First Name'
+            placeholder='Your first name'
+            disabled={!isEdit} />
+          <br />
 
-            <TextField
-              path={['name', 'first']}
-              label='First Name'
-              placeholder='Your first name'
-              disabled={!isEdit} />
-            <br />
+          <TextField
+            path={['name', 'last']}
+            label='Last Name'
+            placeholder='Your last name'
+            disabled={!isEdit} />
+          <br />
 
-            <TextField
-              path={['name', 'last']}
-              label='Last Name'
-              placeholder='Your last name'
-              disabled={!isEdit} />
-            <br />
+          <TextField
+            path='email'
+            label='Email'
+            placeholder='Your email address'
+            disabled={!isEdit} />
+          <br />
 
-            <TextField
-              path='email'
-              label='Email'
-              placeholder='Your email address'
-              disabled={!isEdit} />
-            <br />
-
-            { isEdit === false
-              ? <Button type='button'
+          { isEdit === false
+            ? <Button type='button'
+                onClick={this.toggleEdit.bind(this)}
+                label='Edit profile' />
+            : <div>
+                <Button
                   onClick={this.toggleEdit.bind(this)}
-                  label='Edit profile' />
-              : <div>
-                  <Button
-                    onClick={this.toggleEdit.bind(this)}
-                    label='Cancel' />
-                  <Button label='Update' primary={true} />
-                </div>
-            }
+                  label='Cancel' />
+                <Button label='Update' primary={true} />
+              </div>
+          }
 
-            <Button onClick={this.clearAuth.bind(this)}
-              label={t('logout')} />
-          </Form>
-
-        </div>
-        <FooterContainer />
-      </div>
+          <Button onClick={this.clearAuth.bind(this)}
+            label={t('logout')} />
+        </Form>
+      </ContentWrapper>
     )
   }
 }
