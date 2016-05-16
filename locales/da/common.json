@@ -21,6 +21,7 @@
     "createMaecenate": "Lav Mæcenat"
   },
   "user": {
+    "alias": "Alias",
     "firstName": "Fornavn",
     "firstNamePlaceholder": "Dit firnavn",
     "lastName": "Efternavn",
@@ -33,6 +34,12 @@
     "confirmPasswordPlaceholder": "Bekræft kodeord",
     "loginPassword": "Kodeord",
     "loginPasswordPlaceholder": "Dit kodeord",
-    "buttonRegisterUser": "Opret bruger"
+    "buttonRegisterUser": "Opret bruger",
+    "phoneNumber": "Telefonnummer",
+    "country": "Land",
+    "zip": "Postnummer",
+    "edit": "Rediger",
+    "update": "Updater",
+    "cancel": "Annuller"
   }
 }

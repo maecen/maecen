@@ -73,14 +73,14 @@ class ProfileContainer extends Component {
               <Col sm={6}>
                 <TextField
                   path={['name', 'first']}
-                  label='First Name'
+                  label={t('user.firstName')}
                   placeholder='Your first name'
                   disabled={!isEdit} />
               </Col>
               <Col sm={6}>
                 <TextField
                   path={['name', 'last']}
-                  label='Last Name'
+                  label={t('user.lastName')}
                   placeholder='Your last name'
                   disabled={!isEdit} />
               </Col>
@@ -88,7 +88,7 @@ class ProfileContainer extends Component {
 
             <TextField
               path={['email']}
-              label='Email'
+              label={t('user.email')}
               placeholder='Your email address'
               disabled={!isEdit} />
 
@@ -96,13 +96,13 @@ class ProfileContainer extends Component {
               <Col sm={6}>
                 <TextField
                   path={['alias']}
-                  label='Alias'
+                  label={t('user.alias')}
                   disabled={!isEdit} />
               </Col>
               <Col sm={6}>
                 <TextField
                   path={['phoneNumber']}
-                  label='Phone number'
+                  label={t('user.phoneNumber')}
                   disabled={!isEdit} />
               </Col>
             </Row>
@@ -111,13 +111,13 @@ class ProfileContainer extends Component {
               <Col sm={6}>
                 <TextField
                   path={['country']}
-                  label='Country'
+                  label={t('user.country')}
                   disabled={!isEdit} />
               </Col>
               <Col sm={6}>
                 <TextField
                   path={['zipCode']}
-                  label='Zip code'
+                  label={t('user.zip')}
                   disabled={!isEdit} />
               </Col>
             </Row>
@@ -126,17 +126,19 @@ class ProfileContainer extends Component {
               ? <span className={s.marginRight}>
                   <Button type='button'
                   onClick={this.toggleEdit.bind(this)}
-                  label='Edit profile' />
+                  label={t('user.edit')} />
                 </span>
               : <span>
                   <span className={s.marginRight}>
-                    <Button label='Update' type='submit'
+                    <Button
+                      label={t('user.update')}
+                      type='submit'
                       primary={true} />
                   </span>
                   <span className={s.marginRight}>
                     <Button
                       onClick={this.toggleEdit.bind(this)}
-                      label='Cancel' />
+                      label={t('user.cancel')} />
                   </span>
                 </span>
             }

@@ -21,6 +21,7 @@
     "createMaecenate": "Create Maecenate"
   },
   "user": {
+    "alias": "Alias",
     "firstName": "First name",
     "firstNamePlaceholder": "Your first name",
     "lastName": "Last name",
@@ -33,6 +34,12 @@
     "confirmPasswordPlaceholder": "Confirm your password",
     "loginPassword": "Password",
     "loginPasswordPlaceholder": "Your password",
-    "buttonRegisterUser": "Register"
+    "buttonRegisterUser": "Register",
+    "phoneNumber": "Phone number",
+    "country": "Country",
+    "zip": "Zip Code",
+    "edit": "Edit",
+    "update": "Update",
+    "cancel": "Cancel"
   }
 }
