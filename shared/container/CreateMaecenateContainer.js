@@ -56,8 +56,7 @@ class CreateMaecenateContainer extends Component {
 
             <TextField
               path={['title']}
-              label='Title'
-              placeholder='Dodo and the dodos' />
+              label='Title' />
             <br />
 
             <ImageField
