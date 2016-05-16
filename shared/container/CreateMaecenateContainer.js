@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
-import { Grid } from 'react-flexbox-grid/lib'
 
-import HeaderContainer from './HeaderContainer'
-import FooterContainer from './FooterContainer'
+import { Row, Col } from 'react-flexbox-grid/lib'
+import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
+
 import * as Actions from '../actions/actions'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
 import SelectField from '../components/Form/SelectField'
 import ImageField from '../components/Form/ImageField'
+import Button from '../components/Form/Button'
 
 class CreateMaecenateContainer extends Component {
 
@@ -46,64 +47,60 @@ class CreateMaecenateContainer extends Component {
     const { maecenate } = this.state
 
     return (
-      <div>
-        <HeaderContainer />
-        <Grid>
+      <ContentWrapper>
 
-          <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
-            updateModel={this.updateModel.bind(this)}
-            errors={this.state.errors}>
+        <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
+          updateModel={this.updateModel.bind(this)}
+          errors={this.state.errors}>
 
-            <TextField
-              path={['title']}
-              label='Title'
-              placeholder='Dodo and the dodos' />
-            <br />
+          <TextField
+            path={['title']}
+            label='Title'
+            placeholder='Dodo and the dodos' />
+          <br />
 
-            <ImageField
-              label='Logo'
-              path={['logoUrl']} />
-            <br />
+          <ImageField
+            label='Logo'
+            path={['logoUrl']} />
+          <br />
 
-            <SelectField
-              path={['category']}
-              label='Category'>
-              <option value=''>Pick a category...</option>
-            </SelectField>
-            <br />
+          <SelectField
+            path={['category']}
+            label='Category'>
+            <option value=''>Pick a category...</option>
+          </SelectField>
+          <br />
 
-            <TextField
-              path={['teaser']}
-              label='Teaser'
-              placeholder='Max 140 characters'
-              maxLength='140' />
-            <br />
+          <TextField
+            path={['teaser']}
+            label='Teaser'
+            placeholder='Max 140 characters'
+            maxLength='140' />
+          <br />
 
-            <TextField
-              path={['description']}
-              label='Description'
-              placeholder='Description of the maecenate'
-              rows={2}
-              multiLine={true} />
-            <br />
+          <TextField
+            path={['description']}
+            label='Description'
+            placeholder='Description of the maecenate'
+            rows={2}
+            multiLine={true} />
+          <br />
 
-            <TextField
-              path={['url']}
-              label='Website'
-              placeholder='Your website' />
-            <br />
+          <TextField
+            path={['url']}
+            label='Website'
+            placeholder='Your website' />
+          <br />
 
-            <ImageField
-              label='Cover'
-              path={['coverUrl']} />
-            <br />
+          <ImageField
+            label='Cover'
+            path={['coverUrl']} />
+          <br />
 
-            <button>Create Maecenate</button>
-          </Form>
+          <Button label='Create Maecenate' />
+        </Form>
 
-        </Grid>
-        <FooterContainer />
-      </div>
+      </ContentWrapper>
     )
   }
 }
