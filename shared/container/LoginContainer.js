@@ -4,9 +4,9 @@ import { Link, browserHistory } from 'react-router'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
-import HeaderContainer from './HeaderContainer'
-import FooterContainer from './FooterContainer'
 import * as Actions from '../actions/actions'
+import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
+import s from './LoginContainer.scss'
 
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
@@ -48,10 +48,8 @@ class LoginContainer extends Component {
     const { t } = this.props
 
     return (
-      <div>
-        <HeaderContainer />
-        <div className='container'>
-
+      <ContentWrapper>
+        <div className={s.card}>
           <Form onSubmit={this.handleSubmit.bind(this)} model={credentials}
             updateModel={this.updateModel.bind(this)}
             errors={this.state.errors}>
@@ -72,10 +70,8 @@ class LoginContainer extends Component {
             <Button type='submit' label='Login'/>
           </Form>
           <Link to='/register'>Register</Link>
-
         </div>
-        <FooterContainer />
-      </div>
+      </ContentWrapper>
     )
   }
 }

@@ -22,7 +22,8 @@ export default function TextField (props, context) {
 TextField.defaultProps = {
   readOnly: false,
   maxLength: null,
-  type: 'text'
+  type: 'text',
+  fullWidth: true
 }
 
 TextField.propTypes = {
