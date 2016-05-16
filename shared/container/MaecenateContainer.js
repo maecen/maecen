@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import HeaderContainer from './HeaderContainer'
-import FooterContainer from './FooterContainer'
+import { Row, Col } from 'react-flexbox-grid/lib'
+import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../actions/actions'
+
+import s from './MaecenateContainer.scss'
 
 class MaecenateContainer extends Component {
 
@@ -16,23 +18,35 @@ class MaecenateContainer extends Component {
     const { maecenate } = this.props
 
     return (
-      <div>
-        <HeaderContainer />
-        <div className='container'>
-
+      <ContentWrapper>
         {maecenate
-          ? <div>
-              <h2>{maecenate.title}</h2>
-              <img src={maecenate.logoUrl} />
-              <div>{maecenate.teaser}</div>
-              <div>{maecenate.description}</div>
-              <img src={maecenate.coverUrl} />
-            </div>
+          ? <Row className={s.main}>
+              <Col xs={12}>
+                <h2 className={s.title}>{maecenate.title}</h2>
+              </Col>
+              <Col xs={2}>
+                <img src={maecenate.logoUrl} className={s.logo} />
+                <p>Maecens: 0</p>
+                <p>Content posts: 0</p>
+                <p>Min. amount: 1€</p>
+                {maecenate.url &&
+                  <p>
+                    Website:
+                    <a href={maecenate.url} target='_blank'>
+                      Visit
+                    </a>
+                  </p>
+                }
+              </Col>
+              <Col xs={10}>
+                <img src={maecenate.coverUrl} className={s.cover} />
+                <p className={s.teaser}>{maecenate.teaser}</p>
+                <p>{maecenate.description}</p>
+              </Col>
+            </Row>
           : <div>Loading...</div>
         }
-        </div>
-        <FooterContainer />
-      </div>
+      </ContentWrapper>
     )
   }
 }
