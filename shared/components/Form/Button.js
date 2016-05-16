@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react'
 import Immutable from 'seamless-immutable'
-import MaterialFlatButton from 'material-ui/FlatButton'
+import MaterialRaisedButton from 'material-ui/RaisedButton'
 
 export default function Button (props, context) {
   props = Immutable(props)
 
   return (
-    <MaterialFlatButton {...props} />
+    <MaterialRaisedButton {...props} />
   )
 }
 

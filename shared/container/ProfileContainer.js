@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { translate } from 'react-i18next'
+import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../actions/actions'
 import s from './ProfileContainer.scss'
@@ -68,50 +69,58 @@ class ProfileContainer extends Component {
             updateModel={this.updateModel.bind(this)}
             errors={this.state.errors}>
 
-            <TextField
-              path={['name', 'first']}
-              label='First Name'
-              placeholder='Your first name'
-              disabled={!isEdit} />
-            <br />
-
-            <TextField
-              path={['name', 'last']}
-              label='Last Name'
-              placeholder='Your last name'
-              disabled={!isEdit} />
-            <br />
+            <Row>
+              <Col sm={6}>
+                <TextField
+                  path={['name', 'first']}
+                  label='First Name'
+                  placeholder='Your first name'
+                  disabled={!isEdit} />
+              </Col>
+              <Col sm={6}>
+                <TextField
+                  path={['name', 'last']}
+                  label='Last Name'
+                  placeholder='Your last name'
+                  disabled={!isEdit} />
+              </Col>
+            </Row>
 
             <TextField
               path='email'
               label='Email'
               placeholder='Your email address'
               disabled={!isEdit} />
-            <br />
 
-            <TextField
-              path='alias'
-              label='Alias'
-              disabled={!isEdit} />
-            <br />
+            <Row>
+              <Col sm={6}>
+                <TextField
+                  path='alias'
+                  label='Alias'
+                  disabled={!isEdit} />
+              </Col>
+              <Col sm={6}>
+                <TextField
+                  path='phoneNumber'
+                  label='Phone number'
+                  disabled={!isEdit} />
+              </Col>
+            </Row>
 
-            <TextField
-              path='phoneNumber'
-              label='Phone number'
-              disabled={!isEdit} />
-            <br />
-
-            <TextField
-              path='country'
-              label='Country'
-              disabled={!isEdit} />
-            <br />
-
-            <TextField
-              path='zipCode'
-              label='Zip code'
-              disabled={!isEdit} />
-            <br />
+            <Row>
+              <Col sm={6}>
+                <TextField
+                  path='country'
+                  label='Country'
+                  disabled={!isEdit} />
+              </Col>
+              <Col sm={6}>
+                <TextField
+                  path='zipCode'
+                  label='Zip code'
+                  disabled={!isEdit} />
+              </Col>
+            </Row>
 
             { isEdit === false
               ? <span className={s.marginRight}>
@@ -122,6 +131,7 @@ class ProfileContainer extends Component {
               : <span>
                   <span className={s.marginRight}>
                     <Button
+                      secondary={true}
                       onClick={this.toggleEdit.bind(this)}
                       label='Cancel' />
                   </span>
