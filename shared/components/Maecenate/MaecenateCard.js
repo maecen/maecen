@@ -1,14 +1,21 @@
 import React, { PropTypes } from 'react'
+import s from './MaecenateCard.scss'
 
 function MaecenateCard (props, context) {
   const { maecenate: {
-    title, logoUrl
+    title, logoUrl, coverUrl, teaser
   }, onClick } = props
 
+  const coverStyle = { backgroundImage: `url(${coverUrl})` }
+
   return (
-    <div onClick={onClick} style={{ cursor: 'pointer' }}>
-      <h4>{title}</h4>
-      <img src={logoUrl} />
+    <div onClick={onClick} className={s.main}>
+      <div className={s.header}>
+        <img src={logoUrl} className={s.logo} />
+        <h4 className={s.title}>{title}</h4>
+      </div>
+      <div style={coverStyle} className={s.cover} />
+      <div className={s.teaser}>{teaser}</div>
     </div>
   )
 }

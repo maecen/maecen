@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import HeaderContainer from '../../container/HeaderContainer'
 import FooterContainer from '../../container/FooterContainer'
+import { Grid } from 'react-flexbox-grid/lib'
 import s from './ContentWrapper.scss'
 
 export default function ContentWrapper (props, context) {
@@ -8,7 +9,9 @@ export default function ContentWrapper (props, context) {
     <div className={s.main}>
       <HeaderContainer />
       <div className={s.mainContent}>
-        {props.children}
+        <Grid>
+          {props.children}
+        </Grid>
       </div>
       <FooterContainer />
     </div>

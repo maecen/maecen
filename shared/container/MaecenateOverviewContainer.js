@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import map from 'lodash/map'
-import HeaderContainer from './HeaderContainer'
-import FooterContainer from './FooterContainer'
+import { Row, Col } from 'react-flexbox-grid/lib'
+import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../actions/actions'
 
 import MaecenateCard from '../components/Maecenate/MaecenateCard'
@@ -23,20 +23,17 @@ class MaecenateOverviewContainer extends Component {
     const { maecenates } = this.props
 
     return (
-      <div>
-        <HeaderContainer />
-        <div className='container'>
-
+      <ContentWrapper>
+        <Row>
           {map(maecenates, maecenate =>
-            <MaecenateCard
-              maecenate={maecenate}
-              onClick={this.gotoMaecenate.bind(this, maecenate)}
-              key={maecenate._id} />
+            <Col sm={6} xs={12} key={maecenate._id}>
+              <MaecenateCard
+                maecenate={maecenate}
+                onClick={this.gotoMaecenate.bind(this, maecenate)} />
+            </Col>
           )}
-
-        </div>
-        <FooterContainer />
-      </div>
+        </Row>
+      </ContentWrapper>
     )
   }
 }
