@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import HeaderContainer from './HeaderContainer'
 import FooterContainer from './FooterContainer'
 import Icon from '../components/Graphics/Icon'
+import Button from '../components/Form/Button'
 import s from './HomeContainer.scss'
 
 import { Link } from 'react-router'
@@ -22,7 +23,9 @@ class HomeContainer extends Component {
               icon='maecen-detail'
             />
             <div className={s.tagline}>{t('tagline')}</div>
-            <Link to='/maecenates'>{t('maecenate.seeAll')}</Link>
+            <Link to='/maecenates'>
+              <Button label={t('maecenate.seeAll')} />
+            </Link>
           </div>
         </div>
         <FooterContainer />
