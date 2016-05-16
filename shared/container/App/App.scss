@@ -1,13 +1,19 @@
 @import '../../../node_modules/normalize.css/normalize.css';
 
-$white: #fff;
-
 body,
 html {
   font-size: 16px;
+  font-family: Roboto, sans-serif;
 }
 
 body {
-  background: $white;
   overflow-x: hidden;
+  background-image: radial-gradient(circle farthest-side at left 179px, #212225 0, #212225 15%, #303234 33%, #404143 50%, #303234 66%, #212225 85%, #212225 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat
+}
+
+a {
+  text-decoration: none;
+  color: white;
 }

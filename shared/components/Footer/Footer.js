@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
 import {Grid} from 'react-flexbox-grid/lib'
+import s from './Footer.scss'
 
 const languageNames = {
   da: 'Dansk',
@@ -11,7 +12,7 @@ function Footer (props, context) {
   const { lang, langOptions, changeLang } = props
 
   return (
-    <footer>
+    <footer className={s.footer}>
       <Grid>
         Change language
         <select onChange={changeLang} defaultValue={lang}>
@@ -33,4 +34,3 @@ Footer.propTypes = {
 export default translate(['common'])(
   Footer
 )
-

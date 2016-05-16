@@ -11,7 +11,12 @@ export default function Button (props, context) {
 }
 
 Button.defaultProps = {
-  type: 'button'
+  type: 'button',
+  backgroundColor: '#C69C76',
+  hoverColor: '#cfab8b',
+  labelStyle: {
+    color: 'white'
+  }
 }
 
 Button.propTypes = {

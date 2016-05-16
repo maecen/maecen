@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import HeaderContainer from './HeaderContainer'
 import FooterContainer from './FooterContainer'
 import Icon from '../components/Graphics/Icon'
+import s from './HomeContainer.scss'
 
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
@@ -12,14 +13,17 @@ class HomeContainer extends Component {
     const { t } = this.props
 
     return (
-      <div>
+      <div className='wrapper'>
         <HeaderContainer />
         <div className='container'>
-          <Icon size='10rem' viewBox='0 0 832 997' icon='maecen-detail' />
-          {t('maecen')}
-          <br />
-          {t('tagline')}
-          <Link to='/maecenates'>{t('maecenate.seeAll')}</Link>
+          <div className={s.home}>
+            <Icon size='calc(12vh + 12vw)'
+              viewBox='0 0 832 997'
+              icon='maecen-detail'
+            />
+            <div className={s.tagline}>{t('tagline')}</div>
+            <Link to='/maecenates'>{t('maecenate.seeAll')}</Link>
+          </div>
         </div>
         <FooterContainer />
       </div>

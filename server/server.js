@@ -90,6 +90,16 @@ const renderFullPage = (html, initialState, i18n) => {
         <!-- TO-DO we need to translate this -->
         <title>Mæcen</title>
         <link rel="stylesheet" href=${cssPath} />
+        <style>
+        .wrapper {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+        }
+        .container {
+          flex: 1;
+        }
+        </style>
       </head>
       <body>
         <div id="root">${html}</div>
