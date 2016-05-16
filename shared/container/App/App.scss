@@ -1,11 +1,13 @@
 @import '../../../node_modules/normalize.css/normalize.css';
 
+$white: #fff;
+
 body,
 html {
   font-size: 16px;
 }
 
 body {
-  background: #fff;
+  background: $white;
   overflow-x: hidden;
 }

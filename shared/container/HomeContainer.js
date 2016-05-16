@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import HeaderContainer from './HeaderContainer'
 import FooterContainer from './FooterContainer'
-import IconMaecenLogoDetailed from '../components/Icon/MaecenLogoDetailed'
+import Icon from '../components/Graphics/Icon'
 
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
@@ -15,7 +15,7 @@ class HomeContainer extends Component {
       <div>
         <HeaderContainer />
         <div className='container'>
-          <IconMaecenLogoDetailed />
+          <Icon size='10rem' viewBox='0 0 832 997' icon='maecen-detail' />
           {t('maecen')}
           <br />
           {t('tagline')}
