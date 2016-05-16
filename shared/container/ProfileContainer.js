@@ -87,7 +87,7 @@ class ProfileContainer extends Component {
             </Row>
 
             <TextField
-              path='email'
+              path={['email']}
               label='Email'
               placeholder='Your email address'
               disabled={!isEdit} />
@@ -95,13 +95,13 @@ class ProfileContainer extends Component {
             <Row>
               <Col sm={6}>
                 <TextField
-                  path='alias'
+                  path={['alias']}
                   label='Alias'
                   disabled={!isEdit} />
               </Col>
               <Col sm={6}>
                 <TextField
-                  path='phoneNumber'
+                  path={['phoneNumber']}
                   label='Phone number'
                   disabled={!isEdit} />
               </Col>
@@ -110,13 +110,13 @@ class ProfileContainer extends Component {
             <Row>
               <Col sm={6}>
                 <TextField
-                  path='country'
+                  path={['country']}
                   label='Country'
                   disabled={!isEdit} />
               </Col>
               <Col sm={6}>
                 <TextField
-                  path='zipCode'
+                  path={['zipCode']}
                   label='Zip code'
                   disabled={!isEdit} />
               </Col>
@@ -130,13 +130,13 @@ class ProfileContainer extends Component {
                 </span>
               : <span>
                   <span className={s.marginRight}>
-                    <Button
-                      secondary={true}
-                      onClick={this.toggleEdit.bind(this)}
-                      label='Cancel' />
+                    <Button label='Update' type='submit'
+                      primary={true} />
                   </span>
                   <span className={s.marginRight}>
-                    <Button label='Update' primary={true} />
+                    <Button
+                      onClick={this.toggleEdit.bind(this)}
+                      label='Cancel' />
                   </span>
                 </span>
             }
