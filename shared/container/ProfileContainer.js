@@ -89,6 +89,30 @@ class ProfileContainer extends Component {
               disabled={!isEdit} />
             <br />
 
+            <TextField
+              path='alias'
+              label='Alias'
+              disabled={!isEdit} />
+            <br />
+
+            <TextField
+              path='phoneNumber'
+              label='Phone number'
+              disabled={!isEdit} />
+            <br />
+
+            <TextField
+              path='country'
+              label='Country'
+              disabled={!isEdit} />
+            <br />
+
+            <TextField
+              path='zipCode'
+              label='Zip code'
+              disabled={!isEdit} />
+            <br />
+
             { isEdit === false
               ? <span className={s.marginRight}>
                   <Button type='button'

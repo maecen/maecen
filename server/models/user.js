@@ -13,7 +13,11 @@ const userSchema = new Schema({
   },
   email: { type: String, required: [true, 'We need your email'],
     set: toLowerCase },
-  password: { type: String, required: [true, 'Password is not entered'] }
+  password: { type: String, required: [true, 'Password is not entered'] },
+  alias: { type: String },
+  phoneNumber: { type: String },
+  country: { type: String },
+  zipCode: { type: String }
 })
 
 const User = promisifyAll(mongoose.model('User', userSchema))
