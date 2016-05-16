@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 
-import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
+import s from './LoginContainer.scss'
 
 import * as Actions from '../actions/actions'
 import Form from '../components/Form/Form'
@@ -48,58 +48,59 @@ class CreateMaecenateContainer extends Component {
 
     return (
       <ContentWrapper>
+        <div className={s.card}>
 
-        <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
-          updateModel={this.updateModel.bind(this)}
-          errors={this.state.errors}>
+          <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
+            updateModel={this.updateModel.bind(this)}
+            errors={this.state.errors}>
 
-          <TextField
-            path={['title']}
-            label='Title'
-            placeholder='Dodo and the dodos' />
-          <br />
+            <TextField
+              path={['title']}
+              label='Title'
+              placeholder='Dodo and the dodos' />
+            <br />
 
-          <ImageField
-            label='Logo'
-            path={['logoUrl']} />
-          <br />
+            <ImageField
+              label='Logo'
+              path={['logoUrl']} />
+            <br />
 
-          <SelectField
-            path={['category']}
-            label='Category'>
-            <option value=''>Pick a category...</option>
-          </SelectField>
-          <br />
+            <SelectField
+              path={['category']}
+              label='Category'>
+              <option value=''>Pick a category...</option>
+            </SelectField>
+            <br />
 
-          <TextField
-            path={['teaser']}
-            label='Teaser'
-            placeholder='Max 140 characters'
-            maxLength='140' />
-          <br />
+            <TextField
+              path={['teaser']}
+              label='Teaser'
+              placeholder='Max 140 characters'
+              maxLength='140' />
+            <br />
 
-          <TextField
-            path={['description']}
-            label='Description'
-            placeholder='Description of the maecenate'
-            rows={2}
-            multiLine={true} />
-          <br />
+            <TextField
+              path={['description']}
+              label='Description'
+              placeholder='Description of the maecenate'
+              rows={2}
+              multiLine={true} />
+            <br />
 
-          <TextField
-            path={['url']}
-            label='Website'
-            placeholder='Your website' />
-          <br />
+            <TextField
+              path={['url']}
+              label='Website'
+              placeholder='Your website' />
+            <br />
 
-          <ImageField
-            label='Cover'
-            path={['coverUrl']} />
-          <br />
+            <ImageField
+              label='Cover'
+              path={['coverUrl']} />
+            <br />
 
-          <Button label='Create Maecenate' />
-        </Form>
-
+            <Button type='submit' label='Create Maecenate' />
+          </Form>
+        </div>
       </ContentWrapper>
     )
   }
