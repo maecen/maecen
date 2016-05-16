@@ -21,7 +21,7 @@ function Header (props, context) {
         </Link>
         <div className={s.rightmenu}>
           <Link to='/create-maecenate' className={s.paddingright}>
-            <Button label={t('maecenate.create')} />
+            <Button label={t('mc.create')} />
           </Link>
 
           { hasAuth === false

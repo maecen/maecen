@@ -6,9 +6,19 @@
   "logout": "Log ud",
   "tagline": "\"En person som støtter kunst og viden financielt\"",
   "changeLanguage": "Skift sprog",
-  "maecenate": {
+  "logo": "Logo",
+  "title": "Titel",
+  "mc": {
     "create": "Opret Mæcenat",
-    "seeAll": "Se alle Mæcenater"
+    "seeAll": "Se alle Mæcenater",
+    "teaser": "Teaser",
+    "teaserPlaceholder": "Max 140 tegn",
+    "description": "Beskrivelse",
+    "descriptionPlaceholder": "Beskrivelse af Mæcenatet",
+    "website": "Hjemmeside",
+    "websitePlaceholder": "Din hjemmesides URL-adresse",
+    "coverImage": "Coverbillede",
+    "createMaecenate": "Lav Mæcenat"
   },
   "user": {
     "firstName": "Fornavn",

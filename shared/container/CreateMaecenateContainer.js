@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 
@@ -9,7 +11,6 @@ import s from './LoginContainer.scss'
 import * as Actions from '../actions/actions'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
-import SelectField from '../components/Form/SelectField'
 import ImageField from '../components/Form/ImageField'
 import Button from '../components/Form/Button'
 
@@ -45,6 +46,7 @@ class CreateMaecenateContainer extends Component {
 
   render () {
     const { maecenate } = this.state
+    const { t } = this.props
 
     return (
       <ContentWrapper>
@@ -56,47 +58,41 @@ class CreateMaecenateContainer extends Component {
 
             <TextField
               path={['title']}
-              label='Title' />
+              label={t('title')} />
             <br />
 
             <ImageField
-              label='Logo'
+              label={t('logo')}
               path={['logoUrl']} />
-            <br />
-
-            <SelectField
-              path={['category']}
-              label='Category'>
-              <option value=''>Pick a category...</option>
-            </SelectField>
             <br />
 
             <TextField
               path={['teaser']}
-              label='Teaser'
-              placeholder='Max 140 characters'
+              label={t('mc.teaser')}
+              placeholder={t('mc.teaserPlaceholder')}
               maxLength='140' />
             <br />
 
             <TextField
               path={['description']}
-              label='Description'
-              placeholder='Description of the maecenate'
+              label={t('mc.description')}
+              placeholder={t('mc.descriptionPlaceholder')}
               multiLine={true} />
             <br />
 
             <TextField
               path={['url']}
-              label='Website'
-              placeholder='Your website' />
+              label={t('mc.website')}
+              placeholder={t('mc.websitePlaceholder')} />
             <br />
 
             <ImageField
-              label='Cover'
+            label={t('mc.coverImage')}
               path={['coverUrl']} />
             <br />
 
-            <Button type='submit' label='Create Maecenate' />
+            <Button type='submit'
+              label={t('mc.createMaecenate')} />
           </Form>
         </div>
       </ContentWrapper>
@@ -110,4 +106,6 @@ function mapStateToProps (store) {
   return { }
 }
 
-export default connect(mapStateToProps)(CreateMaecenateContainer)
+export default translate(['common'])(
+  connect(mapStateToProps)(CreateMaecenateContainer)
+)

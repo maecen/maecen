@@ -6,9 +6,19 @@
   "logout": "Log out",
   "tagline": "\"A person who supports art and science financially\"",
   "changeLanguage": "Change Language",
-  "maecenate": {
+  "logo": "Logo",
+  "title": "Title",
+  "mc": {
     "create": "Create Maecenate",
-    "seeAll": "See all maecenates"
+    "seeAll": "See all Maecenates",
+    "teaser": "Teaser",
+    "teaserPlaceholder": "Max 140 characters",
+    "description": "Description",
+    "descriptionPlaceholder": "Description of the Maecenate",
+    "website": "Website",
+    "websitePlaceholder": "Your website URL address",
+    "coverImage": "Cover image",
+    "createMaecenate": "Create Maecenate"
   },
   "user": {
     "firstName": "First name",
