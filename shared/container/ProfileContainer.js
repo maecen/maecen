@@ -18,7 +18,8 @@ class ProfileContainer extends Component {
     this.state = {
       errors: null,
       isEdit: false,
-      user: props.user
+      user: props.user,
+      isSubmitting: false
     }
   }
 
@@ -50,11 +51,11 @@ class ProfileContainer extends Component {
     axios.post('/api/updateAuthUser', { user }).then((res) => {
       return res.data
     }).then((data) => {
-      this.setState({ errors: null })
+      this.setState({ errors: null, isSubmitting: false })
       this.toggleEdit(false)
       dispatch(Actions.updateEntities(data.entities))
     }, (res) => {
-      this.setState({ errors: res.data.errors })
+      this.setState({ errors: res.data.errors, isSubmitting: false })
     })
   }
 
@@ -133,7 +134,8 @@ class ProfileContainer extends Component {
                     <Button
                       label={t('user.update')}
                       type='submit'
-                      primary={true} />
+                      primary={true}
+                      disabled={this.state.isSubmitting === true} />
                   </span>
                   <span className={s.marginRight}>
                     <Button

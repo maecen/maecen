@@ -20,7 +20,8 @@ class CreateMaecenateContainer extends Component {
     super()
     this.state = {
       errors: null,
-      maecenate: Immutable({ })
+      maecenate: Immutable({ }),
+      isSubmitting: false
     }
   }
 
@@ -34,13 +35,15 @@ class CreateMaecenateContainer extends Component {
     const { dispatch } = this.props
     const { maecenate } = this.state
 
+    this.setState({ isSubmitting: true })
+
     axios.post('/api/createMaecenate', { maecenate })
       .then(res => res.data)
       .then((data) => {
-        this.setState({ errors: null })
+        this.setState({ errors: null, isSubmitting: false })
         dispatch(Actions.createMaecenateSuccess(data))
       }, (res) => {
-        this.setState({ errors: res.data.errors })
+        this.setState({ errors: res.data.errors, isSubmitting: false })
       })
   }
 
@@ -92,7 +95,8 @@ class CreateMaecenateContainer extends Component {
             <br />
 
             <Button type='submit'
-              label={t('mc.createMaecenate')} />
+              label={t('mc.createMaecenate')}
+              disabled={this.state.isSubmitting === true} />
           </Form>
         </div>
       </ContentWrapper>

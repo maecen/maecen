@@ -16,7 +16,8 @@ class RegisterContainer extends Component {
     super()
     this.state = {
       errors: null,
-      user: Immutable({ })
+      user: Immutable({ }),
+      isSubmitting: false
     }
   }
 
@@ -40,9 +41,9 @@ class RegisterContainer extends Component {
     }
 
     axios.post('/api/createUser', { user }).then((res) => {
-      this.setState({ errors: null, user: Immutable({ }) })
+      this.setState({ errors: null, user: Immutable({ }), isSubmitting: false })
     }, (res) => {
-      this.setState({ errors: res.data.errors })
+      this.setState({ errors: res.data.errors, isSubmitting: false })
     })
   }
 
@@ -86,7 +87,8 @@ class RegisterContainer extends Component {
               label={t('user.confirmPassword')}
               placeholder={t('user.confirmPasswordPlaceholder')} />
 
-            <Button type='submit' label={t('user.buttonRegisterUser')} />
+            <Button type='submit' label={t('user.buttonRegisterUser')}
+              disabled={this.state.isSubmitting === true}/>
           </Form>
         </div>
         <FooterContainer />

@@ -18,7 +18,8 @@ class LoginContainer extends Component {
     super()
     this.state = {
       errors: null,
-      credentials: Immutable({ })
+      credentials: Immutable({ }),
+      isSubmitting: false
     }
   }
 
@@ -39,7 +40,7 @@ class LoginContainer extends Component {
       dispatch(Actions.setAuthUser(data.result[0], data.entities))
       browserHistory.push('/')
     }, (res) => {
-      this.setState({ errors: res.data.errors })
+      this.setState({ errors: res.data.errors, isSubmitting: false })
     })
   }
 
@@ -67,7 +68,8 @@ class LoginContainer extends Component {
               placeholder={t('user.loginPasswordPlaceholder')}/>
             <br />
 
-            <Button type='submit' label='Login'/>
+            <Button type='submit' label='Login'
+              disabled={this.state.isSubmitting === true} />
           </Form>
           <Link to='/register'>Register</Link>
         </div>
