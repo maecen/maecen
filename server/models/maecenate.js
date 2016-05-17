@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
-import {slugify} from 'strman'
+import { promisifyAll } from 'bluebird'
+import { slugify } from 'strman'
 const Schema = mongoose.Schema
 
 const maecenateSchema = new Schema({
@@ -31,4 +32,21 @@ maecenateSchema.pre('validate', function (next) {
   next()
 })
 
-export default mongoose.model('Maecenate', maecenateSchema)
+const Maecenate = promisifyAll(mongoose.model('Maecenate', maecenateSchema))
+export default Maecenate
+
+Maecenate.schema.path('title').validate(function (title, res) {
+  if (this.isModified('title') === false) {
+    return res(true)
+  }
+
+  const slug = slugify(title)
+
+  Maecenate.findOne({ slug }, '_id').then(maecenate => {
+    if (maecenate) {
+      res(false)
+    } else {
+      res(true)
+    }
+  }, function () { res(false) })
+}, 'A Maecenate with this title already exists')
