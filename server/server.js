@@ -1,15 +1,14 @@
 import Express from 'express'
-import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import path from 'path'
 import expressJwt from 'express-jwt'
 import morgan from 'morgan'
-import User from './models/user'
-import mapInitialState from '../shared/lib/mapInitialState'
-
+import mongoose from 'mongoose'
 import serialize from 'serialize-javascript'
 
+import User from './models/user'
+import mapInitialState from '../shared/lib/mapInitialState'
 import i18n from './i18n-server'
 import i18nMiddleware from 'i18next-express-middleware'
 import { I18nextProvider } from 'react-i18next'
@@ -52,6 +51,20 @@ mongoose.connect(config.mongoURL, (error) => {
     throw error
   }
 })
+
+//
+// Force SSL connection in production
+//
+var forceSsl = function (req, res, next) {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''))
+  }
+  return next()
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(forceSsl)
+}
 
 //
 // Express middleware: Apply body Parser and server public assets and routes
