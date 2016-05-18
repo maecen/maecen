@@ -1,6 +1,6 @@
+import { browserHistory } from 'react-router'
 import * as ActionTypes from '../constants/constants'
 import * as sharedConfig from '../../shared/config'
-import { push } from 'react-router-redux'
 import axios from 'axios'
 
 const baseURL = (typeof window === 'undefined' ? sharedConfig.host : '') + '/api'
@@ -29,7 +29,7 @@ export function clearAuth () {
       .then(res => res.data)
       .then(data => {
         dispatch(clearAuthUser())
-        dispatch(push('/'))
+        browserHistory.push('/')
       })
   }
 }
@@ -43,9 +43,7 @@ export function updateEntities (entities) {
 
 export function createMaecenateSuccess (data) {
   return (dispatch) => {
-    const slug = data.entities.maecenates[data.result[0]].slug
     dispatch(updateEntities(data.entities))
-    dispatch(push(`/maecenate/${slug}`))
   }
 }
 

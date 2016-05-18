@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-
+import { browserHistory } from 'react-router'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import s from './LoginContainer.scss'
-
 import * as Actions from '../actions/actions'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
@@ -41,7 +40,9 @@ class CreateMaecenateContainer extends Component {
       .then(res => res.data)
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })
+        const slug = data.entities.maecenates[data.result[0]].slug
         dispatch(Actions.createMaecenateSuccess(data))
+        browserHistory.push(`/maecenate/${slug}`)
       }, (res) => {
         this.setState({ errors: res.data.errors, isSubmitting: false })
       })
