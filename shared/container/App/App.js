@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import AuthDialogContainer from '../AuthDialogContainer'
 import './App.scss'
 
 const muiTheme = getMuiTheme({
@@ -14,9 +16,17 @@ const muiTheme = getMuiTheme({
 })
 
 function App (props) {
+  const { showAuthModal, navToUrl } = props
+
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
-      { props.children }
+      <div>
+        { props.children }
+        <AuthDialogContainer
+          open={showAuthModal}
+          navToUrl={navToUrl}
+        />
+      </div>
     </MuiThemeProvider>
   )
 }
@@ -25,4 +35,13 @@ App.propTypes = {
   children: PropTypes.object.isRequired
 }
 
-export default App
+function mapStateToProps (store) {
+  const { app: { requireAuthorization } } = store
+
+  return {
+    showAuthModal: !!requireAuthorization,
+    navToUrl: typeof requireAuthorization === 'string' ? requireAuthorization : null
+  }
+}
+
+export default connect(mapStateToProps)(App)

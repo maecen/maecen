@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import {Grid} from 'react-flexbox-grid/lib'
@@ -8,7 +8,11 @@ import Button from '../Form/Button'
 import Icon from '../Graphics/Icon'
 
 function Header (props, context) {
-  const {hasAuth, t} = props
+  const {
+    hasAuth,
+    t,
+    loginAction,
+    createMaecenateAction } = props
 
   return (
     <header className={s.main}>
@@ -20,18 +24,27 @@ function Header (props, context) {
           />
         </Link>
         <div className={s.rightmenu}>
-          <Link to='/create-maecenate' className={s.paddingright}>
-            <Button label={t('mc.create')} />
-          </Link>
+          <Button
+            label={t('mc.create')}
+            primary={true}
+            className={s.marginright}
+            onClick={createMaecenateAction}
+          />
 
           { hasAuth === false
-            ? <Link to='/login'><Button label={t('login')} /></Link>
-            : <Link to='/profile'><Button label={t('profile')} /></Link>
+            ? <Button label={t('login')} primary={true} onClick={loginAction} />
+            : <Link to='/profile'><Button primary={true} label={t('profile')} /></Link>
           }
         </div>
       </Grid>
     </header>
   )
+}
+
+Header.propTypes = {
+  hasAuth: PropTypes.bool.isRequired,
+  loginAction: PropTypes.func.isRequired,
+  createMaecenateAction: PropTypes.func.isRequired
 }
 
 export default translate(['common'])(
