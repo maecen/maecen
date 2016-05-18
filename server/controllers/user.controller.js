@@ -18,7 +18,7 @@ export function createUser (req, res, next) {
       return res.status(400).json({ errors })
     }
 
-    // Maybe auth the user instead, could just use this as middleware
+    createUserAuthTokenInRes(user, res)
     return res.json(normalizeResponse({ users: user }))
   })
 }
@@ -65,9 +65,7 @@ export function authUser (req, res, next) {
 
     const user = arg.toObject()
 
-    const expiresIn = 60 * 60 * 24 * 30 // 30 days
-    const token = jwt.sign({ userId: user._id }, config.jwt.secret, { expiresIn })
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true })
+    createUserAuthTokenInRes(user, res)
 
     delete user.password
     return res.json(normalizeResponse({ users: user }))
@@ -98,4 +96,10 @@ function userResponseHandler (res, user) {
 
     return res.json(normalizeResponse({ users: obj }))
   }
+}
+
+function createUserAuthTokenInRes (user, res) {
+  const expiresIn = 60 * 60 * 24 * 30 // 30 days
+  const token = jwt.sign({ userId: user._id }, config.jwt.secret, { expiresIn })
+  res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true })
 }
