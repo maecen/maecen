@@ -126,8 +126,9 @@ class ProfileContainer extends Component {
             { isEdit === false
               ? <span className={s.marginRight}>
                   <Button type='button'
-                  onClick={this.toggleEdit.bind(this)}
-                  label={t('user.edit')} />
+                    onClick={this.toggleEdit.bind(this)}
+                    primary={true}
+                    label={t('user.edit')} />
                 </span>
               : <span>
                   <span className={s.marginRight}>
@@ -139,6 +140,7 @@ class ProfileContainer extends Component {
                   </span>
                   <span className={s.marginRight}>
                     <Button
+                      flat={true}
                       onClick={this.toggleEdit.bind(this)}
                       label={t('user.cancel')} />
                   </span>
@@ -146,6 +148,8 @@ class ProfileContainer extends Component {
             }
 
             <Button onClick={this.clearAuth.bind(this)}
+              secondary={true}
+              flat={true}
               label={t('logout')} />
           </Form>
         </div>

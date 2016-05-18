@@ -21,7 +21,7 @@ class HomeContainer extends Component {
           />
           <div className={s.tagline}>{t('tagline')}</div>
           <Link to='/maecenates'>
-            <Button label={t('mc.seeAll')} />
+            <Button primary={true} label={t('mc.seeAll')} />
           </Link>
         </div>
       </ContentWrapper>

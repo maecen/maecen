@@ -96,6 +96,7 @@ class CreateMaecenateContainer extends Component {
             <br />
 
             <Button type='submit'
+              primary={true}
               label={t('mc.createMaecenate')}
               disabled={this.state.isSubmitting === true} />
           </Form>
