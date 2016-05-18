@@ -34,6 +34,21 @@ export function clearAuth () {
   }
 }
 
+export function requireAuth (url) {
+  url = url || null
+
+  return {
+    type: ActionTypes.REQUIRE_AUTHORIZATION,
+    url
+  }
+}
+
+export function cancelRequireAuth () {
+  return {
+    type: ActionTypes.CANCEL_REQUIRE_AUTHORIZATION
+  }
+}
+
 export function updateEntities (entities) {
   return {
     type: ActionTypes.UPDATE_ENTITIES,
