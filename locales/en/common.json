@@ -40,6 +40,7 @@
     "zip": "Zip Code",
     "edit": "Edit",
     "update": "Update",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "createUser": "Create User"
   }
 }

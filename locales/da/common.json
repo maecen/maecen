@@ -40,6 +40,7 @@
     "zip": "Postnummer",
     "edit": "Rediger",
     "update": "Updater",
-    "cancel": "Annuller"
+    "cancel": "Annuller",
+    "createUser": "Opret Bruger"
   }
 }
