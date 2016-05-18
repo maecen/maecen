@@ -1,4 +1,5 @@
 import Express from 'express'
+
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import path from 'path'
@@ -39,7 +40,7 @@ import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 
 // Import required modules
-import routes from '../shared/routes'
+import getRoutes from '../shared/routes'
 import { fetchComponentData } from './util/fetchData'
 import apiRoutes from './routes'
 import * as config from '../shared/config'
@@ -126,46 +127,49 @@ const renderError = err => {
 
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
-  match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
-    if (err) {
-      return res.status(500).end(renderError(err))
+  let initialState = {
+    app: {
+      requireAuthorization: false
+    },
+    entities: { users: {} }
+  }
+
+  return Promise.resolve().then(() => {
+    if (req.user) {
+      return User.findById(req.user.userId, '-password')
+    }
+    return null
+  }).then((user) => {
+    if (user !== null) {
+      user = user.toObject()
+      user._id = user._id.toString()
+      initialState.app.authUser = user._id
+      initialState.entities.users[user._id] = user
     }
 
-    if (redirectLocation) {
-      return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
-    }
+    const locale = req.language
+    const resources = i18n.getResourceBundle(locale, 'common')
+    const i18nClient = {locale, resources}
+    const i18nServer = i18n.cloneInstance()
+    i18nServer.changeLanguage(locale)
 
-    if (!renderProps) {
-      return next()
-    }
+    initialState = mapInitialState(initialState)
+    const store = configureStore(initialState)
 
-    return Promise.resolve().then(() => {
-      if (req.user) {
-        return User.findById(req.user.userId, '-password')
-      }
-      return null
-    }).then((user) => {
-      let initialState = {
-        app: {},
-        entities: { users: {} }
+    const routes = getRoutes(store)
+
+    match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
+      if (err) {
+        return res.status(500).end(renderError(err))
       }
 
-      if (user !== null) {
-        user = user.toObject()
-        user._id = user._id.toString()
-        initialState.app.authUser = user._id
-        initialState.entities.users[user._id] = user
+      if (redirectLocation) {
+        return res.redirect(302, redirectLocation.pathname + redirectLocation.search)
       }
 
-      const locale = req.language
-      const resources = i18n.getResourceBundle(locale, 'common')
-      const i18nClient = {locale, resources}
-
-      const i18nServer = i18n.cloneInstance()
-      i18nServer.changeLanguage(locale)
-
-      initialState = mapInitialState(initialState)
-      const store = configureStore(initialState)
+      if (!renderProps) {
+        return next()
+      }
 
       return fetchComponentData(store, renderProps.components, renderProps.params)
         .then(() => {
@@ -179,9 +183,9 @@ app.use((req, res, next) => {
           const finalState = store.getState()
 
           res.status(200).end(renderFullPage(initialView, finalState, i18nClient))
-        })
-    }).catch(next)
-  })
+        }).catch(next)
+    })
+  }).catch(next)
 })
 
 // start app

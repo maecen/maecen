@@ -1,5 +1,5 @@
 import React from 'react'
-import routes from '../shared/routes'
+import getRoutes from '../shared/routes'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
@@ -26,6 +26,7 @@ const store = configureStore(initialState)
 const history = syncHistoryWithStore(browserHistory, store)
 
 let toRender
+const routes = getRoutes(store)
 
 if (process.env.CLIENT && !window.devToolsExtension &&
   process.env.NODE_ENV !== 'production') {
