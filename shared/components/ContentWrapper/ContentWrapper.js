@@ -21,4 +21,3 @@ export default function ContentWrapper (props, context) {
 ContentWrapper.propTypes = {
   children: PropTypes.object.isRequired
 }
-

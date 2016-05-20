@@ -23,7 +23,7 @@ Button.defaultProps = {
   flat: false,
   last: false,
   style: {
-    marginRight: '1rem'
+    marginRight: '.5rem'
   }
 }
 

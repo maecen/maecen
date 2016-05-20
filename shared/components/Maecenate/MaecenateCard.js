@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import s from './MaecenateCard.scss'
+import Card from '../Card/Card'
 
 function MaecenateCard (props, context) {
   const { maecenate: {
@@ -9,14 +10,14 @@ function MaecenateCard (props, context) {
   const coverStyle = { backgroundImage: `url(${coverUrl})` }
 
   return (
-    <div onClick={onClick} className={s.main}>
+    <Card onClick={onClick}>
       <div className={s.header}>
         <img src={logoUrl} className={s.logo} />
         <h4 className={s.title}>{title}</h4>
       </div>
       <div style={coverStyle} className={s.cover} />
       <div className={s.teaser}>{teaser}</div>
-    </div>
+    </Card>
   )
 }
 

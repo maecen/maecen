@@ -31,8 +31,8 @@ function Header (props, context) {
           />
 
           { hasAuth === false
-            ? <Button label={t('login')} primary={true} onClick={loginAction} />
-            : <Link to='/profile'><Button primary={true} label={t('profile')} /></Link>
+            ? <Button label={t('login')} primary={true} last={true} onClick={loginAction} />
+            : <Link to='/profile'><Button primary={true} last={true} label={t('profile')} /></Link>
           }
         </div>
       </Grid>
