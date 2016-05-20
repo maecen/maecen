@@ -99,9 +99,18 @@ function fetchMaecenateListSuccess (data) {
   }
 }
 
-export function fetchMaecenateList (slug) {
+export function fetchMaecenateList () {
   return (dispatch) => {
     return axios.get(`${baseURL}/getMaecenates`)
+      .then(res => res.data)
+      .then(data => dispatch(fetchMaecenateListSuccess(data)))
+      .catch(err => console.log(err.stack))
+  }
+}
+
+export function fetchUserMaecenateList (userId) {
+  return (dispatch) => {
+    return axios.get(`${baseURL}/getUserMaecenates/${userId}`)
       .then(res => res.data)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
       .catch(err => console.log(err.stack))

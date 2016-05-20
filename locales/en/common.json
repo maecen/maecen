@@ -41,7 +41,9 @@
     "edit": "Edit",
     "update": "Update",
     "cancel": "Cancel",
-    "createUser": "Create User"
+    "createUser": "Create User",
+    "profilePage": "Your Profile",
+    "yourMaecenates": "Your Maecenates"
   },
   "validationError": {
     "alreadyTaken": "This is unfortunately already in use by someone else",

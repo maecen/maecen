@@ -1,5 +1,9 @@
 @import '../../../node_modules/normalize.css/normalize.css';
 
+[type=reset], [type=submit], button, html [type=button] {
+  -webkit-appearance: initial;
+}
+
 html {
   // `overflow-x: hidden` needs to be here as flexbox-grid otherwise will add a
   // vertical scrollbar when it has full width.

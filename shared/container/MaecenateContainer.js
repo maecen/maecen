@@ -10,7 +10,6 @@ class MaecenateContainer extends Component {
 
   componentDidMount () {
     const { dispatch, params } = this.props
-
     dispatch(this.constructor.need[0](params))
   }
 
@@ -32,7 +31,7 @@ class MaecenateContainer extends Component {
                 {maecenate.url &&
                   <p>
                     Website:
-                    <a href={maecenate.url} target='_blank'>
+                    <a href={`http://${maecenate.url}`} target='_blank'>
                       Visit
                     </a>
                   </p>

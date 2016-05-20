@@ -15,6 +15,13 @@ export function getMaecenates (req, res, next) {
   })
 }
 
+export function getUserMaecenates (req, res, next) {
+  const { user } = req.params
+  return Maecenate.where({ creator: user }).fetchAll().then((maecenates) => {
+    return res.json(normalizeResponse({ maecenates }))
+  })
+}
+
 export function createMaecenate (req, res, next) {
   const { userId } = req.user
   const { maecenate: data } = req.body

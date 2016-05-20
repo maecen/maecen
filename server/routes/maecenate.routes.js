@@ -9,6 +9,9 @@ router.get('/getMaecenate/:slug', MaecenateController.getMaecenate)
 // Get all Maecenates
 router.get('/getMaecenates', MaecenateController.getMaecenates)
 
+// Get all Maecenates by user
+router.get('/getUserMaecenates/:user', MaecenateController.getUserMaecenates)
+
 // Create Maecenate
 router.post('/createMaecenate', verifyAuth, MaecenateController.createMaecenate)
 
