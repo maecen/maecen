@@ -87,11 +87,15 @@ class ProfileContainer extends Component {
               </Col>
             </Row>
 
-            <TextField
-              path={['email']}
-              label={t('user.email')}
-              placeholder='Your email address'
-              disabled={!isEdit} />
+            <Row>
+              <Col sm={12}>
+                <TextField
+                  path={['email']}
+                  label={t('user.email')}
+                  placeholder='Your email address'
+                  disabled={!isEdit} />
+              </Col>
+            </Row>
 
             <Row>
               <Col sm={6}>
@@ -123,34 +127,32 @@ class ProfileContainer extends Component {
               </Col>
             </Row>
 
-            { isEdit === false
-              ? <span className={s.marginRight}>
-                  <Button type='button'
-                    onClick={this.toggleEdit.bind(this)}
-                    primary={true}
-                    label={t('user.edit')} />
-                </span>
-              : <span>
-                  <span className={s.marginRight}>
-                    <Button
-                      label={t('user.update')}
-                      type='submit'
-                      primary={true}
-                      disabled={this.state.isSubmitting === true} />
-                  </span>
-                  <span className={s.marginRight}>
-                    <Button
-                      flat={true}
+            <Row>
+              <Col sm={6}>
+                { isEdit === false
+                  ? <Button type='button'
                       onClick={this.toggleEdit.bind(this)}
-                      label={t('user.cancel')} />
-                  </span>
-                </span>
-            }
+                      primary={true}
+                      label={t('user.edit')} />
 
-            <Button onClick={this.clearAuth.bind(this)}
-              secondary={true}
-              flat={true}
-              label={t('logout')} />
+                  : <span>
+                      <Button
+                        label={t('user.update')}
+                        type='submit'
+                        primary={true}
+                        disabled={this.state.isSubmitting === true} />
+                      <Button
+                        flat={true}
+                        onClick={this.toggleEdit.bind(this)}
+                        label={t('user.cancel')} />
+                    </span>
+                }
+                <Button onClick={this.clearAuth.bind(this)}
+                  secondary={true}
+                  flat={true}
+                  label={t('logout')} />
+              </Col>
+            </Row>
           </Form>
         </div>
       </ContentWrapper>

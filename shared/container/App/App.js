@@ -11,7 +11,10 @@ const muiTheme = getMuiTheme({
   palette: {
     primary1Color: '#C69C76',
     primary2Color: '#C69C76',
-    primary3Color: '#C69C76'
+    primary3Color: '#C69C76',
+    accent1Color: '#C69C76',
+    accent2Color: '#C69C76',
+    accent3Color: '#C69C76'
   }
 })
 

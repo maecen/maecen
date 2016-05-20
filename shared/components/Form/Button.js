@@ -6,15 +6,25 @@ import MaterialFlatButton from 'material-ui/FlatButton'
 export default function Button (props, context) {
   props = Immutable(props)
   const ButtonType = props.flat ? MaterialFlatButton : MaterialRaisedButton
-
-  return (
-    <ButtonType {...props.without('flat')} />
-  )
+  const LastButton = props.last
+  if (LastButton) {
+    return (
+      <ButtonType {...props.without('flat', 'style')} />
+    )
+  } else {
+    return (
+      <ButtonType {...props.without('flat')} />
+    )
+  }
 }
 
 Button.defaultProps = {
   type: 'button',
-  flat: false
+  flat: false,
+  last: false,
+  style: {
+    marginRight: '1rem'
+  }
 }
 
 Button.propTypes = {
@@ -22,5 +32,6 @@ Button.propTypes = {
   type: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  flat: PropTypes.bool
+  flat: PropTypes.bool,
+  last: PropTypes.bool
 }
