@@ -19,15 +19,14 @@ function Header (props, context) {
       <Grid>
         <Link to='/'>
           <Icon size='4rem'
-            viewBox='0 0 832 997'
-            icon='maecen-detail'
+            viewBox='0 0 832 687'
+            icon='maecen-m-only'
           />
         </Link>
         <div className={s.rightmenu}>
           <Button
             label={t('mc.create')}
             primary={true}
-            className={s.marginright}
             onClick={createMaecenateAction}
           />
 

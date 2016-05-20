@@ -93,14 +93,17 @@ class AuthDialogContainer extends React.Component {
 
     const actions = [
       <Button label={t('user.cancel')}
-        onClick={this.cancel} secondary={true} flat={true} />,
+        onClick={this.cancel}
+        secondary={true}
+        flat={true} />,
       (isCreating === false &&
-       <Button label={t('user.createUser')}
-         flat={true}
-         onClick={this.setActionCreate} />),
+        <Button label={t('user.createUser')}
+          flat={true}
+          onClick={this.setActionCreate} />),
       <Button type='submit'
         label={actionLabel}
         primary={true}
+        last={true}
         disabled={this.state.isSubmitting === true}
         onClick={this.handleSubmit} />
     ]
@@ -109,12 +112,11 @@ class AuthDialogContainer extends React.Component {
       <Dialog
         open={open}
         actions={actions}
-        onRequestClose={this.cancel}>
+        onRequestClose={this.cancel}
+        title={actionLabel}>
         <Form onSubmit={this.handleSubmit} model={user}
           updateModel={this.updateModel.bind(this)}
           errors={this.state.errors}>
-
-          <h2>{actionLabel}</h2>
 
           {isCreating &&
             <Row>
