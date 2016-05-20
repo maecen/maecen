@@ -9,11 +9,12 @@
     "test:server": "node_modules/.bin/cross-env NODE_ENV=testing PORT=3040 node_modules/.bin/ava ./server/tests/*.js --tap --serial",
     "start": "node_modules/.bin/cross-env NODE_ENV=development nodemon index.js",
     "start:prod": "node_modules/.bin/cross-env NODE_ENV=production node index.js",
-    "bs": "npm run migrate:latest && npm run build && npm run start:prod",
+    "bs": "npm run migrate:latest && npm run start:prod",
     "build": "node_modules/.bin/cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rimraf static/dist",
     "slate": "rimraf node_modules && npm install",
-    "lint": "node_modules/.bin/eslint client server shared"
+    "lint": "node_modules/.bin/eslint client server shared",
+    "postinstall":"npm run build"
   },
   "pre-commit": [
     "lint"
