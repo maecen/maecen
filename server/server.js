@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser'
 import path from 'path'
 import expressJwt from 'express-jwt'
 import morgan from 'morgan'
-import mongoose from 'mongoose'
 import serialize from 'serialize-javascript'
 
 import User from './models/user'
@@ -44,14 +43,6 @@ import getRoutes from '../shared/routes'
 import { fetchComponentData } from './util/fetchData'
 import apiRoutes from './routes'
 import * as config from '../shared/config'
-
-// MongoDB Connection
-mongoose.connect(config.mongoURL, (error) => {
-  if (error) {
-    console.error('Please make sure Mongodb is installed and running!') // eslint-disable-line no-console
-    throw error
-  }
-})
 
 //
 // Force SSL connection in production

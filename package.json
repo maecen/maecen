@@ -14,7 +14,7 @@
     "clean": "rimraf static/dist",
     "slate": "rimraf node_modules && npm install",
     "lint": "node_modules/.bin/eslint client server shared",
-    "postinstall":"npm run build"
+    "postinstall": "npm run build"
   },
   "pre-commit": [
     "lint"
