@@ -25,7 +25,7 @@ class MaecenateContainer extends Component {
                 <h2 className={s.title}>{maecenate.title}</h2>
               </Col>
               <Col xs={2}>
-                <img src={maecenate.logoUrl} className={s.logo} />
+                <img src={maecenate.logo_url} className={s.logo} />
                 <p>Maecens: 0</p>
                 <p>Content posts: 0</p>
                 <p>Min. amount: 1€</p>
@@ -39,7 +39,7 @@ class MaecenateContainer extends Component {
                 }
               </Col>
               <Col xs={10}>
-                <img src={maecenate.coverUrl} className={s.cover} />
+                <img src={maecenate.cover_url} className={s.cover} />
                 <p className={s.teaser}>{maecenate.teaser}</p>
                 <p>{maecenate.description}</p>
               </Col>

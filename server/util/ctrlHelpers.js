@@ -1,5 +1,7 @@
+import Joi from 'joi'
 import mapValues from 'lodash/mapValues'
 import mapKeys from 'lodash/mapKeys'
+import { toCamelCase } from 'strman'
 import map from 'lodash/map'
 
 export function formatResponseError (error) {
@@ -38,16 +40,46 @@ export function normalizeResponse (data, responseObject) {
 
   let response = {
     entities: mapValues(data, entities => {
+      if (entities && typeof entities.toJSON === 'function') {
+        entities = entities.toJSON()
+      }
+
       if (Array.isArray(entities) === true) {
-        return mapKeys(entities, entity => entity._id)
+        return mapKeys(entities, entity => entity.id)
+      } else if (entities === null) {
+        return {}
       } else {
         const entity = entities
-        return { [entity._id]: entity }
+        return { [entity.id]: entity }
       }
     })
   }
 
-  response.result = map(response.entities[responseObject], entity => entity._id)
+  response.result = map(response.entities[responseObject], entity => entity.id)
 
   return response
+}
+
+export function joiValidation (obj, schema) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      abortEarly: false
+    }
+
+    Joi.validate(obj, schema, options, (err, val) => {
+      if (err === null) {
+        return resolve()
+      }
+
+      let errors = err.details.map(error => ({
+        message: 'validationError.' + toCamelCase(error.type.replace(/\./g, ' ')),
+        options: {
+          ...error.context,
+          context: error.path
+        }
+      }))
+
+      reject(mapKeys(errors, err => err.options.key))
+    })
+  })
 }

@@ -44,6 +44,7 @@ class CreateMaecenateContainer extends Component {
         dispatch(Actions.createMaecenateSuccess(data))
         browserHistory.push(`/maecenate/${slug}`)
       }, (res) => {
+        this.setState({ errors: null })
         this.setState({ errors: res.data.errors, isSubmitting: false })
       })
   }
@@ -67,7 +68,7 @@ class CreateMaecenateContainer extends Component {
 
             <ImageField
               label={t('logo')}
-              path={['logoUrl']} />
+              path={['logo_url']} />
             <br />
 
             <TextField
@@ -92,7 +93,7 @@ class CreateMaecenateContainer extends Component {
 
             <ImageField
             label={t('mc.coverImage')}
-              path={['coverUrl']} />
+              path={['cover_url']} />
             <br />
 
             <Button type='submit'

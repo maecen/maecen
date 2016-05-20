@@ -73,14 +73,14 @@ class ProfileContainer extends Component {
             <Row>
               <Col sm={6}>
                 <TextField
-                  path={['name', 'first']}
+                  path={['first_name']}
                   label={t('user.firstName')}
                   placeholder='Your first name'
                   disabled={!isEdit} />
               </Col>
               <Col sm={6}>
                 <TextField
-                  path={['name', 'last']}
+                  path={['last_name']}
                   label={t('user.lastName')}
                   placeholder='Your last name'
                   disabled={!isEdit} />

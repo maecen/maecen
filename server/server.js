@@ -17,7 +17,7 @@ import { I18nextProvider } from 'react-i18next'
 // Initialize the Express App
 const app = new Express()
 
-if (process.env.NODE_ENV !== 'production') {
+if (['production', 'testing'].indexOf(process.env.NODE_ENV) === -1) {
   // Webpack Requirements
   const webpack = require('webpack')
   const webpackConfig = require('../webpack.config.dev')
@@ -136,15 +136,14 @@ app.use((req, res, next) => {
 
   return Promise.resolve().then(() => {
     if (req.user) {
-      return User.findById(req.user.userId, '-password')
+      return User.where('id', req.user.userId).fetch()
     }
     return null
   }).then((user) => {
     if (user !== null) {
-      user = user.toObject()
-      user._id = user._id.toString()
-      initialState.app.authUser = user._id
-      initialState.entities.users[user._id] = user
+      user = user.toJSON()
+      initialState.app.authUser = user.id
+      initialState.entities.users[user.id] = user
     }
 
     const locale = req.language

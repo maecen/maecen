@@ -120,12 +120,12 @@ class AuthDialogContainer extends React.Component {
             <Row>
               <Col sm={6}>
                 <TextField
-                  path={['name', 'first']}
+                  path={['first_name']}
                   label={t('user.firstName')} />
               </Col>
               <Col sm={6}>
                 <TextField
-                  path={['name', 'last']}
+                  path={['last_name']}
                   label={t('user.lastName')} />
               </Col>
             </Row>

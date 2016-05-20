@@ -1,52 +1,54 @@
-import mongoose from 'mongoose'
-import { promisifyAll } from 'bluebird'
+import Joi from 'joi'
 import { slugify } from 'strman'
-const Schema = mongoose.Schema
+import uuid from 'node-uuid'
+import { joiValidation } from '../util/ctrlHelpers'
+import { bookshelf } from '../database'
 
-const maecenateSchema = new Schema({
-  title: { type: 'String', required: [true, 'The Maecenate needs a title'] },
-  slug: { type: 'String', required: true },
-  logoUrl: { type: 'String', required: [true, 'You need to add a logo'] },
-  coverUrl: { type: 'String', required: [true, 'You need to add a cover'] },
-  // category: { type: 'String', required: [true, 'You need to pick a category'] },
-  teaser: { type: 'String', required: [true, 'You need to write a teaser'] },
-  description: { type: 'String', required: [true, 'You need to write a description'] },
-  url: { type: 'String' },
-  dateAdded: { type: 'Date', default: Date.now }
-})
+const schema = {
+  id: Joi.string().guid(),
+  title: Joi.string().required(),
+  slug: Joi.string(),
+  creator: Joi.string().guid(),
+  logo_url: Joi.string().required(),
+  cover_url: Joi.string().required(),
+  teaser: Joi.string().min(10).max(140).required(),
+  description: Joi.string().min(30).required(),
+  url: Joi.string().hostname().allow(null)
+}
 
-maecenateSchema.path('teaser').validate((value) => {
-  return value.length >= 10 && value.length <= 140
-}, 'The teaser has to be between 10 and 140 characters')
+const Maecenate = bookshelf.Model.extend({
+  tableName: 'maecenates',
 
-maecenateSchema.path('description').validate((value) => {
-  return value.length >= 30
-}, 'The description has to be at least 30 characters')
+  initialize () {
+    this.on('saving', this.generateSlug, this)
+    this.on('saving', this.validate, this)
+  },
 
-// We set the slug pre validate
-maecenateSchema.pre('validate', function (next) {
-  let maecenate = this
-  if (maecenate.isModified('title') === true) {
-    maecenate.slug = slugify(maecenate.title)
-  }
-  next()
-})
-
-const Maecenate = promisifyAll(mongoose.model('Maecenate', maecenateSchema))
-export default Maecenate
-
-Maecenate.schema.path('title').validate(function (title, res) {
-  if (this.isModified('title') === false) {
-    return res(true)
-  }
-
-  const slug = slugify(title)
-
-  Maecenate.findOne({ slug }, '_id').then(maecenate => {
-    if (maecenate) {
-      res(false)
-    } else {
-      res(true)
+  generateId () {
+    if (!this.has('id')) {
+      this.set('id', uuid.v1())
     }
-  }, function () { res(false) })
-}, 'A Maecenate with this title already exists')
+  },
+
+  validate () {
+    return joiValidation(this.toJSON(true), schema)
+      .then(() => {
+        if (this.hasChanged('email') === true) {
+          return Maecenate.where('slug', this.get('slug')).count().then(count => {
+            if (count > 0) {
+              const error = { title: 'validationError.alreadyTaken' }
+              throw error
+            }
+          })
+        }
+      })
+  },
+
+  generateSlug () {
+    if (this.hasChanged('title') === true) {
+      this.set('slug', slugify(this.get('title')))
+    }
+  }
+})
+
+export default Maecenate

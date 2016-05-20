@@ -26,7 +26,7 @@ class MaecenateOverviewContainer extends Component {
       <ContentWrapper>
         <Row>
           {map(maecenates, maecenate =>
-            <Col sm={6} xs={12} key={maecenate._id}>
+            <Col sm={6} xs={12} key={maecenate.id}>
               <MaecenateCard
                 maecenate={maecenate}
                 onClick={this.gotoMaecenate.bind(this, maecenate)} />

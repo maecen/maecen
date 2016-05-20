@@ -6,7 +6,10 @@ import MaterialTextField from 'material-ui/TextField'
 export default function TextField (props, context) {
   props = Immutable(props)
   const path = Array.isArray(props.path) ? props.path.join('.') : props.path
-  const error = context.errors[path] || null
+  let error = context.errors[path] || null
+  if (error && error.message) {
+    error = error.message
+  }
 
   return (
     <MaterialTextField

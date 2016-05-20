@@ -3,7 +3,7 @@ import s from './MaecenateCard.scss'
 
 function MaecenateCard (props, context) {
   const { maecenate: {
-    title, logoUrl, coverUrl, teaser
+    title, logo_url: logoUrl, cover_url: coverUrl, teaser
   }, onClick } = props
 
   const coverStyle = { backgroundImage: `url(${coverUrl})` }
@@ -25,7 +25,7 @@ export default MaecenateCard
 MaecenateCard.propTypes = {
   maecenate: PropTypes.shape({
     title: PropTypes.string,
-    logoUrl: PropTypes.string
+    logo_url: PropTypes.string
   }).isRequired,
   onClick: PropTypes.func.isRequired
 }

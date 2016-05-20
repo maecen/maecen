@@ -1,51 +1,51 @@
-import { formatResponseError, normalizeResponse } from '../util/ctrlHelpers'
+import { normalizeResponse } from '../util/ctrlHelpers'
 import { uploadDataUri } from '../util/fileUploader'
 import Maecenate from '../models/maecenate'
 
 export function getMaecenate (req, res, next) {
   const { slug } = req.params
-  return Maecenate.findOne({ slug }).then((maecenate) => {
+  return Maecenate.where({ slug }).fetch().then((maecenate) => {
     return res.json(normalizeResponse({ maecenates: maecenate }))
   })
 }
 
 export function getMaecenates (req, res, next) {
-  return Maecenate.find().then((maecenates) => {
+  return Maecenate.fetchAll().then((maecenates) => {
     return res.json(normalizeResponse({ maecenates }))
   })
 }
 
 export function createMaecenate (req, res, next) {
+  const { userId } = req.user
   const { maecenate: data } = req.body
-  const { logoUrl, coverUrl } = data
+  const { logo_url: logoUrl, cover_url: coverUrl } = data
 
   let maecenate = new Maecenate(data)
+  maecenate.generateId()
+  maecenate.set('creator', userId)
 
   return maecenate.validate().then(() => {
     let imageUploads = []
 
     // Do the upload after the save! (so we validate first)
     if (logoUrl) {
-      const path = `maecenate/${maecenate._id}-logo`
+      const path = `maecenate/${maecenate.id}-logo`
       imageUploads.push(uploadDataUri(logoUrl, path).then((result) => {
-        maecenate.logoUrl = result.secure_url
+        maecenate.set('logo_url', result.secure_url)
       }))
     }
 
     if (coverUrl) {
-      const path = `maecenate/${maecenate._id}-cover`
+      const path = `maecenate/${maecenate.id}-cover`
       imageUploads.push(uploadDataUri(coverUrl, path).then((result) => {
-        maecenate.coverUrl = result.secure_url
+        maecenate.set('cover_url', result.secure_url)
       }))
     }
 
     return Promise.all(imageUploads)
   }).then(() => {
-    return maecenate.save()
-  }).then(() => {
-    return res.json(normalizeResponse({ maecenates: maecenate }))
-  }).catch((error) => {
-    const errors = formatResponseError(error)
-    return res.status(400).json({ errors })
-  })
+    return maecenate.save(null, { method: 'insert' })
+  }).then((model) => {
+    return res.json(normalizeResponse({ maecenates: model }))
+  }).catch(next)
 }
