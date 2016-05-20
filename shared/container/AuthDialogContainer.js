@@ -5,7 +5,7 @@ import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 import Dialog from 'material-ui/Dialog'
-import { Row, Col } from 'react-flexbox-grid/lib'
+import { Row, Col, Grid } from 'react-flexbox-grid/lib'
 import * as Actions from '../actions/actions'
 
 import Form from '../components/Form/Form'
@@ -119,18 +119,20 @@ class AuthDialogContainer extends React.Component {
           errors={this.state.errors}>
 
           {isCreating &&
-            <Row>
-              <Col sm={6}>
-                <TextField
-                  path={['first_name']}
-                  label={t('user.firstName')} />
-              </Col>
-              <Col sm={6}>
-                <TextField
-                  path={['last_name']}
-                  label={t('user.lastName')} />
-              </Col>
-            </Row>
+            <Grid>
+              <Row>
+                <Col sm={6}>
+                  <TextField
+                    path={['first_name']}
+                    label={t('user.firstName')} />
+                </Col>
+                <Col sm={6}>
+                  <TextField
+                    path={['last_name']}
+                    label={t('user.lastName')} />
+                </Col>
+              </Row>
+            </Grid>
           }
 
           <TextField
