@@ -128,6 +128,11 @@ app.use((req, res, next) => {
   return Promise.resolve().then(() => {
     if (req.user) {
       return User.where('id', req.user.userId).fetch()
+        .catch(() => {
+          // Don't fail if fetching the user fails, just delete the cookie
+          res.clearCookie('id_token', { httpOnly: true })
+          return null
+        })
     }
     return null
   }).then((user) => {
