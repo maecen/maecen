@@ -1,15 +1,15 @@
 import React, { PropTypes, Component } from 'react'
-import UICard from 'material-ui/Card'
+import MaterialCard from 'material-ui/Card'
 
 export default class Card extends Component {
   render () {
     return (
-      <UICard>
+      <MaterialCard>
         {this.props.onClick
           ? <div onClick={this.props.onClick}>{this.props.children}</div>
           : this.props.children
         }
-      </UICard>
+      </MaterialCard>
     )
   }
 }

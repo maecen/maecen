@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { translate } from 'react-i18next'
-import { Row, Col, Grid } from 'react-flexbox-grid/lib'
+import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../actions/actions'
 
-import Card from '../components/Card/Card'
+import { Card, CardContent } from '../components/Card'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
 import Button from '../components/Form/Button'
@@ -66,23 +66,22 @@ class ProfileContainer extends Component {
     return (
       <ContentWrapper>
         <Card>
-          <Form onSubmit={this.handleSubmit.bind(this)} model={user}
-            updateModel={this.updateModel.bind(this)}
-            errors={this.state.errors}>
-              <Grid>
+          <CardContent>
+            <Form onSubmit={this.handleSubmit.bind(this)} model={user}
+              updateModel={this.updateModel.bind(this)}
+              errors={this.state.errors}
+            >
               <Row>
                 <Col sm={6} xs={12}>
                   <TextField
                     path={['first_name']}
-                    label={t('user.firstName')}
-                    placeholder='Your first name'
+                    placeholder={t('user.firstName')}
                     disabled={!isEdit} />
                 </Col>
                 <Col sm={6} xs={12}>
                   <TextField
                     path={['last_name']}
-                    label={t('user.lastName')}
-                    placeholder='Your last name'
+                    placeholder={t('user.lastName')}
                     disabled={!isEdit} />
                 </Col>
               </Row>
@@ -91,8 +90,7 @@ class ProfileContainer extends Component {
                 <Col xs={12}>
                   <TextField
                     path={['email']}
-                    label={t('user.email')}
-                    placeholder='Your email address'
+                    placeholder={t('user.email')}
                     disabled={!isEdit} />
                 </Col>
               </Row>
@@ -101,13 +99,13 @@ class ProfileContainer extends Component {
                 <Col sm={6} xs={12}>
                   <TextField
                     path={['alias']}
-                    label={t('user.alias')}
+                    placeholder={t('user.alias')}
                     disabled={!isEdit} />
                 </Col>
                 <Col sm={6} xs={12}>
                   <TextField
                     path={['phoneNumber']}
-                    label={t('user.phoneNumber')}
+                    placeholder={t('user.phoneNumber')}
                     disabled={!isEdit} />
                 </Col>
               </Row>
@@ -116,13 +114,13 @@ class ProfileContainer extends Component {
                 <Col sm={6} xs={12}>
                   <TextField
                     path={['country']}
-                    label={t('user.country')}
+                    placeholder={t('user.country')}
                     disabled={!isEdit} />
                 </Col>
                 <Col sm={6} xs={12}>
                   <TextField
                     path={['zipCode']}
-                    label={t('user.zip')}
+                    placeholder={t('user.zip')}
                     disabled={!isEdit} />
                 </Col>
               </Row>
@@ -153,8 +151,8 @@ class ProfileContainer extends Component {
                     label={t('logout')} />
                 </Col>
               </Row>
-            </Grid>
-          </Form>
+            </Form>
+          </CardContent>
         </Card>
       </ContentWrapper>
     )
