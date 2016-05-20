@@ -44,4 +44,3 @@ PasswordField.contextTypes = {
   model: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
-
