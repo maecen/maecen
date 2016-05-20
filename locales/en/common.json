@@ -42,5 +42,18 @@
     "update": "Update",
     "cancel": "Cancel",
     "createUser": "Create User"
+  },
+  "validationError": {
+    "alreadyTaken": "This is unfortunately already in use by someone else",
+    "alreadyTaken_email": "This email is already in use",
+    "alreadyTaken_title": "This title is already in use",
+    "stringEmail": "You need to type a valid email",
+    "anyRequired": "You need to fill this out",
+    "stringMin": "You need to fill in at least {{limit}} characters",
+    "stringMax": "You can fill in no more than {{limit}} characters"
+  },
+  "error": {
+    "noUserWithEmail": "No user exists with this email",
+    "passwordIncorrect": "This password doesn't match the provided email"
   }
 }

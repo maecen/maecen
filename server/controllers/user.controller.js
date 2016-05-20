@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { formatResponseError, normalizeResponse } from '../util/ctrlHelpers'
+import { normalizeResponse } from '../util/ctrlHelpers'
 import * as config from '../../shared/config'
 import User from '../models/user'
 
@@ -49,10 +49,7 @@ export function authUser (req, res, next) {
   User.authenticate(email, password).then(user => {
     createUserAuthTokenInRes(user, res)
     return res.json(normalizeResponse({ users: user }))
-  }).catch(error => {
-    const errors = formatResponseError(error)
-    return res.status(400).json({ errors })
-  })
+  }).catch(next)
 }
 
 export function clearAuth (req, res, next) {

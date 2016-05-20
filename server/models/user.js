@@ -78,12 +78,14 @@ User.authenticate = function (email, password) {
     if (user !== null) {
       return bcryptCompare(password, user.get('password'))
     } else {
-      const error = { email: 'No user exists with this email' }
+      // No user with this email error
+      const error = { email: 'error.noUserWithEmail' }
       throw error
     }
   }).then(match => {
     if (match === false) {
-      const error = { password: 'This password doesn\'t match the email' }
+      // Password not correct
+      const error = { password: 'error.passwordIncorrect' }
       throw error
     }
     return user
