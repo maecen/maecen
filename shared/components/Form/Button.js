@@ -24,6 +24,9 @@ Button.defaultProps = {
   last: false,
   style: {
     marginRight: '.5rem'
+  },
+  labelStyle: {
+    letterSpacing: '0.1rem'
   }
 }
 

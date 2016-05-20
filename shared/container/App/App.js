@@ -5,16 +5,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AuthDialogContainer from '../AuthDialogContainer'
 import './App.scss'
 
+const themeColor = '#967049'
+
 const muiTheme = getMuiTheme({
   userAgent: 'all',
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: '#C69C76',
-    primary2Color: '#C69C76',
-    primary3Color: '#C69C76',
-    accent1Color: '#C69C76',
-    accent2Color: '#C69C76',
-    accent3Color: '#C69C76'
+    primary1Color: themeColor,
+    primary2Color: themeColor,
+    primary3Color: themeColor,
+    accent1Color: themeColor,
+    accent2Color: themeColor,
+    accent3Color: themeColor
   }
 })
 
