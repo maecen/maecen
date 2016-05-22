@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import * as Actions from '../../actions/actions'
 
-import { Card, CardTitle } from '../../components/Card'
+import { Card, CardTitle, CardContent } from '../../components/Card'
+import Button from '../../components/Form/Button'
 import { List, ListItem } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 
@@ -32,17 +33,22 @@ class YourMaecenatesContainer extends Component {
         <CardTitle title={t('user.yourMaecenates')} />
         <List>
           {maecenates.map((maecenate) => (
-            <ListItem
-              primaryText={maecenate.title}
-              onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
-            />
+            <div>
+              <ListItem
+                primaryText={maecenate.title}
+                onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
+              />
+              <Divider />
+            </div>
           ))}
-          <Divider />
-          <ListItem
-            primaryText={t('mc.create')}
+        </List>
+        <CardContent>
+          <Button
+            label={t('mc.create')}
+            primary={true}
             onClick={this.createMaecenate.bind(this)}
           />
-        </List>
+        </CardContent>
       </Card>
     )
   }
