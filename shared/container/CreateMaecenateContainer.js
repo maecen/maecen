@@ -7,6 +7,7 @@ import Immutable from 'seamless-immutable'
 
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../actions/actions'
+import { Card, CardContent, CardTitle } from '../components/Card'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
 import ImageField from '../components/Form/ImageField'
@@ -54,51 +55,56 @@ class CreateMaecenateContainer extends Component {
 
     return (
       <ContentWrapper>
+        <Card>
+          <CardTitle title={t('mc.create')} />
+            <CardContent>
 
-          <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
-            updateModel={this.updateModel.bind(this)}
-            errors={this.state.errors}>
+            <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
+              updateModel={this.updateModel.bind(this)}
+              errors={this.state.errors}>
 
-            <TextField
-              path={['title']}
-              label={t('title')} />
-            <br />
+              <TextField
+                path={['title']}
+                label={t('title')} />
+              <br />
 
-            <ImageField
-              label={t('logo')}
-              path={['logo_url']} />
-            <br />
+              <ImageField
+                label={t('logo')}
+                path={['logo_url']} />
+              <br />
 
-            <TextField
-              path={['teaser']}
-              label={t('mc.teaser')}
-              placeholder={t('mc.teaserPlaceholder')}
-              maxLength='140' />
-            <br />
+              <TextField
+                path={['teaser']}
+                label={t('mc.teaser')}
+                placeholder={t('mc.teaserPlaceholder')}
+                maxLength='140' />
+              <br />
 
-            <TextField
-              path={['description']}
-              label={t('mc.description')}
-              placeholder={t('mc.descriptionPlaceholder')}
-              multiLine={true} />
-            <br />
+              <TextField
+                path={['description']}
+                label={t('mc.description')}
+                placeholder={t('mc.descriptionPlaceholder')}
+                multiLine={true} />
+              <br />
 
-            <TextField
-              path={['url']}
-              label={t('mc.website')}
-              placeholder={t('mc.websitePlaceholder')} />
-            <br />
+              <TextField
+                path={['url']}
+                label={t('mc.website')}
+                placeholder={t('mc.websitePlaceholder')} />
+              <br />
 
-            <ImageField
-            label={t('mc.coverImage')}
-              path={['cover_url']} />
-            <br />
+              <ImageField
+              label={t('mc.coverImage')}
+                path={['cover_url']} />
+              <br />
 
-            <Button type='submit'
-              primary={true}
+              <Button type='submit'
+                primary={true}
                 label={t('mc.create')}
-              disabled={this.state.isSubmitting === true} />
-          </Form>
+                disabled={this.state.isSubmitting === true} />
+            </Form>
+          </CardContent>
+        </Card>
       </ContentWrapper>
     )
   }
