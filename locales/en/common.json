@@ -17,7 +17,7 @@
     "descriptionPlaceholder": "Description of the Maecenate",
     "website": "Website",
     "websitePlaceholder": "Your website URL address",
-    "coverImage": "Cover image",
+    "coverImage": "Cover image"
   },
   "user": {
     "alias": "Alias",
