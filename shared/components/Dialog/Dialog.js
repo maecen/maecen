@@ -24,3 +24,9 @@ export default class Dialog extends Component {
 Dialog.propTypes = {
   onClick: PropTypes.func
 }
+
+Dialog.defaultProps = {
+  titleStyle: {
+    paddingBottom: '0'
+  }
+}
