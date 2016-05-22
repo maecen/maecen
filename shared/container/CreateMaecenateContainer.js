@@ -6,7 +6,6 @@ import axios from 'axios'
 import Immutable from 'seamless-immutable'
 
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
-import s from './LoginContainer.scss'
 import * as Actions from '../actions/actions'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
@@ -55,7 +54,6 @@ class CreateMaecenateContainer extends Component {
 
     return (
       <ContentWrapper>
-        <div className={s.card}>
 
           <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
             updateModel={this.updateModel.bind(this)}
@@ -101,7 +99,6 @@ class CreateMaecenateContainer extends Component {
               label={t('mc.createMaecenate')}
               disabled={this.state.isSubmitting === true} />
           </Form>
-        </div>
       </ContentWrapper>
     )
   }
