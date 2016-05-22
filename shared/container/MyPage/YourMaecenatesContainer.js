@@ -39,7 +39,7 @@ class YourMaecenatesContainer extends Component {
           ))}
           <Divider />
           <ListItem
-            primaryText={t('mc.createMaecenate')}
+            primaryText={t('mc.create')}
             onClick={this.createMaecenate.bind(this)}
           />
         </List>
@@ -66,4 +66,3 @@ function mapStateToProps (store) {
 export default translate(['common'])(
   connect(mapStateToProps)(YourMaecenatesContainer)
 )
-

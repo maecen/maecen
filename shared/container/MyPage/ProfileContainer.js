@@ -64,7 +64,7 @@ class ProfileContainer extends Component {
 
     return (
       <Card>
-        <CardTitle title={t('user.profilePage')} />
+        <CardTitle title={t('user.yourProfile')} />
         <CardContent>
           <Form onSubmit={this.handleSubmit.bind(this)} model={user}
             updateModel={this.updateModel.bind(this)}

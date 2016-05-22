@@ -18,7 +18,6 @@
     "website": "Hjemmeside",
     "websitePlaceholder": "Din hjemmesides URL-adresse",
     "coverImage": "Coverbillede",
-    "createMaecenate": "Lav Mæcenat"
   },
   "user": {
     "alias": "Alias",
@@ -41,6 +40,8 @@
     "edit": "Rediger",
     "update": "Updater",
     "cancel": "Annuller",
-    "createUser": "Opret Bruger"
+    "createUser": "Opret bruger",
+    "yourProfile": "Din profil",
+    "yourMaecenates": "Dine Mæcenater"
   }
 }
