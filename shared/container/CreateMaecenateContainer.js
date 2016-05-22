@@ -56,7 +56,10 @@ class CreateMaecenateContainer extends Component {
     return (
       <ContentWrapper>
         <Card>
-          <CardTitle title={t('mc.create')} />
+          <CardTitle
+            title={t('mc.create')}
+            style={{paddingBottom: '0'}}
+          />
             <CardContent>
 
             <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
