@@ -1,5 +1,6 @@
 import { startsWith } from 'strman'
 import React, { Component, PropTypes } from 'react'
+import s from './ImageField.scss'
 
 class ImageField extends Component {
 
@@ -38,9 +39,9 @@ class ImageField extends Component {
     const { imagePreviewUrl } = this.state
 
     return (
-      <div>
+      <div className={s.main}>
         { props.label &&
-          <label>{props.label}</label>
+          <label>{props.label} </label>
         }
         <input type='file'
           onChange={this.handleChange.bind(this)} />

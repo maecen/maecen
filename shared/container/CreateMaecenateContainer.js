@@ -97,11 +97,12 @@ class CreateMaecenateContainer extends Component {
               <br />
 
               <ImageField
-              label={t('mc.coverImage')}
+                label={t('mc.coverImage')}
                 path={['cover_url']} />
               <br />
 
               <Button type='submit'
+                style={{marginTop: '16px'}}
                 primary={true}
                 label={t('mc.create')}
                 disabled={this.state.isSubmitting === true} />
