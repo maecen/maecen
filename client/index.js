@@ -28,8 +28,10 @@ const history = syncHistoryWithStore(browserHistory, store)
 let toRender
 const routes = getRoutes(store)
 
+const isTouchDevice = 'ontouchstart' in window
+
 if (process.env.CLIENT && !window.devToolsExtension &&
-  process.env.NODE_ENV !== 'production') {
+  process.env.NODE_ENV !== 'production' && isTouchDevice === false) {
   toRender = (<Provider store={store}>
                 <div>
                   <Router history={history} routes={routes} />
