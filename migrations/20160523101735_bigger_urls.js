@@ -1,15 +1,15 @@
-function modifyMaecenates(str) {
-  return 'ALTER TABLE maecenates MODIFY COLUMN '+ str
+function modifyMaecenates(str, len) {
+  return 'ALTER TABLE maecenates ALTER '+ str +' TYPE varchar('+ len +')
 }
 
 exports.up = function(knex, Promise) {
   const client = knex.client.config.client
 
-  if (client === 'postgres') {
-    return knex.schema.raw(modifyMaecenates('logo_url VARCHAR(255)'))
-      .raw(modifyMaecenates('cover_url VARCHAR(255)'))
-      .raw(modifyMaecenates('title VARCHAR(255)'))
-      .raw(modifyMaecenates('slug VARCHAR(255)'))
+  if (client === 'postgresql') {
+    return knex.schema.raw(modifyMaecenates('logo_url', 255))
+      .raw(modifyMaecenates('cover_url', 255))
+      .raw(modifyMaecenates('title', 100))
+      .raw(modifyMaecenates('slug', 100))
   } else if (client === 'sqlite3') {
     return knex.schema.dropTable('maecenates')
       .createTable('maecenates', function (table) {
