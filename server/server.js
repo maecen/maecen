@@ -97,6 +97,7 @@ const renderFullPage = (html, initialState, i18n) => {
         <title>Mæcen</title>
         <link rel="stylesheet" href=${cssPath} />
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700' rel='stylesheet' type='text/css'>
+        <link rel="apple-touch-icon" href="/app-icon.png">
       </head>
       <body>
         <div id="root">${html}</div>
