@@ -66,7 +66,7 @@ class ProfileContainer extends Component {
       <Card>
         <CardTitle
           title={t('user.yourProfile')}
-          style={{paddingBottom: '0'}}
+          style={{paddingBottom: '0px'}}
         />
         <CardContent>
           <Form onSubmit={this.handleSubmit.bind(this)} model={user}

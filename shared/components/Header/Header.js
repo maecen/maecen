@@ -18,7 +18,7 @@ function Header (props, context) {
     <header className={s.main}>
       <Grid>
         <Link to='/'>
-          <Icon size='4rem'
+          <Icon size='3rem'
             viewBox='0 0 832 687'
             icon='maecen-m-only'
           />

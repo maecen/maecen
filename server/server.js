@@ -95,6 +95,7 @@ const renderFullPage = (html, initialState, i18n) => {
         <!-- TO-DO we need to translate this -->
         <title>Mæcen</title>
         <link rel="stylesheet" href=${cssPath} />
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700' rel='stylesheet' type='text/css'>
       </head>
       <body>
         <div id="root">${html}</div>

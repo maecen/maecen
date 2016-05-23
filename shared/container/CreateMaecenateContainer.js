@@ -58,7 +58,7 @@ class CreateMaecenateContainer extends Component {
         <Card>
           <CardTitle
             title={t('mc.create')}
-            style={{paddingBottom: '0'}}
+            style={{paddingBottom: '0px'}}
           />
             <CardContent>
 

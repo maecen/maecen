@@ -27,6 +27,6 @@ Dialog.propTypes = {
 
 Dialog.defaultProps = {
   titleStyle: {
-    paddingBottom: '0'
+    paddingBottom: '0px'
   }
 }
