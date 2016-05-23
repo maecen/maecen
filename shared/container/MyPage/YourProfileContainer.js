@@ -64,29 +64,29 @@ class ProfileContainer extends Component {
 
     return (
       <Card>
-        <CardTitle title={t('user.profilePage')} />
+        <CardTitle
+          title={t('user.yourProfile')}
+          style={{paddingBottom: '0px'}}
+        />
         <CardContent>
           <Form onSubmit={this.handleSubmit.bind(this)} model={user}
             updateModel={this.updateModel.bind(this)}
             errors={this.state.errors}
           >
             <Row>
-              <Col sm={6} xs={12}>
+              <Col xs={12} sm={6} lg={3}>
                 <TextField
                   path={['first_name']}
                   placeholder={t('user.firstName')}
                   disabled={!isEdit} />
               </Col>
-              <Col sm={6} xs={12}>
+              <Col xs={12} sm={6} lg={3}>
                 <TextField
                   path={['last_name']}
                   placeholder={t('user.lastName')}
                   disabled={!isEdit} />
               </Col>
-            </Row>
-
-            <Row>
-              <Col xs={12}>
+              <Col xs={12} lg={6}>
                 <TextField
                   path={['email']}
                   placeholder={t('user.email')}
@@ -95,28 +95,25 @@ class ProfileContainer extends Component {
             </Row>
 
             <Row>
-              <Col sm={6} xs={12}>
+              <Col xs={12} sm={6} lg={3}>
                 <TextField
                   path={['alias']}
                   placeholder={t('user.alias')}
                   disabled={!isEdit} />
               </Col>
-              <Col sm={6} xs={12}>
+              <Col xs={12} sm={6} lg={3}>
                 <TextField
                   path={['phoneNumber']}
                   placeholder={t('user.phoneNumber')}
                   disabled={!isEdit} />
               </Col>
-            </Row>
-
-            <Row>
-              <Col sm={6} xs={12}>
+              <Col xs={12} sm={6} lg={3}>
                 <TextField
                   path={['country']}
                   placeholder={t('user.country')}
                   disabled={!isEdit} />
               </Col>
-              <Col sm={6} xs={12}>
+              <Col xs={12} sm={6} lg={3}>
                 <TextField
                   path={['zipCode']}
                   placeholder={t('user.zip')}
@@ -124,8 +121,8 @@ class ProfileContainer extends Component {
               </Col>
             </Row>
 
-            <Row>
-              <Col sm={6} xs={12}>
+            <Row style={{marginTop: '16px'}}>
+              <Col xs={12}>
                 { isEdit === false
                   ? <Button type='button'
                       onClick={this.toggleEdit.bind(this)}

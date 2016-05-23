@@ -17,8 +17,7 @@
     "descriptionPlaceholder": "Beskrivelse af Mæcenatet",
     "website": "Hjemmeside",
     "websitePlaceholder": "Din hjemmesides URL-adresse",
-    "coverImage": "Coverbillede",
-    "createMaecenate": "Lav Mæcenat"
+    "coverImage": "Coverbillede"
   },
   "user": {
     "alias": "Alias",
@@ -41,6 +40,21 @@
     "edit": "Rediger",
     "update": "Updater",
     "cancel": "Annuller",
-    "createUser": "Opret Bruger"
+    "createUser": "Opret bruger",
+    "yourProfile": "Din profil",
+    "yourMaecenates": "Dine Mæcenater"
+  },
+  "validationError": {
+    "alreadyTaken": "Dette bruges desværre allerede af en anden",
+    "alreadyTaken_email": "Denne email er allerede i brug",
+    "alreadyTaken_title": "Denne titel er allerede i brug",
+    "stringEmail": "Du skal indtaste en valid email",
+    "anyRequired": "Dette skal udfyldes",
+    "stringMin": "Du skal skrive mindst {{limit}} tegn",
+    "stringMax": "Du må ikke skrive mere end {{limit}} tegn"
+  },
+  "error": {
+    "noUserWithEmail": "Der eksisterer ingen bruger med denne email",
+    "passwordIncorrect": "Dette password passer ikke til den email"
   }
 }

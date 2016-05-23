@@ -17,8 +17,7 @@
     "descriptionPlaceholder": "Description of the Maecenate",
     "website": "Website",
     "websitePlaceholder": "Your website URL address",
-    "coverImage": "Cover image",
-    "createMaecenate": "Create Maecenate"
+    "coverImage": "Cover image"
   },
   "user": {
     "alias": "Alias",
@@ -42,7 +41,7 @@
     "update": "Update",
     "cancel": "Cancel",
     "createUser": "Create User",
-    "profilePage": "Your Profile",
+    "yourProfile": "Your Profile",
     "yourMaecenates": "Your Maecenates"
   },
   "validationError": {
