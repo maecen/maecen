@@ -10,14 +10,14 @@ const SALT_WORK_FACTOR = 10
 
 const schema = {
   id: Joi.string().guid(),
-  first_name: Joi.string().allow(null),
-  last_name: Joi.string().allow(null),
+  first_name: Joi.string().required(),
+  last_name: Joi.string().required(),
   email: Joi.string().lowercase().email().required(),
   password: Joi.string().required(),
-  alias: Joi.string().allow(null),
-  phone_number: Joi.string().allow(null),
-  country: Joi.string().allow(null),
-  zip_code: Joi.string().allow(null)
+  alias: Joi.string().allow(null, ''),
+  phone_number: Joi.string().allow(null, ''),
+  country: Joi.string().allow(null, ''),
+  zip_code: Joi.string().allow(null, '')
 }
 
 const User = bookshelf.Model.extend({

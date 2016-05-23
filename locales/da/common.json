@@ -50,6 +50,7 @@
     "alreadyTaken_title": "Denne titel er allerede i brug",
     "stringEmail": "Du skal indtaste en valid email",
     "anyRequired": "Dette skal udfyldes",
+    "anyEmpty": "Dette skal udfyldes",
     "stringMin": "Du skal skrive mindst {{limit}} tegn",
     "stringMax": "Du må ikke skrive mere end {{limit}} tegn"
   },
