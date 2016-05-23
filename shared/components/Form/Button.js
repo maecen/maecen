@@ -26,7 +26,8 @@ Button.defaultProps = {
     marginRight: '.5rem'
   },
   labelStyle: {
-    letterSpacing: '0.1rem'
+    letterSpacing: '0.1rem',
+    padding: '12px'
   }
 }
 
