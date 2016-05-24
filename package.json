@@ -13,7 +13,7 @@
     "build": "node_modules/.bin/cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "clean": "rimraf static/dist",
     "slate": "rimraf node_modules && npm install",
-    "lint": "node_modules/.bin/eslint client server shared",
+    "lint": "node_modules/.bin/eslint client server shared migrations tests",
     "postinstall": "npm run build"
   },
   "pre-commit": [
