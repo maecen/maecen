@@ -32,8 +32,8 @@ class YourMaecenatesContainer extends Component {
       <Card>
         <CardTitle title={t('user.yourMaecenates')} />
         <List>
-          {maecenates.map((maecenate) => (
-            <div>
+          {maecenates.map((maecenate, i) => (
+            <div key={i}>
               <ListItem
                 primaryText={maecenate.title}
                 onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
