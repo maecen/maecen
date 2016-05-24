@@ -1,8 +1,9 @@
-function modifyMaecenates(str, len) {
-  return 'ALTER TABLE maecenates ALTER '+ str +' TYPE varchar('+ len +')
+function modifyMaecenates (str, len) {
+  len = String(len)
+  return 'ALTER TABLE maecenates ALTER ' + str + ' TYPE varchar(' + len + ')'
 }
 
-exports.up = function(knex, Promise) {
+exports.up = function (knex, Promise) {
   const client = knex.client.config.client
 
   if (client === 'postgresql') {
@@ -24,8 +25,28 @@ exports.up = function(knex, Promise) {
         table.string('url', 255)
       })
   }
-};
+}
 
-exports.down = function(knex, Promise) {
-  //
-};
+exports.down = function (knex, Promise) {
+  const client = knex.client.config.client
+
+  if (client === 'postgresql') {
+    return knex.schema.raw(modifyMaecenates('logo_url', 100))
+      .raw(modifyMaecenates('cover_url', 100))
+      .raw(modifyMaecenates('title', 50))
+      .raw(modifyMaecenates('slug', 50))
+  } else if (client === 'sqlite3') {
+    return knex.schema.dropTable('maecenates')
+      .createTable('maecenates', function (table) {
+        table.uuid('id').primary()
+        table.string('title', 50).unique()
+        table.string('slug', 50).unique()
+        table.uuid('creator').references('users.id')
+        table.string('logo_url', 100)
+        table.string('cover_url', 100)
+        table.string('teaser', 140)
+        table.text('description')
+        table.string('url', 255)
+      })
+  }
+}
