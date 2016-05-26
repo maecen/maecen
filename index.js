@@ -16,4 +16,4 @@ hook({
 })
 
 
-require('./server/server');
+module.exports = require('./server/server').default;

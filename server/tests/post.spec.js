@@ -1,165 +1,98 @@
-/* eslint-disable */
+import app from '../../index'
+import { knex } from '../database'
+import request from 'supertest-as-promised'
+import test from 'ava'
+import Maecenate from '../models/maecenate'
+import User from '../models/user'
+import Post from '../models/post'
 
-import mocha from 'mocha';
-import app from '../server';
-import chai from 'chai';
-import request from 'supertest';
-import mongoose from 'mongoose';
-import Post from '../models/post';
-
-const expect = chai.expect;
-
-function connectDB(done) {
-  if (mongoose.connection.name !== 'mern-test') {
-    return done();
-  }
-
-  mongoose.connect((process.env.MONGO_URL || 'mongodb://localhost:27017/mern-test'), function (err) {
-    if (err) return done(err);
-    done();
-  });
+const userId = '7965a310-20f1-11e6-b599-5b176d8b99fd'
+const base = {
+  'Authorization': 'Token ' + User.createToken(userId)
 }
 
-function dropDB(done) {
-  if (mongoose.connection.name !== 'mern-test') {
-    return done();
-  }
-
-  mongoose.connection.db.dropDatabase(function (err) {
-    mongoose.connection.close(done);
-  });
-}
-
-describe('GET /api/getPosts', function () {
-
-  beforeEach('connect and add two post entries', function (done) {
-
-    connectDB(function () {
-      var post1 = new Post({name: 'Prashant', title: 'Hello Mern', content: "All cats meow 'mern!'"});
-      var post2 = new Post({name: 'Mayank', title: 'Hi Mern', content: "All dogs bark 'mern!'"});
-
-      Post.create([post1, post2], function (err, saved) {
-        done();
-      });
-    });
-  });
-
-  afterEach(function (done) {
-    dropDB(done);
-  });
-
-  it('Should correctly give number of Posts', function (done) {
-
-    request(app)
-      .get('/api/getPosts')
-      .set('Accept', 'application/json')
-      .end(function (err, res) {
-        Post.find().exec(function (err, posts) {
-          expect(posts.length).to.equal(res.body.posts.length);
-          done();
-        });
-      });
-  });
-});
-
-describe('GET /api/getPost', function () {
-
-  beforeEach('connect and add one Post entry', function(done){
-
-    connectDB(function () {
-      var post = new Post({ name: 'Foo', title: 'bar', slug: 'bar', cuid: 'f34gb2bh24b24b2', content: 'Hello Mern says Foo' });
-
-      post.save(function (err, saved) {
-        done();
-      });
-    });
-  });
-
-  afterEach(function (done) {
-    dropDB(done);
-  });
-
-  it('Should send correct data when queried against a title', function (done) {
-
-    request(app)
-      .get('/api/getPost?slug=bar-f34gb2bh24b24b2')
-      .set('Accept', 'application/json')
-      .end(function (err, res) {
-        Post.findOne({ cuid: 'f34gb2bh24b24b2' }).exec(function (err, post) {
-          expect(post.name).to.equal('Foo');
-          done();
-        });
-      });
-  });
-
-});
-
-describe('POST /api/addPost', function () {
-
-  beforeEach('connect and add a post', function (done) {
-
-    connectDB(function () {
-      done();
-    });
-  });
-
-  afterEach(function (done) {
-    dropDB(done);
-  });
-
-  it('Should send correctly add a post', function (done) {
-
-    request(app)
-      .post('/api/addPost')
-      .send({ post: { name: 'Foo', title: 'bar', content: 'Hello Mern says Foo' } })
-      .set('Accept', 'application/json')
-      .end(function (err, res) {
-        Post.findOne({ title: 'bar' }).exec(function (err, post) {
-          expect(post.name).to.equal('Foo');
-          done();
-        });
-      });
-  });
-
-});
-
-describe('POST /api/deletePost', function () {
-  var postId;
-
-  beforeEach('connect and add one Post entry', function(done){
-
-    connectDB(function () {
-      var post = new Post({ name: 'Foo', title: 'bar', slug: 'bar', cuid: 'f34gb2bh24b24b2', content: 'Hello Mern says Foo' });
-
-      post.save(function (err, saved) {
-        postId = saved._id;
-        done();
-      });
-    });
-  });
-
-  afterEach(function (done) {
-    dropDB(done);
-  });
-
-  it('Should connect and delete a post', function (done) {
-
-    // Check if post is saved in DB
-    Post.findById(postId).exec(function (err, post) {
-      expect(post.name).to.equal('Foo')
-    });
-
-    request(app)
-      .post('/api/deletePost')
-      .send({ postId: postId})
-      .set('Accept', 'application/json')
-      .end(function () {
-
-        // Check if post is removed from DB
-        Post.findById(postId).exec(function (err, post) {
-          expect(post).to.equal(null);
-          done();
-        });
-      });
+test.beforeEach(t =>
+  knex.migrate.latest().then(() => {
+    let user = new User({
+      id: userId,
+      first_name: 'John',
+      last_name: 'Doe',
+      email: 'john@doe.com',
+      password: 'password'
+    })
+    return user.save(null, { method: 'insert' })
   })
-});
+)
+test.afterEach(t => knex.migrate.rollback())
+
+function createDummyMaecenate (creator) {
+  let maecenate = new Maecenate({
+    title: 'dummy maecenate',
+    creator: creator || userId
+  })
+  maecenate.generateId()
+  return maecenate.save(null, { method: 'insert', force: true })
+}
+
+function createDummyPost (nr, maecenate) {
+  let post = new Post({
+    title: 'Some title' + nr,
+    content: 'some content' + nr,
+    maecenate: maecenate,
+    author: userId
+  })
+  post.generateId()
+  return post.save(null, { method: 'insert' })
+}
+
+test('POST /api/createPost', async t => {
+  const maecenate = await createDummyMaecenate()
+
+  const data = {
+    title: 'Some title',
+    content: 'Some content for the article which is a bit longer than the title',
+    maecenate: maecenate.id
+  }
+
+  const res = await request(app)
+    .post('/api/createPost')
+    .set(base)
+    .send({ post: data })
+
+  t.falsy(res.body.errors)
+  t.is(res.status, 200)
+  const entityId = res.body.result[0]
+  t.is(res.body.entities.posts[entityId].title, data.title)
+})
+
+test('POST /api/createPost for non owners', async t => {
+  const maecenate = await createDummyMaecenate('userid')
+
+  const data = {
+    title: 'Some title',
+    content: 'Some content for the article which is a bit longer than the title',
+    maecenate: maecenate.id
+  }
+
+  const res = await request(app)
+    .post('/api/createPost')
+    .set(base)
+    .send({ post: data })
+
+  t.truthy(res.body.errors)
+  t.is(res.status, 401)
+})
+
+test('GET /api/getMaecenatePosts', async t => {
+  const maecenate = await createDummyMaecenate()
+
+  await createDummyPost(1, maecenate.id)
+  await createDummyPost(2, maecenate.id)
+
+  const res = await request(app)
+    .get(`/api/getMaecenatePosts/${maecenate.get('slug')}`)
+    .expect(200)
+
+  t.is(res.body.result.length, 2)
+})
+

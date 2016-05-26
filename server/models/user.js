@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken'
+import * as config from '../../shared/config'
 import { promisify } from 'bluebird'
 import bcrypt from 'bcrypt-nodejs'
 import Joi from 'joi'
@@ -90,6 +92,11 @@ User.authenticate = function (email, password) {
     }
     return user
   })
+}
+
+User.createToken = function (id, expiresIn) {
+  expiresIn = expiresIn || 60 * 60 * 24 * 30 // 30 days
+  return jwt.sign({ userId: id }, config.jwt.secret, { expiresIn })
 }
 
 export default User

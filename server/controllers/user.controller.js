@@ -1,6 +1,4 @@
-import jwt from 'jsonwebtoken'
 import { normalizeResponse } from '../util/ctrlHelpers'
-import * as config from '../../shared/config'
 import User from '../models/user'
 
 export function createUser (req, res, next) {
@@ -66,6 +64,6 @@ export function setUserLanguage (req, res, next) {
 
 function createUserAuthTokenInRes (user, res) {
   const expiresIn = 60 * 60 * 24 * 30 // 30 days
-  const token = jwt.sign({ userId: user.id }, config.jwt.secret, { expiresIn })
+  const token = User.createToken(user.id, expiresIn)
   res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true })
 }

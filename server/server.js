@@ -74,7 +74,14 @@ app.use(Express.static(path.resolve(__dirname, '../static')))
 app.use(expressJwt({
   secret: config.jwt.secret,
   credentialsRequired: false,
-  getToken: req => req.cookies.id_token
+  getToken: req => {
+    if (req.cookies.id_token) {
+      return req.cookies.id_token
+    } else if (req.headers.authorization) {
+      return req.headers.authorization.replace(/^Token /, '')
+    }
+    return null
+  }
 }))
 
 //
@@ -192,11 +199,18 @@ app.use((req, res, next) => {
   }).catch(next)
 })
 
-// start app
-app.listen(config.port, (error) => {
-  if (!error) {
-    console.log(`Maecen is running on port: ${config.port}! Build something amazing!`); // eslint-disable-line
-  }
+// Unhandled rejection error handler
+process.on('unhandledRejection', function (reason, promise) {
+  console.log('Possibly Unhandled Rejection', reason.stack) // eslint-disable-line
 })
+
+// start app
+if (process.env.NODE_ENV !== 'testing') {
+  app.listen(config.port, (error) => {
+    if (!error) {
+      console.log(`Maecen is running on port: ${config.port}! Build something amazing!`); // eslint-disable-line
+    }
+  })
+}
 
 export default app
