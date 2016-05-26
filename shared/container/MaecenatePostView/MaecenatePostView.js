@@ -47,7 +47,7 @@ class MaecenatePostView extends Component {
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })
         dispatch(Actions.createMaecenatePostSuccess(data))
-        browserHistory.push(`/maecenate/${maecenate.slug}`)
+        browserHistory.push(`/maecenate/${maecenate.slug}/content`)
       }).catch((res) => {
         this.setState({ errors: null })
         this.setState({ errors: res.data.errors, isSubmitting: false })
