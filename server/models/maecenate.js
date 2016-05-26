@@ -33,7 +33,7 @@ const Maecenate = bookshelf.Model.extend({
   },
 
   validate (model, attrs, options) {
-    if (options.force === true) {
+    if (options && options.force === true) {
       return true
     }
 
