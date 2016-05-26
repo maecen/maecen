@@ -32,9 +32,11 @@ class CreateMaecenateContainer extends Component {
   handleSubmit (e) {
     e.preventDefault()
     const { dispatch } = this.props
-    const { maecenate } = this.state
+    const { maecenate: data } = this.state
 
     this.setState({ isSubmitting: true })
+
+    const maecenate = data.set('url', data.url.replace(/https?:\/\//i, ''))
 
     axios.post('/api/createMaecenate', { maecenate })
       .then(res => res.data)
