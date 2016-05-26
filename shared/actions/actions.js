@@ -129,6 +129,34 @@ export function changeLanguage (lang) {
   }
 }
 
+export function createMaecenatePostSuccess (data) {
+  return (dispatch) => {
+    dispatch(updateEntities(data.entities))
+  }
+}
+
+function setPosts (ids, entities) {
+  return {
+    type: ActionTypes.SET_POSTS,
+    ids,
+    entities
+  }
+}
+
+function fetchMaecenatePostsSuccess (data) {
+  const ids = data.result
+  return setPosts(ids, data.entities)
+}
+
+export function fetchMaecenatePosts (slug) {
+  return (dispatch) => {
+    dispatch(setPosts([], null))
+    return axios.get(`${baseURL}/getMaecenatePosts/${slug}`)
+      .then(res => res.data)
+      .then(data => dispatch(fetchMaecenatePostsSuccess(data)))
+      .catch(err => console.log(err.stack))
+  }
+}
 /*
 
 export function addPost(post) {

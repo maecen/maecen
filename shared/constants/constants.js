@@ -7,3 +7,5 @@ export const UPDATE_ENTITIES = 'UPDATE_ENTITIES'
 
 export const SET_MAECENATE = 'SET_MAECENATE'
 export const SET_MAECENATE_LIST = 'SET_MAECENATE_LIST'
+
+export const SET_POSTS = 'SET_POSTS'

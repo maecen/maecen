@@ -32,7 +32,11 @@ const Maecenate = bookshelf.Model.extend({
     }
   },
 
-  validate () {
+  validate (model, attrs, options) {
+    if (options.force === true) {
+      return true
+    }
+
     return joiValidation(this.toJSON(true), schema)
       .then(() => {
         if (this.hasChanged('email') === true) {
@@ -52,5 +56,10 @@ const Maecenate = bookshelf.Model.extend({
     }
   }
 })
+
+Maecenate.isUserOwner = function (id, userId) {
+  return Maecenate.where({ id, creator: userId }).count()
+    .then(count => count > 0)
+}
 
 export default Maecenate

@@ -123,9 +123,15 @@ const renderError = err => {
 app.use((req, res, next) => {
   let initialState = {
     app: {
-      requireAuthorization: false
+      requireAuthorization: false,
+      maecenate: null,
+      posts: []
     },
-    entities: { users: {} }
+    entities: {
+      users: {},
+      maecenates: {},
+      posts: {}
+    }
   }
 
   return Promise.resolve().then(() => {

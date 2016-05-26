@@ -11,5 +11,3 @@ export default function MyPageView () {
     </ContentWrapper>
   )
 }
-
-export default MyPageView
