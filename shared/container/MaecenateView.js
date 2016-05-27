@@ -5,6 +5,7 @@ import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import {
   getMaecenateBySlug,
+  isAuthUserMaecenateOwner
 } from '../selectors/maecenate.selectors'
 import * as Actions from '../actions/actions'
 import Button from '../components/Form/Button'
@@ -35,7 +36,7 @@ class MaecenateView extends Component {
   }
 
   render () {
-    const { maecenate } = this.props
+    const { maecenate, isAuthUserOwner } = this.props
 
     return (
       <ContentWrapper>
@@ -82,6 +83,7 @@ MaecenateView.need = [(params) => {
 function mapStateToProps (state, props) {
   return {
     maecenate: getMaecenateBySlug(state, props),
+    isAuthUserOwner: isAuthUserMaecenateOwner(state, props)
   }
 }
 
