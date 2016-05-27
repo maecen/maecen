@@ -109,6 +109,7 @@
     "react-addons-test-utils": "^15.0.1",
     "react-transform-hmr": "^1.0.1",
     "rimraf": "^2.5.1",
+    "supertest": "^1.2.0",
     "supertest-as-promised": "^3.1.0",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.6.4"

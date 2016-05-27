@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import Icon from '../components/Graphics/Icon'
 import Button from '../components/Form/Button'
 import s from './HomeContainer.scss'
-
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
 
 class HomeContainer extends Component {
   render () {

@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 
 import * as Actions from '../../actions/actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate.selectors'
 import { getPosts } from '../../selectors/post.selectors'
 
+import { Card, CardTitle } from '../../components/Card'
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
-import { Card, CardContent, CardTitle } from '../../components/Card'
+import Button from '../../components/Form/Button'
+import Post from '../../components/Post/Post'
 
 class MaecenateContentView extends Component {
 
   constructor (props) {
     super(props)
     this.createPost = this.createPost.bind(this)
+    this.gotoMaecenate = this.gotoMaecenate.bind(this)
   }
 
   componentDidMount () {
@@ -27,25 +31,28 @@ class MaecenateContentView extends Component {
     browserHistory.push(`/maecenate/${slug}/new-post`)
   }
 
+  gotoMaecenate () {
+    const { slug } = this.props.params
+    browserHistory.push(`/maecenate/${slug}`)
+  }
+
   render () {
-    const { maecenate, posts } = this.props
+    const { maecenate, posts, t } = this.props
 
     return (
       <ContentWrapper>
         {maecenate && posts
           ? <div>
-              <h2>{maecenate.title}</h2>
+              <Card>
+                <CardTitle big={true} title={maecenate.title} />
+              </Card>
               {posts.map(post => (
-                <Card key={post.id}>
-                  <CardTitle title={post.title} />
-                  <CardContent>
-                    {post.content}
-                  </CardContent>
-                </Card>
+                <Post post={post} />
               ))}
             </div>
           : <div>Loading...</div>
         }
+        <Button primary={true} label={t('backTo') + maecenate.title} onClick={this.gotoMaecenate} />
       </ContentWrapper>
     )
   }
@@ -64,5 +71,6 @@ function mapStateToProps (state, props) {
   }
 }
 
-export default connect(mapStateToProps)(MaecenateContentView)
-
+export default translate(['common'])(
+ connect(mapStateToProps)(MaecenateContentView)
+)
