@@ -21,7 +21,7 @@
     "coverImage": "Cover image"
   },
   "post": {
-    "create": "Create New Post",
+    "create": "Create New Post"
   },
   "user": {
     "alias": "Alias",
