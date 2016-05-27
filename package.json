@@ -84,6 +84,7 @@
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.4",
     "redux-thunk": "^1.0.3",
+    "reselect": "^2.5.1",
     "sanitize-html": "^1.11.3",
     "seamless-immutable": "^6.1.0",
     "serialize-javascript": "^1.2.0",

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
-import * as Actions from '../../actions/actions'
 
+import * as Actions from '../../actions/actions'
+import { getMaecenateBySlug } from '../../selectors/maecenate.selectors'
+import { getPosts } from '../../selectors/post.selectors'
+
+import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import { Card, CardContent, CardTitle } from '../../components/Card'
 
 class MaecenateContentView extends Component {
@@ -54,14 +57,10 @@ MaecenateContentView.need = [(params) => {
   return Actions.fetchMaecenatePosts(params.slug)
 }]
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const maecenate = entities.maecenates[app.maecenate] || null
-  const posts = app.posts.map(id => entities.posts[id])
-
+function mapStateToProps (state, props) {
   return {
-    maecenate,
-    posts
+    maecenate: getMaecenateBySlug(state, props),
+    posts: getPosts(state, props)
   }
 }
 

@@ -3,6 +3,9 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
+import {
+  getMaecenateBySlug,
+} from '../selectors/maecenate.selectors'
 import * as Actions from '../actions/actions'
 import Button from '../components/Form/Button'
 
@@ -54,7 +57,9 @@ class MaecenateView extends Component {
                     </a>
                   </p>
                 }
-                <Button label='Create Post' onClick={this.createPost} />
+                {isAuthUserOwner &&
+                  <Button label='Create Post' onClick={this.createPost} />
+                }
                 <Button label='See Content' onClick={this.gotoContent} />
               </Col>
               <Col xs={10}>
@@ -74,11 +79,10 @@ MaecenateView.need = [(params) => {
   return Actions.fetchMaecenate(params.slug)
 }]
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const maecenate = entities.maecenates[app.maecenate] || null
-
-  return { maecenate }
+function mapStateToProps (state, props) {
+  return {
+    maecenate: getMaecenateBySlug(state, props),
+  }
 }
 
 export default connect(mapStateToProps)(MaecenateView)

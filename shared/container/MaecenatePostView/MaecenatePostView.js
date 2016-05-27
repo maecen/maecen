@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable'
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../../actions/actions'
 
+import { getMaecenateBySlug } from '../../selectors/maecenate.selectors'
 import { Card, CardContent, CardTitle, CardActions } from '../../components/Card'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
@@ -98,11 +99,10 @@ MaecenatePostView.need = [(params) => {
   return Actions.fetchMaecenate(params.slug)
 }]
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const maecenate = entities.maecenates[app.maecenate] || null
-
-  return { maecenate }
+function mapStateToProps (state, props) {
+  return {
+    maecenate: getMaecenateBySlug(state, props)
+  }
 }
 
 export default connect(mapStateToProps)(MaecenatePostView)
