@@ -10,7 +10,7 @@ function MaecenateCard (props, context) {
   const coverStyle = { backgroundImage: `url(${coverUrl})` }
 
   return (
-    <Card onClick={onClick}>
+    <Card onClick={onClick} className={s.main}>
       <div className={s.header}>
         <img src={logoUrl} className={s.logo} />
         <h4 className={s.title}>{title}</h4>
