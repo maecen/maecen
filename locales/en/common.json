@@ -8,6 +8,7 @@
   "changeLanguage": "Change Language",
   "logo": "Logo",
   "title": "Title",
+  "backTo": "Back to: ",
   "mc": {
     "create": "Create Maecenate",
     "seeAll": "See all Maecenates",
@@ -18,6 +19,9 @@
     "website": "Website",
     "websitePlaceholder": "Your website URL address",
     "coverImage": "Cover image"
+  },
+  "post": {
+    "create": "Create New Post",
   },
   "user": {
     "alias": "Alias",

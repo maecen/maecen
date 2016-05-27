@@ -8,6 +8,7 @@
   "changeLanguage": "Skift sprog",
   "logo": "Logo",
   "title": "Titel",
+  "backTo": "Tilbage til: ",
   "mc": {
     "create": "Opret Mæcenat",
     "seeAll": "Se alle Mæcenater",
@@ -18,6 +19,9 @@
     "website": "Hjemmeside",
     "websitePlaceholder": "Din hjemmesides URL-adresse",
     "coverImage": "Coverbillede"
+  },
+  "post": {
+    "create": "Opret Nyt Indlæg",
   },
   "user": {
     "alias": "Alias",
