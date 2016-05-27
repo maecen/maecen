@@ -62,12 +62,14 @@ if (process.env.NODE_ENV === 'production') {
 // Express middleware: Apply body Parser and server public assets and routes
 //
 app.use(i18nMiddleware.handle(i18n))
-app.use(morgan('dev'))
 app.use(cookieParser())
 app.use(bodyParser.json({ limit: '20mb' }))
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }))
 app.use(Express.static(path.resolve(__dirname, '../static')))
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 //
 // Authentication
 //
