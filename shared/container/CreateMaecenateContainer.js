@@ -36,7 +36,7 @@ class CreateMaecenateContainer extends Component {
 
     this.setState({ isSubmitting: true })
 
-    const maecenate = data.set('url', data.url.replace(/https?:\/\//i, ''))
+    const maecenate = data.set('url', (data.url || '').replace(/https?:\/\//i, ''))
 
     axios.post('/api/createMaecenate', { maecenate })
       .then(res => res.data)

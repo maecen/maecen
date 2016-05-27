@@ -15,7 +15,7 @@ const schema = {
   cover_url: Joi.string().required(),
   teaser: Joi.string().min(10).max(140).required(),
   description: Joi.string().min(30).required(),
-  url: Joi.string().regex(urlRegex).allow(null)
+  url: Joi.string().regex(urlRegex).allow(null, '')
 }
 
 const Maecenate = bookshelf.Model.extend({
