@@ -23,7 +23,7 @@ test.beforeEach(t =>
     return user.save(null, { method: 'insert' })
   })
 )
-test.afterEach(t => knex.migrate.rollback())
+test.afterEach.always(t => knex.migrate.rollback())
 
 function createDummyMaecenate (creator) {
   let maecenate = new Maecenate({

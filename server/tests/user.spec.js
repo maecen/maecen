@@ -4,7 +4,7 @@ import request from 'supertest-as-promised'
 import test from 'ava'
 
 test.beforeEach(t => knex.migrate.latest())
-test.afterEach(t => knex.migrate.rollback())
+test.afterEach.always(t => knex.migrate.rollback())
 
 test('POST /api/createUser', async t => {
   const data = {

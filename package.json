@@ -6,7 +6,7 @@
     "migrate:latest": "./node_modules/.bin/knex migrate:latest",
     "migrate:rollback": "./node_modules/.bin/knex migrate:rollback",
     "test": "",
-    "test:server": "node_modules/.bin/cross-env NODE_ENV=testing PORT=3040 node_modules/.bin/ava ./server/tests/*.js --serial",
+    "test:server": "node_modules/.bin/cross-env NODE_ENV=testing PORT=3040 node_modules/.bin/ava ./server/tests/*.spec.js --serial",
     "start": "node_modules/.bin/cross-env NODE_ENV=development nodemon index.js",
     "start:prod": "node_modules/.bin/cross-env NODE_ENV=production node index.js",
     "bs": "npm run migrate:latest && npm run start:prod",
@@ -96,7 +96,7 @@
     "webpack": "^1.12.12"
   },
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^0.15.1",
     "dotenv": "^2.0.0",
     "eslint": "^2.9.0",
     "eslint-config-standard": "^5.3.1",
