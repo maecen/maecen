@@ -7,6 +7,7 @@ import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../../actions/actions'
 
 import { getMaecenateBySlug } from '../../selectors/maecenate.selectors'
+import { getAuthUser } from '../../selectors/user.selectors'
 import { Card, CardContent, CardTitle, CardActions } from '../../components/Card'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
@@ -25,13 +26,27 @@ class CreatePostView extends Component {
     }
   }
 
+  componentDidMount () {
+    const { dispatch, params } = this.props
+    dispatch(this.constructor.need[0](params))
+    this.setAuthorAlias(this.props)
+  }
+
   updateModel (path, value) {
     this.setState({ post: this.state.post.setIn(path, value) })
   }
 
-  componentDidMount () {
-    const { dispatch, params } = this.props
-    dispatch(this.constructor.need[0](params))
+  setAuthorAlias (props) {
+    // We set the author_alias if it's not set but the user has a default
+    if (!this.state.author_alias) {
+      this.setState({
+        post: this.state.post.set('author_alias', getDefaultAlias(props))
+      })
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setAuthorAlias(nextProps)
   }
 
   handleSubmit (e) {
@@ -48,6 +63,7 @@ class CreatePostView extends Component {
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })
         dispatch(Actions.createMaecenatePostSuccess(data))
+        setDefaultAlias(this.props, post.author_alias)
         browserHistory.push(`/maecenate/${maecenate.slug}/content`)
       }).catch((res) => {
         this.setState({ errors: null })
@@ -65,7 +81,7 @@ class CreatePostView extends Component {
           ? <Card>
               <CardTitle title='Create new post' />
               <Form onSubmit={this.handleSubmit} model={post}
-                updateModel={this.updateModel}>
+                updateModel={this.updateModel} errors={this.state.errors}>
                 <CardContent>
 
                     <TextField
@@ -77,6 +93,11 @@ class CreatePostView extends Component {
                       placeholder='Post content'
                       multiLine={true}
                       rows={2} />
+
+                    <TextField
+                      path={['author_alias']}
+                      placeholder='Alias'
+                      fullWidth={false} />
 
                 </CardContent>
                 <CardActions>
@@ -99,9 +120,31 @@ CreatePostView.need = [(params) => {
   return Actions.fetchMaecenate(params.slug)
 }]
 
+function getDefaultAlias (props) {
+  const { authUser, maecenate: { id } } = props
+  let alias = null
+  if (window && window.localStorage) {
+    alias = window.localStorage.getItem(`alias-for-${id}`, alias)
+  }
+
+  if (!alias && authUser && authUser.alias) {
+    alias = authUser.alias
+  }
+
+  return alias
+}
+
+function setDefaultAlias (props, alias) {
+  const { maecenate: { id } } = props
+  if (window && window.localStorage) {
+    window.localStorage.setItem(`alias-for-${id}`, alias)
+  }
+}
+
 function mapStateToProps (state, props) {
   return {
-    maecenate: getMaecenateBySlug(state, props)
+    maecenate: getMaecenateBySlug(state, props),
+    authUser: getAuthUser(state, props)
   }
 }
 

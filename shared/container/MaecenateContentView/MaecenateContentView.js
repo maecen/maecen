@@ -47,7 +47,7 @@ class MaecenateContentView extends Component {
                 <CardTitle big={true} title={maecenate.title} />
               </Card>
               {posts.map(post => (
-                <Post post={post} />
+                <Post post={post} key={post.id} />
               ))}
             </div>
           : <div>Loading...</div>

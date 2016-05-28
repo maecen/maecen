@@ -39,10 +39,12 @@ function createDummyPost (nr, maecenate) {
     title: 'Some title' + nr,
     content: 'some content' + nr,
     maecenate: maecenate,
-    author: userId
+    author_alias: 'John',
+    author: userId,
+    created_at: Date.now() + nr * 1000
   })
   post.generateId()
-  return post.save(null, { method: 'insert' })
+  return post.save(null, { method: 'insert', force: true })
 }
 
 test('POST /api/createPost', async t => {
@@ -51,7 +53,8 @@ test('POST /api/createPost', async t => {
   const data = {
     title: 'Some title',
     content: 'Some content for the article which is a bit longer than the title',
-    maecenate: maecenate.id
+    maecenate: maecenate.id,
+    author_alias: 'John'
   }
 
   const res = await request(app)
@@ -86,13 +89,15 @@ test('POST /api/createPost for non owners', async t => {
 test('GET /api/getMaecenatePosts', async t => {
   const maecenate = await createDummyMaecenate()
 
-  await createDummyPost(1, maecenate.id)
-  await createDummyPost(2, maecenate.id)
+  const post1 = await createDummyPost(1, maecenate.id)
+  const post2 = await createDummyPost(2, maecenate.id)
 
   const res = await request(app)
     .get(`/api/getMaecenatePosts/${maecenate.get('slug')}`)
     .expect(200)
 
   t.is(res.body.result.length, 2)
+  // Make sure the order of the posts are returned descending by created_at
+  t.deepEqual(res.body.result, [post2.id, post1.id])
 })
 

@@ -21,7 +21,8 @@
     "coverImage": "Cover image"
   },
   "post": {
-    "create": "Create New Post"
+    "create": "Create New Post",
+    "writtenByAlias": "Written by: {{alias}}"
   },
   "user": {
     "alias": "Alias",

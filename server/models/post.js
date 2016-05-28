@@ -8,7 +8,7 @@ const schema = {
   title: Joi.string().required(),
   maecenate: Joi.string().guid().required(),
   author: Joi.string().guid().required(),
-  // author_alias: Joi.string().required(),
+  author_alias: Joi.string().required(),
   content: Joi.string().required()
 }
 
@@ -25,7 +25,11 @@ const Post = bookshelf.Model.extend({
     }
   },
 
-  validate () {
+  validate (model, attrs, options) {
+    if (options && options.force === true) {
+      return true
+    }
+
     return joiValidation(this.toJSON(true), schema)
   }
 })

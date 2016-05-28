@@ -21,7 +21,8 @@
     "coverImage": "Coverbillede"
   },
   "post": {
-    "create": "Opret Nyt Indlæg"
+    "create": "Opret Nyt Indlæg",
+    "writtenByAlias": "Skrevet af: {{alias}}"
   },
   "user": {
     "alias": "Alias",
