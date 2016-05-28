@@ -7,7 +7,7 @@ import CreateMaecenateContainer from './container/CreateMaecenateContainer'
 import MaecenateOverviewContainer from './container/MaecenateOverviewContainer'
 
 import MaecenateView from './container/MaecenateView'
-import MaecenatePostView from './container/MaecenatePostView'
+import CreatePostView from './container/CreatePostView'
 import MaecenateContentView from './container/MaecenateContentView'
 
 import MyPageView from './container/MyPage/MyPageView'
@@ -39,7 +39,7 @@ const getRoutes = (store) => {
         component={CreateMaecenateContainer} onEnter={requiresAuth} />
       <Route path='maecenates' component={MaecenateOverviewContainer} />
       <Route path='maecenate/:slug' component={MaecenateView} />
-      <Route path='maecenate/:slug/new-post' component={MaecenatePostView} />
+      <Route path='maecenate/:slug/new-post' component={CreatePostView} />
       <Route path='maecenate/:slug/content' component={MaecenateContentView} />
     </Route>
   )

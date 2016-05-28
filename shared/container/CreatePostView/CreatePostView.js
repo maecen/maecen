@@ -12,7 +12,7 @@ import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
 
-class MaecenatePostView extends Component {
+class CreatePostView extends Component {
 
   constructor (props) {
     super(props)
@@ -95,7 +95,7 @@ class MaecenatePostView extends Component {
   }
 }
 
-MaecenatePostView.need = [(params) => {
+CreatePostView.need = [(params) => {
   return Actions.fetchMaecenate(params.slug)
 }]
 
@@ -105,5 +105,5 @@ function mapStateToProps (state, props) {
   }
 }
 
-export default connect(mapStateToProps)(MaecenatePostView)
+export default connect(mapStateToProps)(CreatePostView)
 
