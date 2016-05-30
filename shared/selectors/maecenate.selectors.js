@@ -31,5 +31,5 @@ export const getMaecenates = createSelector(
 
 export const isAuthUserMaecenateOwner = createSelector(
   [ getMaecenateBySlug, getAuthUserId ],
-  (maecenate, userId) => maecenate.creator === userId
+  (maecenate, userId) => maecenate && maecenate.creator === userId
 )
