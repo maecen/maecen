@@ -9,6 +9,7 @@
   "logo": "Logo",
   "title": "Title",
   "backTo": "Back to: ",
+  "loading": "Loading...",
   "mc": {
     "create": "Create Maecenate",
     "seeAll": "See all Maecenates",
@@ -21,8 +22,11 @@
     "coverImage": "Cover image"
   },
   "post": {
-    "create": "Create New Post",
+    "create": "Create new post",
+    "title": "Post title",
+    "content": "Post content",
     "writtenByAlias": "Written by: {{alias}}"
+
   },
   "user": {
     "alias": "Alias",

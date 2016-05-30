@@ -9,6 +9,7 @@
   "logo": "Logo",
   "title": "Titel",
   "backTo": "Tilbage til: ",
+  "loading": "Loader...",
   "mc": {
     "create": "Opret Mæcenat",
     "seeAll": "Se alle Mæcenater",
@@ -21,7 +22,9 @@
     "coverImage": "Coverbillede"
   },
   "post": {
-    "create": "Opret Nyt Indlæg",
+    "create": "Opret nyt indlæg",
+    "title": "Post titel",
+    "content": "Post indhold",
     "writtenByAlias": "Skrevet af: {{alias}}"
   },
   "user": {

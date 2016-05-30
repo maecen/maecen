@@ -5,6 +5,7 @@ import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../../actions/actions'
+import { translate } from 'react-i18next'
 
 import { getMaecenateBySlug } from '../../selectors/maecenate.selectors'
 import { getAuthUser } from '../../selectors/user.selectors'
@@ -72,44 +73,43 @@ class CreatePostView extends Component {
   }
 
   render () {
-    const { maecenate } = this.props
+    const { maecenate, t } = this.props
     const { post } = this.state
 
     return (
       <ContentWrapper>
         {maecenate
           ? <Card>
-              <CardTitle title='Create new post' />
+              <CardTitle title={t('post.create')} />
               <Form onSubmit={this.handleSubmit} model={post}
                 updateModel={this.updateModel} errors={this.state.errors}>
                 <CardContent>
 
                     <TextField
                       path={['title']}
-                      placeholder='Post title' />
+                      placeholder={t('post.title')} />
 
                     <TextField
                       path={['content']}
-                      placeholder='Post content'
-                      multiLine={true}
-                      rows={2} />
+                      placeholder={t('post.content')}
+                      multiLine={true} />
 
                     <TextField
                       path={['author_alias']}
-                      placeholder='Alias'
+                      placeholder={t('user.alias')}
                       fullWidth={false} />
 
                 </CardContent>
                 <CardActions>
                   <Button
                     type='submit'
-                    label='Create Post'
+                    label={t('post.create')}
                     primary={true}
                     disabled={this.state.isSubmitting === true} />
                 </CardActions>
               </Form>
             </Card>
-          : <div>Loading...</div>
+          : <div>{t('loading')}</div>
         }
       </ContentWrapper>
     )
@@ -148,5 +148,6 @@ function mapStateToProps (state, props) {
   }
 }
 
-export default connect(mapStateToProps)(CreatePostView)
-
+export default translate(['common'])(
+  connect(mapStateToProps)(CreatePostView)
+)
