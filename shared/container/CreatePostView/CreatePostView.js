@@ -85,19 +85,19 @@ class CreatePostView extends Component {
                 updateModel={this.updateModel} errors={this.state.errors}>
                 <CardContent>
 
-                    <TextField
-                      path={['title']}
-                      placeholder={t('post.title')} />
+                  <TextField
+                    path={['title']}
+                    placeholder={t('post.title')} />
 
-                    <TextField
-                      path={['content']}
-                      placeholder={t('post.content')}
-                      multiLine={true} />
+                  <TextField
+                    path={['content']}
+                    placeholder={t('post.content')}
+                    multiLine={true} />
 
-                    <TextField
-                      path={['author_alias']}
-                      placeholder={t('user.alias')}
-                      fullWidth={false} />
+                  <TextField
+                    path={['author_alias']}
+                    placeholder={t('user.alias')}
+                    fullWidth={false} />
 
                 </CardContent>
                 <CardActions>
