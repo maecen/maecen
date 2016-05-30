@@ -60,7 +60,10 @@
     "anyRequired": "Dette skal udfyldes",
     "anyEmpty": "Dette skal udfyldes",
     "stringMin": "Du skal skrive mindst {{limit}} tegn",
-    "stringMax": "Du må ikke skrive mere end {{limit}} tegn"
+    "stringMax": "Du må ikke skrive mere end {{limit}} tegn",
+    "numberMin": "Dette nummer er for lavt",
+    "numberBase": "Kun numre er tilladt her",
+    "numberInteger": "Kun heltal er tilladt"
   },
   "error": {
     "noUserWithEmail": "Der eksisterer ingen bruger med denne email",

@@ -103,7 +103,7 @@ class ProfileContainer extends Component {
               </Col>
               <Col xs={12} sm={6} lg={3}>
                 <TextField
-                  path={['phoneNumber']}
+                  path={['phone_number']}
                   placeholder={t('user.phoneNumber')}
                   disabled={!isEdit} />
               </Col>
@@ -115,7 +115,7 @@ class ProfileContainer extends Component {
               </Col>
               <Col xs={12} sm={6} lg={3}>
                 <TextField
-                  path={['zipCode']}
+                  path={['zip_code']}
                   placeholder={t('user.zip')}
                   disabled={!isEdit} />
               </Col>

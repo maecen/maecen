@@ -19,7 +19,7 @@ const schema = {
   alias: Joi.string().allow(null, ''),
   phone_number: Joi.string().allow(null, ''),
   country: Joi.string().allow(null, ''),
-  zip_code: Joi.string().allow(null, '')
+  zip_code: Joi.number().integer().min(1000).allow(null, '')
 }
 
 const User = bookshelf.Model.extend({

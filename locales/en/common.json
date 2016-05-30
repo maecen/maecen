@@ -62,7 +62,10 @@
     "anyEmpty": "You need to fill this out",
     "stringMin": "You need to fill in at least {{limit}} characters",
     "stringMax": "You can fill in no more than {{limit}} characters",
-    "stringRegexBase_url": "This is not a valid url"
+    "stringRegexBase_url": "This is not a valid url",
+    "numberMin": "This number is too low",
+    "numberBase": "You need to fill in a number",
+    "numberInteger": "Only whole numbers are allowed"
   },
   "error": {
     "noUserWithEmail": "No user exists with this email",
