@@ -19,7 +19,9 @@ export default function CardTitle (props) {
 CardTitle.defaultProps = {
   titleStyle: {
     fontSize: '40px',
-    fontWeight: '700'
+    fontWeight: '300',
+    paddingTop: '16px',
+    paddingBottom: '16px'
   }
 }
 

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+
 import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
+import { Card, CardContent, CardTitle, CardHeader, CardText } from '../components/Card'
+
 import {
   getMaecenateBySlug,
   isAuthUserMaecenateOwner
@@ -41,34 +44,59 @@ class MaecenateView extends Component {
     return (
       <ContentWrapper>
         {maecenate
-          ? <Row className={s.main}>
-              <Col xs={12}>
-                <h2 className={s.title}>{maecenate.title}</h2>
-              </Col>
-              <Col xs={2}>
-                <img src={maecenate.logo_url} className={s.logo} />
-                <p>Maecens: 0</p>
-                <p>Content posts: 0</p>
-                <p>Min. amount: 1€</p>
-                {maecenate.url &&
-                  <p>
-                    Website:
-                    <a href={`http://${maecenate.url}`} target='_blank'>
-                      Visit
-                    </a>
-                  </p>
-                }
-                {isAuthUserOwner &&
-                  <Button label='Create Post' onClick={this.createPost} />
-                }
-                <Button label='See Content' onClick={this.gotoContent} />
-              </Col>
-              <Col xs={10}>
-                <img src={maecenate.cover_url} className={s.cover} />
-                <p className={s.teaser}>{maecenate.teaser}</p>
-                <p>{maecenate.description}</p>
-              </Col>
-            </Row>
+          ? <Card>
+              <CardTitle
+                big={true}
+                title={maecenate.title}
+                style={{paddingBottom: '0px'}}
+              />
+                <Row>
+                  <Col xs={5} sm={3} md={2}>
+                    <CardContent>
+                      <img src={maecenate.logo_url} className={s.logo} />
+                      <p>Maecens: 0</p>
+                      <p>Content posts: 0</p>
+                      <p>Min. amount: 1€</p>
+                      {maecenate.url &&
+                        <p>
+                          Website:
+                          <a
+                            href={`http://${maecenate.url}`}
+                            target='_blank'
+                            className={s.link}>
+                            &nbsp;{maecenate.url}
+                          </a>
+                        </p>
+                      }
+                      {isAuthUserOwner &&
+                        <Button
+                          primary={true}
+                          label='Create Post'
+                          onClick={this.createPost}
+                        />
+                      }
+                      <Button
+                        primary={true}
+                        label='See Content'
+                        onClick={this.gotoContent}
+                        style={{marginTop: '16px'}}
+                      />
+                    </CardContent>
+                  </Col>
+                  <Col xs={7} sm={9} md={10}>
+                    <CardContent>
+                      <img src={maecenate.cover_url} className={s.cover} />
+                    </CardContent>
+                    <CardHeader
+                      title={maecenate.teaser}
+                      style={{paddingBottom: '0px'}}
+                    />
+                    <CardText style={{paddingBottom: '32px'}}>
+                      {maecenate.description}
+                    </CardText>
+                  </Col>
+                </Row>
+            </Card>
           : <div>Loading...</div>
         }
       </ContentWrapper>
