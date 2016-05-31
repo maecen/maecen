@@ -40,7 +40,10 @@ const app = (state = Immutable({
 }
 
 const entities = (state = Immutable({
-  users: {}
+  users: {},
+  posts: {},
+  postMedia: {},
+  maecenates: {}
 }), action) => {
   if (action.entities) {
     return state.merge(action.entities, {deep: true})

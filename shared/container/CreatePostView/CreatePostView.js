@@ -7,12 +7,13 @@ import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../../actions/actions'
 import { translate } from 'react-i18next'
 
-import { getMaecenateBySlug } from '../../selectors/maecenate.selectors'
-import { getAuthUser } from '../../selectors/user.selectors'
+import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
+import { getAuthUser } from '../../selectors/User.selectors'
 import { Card, CardContent, CardTitle, CardActions } from '../../components/Card'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
+import ImageField from '../../components/Form/ImageField'
 
 class CreatePostView extends Component {
 
@@ -20,10 +21,12 @@ class CreatePostView extends Component {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateModel = this.updateModel.bind(this)
+    this.mediaChange = this.mediaChange.bind(this)
     this.state = {
       post: Immutable({ }),
       errors: null,
-      isSubmitting: false
+      isSubmitting: false,
+      mediaPreview: null
     }
   }
 
@@ -50,6 +53,10 @@ class CreatePostView extends Component {
     this.setAuthorAlias(nextProps)
   }
 
+  mediaChange (url) {
+    this.setState({ mediaPreview: url })
+  }
+
   handleSubmit (e) {
     e.preventDefault()
     const { dispatch, maecenate } = this.props
@@ -74,7 +81,7 @@ class CreatePostView extends Component {
 
   render () {
     const { maecenate, t } = this.props
-    const { post } = this.state
+    const { post, mediaPreview } = this.state
 
     return (
       <ContentWrapper>
@@ -88,6 +95,13 @@ class CreatePostView extends Component {
                   <TextField
                     path={['title']}
                     placeholder={t('post.title')} />
+
+                  <ImageField
+                    path={['media']}
+                    previewChange={this.mediaChange} />
+
+                  {mediaPreview &&
+                    <img src={mediaPreview} width='100%' /> }
 
                   <TextField
                     path={['content']}

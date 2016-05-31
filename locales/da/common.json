@@ -63,7 +63,9 @@
     "stringMax": "Du må ikke skrive mere end {{limit}} tegn",
     "numberMin": "Dette nummer er for lavt",
     "numberBase": "Kun numre er tilladt her",
-    "numberInteger": "Kun heltal er tilladt"
+    "numberInteger": "Kun heltal er tilladt",
+    "objectMissing": "Du mangler at udfylde et felt",
+    "objectMissing_mediaContent": "Du er nødt til endten at tilføje noget tekst, eller et medie element"
   },
   "error": {
     "noUserWithEmail": "Der eksisterer ingen bruger med denne email",

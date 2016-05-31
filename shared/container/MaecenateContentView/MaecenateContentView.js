@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
 import * as Actions from '../../actions/actions'
-import { getMaecenateBySlug } from '../../selectors/maecenate.selectors'
-import { getPosts } from '../../selectors/post.selectors'
+import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
+import { getPosts } from '../../selectors/Post.selectors'
 
 import { Card, CardTitle } from '../../components/Card'
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'

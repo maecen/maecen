@@ -1,5 +1,5 @@
 import { normalizeResponse } from '../util/ctrlHelpers'
-import User from '../models/user'
+import User from '../models/User'
 
 export function createUser (req, res, next) {
   let { user: data } = req.body

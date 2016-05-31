@@ -1,7 +1,8 @@
-import app from '../../index'
-import { knex } from '../database'
 import request from 'supertest-as-promised'
 import test from 'ava'
+import fs from 'fs'
+import app from '../../index'
+import { knex } from '../database'
 import Maecenate from '../models/maecenate'
 import User from '../models/user'
 import Post from '../models/post'
@@ -9,6 +10,10 @@ import Post from '../models/post'
 const userId = '7965a310-20f1-11e6-b599-5b176d8b99fd'
 const base = {
   'Authorization': 'Token ' + User.createToken(userId)
+}
+const postData = {
+  title: 'Some title',
+  author_alias: 'John'
 }
 
 test.beforeEach(t =>
@@ -51,10 +56,9 @@ test('POST /api/createPost', async t => {
   const maecenate = await createDummyMaecenate()
 
   const data = {
-    title: 'Some title',
-    content: 'Some content for the article which is a bit longer than the title',
-    maecenate: maecenate.id,
-    author_alias: 'John'
+    ...postData,
+    content: 'Some content for the article which',
+    maecenate: maecenate.id
   }
 
   const res = await request(app)
@@ -68,12 +72,50 @@ test('POST /api/createPost', async t => {
   t.is(res.body.entities.posts[entityId].title, data.title)
 })
 
+test('POST /api/createPost with image', async t => {
+  const maecenate = await createDummyMaecenate()
+
+  const mediaContent = fs.readFileSync('./util/imagedata.txt', 'utf8')
+
+  const errData = {
+    ...postData,
+    maecenate: maecenate.id
+  }
+
+  const data = {
+    ...errData,
+    media: mediaContent
+  }
+
+  const errRes = await request(app)
+    .post('/api/createPost')
+    .set(base)
+    .send({ post: errData })
+
+  t.truthy(errRes.body.errors)
+
+  const res = await request(app)
+    .post('/api/createPost')
+    .set(base)
+    .send({ post: data })
+
+  t.falsy(res.body.errors)
+  t.is(res.status, 200)
+  const entityId = res.body.result[0]
+  const post = res.body.entities.posts[entityId]
+  t.is(post.title, data.title)
+
+  t.is(post.media.length, 1)
+  const mediaId = post.media
+  t.is(res.body.entities.postMedia[mediaId].post, entityId)
+})
+
 test('POST /api/createPost for non owners', async t => {
   const maecenate = await createDummyMaecenate('userid')
 
   const data = {
-    title: 'Some title',
-    content: 'Some content for the article which is a bit longer than the title',
+    ...postData,
+    content: 'Some content for the article which',
     maecenate: maecenate.id
   }
 

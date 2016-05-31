@@ -65,7 +65,9 @@
     "stringRegexBase_url": "This is not a valid url",
     "numberMin": "This number is too low",
     "numberBase": "You need to fill in a number",
-    "numberInteger": "Only whole numbers are allowed"
+    "numberInteger": "Only whole numbers are allowed",
+    "objectMissing": "You are missing a field",
+    "objectMissing_mediaContent": "You need to add either some text or a media element"
   },
   "error": {
     "noUserWithEmail": "No user exists with this email",

@@ -71,13 +71,26 @@ export function joiValidation (obj, schema) {
         return resolve()
       }
 
-      let errors = err.details.map(error => ({
-        message: 'validationError.' + toCamelCase(error.type.replace(/\./g, ' ')),
-        options: {
-          ...error.context,
-          context: error.path
+      let errors = err.details.map(error => {
+        if (error.type === 'object.missing') {
+          console.log(toCamelCase(error.context.peers.join(' ')))
+          return {
+            message: 'validationError.objectMissing',
+            options: {
+              key: '_',
+              context: toCamelCase(error.context.peers.join(' '))
+            }
+          }
+        } else {
+          return {
+            message: 'validationError.' + toCamelCase(error.type.replace(/\./g, ' ')),
+            options: {
+              ...error.context,
+              context: error.path
+            }
+          }
         }
-      }))
+      })
 
       reject(mapKeys(errors, err => err.options.key))
     })

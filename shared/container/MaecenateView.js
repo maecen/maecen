@@ -9,7 +9,7 @@ import { Card, CardContent, CardTitle, CardHeader, CardText } from '../component
 import {
   getMaecenateBySlug,
   isAuthUserMaecenateOwner
-} from '../selectors/maecenate.selectors'
+} from '../selectors/Maecenate.selectors'
 import * as Actions from '../actions/actions'
 import Button from '../components/Form/Button'
 

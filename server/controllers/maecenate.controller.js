@@ -1,6 +1,6 @@
 import { normalizeResponse } from '../util/ctrlHelpers'
 import { uploadDataUri } from '../util/fileUploader'
-import Maecenate from '../models/maecenate'
+import Maecenate from '../models/Maecenate'
 
 export function getMaecenate (req, res, next) {
   const { slug } = req.params

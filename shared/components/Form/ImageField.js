@@ -1,4 +1,3 @@
-import { startsWith } from 'strman'
 import React, { Component, PropTypes } from 'react'
 import s from './ImageField.scss'
 
@@ -6,23 +5,27 @@ class ImageField extends Component {
 
   constructor (props) {
     super(props)
-    this.state = {file: '', imagePreviewUrl: ''}
+    this.state = {file: ''}
   }
 
   handleChange (e) {
     e.preventDefault()
 
     const { updateValue } = this.context
-    const { path } = this.props
+    const { path, previewChange } = this.props
     const reader = new FileReader()
     const file = e.target.files[0]
 
     reader.onloadend = () => {
       this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
+        file: file
       })
+
       updateValue(path, reader.result)
+
+      if (previewChange) {
+        previewChange(reader.result)
+      }
     }
 
     reader.readAsDataURL(file)
@@ -36,8 +39,6 @@ class ImageField extends Component {
       error = error.message
     }
 
-    const { imagePreviewUrl } = this.state
-
     return (
       <div className={s.main}>
         { props.label &&
@@ -45,20 +46,10 @@ class ImageField extends Component {
         }
         <input type='file'
           onChange={this.handleChange.bind(this)} />
-        {renderImagePreview(imagePreviewUrl)}
         {error &&
           <div style={{color: '#ff0000'}}>{error}</div>
         }
       </div>
-    )
-  }
-}
-
-function renderImagePreview (imagePreviewUrl) {
-  if (imagePreviewUrl && startsWith(imagePreviewUrl, 'data:image') === true) {
-    return (
-      <img src={imagePreviewUrl}
-        style={{maxWidth: '50px', maxHeight: '50px'}}/>
     )
   }
 }
@@ -68,7 +59,8 @@ ImageField.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string
   ]).isRequired,
-  label: PropTypes.string
+  label: PropTypes.string,
+  previewChange: PropTypes.func
 }
 
 ImageField.contextTypes = {

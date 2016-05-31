@@ -132,6 +132,7 @@ const renderError = err => {
 app.use((req, res, next) => {
   let initialState = {
     app: {
+      authUser: null,
       requireAuthorization: false,
       maecenate: null,
       posts: []
@@ -139,7 +140,8 @@ app.use((req, res, next) => {
     entities: {
       users: {},
       maecenates: {},
-      posts: {}
+      posts: {},
+      postMedia: {}
     }
   }
 
