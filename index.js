@@ -1,5 +1,5 @@
-// Load all environment variables for the development env
-if (process.env.NODE_ENV === 'development') {
+// Load all environment variables from `.env` file
+if (process.env.NODE_ENV !== 'testing') {
   require('dotenv').load()
 }
 
