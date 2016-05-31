@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import s from './MediaField.scss'
 
-class MediaField extends Component {
+class ImageField extends Component {
 
   constructor (props) {
     super(props)
@@ -54,7 +54,7 @@ class MediaField extends Component {
   }
 }
 
-MediaField.propTypes = {
+ImageField.propTypes = {
   path: React.PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string
@@ -63,10 +63,10 @@ MediaField.propTypes = {
   previewChange: PropTypes.func
 }
 
-MediaField.contextTypes = {
+ImageField.contextTypes = {
   updateValue: PropTypes.func.isRequired,
   model: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
-export default MediaField
+export default ImageField

@@ -13,7 +13,7 @@ import { Card, CardContent, CardTitle, CardActions } from '../../components/Card
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
-import ImageField from '../../components/Form/ImageField'
+import MediaField from '../../components/Form/MediaField'
 
 class CreatePostView extends Component {
 
@@ -96,7 +96,7 @@ class CreatePostView extends Component {
                     path={['title']}
                     placeholder={t('post.title')} />
 
-                  <ImageField
+                  <MediaField
                     path={['media']}
                     previewChange={this.mediaChange} />
 

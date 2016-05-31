@@ -10,7 +10,7 @@ import * as Actions from '../actions/actions'
 import { Card, CardContent, CardTitle } from '../components/Card'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
-import ImageField from '../components/Form/ImageField'
+import MediaField from '../components/Form/MediaField'
 import Button from '../components/Form/Button'
 
 class CreateMaecenateContainer extends Component {
@@ -73,7 +73,7 @@ class CreateMaecenateContainer extends Component {
                 label={t('title')} />
               <br />
 
-              <ImageField
+              <MediaField
                 label={t('logo')}
                 path={['logo_url']} />
               <br />
@@ -98,7 +98,7 @@ class CreateMaecenateContainer extends Component {
                 placeholder={t('mc.websitePlaceholder')} />
               <br />
 
-              <ImageField
+              <MediaField
                 label={t('mc.coverImage')}
                 path={['cover_url']} />
               <br />
