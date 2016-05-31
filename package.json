@@ -116,5 +116,11 @@
   },
   "engines": {
     "node": ">=5.5.0"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   }
 }
