@@ -1,3 +1,4 @@
+import multiparty from 'multiparty'
 import { normalizeResponse } from '../util/ctrlHelpers'
 import { knex } from '../database'
 import Post from '../models/Post'
@@ -7,27 +8,50 @@ import PostMedia from '../models/PostMedia'
 export function createPost (req, res, next) {
   const { userId } = req.user
   const { post: data } = req.body
-  const media = data.media
+  const mediaIds = data.media
 
   let post = new Post(data)
   post.generateId()
   post.set('author', userId)
-  let postMedia = []
 
-  return post.validate().then(() => {
+  post.validate().then(() => {
     post.unset('media')
-    if (media) {
-      return PostMedia.upload(media, { post: post.id }).then(media => {
-        postMedia.push(media)
+    return knex.transaction(trx => {
+      return trx('posts').insert(post.toJSON()).then(() => {
+        if (mediaIds) {
+          return trx('post_media')
+            .where('id', 'in', mediaIds)
+            .andWhere('post', null)
+            .update({
+              post: post.get('id')
+            })
+        }
       })
-    }
+    })
   }).then(() => {
-    // We're going to force (not validate) as we've just validated
-    return post.save(null, { method: 'insert', force: true })
-  }).then((post) => {
+    return knex('post_media').where('post', post.id)
+  }).then((postMedia) => {
     post = post.toJSON()
     post.media = postMedia.map(media => media.id)
     return res.json(normalizeResponse({ posts: post, postMedia }, 'posts'))
+  }).catch(next)
+}
+
+export function uploadPostMedia (req, res, next) {
+  return new Promise((resolve, reject) => {
+    let postMedia = []
+    const form = new multiparty.Form({ autoFields: true })
+    form.on('part', (part) => {
+      const type = part.headers['content-type']
+      postMedia.push(PostMedia.uploadStream(part, { type }))
+    })
+    form.on('error', reject)
+    form.on('close', () => {
+      Promise.all(postMedia).then(resolve).catch(reject)
+    })
+    form.parse(req)
+  }).then((postMedia) => {
+    return res.json(normalizeResponse({ postMedia }))
   }).catch(next)
 }
 

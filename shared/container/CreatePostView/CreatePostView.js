@@ -13,7 +13,8 @@ import { Card, CardContent, CardTitle, CardActions } from '../../components/Card
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
-import MediaField from '../../components/Form/MediaField'
+
+import FileDropzone from '../../components/Form/FileDropzone'
 
 class CreatePostView extends Component {
 
@@ -26,7 +27,9 @@ class CreatePostView extends Component {
       post: Immutable({ }),
       errors: null,
       isSubmitting: false,
-      mediaPreview: null
+      mediaPreview: null,
+      uploadProgress: 0,
+      media: []
     }
   }
 
@@ -53,8 +56,35 @@ class CreatePostView extends Component {
     this.setAuthorAlias(nextProps)
   }
 
-  mediaChange (url) {
-    this.setState({ mediaPreview: url })
+  mediaChange (files) {
+    this.setState({ media: files })
+
+    this.setState({ isSubmitting: true })
+
+    let formData = new window.FormData()
+    for (let i = 0; i < files.length; i++) {
+      formData.append(`media[${i}]`, files[i])
+    }
+
+    const config = {
+      progress: (e) => {
+        this.setState({ uploadProgress: (e.loaded / e.total).toFixed(4) * 90 })
+      }
+    }
+
+    axios.post('/api/uploadPostMedia', formData, config)
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          errors: null,
+          isSubmitting: false,
+          uploadProgress: 100.0
+        })
+        this.updateModel(['media'], data.result)
+      }).catch((res) => {
+        this.setState({ errors: null, isSubmitting: false })
+        this.setState({ errors: res.data.errors })
+      })
   }
 
   handleSubmit (e) {
@@ -65,7 +95,6 @@ class CreatePostView extends Component {
     const post = data.set('maecenate', maecenate.id)
 
     this.setState({ isSubmitting: true })
-
     axios.post('/api/createPost', { post })
       .then(res => res.data)
       .then((data) => {
@@ -74,8 +103,8 @@ class CreatePostView extends Component {
         setDefaultAlias(this.props, post.author_alias)
         browserHistory.push(`/maecenate/${maecenate.slug}/content`)
       }).catch((res) => {
-        this.setState({ errors: null })
-        this.setState({ errors: res.data.errors, isSubmitting: false })
+        this.setState({ errors: null, isSubmitting: false, uploadProgress: 0 })
+        this.setState({ errors: res.data.errors })
       })
   }
 
@@ -96,9 +125,19 @@ class CreatePostView extends Component {
                     path={['title']}
                     placeholder={t('post.title')} />
 
-                  <MediaField
-                    path={['media']}
-                    previewChange={this.mediaChange} />
+                  <FileDropzone
+                    multiple={false}
+                    label='Upload Media'
+                    accept='video/*,image/*'
+                    onChange={this.mediaChange} />
+
+                  {!!this.state.uploadProgress &&
+                    <div style={{
+                      height: '10px',
+                      width: `${this.state.uploadProgress}%`,
+                      background: '#f00'
+                    }} />
+                  }
 
                   {mediaPreview &&
                     <img src={mediaPreview} width='100%' /> }

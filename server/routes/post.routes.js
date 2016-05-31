@@ -19,6 +19,9 @@ function verifyMaecenateOwner (req, res, next) {
 // Create a post
 router.post('/createPost', verifyMaecenateOwner, PostController.createPost)
 
+// Upload media
+router.post('/uploadPostMedia', PostController.uploadPostMedia)
+
 // Get all posts by maecenate slug
 router.get('/getMaecenatePosts/:slug', PostController.getMaecenatePosts)
 

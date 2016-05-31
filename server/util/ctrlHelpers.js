@@ -73,7 +73,6 @@ export function joiValidation (obj, schema) {
 
       let errors = err.details.map(error => {
         if (error.type === 'object.missing') {
-          console.log(toCamelCase(error.context.peers.join(' ')))
           return {
             message: 'validationError.objectMissing',
             options: {

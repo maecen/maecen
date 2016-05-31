@@ -1,11 +1,11 @@
 import request from 'supertest-as-promised'
+import uuid from 'node-uuid'
 import test from 'ava'
-import fs from 'fs'
 import app from '../../index'
 import { knex } from '../database'
-import Maecenate from '../models/maecenate'
-import User from '../models/user'
-import Post from '../models/post'
+import Maecenate from '../models/Maecenate'
+import User from '../models/User'
+import Post from '../models/Post'
 
 const userId = '7965a310-20f1-11e6-b599-5b176d8b99fd'
 const base = {
@@ -75,7 +75,12 @@ test('POST /api/createPost', async t => {
 test('POST /api/createPost with image', async t => {
   const maecenate = await createDummyMaecenate()
 
-  const mediaContent = fs.readFileSync('./util/imagedata.txt', 'utf8')
+  const mediaId = uuid.v1()
+  await knex('post_media').insert({
+    id: mediaId,
+    type: 'image/jpg',
+    url: 'https://fakeurl.com'
+  })
 
   const errData = {
     ...postData,
@@ -84,7 +89,7 @@ test('POST /api/createPost with image', async t => {
 
   const data = {
     ...errData,
-    media: mediaContent
+    media: [mediaId]
   }
 
   const errRes = await request(app)
@@ -106,8 +111,8 @@ test('POST /api/createPost with image', async t => {
   t.is(post.title, data.title)
 
   t.is(post.media.length, 1)
-  const mediaId = post.media
-  t.is(res.body.entities.postMedia[mediaId].post, entityId)
+  const mId = post.media
+  t.is(res.body.entities.postMedia[mId].post, entityId)
 })
 
 test('POST /api/createPost for non owners', async t => {

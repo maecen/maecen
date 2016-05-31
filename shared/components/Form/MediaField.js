@@ -45,6 +45,7 @@ class ImageField extends Component {
           <label>{props.label} </label>
         }
         <input type='file'
+          multiple
           onChange={this.handleChange.bind(this)} />
         {error &&
           <div style={{color: '#ff0000'}}>{error}</div>

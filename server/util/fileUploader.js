@@ -1,9 +1,9 @@
 import simpelBufferStream from 'simple-bufferstream'
 import cloudinary from 'cloudinary'
 
-export function uploadBuffer (buffer, path) {
-  if (arguments.length !== 2) {
-    throw new Error('You have to provide two arguments for `uploadStream`')
+export function uploadStream (stream, path, type) {
+  if (arguments.length < 2) {
+    throw new Error('You have to provide at least two arguments for `uploadStream`')
   }
 
   // I'm aware it's a bad place to put it, but we need some sort of intercepter
@@ -22,12 +22,21 @@ export function uploadBuffer (buffer, path) {
           return resolve(result)
         }
       }, {
-        public_id: path
+        public_id: path,
+        resource_type: type || 'image'
       })
 
-      simpelBufferStream(buffer).pipe(writeStream)
+      stream.pipe(writeStream)
     })
   }
+}
+
+export function uploadBuffer (buffer, path) {
+  if (arguments.length !== 2) {
+    throw new Error('You have to provide two arguments for `uploadStream`')
+  }
+  const stream = simpelBufferStream(buffer)
+  return uploadStream(stream, path)
 }
 
 export function uploadDataUri (dataUri, path) {

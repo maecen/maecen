@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import uuid from 'node-uuid'
-import { uploadDataUri } from '../util/fileUploader'
+import { uploadStream } from '../util/fileUploader'
 import { joiValidation } from '../util/ctrlHelpers'
 import { bookshelf } from '../database'
 
@@ -33,14 +33,14 @@ const PostMedia = bookshelf.Model.extend({
   }
 })
 
-PostMedia.upload = function (media, attr) {
+PostMedia.uploadStream = function (stream, attr) {
   let postMedia = new PostMedia(attr)
   postMedia.generateId()
   const path = `media/${postMedia.id}`
   return postMedia.validate().then(() => {
-    return uploadDataUri(media, path)
+    const type = attr.type.startsWith('video') ? 'video' : 'image'
+    return uploadStream(stream, path, type)
   }).then((result) => {
-    postMedia.set('type', 'image')
     postMedia.set('url', result.secure_url)
     return postMedia.save(null, { method: 'insert' })
   })
