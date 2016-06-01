@@ -1,17 +1,29 @@
 import { normalizeResponse } from '../util/ctrlHelpers'
 import { uploadDataUri } from '../util/fileUploader'
+import { knex } from '../database'
 import Maecenate from '../models/Maecenate'
 
 export function getMaecenate (req, res, next) {
   const { slug } = req.params
-  return Maecenate.where({ slug }).fetch().then((maecenate) => {
+  let maecenate = null
+  return Maecenate.where({ slug }).fetch().then((data) => {
+    maecenate = data
+  }).then(() => {
+    return knex('media')
+      .when('obj_id', maecenate.cover_media)
+  }).then((media) => {
     return res.json(normalizeResponse({ maecenates: maecenate }))
   })
 }
 
 export function getMaecenates (req, res, next) {
-  return Maecenate.fetchAll().then((maecenates) => {
-    return res.json(normalizeResponse({ maecenates }))
+  let maecenates = null
+  return Maecenate.fetchAll().then((res) => {
+    maecenates = res
+    return knex('media')
+      .when('obj_id', maecenates.map(obj => obj.cover_media))
+  }).then((media) => {
+    return res.json(normalizeResponse({ maecenates, media }))
   })
 }
 
@@ -25,8 +37,9 @@ export function getUserMaecenates (req, res, next) {
 export function createMaecenate (req, res, next) {
   const { userId } = req.user
   const { maecenate: data } = req.body
-  const { logo_url: logoUrl, cover_url: coverUrl } = data
+  const { logo_url: logoUrl, cover_media: coverMedia } = data
 
+  let mediaIds = [coverMedia]
   let maecenate = new Maecenate(data)
   maecenate.generateId()
   maecenate.set('creator', userId)
@@ -42,17 +55,23 @@ export function createMaecenate (req, res, next) {
       }))
     }
 
-    if (coverUrl) {
-      const path = `maecenate/${maecenate.id}-cover`
-      imageUploads.push(uploadDataUri(coverUrl, path).then((result) => {
-        maecenate.set('cover_url', result.secure_url)
-      }))
-    }
-
     return Promise.all(imageUploads)
   }).then(() => {
-    return maecenate.save(null, { method: 'insert' })
-  }).then((model) => {
-    return res.json(normalizeResponse({ maecenates: model }))
+    return maecenate.save(null, { method: 'insert' }).then(() => {
+      return knex('media')
+        .where('id', 'in', mediaIds)
+        .andWhere('obj_id', null)
+        .update({
+          obj_id: maecenate.get('id'),
+          obj_type: 'maecenate'
+        })
+    })
+  }).then(() => {
+    return knex('media')
+      .where('obj_id', maecenate.id)
+      .andWhere('obj_type', 'maecenate')
+  }).then((media) => {
+    return res.json(normalizeResponse({
+      maecenates: maecenate, media }, 'maecenates'))
   }).catch(next)
 }
