@@ -10,6 +10,9 @@
   "title": "Titel",
   "backTo": "Tilbage til: ",
   "loading": "Loader...",
+  "media": {
+    "upload": "Upload medie"
+  },
   "mc": {
     "create": "Opret Mæcenat",
     "seeAll": "Se alle Mæcenater",

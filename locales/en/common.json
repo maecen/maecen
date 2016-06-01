@@ -10,6 +10,9 @@
   "title": "Title",
   "backTo": "Back to: ",
   "loading": "Loading...",
+  "media": {
+    "upload": "Upload media"
+  },
   "mc": {
     "create": "Create Maecenate",
     "seeAll": "See all Maecenates",

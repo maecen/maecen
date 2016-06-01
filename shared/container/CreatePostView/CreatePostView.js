@@ -14,6 +14,7 @@ import { Card, CardContent, CardTitle, CardActions } from '../../components/Card
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
+import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
 import FileDropzone from '../../components/Form/FileDropzone'
 
 class CreatePostView extends Component {
@@ -105,17 +106,13 @@ class CreatePostView extends Component {
 
                   <FileDropzone
                     multiple={false}
-                    label='Upload Media'
+                    label={t('media.upload')}
                     accept='video/*,image/*'
                     onChange={this.mediaChange} />
 
-                  {!!this.state.uploadProgress &&
-                    <div style={{
-                      height: '10px',
-                      width: `${this.state.uploadProgress}%`,
-                      background: '#f00'
-                    }} />
-                  }
+                  <LinearProgressDeterminate
+                    value={this.state.uploadProgress}
+                  />
 
                   {mediaPreview &&
                     <img src={mediaPreview} width='100%' /> }
