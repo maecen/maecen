@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Button from './Button'
+import s from './FileDropzone.scss'
 
 class FileDropzone extends Component {
 
@@ -67,6 +68,7 @@ class FileDropzone extends Component {
     const label = this.props.label || 'Upload File'
     return (
       <div
+        className={s.main}
         onClick={this.onClick}
         onDragLeave={this.onDragLeave}
         onDragOver={this.onDragOver}
@@ -82,8 +84,10 @@ class FileDropzone extends Component {
         {this.props.children
           ? this.props.children
           : <div>
-              <Button label={label} flat={true} />
-              {this.state.message}
+              <Button label={label} />
+              <span className={s.filename}>
+                {this.state.message}
+              </span>
             </div>
         }
       </div>
