@@ -3,11 +3,6 @@ import LinearProgress from 'material-ui/LinearProgress'
 import s from './Progress.scss'
 
 export default class LinearProgressDeterminate extends Component {
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      modified: 'IsSoModified'
-    })
-  }
   render () {
     return (
       <LinearProgress
@@ -21,6 +16,7 @@ export default class LinearProgressDeterminate extends Component {
 LinearProgressDeterminate.defaultProps = {
   style: {
     backgroundColor: 'transparent',
+    borderRadius: '3px',
     transition: '.3s ease'
   }
 }

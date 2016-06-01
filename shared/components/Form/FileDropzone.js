@@ -84,7 +84,7 @@ class FileDropzone extends Component {
         {this.props.children
           ? this.props.children
           : <div>
-              <Button label={label} />
+              <Button label={label} flat='true' style={{border: '1px solid #e0e0e0', borderRadius: '3px', height: '40px', marginTop: '-1px'}} />
               <span className={s.filename}>
                 {this.state.message}
               </span>
