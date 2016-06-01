@@ -4,7 +4,7 @@ export function mediaUpload (files, opts) {
   const uploadProgressProp = opts.uploadProgressProp || 'uploadProgress'
   const setState = opts.setState
 
-  setState({ isSubmitting: true })
+  setState({ isSubmitting: true, [uploadProgressProp]: 0 })
 
   return new Promise((resolve, reject) => {
     let formData = new window.FormData()

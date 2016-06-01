@@ -112,7 +112,9 @@ test('POST /api/createPost with image', async t => {
 
   t.is(post.media.length, 1)
   const mId = post.media
-  t.is(res.body.entities.media[mId].post, entityId)
+  const media = res.body.entities.media[mId]
+  t.is(media.obj_id, entityId)
+  t.is(media.obj_type, 'post')
 })
 
 test('POST /api/createPost for non owners', async t => {
