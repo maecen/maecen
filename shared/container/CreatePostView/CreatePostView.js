@@ -3,9 +3,10 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
+import { translate } from 'react-i18next'
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../../actions/actions'
-import { translate } from 'react-i18next'
+import { mediaUpload } from '../../lib/fileHandler'
 
 import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
 import { getAuthUser } from '../../selectors/User.selectors'
@@ -13,7 +14,6 @@ import { Card, CardContent, CardTitle, CardActions } from '../../components/Card
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
-
 import FileDropzone from '../../components/Form/FileDropzone'
 
 class CreatePostView extends Component {
@@ -58,33 +58,11 @@ class CreatePostView extends Component {
 
   mediaChange (files) {
     this.setState({ media: files })
-
-    this.setState({ isSubmitting: true })
-
-    let formData = new window.FormData()
-    for (let i = 0; i < files.length; i++) {
-      formData.append(`media[${i}]`, files[i])
-    }
-
-    const config = {
-      progress: (e) => {
-        this.setState({ uploadProgress: (e.loaded / e.total).toFixed(4) * 90 })
-      }
-    }
-
-    axios.post('/api/uploadPostMedia', formData, config)
-      .then(res => res.data)
-      .then(data => {
-        this.setState({
-          errors: null,
-          isSubmitting: false,
-          uploadProgress: 100.0
-        })
-        this.updateModel(['media'], data.result)
-      }).catch((res) => {
-        this.setState({ errors: null, isSubmitting: false })
-        this.setState({ errors: res.data.errors })
-      })
+    mediaUpload(files, {
+      setState: this.setState.bind(this)
+    }).then((data) => {
+      this.updateModel(['media'], data.result)
+    })
   }
 
   handleSubmit (e) {
@@ -103,7 +81,7 @@ class CreatePostView extends Component {
         setDefaultAlias(this.props, post.author_alias)
         browserHistory.push(`/maecenate/${maecenate.slug}/content`)
       }).catch((res) => {
-        this.setState({ errors: null, isSubmitting: false, uploadProgress: 0 })
+        this.setState({ errors: null, isSubmitting: false })
         this.setState({ errors: res.data.errors })
       })
   }

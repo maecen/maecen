@@ -6,13 +6,14 @@ import { bookshelf } from '../database'
 
 const schema = {
   id: Joi.string().guid(),
-  post: Joi.string().guid(),
+  obj_id: Joi.string().guid(),
+  obj_type: Joi.string(),
   url: Joi.string().max(255),
   type: Joi.string().max(20)
 }
 
-const PostMedia = bookshelf.Model.extend({
-  tableName: 'post_media',
+const Media = bookshelf.Model.extend({
+  tableName: 'media',
 
   initialize () {
     this.on('saving', this.validate, this)
@@ -33,18 +34,18 @@ const PostMedia = bookshelf.Model.extend({
   }
 })
 
-PostMedia.uploadStream = function (stream, attr) {
-  let postMedia = new PostMedia(attr)
-  postMedia.generateId()
-  const path = `media/${postMedia.id}`
-  return postMedia.validate().then(() => {
+Media.uploadStream = function (stream, attr) {
+  let media = new Media(attr)
+  media.generateId()
+  const path = `media/${media.id}`
+  return media.validate().then(() => {
     const type = attr.type.startsWith('video') ? 'video' : 'image'
     return uploadStream(stream, path, type)
   }).then((result) => {
-    postMedia.set('url', result.secure_url)
-    return postMedia.save(null, { method: 'insert' })
+    media.set('url', result.secure_url)
+    return media.save(null, { method: 'insert' })
   })
 }
 
-export default PostMedia
+export default Media
 

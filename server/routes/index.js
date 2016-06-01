@@ -3,6 +3,7 @@ import mapValues from 'lodash/mapValues'
 import UserRoutes from '../routes/user.routes'
 import MaecenateRoutes from '../routes/maecenate.routes'
 import PostRoutes from '../routes/post.routes'
+import MediaRoutes from '../routes/media.routes'
 import { formatResponseError } from '../util/ctrlHelpers'
 
 const router = new Router()
@@ -10,6 +11,7 @@ const router = new Router()
 router.use(UserRoutes)
 router.use(MaecenateRoutes)
 router.use(PostRoutes)
+router.use(MediaRoutes)
 
 router.use((err, req, res, next) => {
   if (err.stack) {

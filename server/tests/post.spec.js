@@ -76,7 +76,7 @@ test('POST /api/createPost with image', async t => {
   const maecenate = await createDummyMaecenate()
 
   const mediaId = uuid.v1()
-  await knex('post_media').insert({
+  await knex('media').insert({
     id: mediaId,
     type: 'image/jpg',
     url: 'https://fakeurl.com'
@@ -112,7 +112,7 @@ test('POST /api/createPost with image', async t => {
 
   t.is(post.media.length, 1)
   const mId = post.media
-  t.is(res.body.entities.postMedia[mId].post, entityId)
+  t.is(res.body.entities.media[mId].post, entityId)
 })
 
 test('POST /api/createPost for non owners', async t => {

@@ -2,7 +2,7 @@ import Joi from 'joi'
 import uuid from 'node-uuid'
 import { joiValidation } from '../util/ctrlHelpers'
 import { bookshelf } from '../database'
-import PostMedia from './PostMedia'
+import Media from './Media'
 
 const schema = Joi.object({
   id: Joi.string().guid(),
@@ -36,7 +36,7 @@ const Post = bookshelf.Model.extend({
   },
 
   media () {
-    return this.hasMany(PostMedia, 'post')
+    return this.hasMany(Media, 'obj_id')
   }
 })
 

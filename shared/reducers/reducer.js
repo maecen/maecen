@@ -42,7 +42,7 @@ const app = (state = Immutable({
 const entities = (state = Immutable({
   users: {},
   posts: {},
-  postMedia: {},
+  media: {},
   maecenates: {}
 }), action) => {
   if (action.entities) {

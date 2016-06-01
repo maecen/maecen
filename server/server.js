@@ -141,7 +141,7 @@ app.use((req, res, next) => {
       users: {},
       maecenates: {},
       posts: {},
-      postMedia: {}
+      media: {}
     }
   }
 

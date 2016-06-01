@@ -12,6 +12,7 @@ import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
 import MediaField from '../components/Form/MediaField'
 import Button from '../components/Form/Button'
+import FileDropzone from '../components/Form/FileDropzone'
 
 class CreateMaecenateContainer extends Component {
 
@@ -27,6 +28,10 @@ class CreateMaecenateContainer extends Component {
   updateModel (path, value) {
     const maecenate = this.state.maecenate.setIn(path, value)
     this.setState({maecenate})
+  }
+
+  coverChange (file) {
+    this.setState({ isSubmitting: true })
   }
 
   handleSubmit (e) {
@@ -98,9 +103,11 @@ class CreateMaecenateContainer extends Component {
                 placeholder={t('mc.websitePlaceholder')} />
               <br />
 
-              <MediaField
-                label={t('mc.coverImage')}
-                path={['cover_url']} />
+              <FileDropzone
+                multiple={false}
+                label='Upload Cover'
+                accept='video/*,image/*'
+                onChange={this.coverChange} />
               <br />
 
               <Button type='submit'
