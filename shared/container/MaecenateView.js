@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
-import { Card, CardContent, CardTitle, CardHeader, CardText } from '../components/Card'
+import { Card, CardContent, CardTitle, CardHeader } from '../components/Card'
 
 import {
   getMaecenateBySlug,
@@ -91,9 +91,9 @@ class MaecenateView extends Component {
                       title={maecenate.teaser}
                       style={{paddingBottom: '0px'}}
                     />
-                    <CardText style={{paddingBottom: '32px'}}>
+                    <CardContent style={{paddingBottom: '32px'}}>
                       {maecenate.description}
-                    </CardText>
+                    </CardContent>
                   </Col>
                 </Row>
             </Card>

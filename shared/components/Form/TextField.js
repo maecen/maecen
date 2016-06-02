@@ -18,7 +18,8 @@ export default function TextField (props, context) {
       value={get(context.model, path) || ''}
       onChange={context.updateValue.bind(null, props.path)}
       errorText={error}
-      {...props.without('placeholder', 'label', 'path')} />
+      {...props.without('placeholder', 'label', 'path')}
+    />
   )
 }
 
