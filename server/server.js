@@ -133,15 +133,16 @@ app.use((req, res, next) => {
   let initialState = {
     app: {
       authUser: null,
-      requireAuthorization: false,
       maecenate: null,
-      posts: []
+      maecenates: [],
+      posts: [],
+      requireAuthorization: false
     },
     entities: {
       users: {},
-      maecenates: {},
       posts: {},
-      media: {}
+      media: {},
+      maecenates: {}
     }
   }
 
