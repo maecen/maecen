@@ -26,9 +26,9 @@
   },
   "post": {
     "create": "Create new post",
-    "title": "Post title",
-    "content": "Post content",
-    "writtenByAlias": "Written by: {{alias}}"
+    "title": "Title",
+    "content": "Content",
+    "writtenByAlias": "By: {{alias}}"
 
   },
   "user": {

@@ -26,9 +26,9 @@
   },
   "post": {
     "create": "Opret nyt indlæg",
-    "title": "Post titel",
-    "content": "Post indhold",
-    "writtenByAlias": "Skrevet af: {{alias}}"
+    "title": "Titel",
+    "content": "Indhold",
+    "writtenByAlias": "Af: {{alias}}"
   },
   "user": {
     "alias": "Alias",

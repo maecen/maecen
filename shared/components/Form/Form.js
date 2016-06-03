@@ -26,7 +26,7 @@ export default class Form extends Component {
     return (
       <form onSubmit={this.props.onSubmit}>
         {error &&
-          <div style={{color: '#ff0000'}}>{error}</div>
+          <div style={{color: '#f73c3b', padding: '0 16px'}}>{error}</div>
         }
         {this.props.children}
       </form>
@@ -47,4 +47,3 @@ Form.childContextTypes = {
   updateValue: PropTypes.func,
   errors: PropTypes.object
 }
-
