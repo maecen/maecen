@@ -10,9 +10,11 @@ export function getMaecenate (req, res, next) {
     maecenate = data
   }).then(() => {
     return knex('media')
-      .when('obj_id', maecenate.cover_media)
+      .where('id', maecenate.get('cover_media'))
   }).then((media) => {
-    return res.json(normalizeResponse({ maecenates: maecenate }))
+    return res.json(normalizeResponse({
+      maecenates: maecenate, media
+    }, 'maecenates'))
   })
 }
 
@@ -21,9 +23,11 @@ export function getMaecenates (req, res, next) {
   return Maecenate.fetchAll().then((res) => {
     maecenates = res
     return knex('media')
-      .when('obj_id', maecenates.map(obj => obj.cover_media))
+      .where('id', 'in', maecenates.map(obj => obj.get('cover_media')))
   }).then((media) => {
-    return res.json(normalizeResponse({ maecenates, media }))
+    return res.json(normalizeResponse({
+      maecenates, media
+    }, 'maecenates'))
   })
 }
 

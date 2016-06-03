@@ -5,6 +5,9 @@ import map from 'lodash/map'
 import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../actions/actions'
+import {
+  getMaecenates
+} from '../selectors/Maecenate.selectors'
 
 import MaecenateCard from '../components/Maecenate/MaecenateCard'
 
@@ -42,12 +45,9 @@ MaecenateOverviewContainer.need = [(params) => {
   return Actions.fetchMaecenateList(params.slug)
 }]
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const maecenates = map(app.maecenates, (id) => entities.maecenates[id])
-
+function mapStateToProps (state, props) {
   return {
-    maecenates
+    maecenates: getMaecenates(state, props)
   }
 }
 
