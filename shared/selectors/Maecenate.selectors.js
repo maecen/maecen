@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect'
 import find from 'lodash/find'
 import { getAuthUserId } from './User.selectors'
+import { getMediaEntities } from './Media.selectors'
 
 const getMaecenateEntities = (state, props) =>
   state.entities.maecenates
@@ -14,19 +15,35 @@ const getMaecenateIds = (state, props) =>
 const getSlugFromPath = (state, props) =>
   props.params.slug
 
+const withMedia = (maecenate, media) => {
+  const cover = media[maecenate.cover_media]
+  return {
+    ...maecenate,
+    cover_url: cover && cover.url,
+    cover_type: cover && cover.type
+  }
+}
+
 export const getMaecenateBySlug = createSelector(
-  [ getSlugFromPath, getMaecenateEntities ],
-  (slug, maecenates) => find(maecenates, maecenate => maecenate.slug === slug)
+  [ getSlugFromPath, getMaecenateEntities, getMediaEntities ],
+  (slug, maecenates, media) => {
+    const maecenate = find(maecenates, maecenate => maecenate.slug === slug)
+    return withMedia(maecenate, media)
+  }
 )
 
 export const getMaecenate = createSelector(
-  [ getMaecenateId, getMaecenateEntities ],
-  (id, maecenates) => maecenates[id]
+  [ getMaecenateId, getMaecenateEntities, getMediaEntities ],
+  (id, maecenates, media) => (
+    withMedia(maecenates[id], media)
+  )
 )
 
 export const getMaecenates = createSelector(
-  [ getMaecenateIds, getMaecenateEntities ],
-  (ids, maecenates) => ids.map(id => maecenates[id])
+  [ getMaecenateIds, getMaecenateEntities, getMediaEntities ],
+  (ids, maecenates, media) => ids.map(id =>
+    withMedia(maecenates[id], media)
+  )
 )
 
 export const isAuthUserMaecenateOwner = createSelector(

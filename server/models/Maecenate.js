@@ -3,6 +3,7 @@ import { slugify } from 'strman'
 import uuid from 'node-uuid'
 import { joiValidation } from '../util/ctrlHelpers'
 import { bookshelf } from '../database'
+import Media from './Media'
 
 const urlRegex = /^(https?:\/\/)?[^$\/]+\..+$/i
 
@@ -12,7 +13,7 @@ const schema = {
   slug: Joi.string(),
   creator: Joi.string().guid(),
   logo_url: Joi.string().required(),
-  cover_url: Joi.string().required(),
+  cover_media: Joi.string().guid().required(),
   teaser: Joi.string().min(10).max(140).required(),
   description: Joi.string().min(30).required(),
   url: Joi.string().regex(urlRegex).allow(null, '')
@@ -39,7 +40,7 @@ const Maecenate = bookshelf.Model.extend({
 
     return joiValidation(this.toJSON(true), schema)
       .then(() => {
-        if (this.hasChanged('email') === true) {
+        if (this.hasChanged('slug') === true) {
           return Maecenate.where('slug', this.get('slug')).count().then(count => {
             if (count > 0) {
               const error = { title: 'validationError.alreadyTaken' }
@@ -54,6 +55,10 @@ const Maecenate = bookshelf.Model.extend({
     if (this.hasChanged('title') === true) {
       this.set('slug', slugify(this.get('title')))
     }
+  },
+
+  cover () {
+    return this.belongsTo(Media, 'cover_media')
   }
 })
 

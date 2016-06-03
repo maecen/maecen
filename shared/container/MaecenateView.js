@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { startsWith } from 'strman'
 
 import { Row, Col } from 'react-flexbox-grid/lib'
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
@@ -40,6 +41,7 @@ class MaecenateView extends Component {
 
   render () {
     const { maecenate, isAuthUserOwner } = this.props
+    const { cover_type: coverType, cover_url: coverUrl } = maecenate
 
     return (
       <ContentWrapper>
@@ -85,7 +87,10 @@ class MaecenateView extends Component {
                   </Col>
                   <Col xs={7} sm={9} md={10}>
                     <CardContent>
-                      <img src={maecenate.cover_url} className={s.cover} />
+                      {coverUrl && startsWith(coverType, 'video')
+                        ? <video width='100%' src={coverUrl} controls />
+                        : <img src={coverUrl} width='100%' />
+                      }
                     </CardContent>
                     <CardHeader
                       title={maecenate.teaser}

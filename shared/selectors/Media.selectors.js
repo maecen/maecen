@@ -1,3 +1,3 @@
 
-export const getMediaEntities = (state, props) =>
-  state.entities.media
+export const getMediaEntities = (state) => state.entities.media
+

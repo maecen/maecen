@@ -4,9 +4,10 @@ import { translate } from 'react-i18next'
 import { browserHistory } from 'react-router'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
+import { mediaUpload } from '../lib/fileHandler'
+import * as Actions from '../actions/actions'
 
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
-import * as Actions from '../actions/actions'
 import { Card, CardContent, CardTitle } from '../components/Card'
 import Form from '../components/Form/Form'
 import TextField from '../components/Form/TextField'
@@ -21,8 +22,11 @@ class CreateMaecenateContainer extends Component {
     this.state = {
       errors: null,
       maecenate: Immutable({ }),
+      coverUploadProgress: 0,
       isSubmitting: false
     }
+
+    this.coverChange = this.coverChange.bind(this)
   }
 
   updateModel (path, value) {
@@ -30,8 +34,13 @@ class CreateMaecenateContainer extends Component {
     this.setState({maecenate})
   }
 
-  coverChange (file) {
-    this.setState({ isSubmitting: true })
+  coverChange (files) {
+    mediaUpload(files, {
+      setState: this.setState.bind(this),
+      uploadProgressProp: 'coverUploadProgress'
+    }).then((data) => {
+      this.updateModel(['cover_media'], data.result[0])
+    })
   }
 
   handleSubmit (e) {
