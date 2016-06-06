@@ -12,12 +12,6 @@ export default function MaecenatePresentation (props) {
   const { maecenate, isAuthUserOwner } = props
   const { cover_type: coverType, cover_url: coverUrl } = maecenate
 
-  let coverCropped = ''
-  if (!startsWith(coverType, 'video')) {
-    coverCropped = cropCloudy(coverUrl, 'cover')
-  }
-  const logoCropped = cropCloudy(maecenate.logo_url, 'logo')
-
   return (
     <Card>
       <CardTitle
@@ -28,7 +22,8 @@ export default function MaecenatePresentation (props) {
         <Row>
           <Col xs={5} sm={3} md={2}>
             <CardContent>
-              <img src={logoCropped} className={s.logo} />
+              <img src={cropCloudy(maecenate.logo_url, 'logo')}
+                className={s.logo} />
               <p>Maecens: 0</p>
               <p>Content posts: 0</p>
               <p>Min. amount: 1€</p>
@@ -62,7 +57,7 @@ export default function MaecenatePresentation (props) {
             <CardContent>
               {coverUrl && startsWith(coverType, 'video')
                 ? <video className={s.coverVideo} src={coverUrl} controls />
-                : <img className={s.coverImage} src={coverCropped} />
+                : <img className={s.coverImage} src={cropCloudy(coverUrl, 'cover')} />
               }
             </CardContent>
             <CardHeader
