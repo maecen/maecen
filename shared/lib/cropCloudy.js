@@ -1,6 +1,10 @@
 export default function (url, type) {
-  var glue = ''
-  var urlSplitted = url.split('upload')
+  if (typeof url === 'undefined') {
+    return url
+  }
+
+  let glue = ''
+  const urlSplitted = url.split('upload')
 
   if (type === 'cover') {
     glue = 'upload/w_1200,h_675,c_fill'
