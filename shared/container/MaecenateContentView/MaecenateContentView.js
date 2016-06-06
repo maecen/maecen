@@ -54,10 +54,12 @@ class MaecenateContentView extends Component {
                     {posts.map(post => (
                       <Post post={post} key={post.id} />
                     ))}
+                    <Button primary={true}
+                      label={t('backTo') + maecenate.title}
+                      onClick={this.gotoMaecenate} />
                   </div>
                 : <div>Loading...</div>
               }
-              <Button primary={true} label={t('backTo') + maecenate.title} onClick={this.gotoMaecenate} />
             </Col>
           </Row>
         </div>
