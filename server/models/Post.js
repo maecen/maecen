@@ -6,7 +6,7 @@ import Media from './Media'
 
 const schema = Joi.object({
   id: Joi.string().guid(),
-  title: Joi.string().required(),
+  title: Joi.string(),
   maecenate: Joi.string().guid().required(),
   author: Joi.string().guid().required(),
   author_alias: Joi.string().required(),
