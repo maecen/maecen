@@ -16,6 +16,10 @@ const getSlugFromPath = (state, props) =>
   props.params.slug
 
 const withMedia = (maecenate, media) => {
+  if (typeof maecenate === 'undefined') {
+    return maecenate
+  }
+
   const cover = media[maecenate.cover_media]
   return {
     ...maecenate,
