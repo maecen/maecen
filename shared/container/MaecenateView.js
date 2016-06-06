@@ -12,6 +12,7 @@ import {
   isAuthUserMaecenateOwner
 } from '../selectors/Maecenate.selectors'
 import * as Actions from '../actions/actions'
+import cropCloudy from '../lib/cropCloudy'
 import Button from '../components/Form/Button'
 
 import s from './MaecenateView.scss'
@@ -42,6 +43,11 @@ class MaecenateView extends Component {
   render () {
     const { maecenate, isAuthUserOwner } = this.props
     const { cover_type: coverType, cover_url: coverUrl } = maecenate
+    var coverCropped = ''
+    if (coverType !== 'video') {
+      coverCropped = cropCloudy(coverUrl, 'cover')
+    }
+    const logoCropped = cropCloudy(maecenate.logo_url, 'logo')
 
     return (
       <ContentWrapper>
@@ -55,7 +61,7 @@ class MaecenateView extends Component {
                 <Row>
                   <Col xs={5} sm={3} md={2}>
                     <CardContent>
-                      <img src={maecenate.logo_url} className={s.logo} />
+                      <img src={logoCropped} className={s.logo} />
                       <p>Maecens: 0</p>
                       <p>Content posts: 0</p>
                       <p>Min. amount: 1€</p>
@@ -89,7 +95,7 @@ class MaecenateView extends Component {
                     <CardContent>
                       {coverUrl && startsWith(coverType, 'video')
                         ? <video width='100%' src={coverUrl} controls />
-                        : <img src={coverUrl} width='100%' />
+                        : <img src={coverCropped} width='100%' />
                       }
                     </CardContent>
                     <CardHeader

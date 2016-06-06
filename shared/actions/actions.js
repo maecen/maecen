@@ -149,6 +149,7 @@ export function fetchMaecenatePosts (slug) {
       .catch(err => console.log(err.stack))
   }
 }
+
 /*
 
 export function addPost(post) {
