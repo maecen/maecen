@@ -14,6 +14,7 @@
     "upload": "Upload media"
   },
   "mc": {
+    "backTo": "Back to: {{title}}",
     "create": "Create Maecenate",
     "seeAll": "See all Maecenates",
     "teaser": "Teaser",
