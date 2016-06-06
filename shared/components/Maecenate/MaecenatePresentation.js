@@ -13,7 +13,7 @@ export default function MaecenatePresentation (props) {
   const { cover_type: coverType, cover_url: coverUrl } = maecenate
 
   let coverCropped = ''
-  if (coverType !== 'video') {
+  if (!startsWith(coverType, 'video')) {
     coverCropped = cropCloudy(coverUrl, 'cover')
   }
   const logoCropped = cropCloudy(maecenate.logo_url, 'logo')

@@ -8,8 +8,8 @@ function Post (props, context) {
   const { post, t } = props
   const media = post.media && post.media[0]
   const writtenByAlias = t('post.writtenByAlias', { alias: post.author_alias })
-  var imageCropped = ''
-  if (media.type !== 'video') {
+  let imageCropped = ''
+  if (media && !startsWith(media.type, 'video')) {
     imageCropped = cropCloudy(media.url, 'post')
   }
 
