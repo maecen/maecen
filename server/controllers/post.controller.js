@@ -21,6 +21,7 @@ export function createPost (req, res, next) {
             .where('id', 'in', mediaIds)
             .andWhere('obj_id', null)
             .update({
+              obj_id: post.get('id'),
               obj_type: 'post'
             })
         }
