@@ -10,7 +10,10 @@ function MaecenateCard (props, context) {
   }, onClick } = props
 
   const logoCropped = cropCloudy(logoUrl, 'logo')
-  const coverCropped = cropCloudy(coverUrl, 'cover')
+  var imageCropped = ''
+  if (coverType !== 'video') {
+    imageCropped = cropCloudy(coverUrl, 'cover')
+  }
 
   return (
     <Card onClick={onClick} className={s.main}>
@@ -21,7 +24,7 @@ function MaecenateCard (props, context) {
       <div className={s.cover}>
         {coverUrl && startsWith(coverType, 'video')
           ? <video width='100%' src={coverUrl} controls />
-          : <img src={coverCropped} width='100%' />
+          : <img src={imageCropped} width='100%' />
         }
       </div>
       <CardContent>{teaser}</CardContent>
