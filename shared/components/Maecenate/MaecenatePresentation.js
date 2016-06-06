@@ -61,8 +61,8 @@ export default function MaecenatePresentation (props) {
           <Col xs={7} sm={9} md={10}>
             <CardContent>
               {coverUrl && startsWith(coverType, 'video')
-                ? <video width='100%' src={coverUrl} controls />
-                : <img src={coverCropped} width='100%' />
+                ? <video className={s.coverVideo} src={coverUrl} controls />
+                : <img className={s.coverImage} src={coverCropped} />
               }
             </CardContent>
             <CardHeader
