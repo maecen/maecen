@@ -7,6 +7,10 @@ export function getMaecenate (req, res, next) {
   const { slug } = req.params
   let maecenate = null
   return Maecenate.where({ slug }).fetch().then((data) => {
+    if (data === null) {
+      const error = { maecenate: 'noneExists' }
+      throw error
+    }
     maecenate = data
   }).then(() => {
     return knex('media')
@@ -15,7 +19,7 @@ export function getMaecenate (req, res, next) {
     return res.json(normalizeResponse({
       maecenates: maecenate, media
     }, 'maecenates'))
-  })
+  }).catch(next)
 }
 
 export function getMaecenates (req, res, next) {
@@ -28,14 +32,14 @@ export function getMaecenates (req, res, next) {
     return res.json(normalizeResponse({
       maecenates, media
     }, 'maecenates'))
-  })
+  }).catch(next)
 }
 
 export function getUserMaecenates (req, res, next) {
   const { user } = req.params
   return Maecenate.where({ creator: user }).fetchAll().then((maecenates) => {
     return res.json(normalizeResponse({ maecenates }))
-  })
+  }).catch(next)
 }
 
 export function createMaecenate (req, res, next) {

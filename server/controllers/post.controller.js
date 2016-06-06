@@ -41,7 +41,7 @@ export function getMaecenatePosts (req, res, next) {
   let posts = null
 
   const maecenateQuery = knex('maecenates').where('slug', slug).select('id')
-  knex('posts')
+  return knex('posts')
     .where('maecenate', 'in', maecenateQuery)
     .orderBy('created_at', 'desc')
     .then((res) => {
@@ -56,5 +56,5 @@ export function getMaecenatePosts (req, res, next) {
       }))
 
       res.json(normalizeResponse({ posts, media }, 'posts'))
-    })
+    }).catch(next)
 }
