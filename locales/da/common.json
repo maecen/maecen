@@ -14,6 +14,7 @@
     "upload": "Upload medie"
   },
   "mc": {
+    "backTo": "Tilbage til: {{title}}",
     "create": "Opret Mæcenat",
     "seeAll": "Se alle Mæcenater",
     "teaser": "Teaser",

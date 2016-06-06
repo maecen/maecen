@@ -23,8 +23,8 @@ function MaecenateCard (props, context) {
       </div>
       <div className={s.cover}>
         {coverUrl && startsWith(coverType, 'video')
-          ? <video width='100%' src={coverUrl} controls />
-          : <img src={imageCropped} width='100%' />
+          ? <video className={s.coverVideo} src={coverUrl} controls />
+          : <img src={imageCropped} className={s.coverImage} />
         }
       </div>
       <CardContent>{teaser}</CardContent>
