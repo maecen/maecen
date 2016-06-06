@@ -68,7 +68,7 @@
     "numberBase": "Kun numre er tilladt her",
     "numberInteger": "Kun heltal er tilladt",
     "objectMissing": "Du mangler at udfylde et felt",
-    "objectMissing_mediaContent": "Du er nødt til endten at tilføje noget tekst, eller et medie element"
+    "objectMissing_mediaContent": "Du er nødt til at tilføje noget tekst eller et medie element"
   },
   "error": {
     "noUserWithEmail": "Der eksisterer ingen bruger med denne email",
