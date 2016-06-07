@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
-import { startsWith } from 'strman'
 
 import { Row, Col } from 'react-flexbox-grid/lib'
 import { Card, CardContent, CardTitle, CardHeader } from '../../components/Card'
 import cropCloudy from '../../lib/cropCloudy'
 import Button from '../Form/Button'
+import Media from '../Media/Media'
 
 import s from './MaecenatePresentation.scss'
 
@@ -55,10 +55,7 @@ export default function MaecenatePresentation (props) {
           </Col>
           <Col xs={7} sm={9} md={10}>
             <CardContent>
-              {coverUrl && startsWith(coverType, 'video')
-                ? <video className={s.coverVideo} src={coverUrl} controls />
-                : <img className={s.coverImage} src={cropCloudy(coverUrl, 'cover')} />
-              }
+              <Media type={coverType} url={coverUrl} />
             </CardContent>
             <CardHeader
               title={maecenate.teaser}

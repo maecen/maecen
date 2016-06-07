@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
-import { startsWith } from 'strman'
 import s from './MaecenateCard.scss'
 import { Card, CardContent } from '../Card'
 import cropCloudy from '../../lib/cropCloudy'
+import Media from '../Media/Media'
 
 function MaecenateCard (props, context) {
   const { maecenate: {
@@ -15,13 +15,7 @@ function MaecenateCard (props, context) {
         <img src={cropCloudy(logoUrl, 'logo')} className={s.logo} />
         <h4 className={s.title}>{title}</h4>
       </div>
-      <div className={s.cover}>
-        {coverUrl && startsWith(coverType, 'video')
-          ? <video className={s.coverVideo} src={coverUrl} controls />
-          : <img src={cropCloudy(coverUrl, 'cover')}
-              className={s.coverImage} />
-        }
-      </div>
+      <Media type={coverType} url={coverUrl} />
       <CardContent>{teaser}</CardContent>
     </Card>
   )
