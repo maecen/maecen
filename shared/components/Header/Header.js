@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
-import {Grid} from 'react-flexbox-grid/lib'
 
 import s from './Header.scss'
 import Button from '../Form/Button'
@@ -16,26 +15,24 @@ function Header (props, context) {
 
   return (
     <header className={s.main}>
-      <Grid>
-        <Link to='/'>
-          <Icon size='3rem'
-            viewBox='0 0 832 687'
-            icon='maecen-m-only'
-          />
-        </Link>
-        <div className={s.rightmenu}>
-          <Button
-            label={t('mc.create')}
-            primary={true}
-            onClick={createMaecenateAction}
-          />
+      <Link to='/'>
+        <Icon size='3rem'
+          viewBox='0 0 832 687'
+          icon='maecen-m-only'
+        />
+      </Link>
+      <div className={s.rightmenu}>
+        <Button
+          label={t('mc.create')}
+          primary={true}
+          onClick={createMaecenateAction}
+        />
 
-          { hasAuth === false
-            ? <Button label={t('login')} primary={true} last={true} onClick={loginAction} />
-            : <Link to='/profile'><Button primary={true} last={true} label={t('profile')} /></Link>
-          }
-        </div>
-      </Grid>
+        { hasAuth === false
+          ? <Button label={t('login')} primary={true} last={true} onClick={loginAction} />
+          : <Link to='/profile'><Button primary={true} last={true} label={t('profile')} /></Link>
+        }
+      </div>
     </header>
   )
 }

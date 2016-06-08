@@ -7,7 +7,9 @@ import s from './ContentWrapper.scss'
 export default function ContentWrapper (props, context) {
   return (
     <div className={s.main}>
-      <HeaderContainer />
+      <Grid className={s.header}>
+        <HeaderContainer />
+      </Grid>
       <div className={s.mainContent}>
         <Grid>
           {props.children}
