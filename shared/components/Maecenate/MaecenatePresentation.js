@@ -55,7 +55,7 @@ export default function MaecenatePresentation (props) {
           </Col>
           <Col xs={7} sm={9} md={10}>
             <CardContent>
-              <Media type={coverType} url={coverUrl} />
+              <Media type={coverType} url={coverUrl} fixAspect={true} />
             </CardContent>
             <CardHeader
               title={maecenate.teaser}

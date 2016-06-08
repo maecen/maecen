@@ -32,5 +32,5 @@ Media.propTypes = {
 }
 
 Media.defaultProps = {
-  fixAspect: 'false'
+  fixAspect: false
 }

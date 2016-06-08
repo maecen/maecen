@@ -15,7 +15,7 @@ function MaecenateCard (props, context) {
         <img src={cropCloudy(logoUrl, 'logo')} className={s.logo} />
         <h4 className={s.title}>{title}</h4>
       </div>
-      <Media type={coverType} url={coverUrl} />
+      <Media type={coverType} url={coverUrl} fixAspect={true} />
       <CardContent>{teaser}</CardContent>
     </Card>
   )
