@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import * as PostController from '../controllers/post.controller'
-import Maecenate from '../models/maecenate'
+import Maecenate from '../models/Maecenate'
 const router = new Router()
 
 function verifyMaecenateOwner (req, res, next) {
