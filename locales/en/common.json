@@ -1,5 +1,6 @@
 {
   "maecen": "Maecen",
+  "maecens": "Maecens",
   "home": "Home",
   "profile": "Profile",
   "login": "Login",
@@ -10,6 +11,8 @@
   "title": "Title",
   "backTo": "Back to: ",
   "loading": "Loading...",
+  "minimumAmount": "Min. amount",
+  "website": "Website",
   "media": {
     "upload": "Upload media"
   },
@@ -28,11 +31,12 @@
     "coverImage": "Cover image"
   },
   "post": {
-    "create": "Create new post",
+    "posts": "Posts",
+    "create": "Create post",
+    "see": "See posts",
     "title": "Title",
     "content": "Content",
     "writtenByAlias": "By: {{alias}}"
-
   },
   "user": {
     "alias": "Alias",

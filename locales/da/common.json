@@ -1,5 +1,6 @@
 {
   "maecen": "Mæcen",
+  "maecens": "Mæcener",
   "home": "Hjem",
   "profile": "Profil",
   "login": "Login",
@@ -10,6 +11,8 @@
   "title": "Titel",
   "backTo": "Tilbage til: ",
   "loading": "Loader...",
+  "minimumAmount": "Min. beløb",
+  "website": "Website",
   "media": {
     "upload": "Upload medie"
   },
@@ -28,7 +31,9 @@
     "coverImage": "Coverbillede"
   },
   "post": {
-    "create": "Opret nyt indlæg",
+    "posts": "Indlæg",
+    "create": "Opret indlæg",
+    "see": "Se indlæg",
     "title": "Titel",
     "content": "Indhold",
     "writtenByAlias": "Af: {{alias}}"

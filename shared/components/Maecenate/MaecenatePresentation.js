@@ -2,15 +2,16 @@ import React, { PropTypes } from 'react'
 
 import { Row, Col } from 'react-flexbox-grid/lib'
 import { Card, CardContent, CardTitle, CardHeader } from '../../components/Card'
+import { translate } from 'react-i18next'
 import cropCloudy from '../../lib/cropCloudy'
 import Button from '../Form/Button'
 import Media from '../Media/Media'
 
 import s from './MaecenatePresentation.scss'
 
-export default function MaecenatePresentation (props) {
-  const { maecenate, isAuthUserOwner } = props
-  const { cover_type: coverType, cover_url: coverUrl } = maecenate
+function MaecenatePresentation (props) {
+  const { maecenate, isAuthUserOwner, t } = props
+  const { cover_type: coverType, cover_url: coverUrl, logo_url: logoUrl, url: url, monthly_minimum: monthlyMinimum } = maecenate
 
   return (
     <Card>
@@ -22,32 +23,32 @@ export default function MaecenatePresentation (props) {
         <Row>
           <Col xs={5} sm={3} md={2}>
             <CardContent>
-              <img src={cropCloudy(maecenate.logo_url, 'logo')}
+              <img src={cropCloudy(logoUrl, 'logo')}
                 className={s.logo} />
-              <p>Maecens: 0</p>
-              <p>Content posts: 0</p>
-              <p>Min. amount: 1€</p>
-              {maecenate.url &&
+              <p>{t('maecens')}: 0</p>
+              <p>{t('post.posts')}: 0</p>
+              <p>{t('minimumAmount')}: {monthlyMinimum}</p>
+              {url &&
                 <p>
-                  Website:
+                  {t('website')}:
                   <a
-                    href={`http://${maecenate.url}`}
+                    href={`http://${url}`}
                     target='_blank'
                     className={s.link}>
-                    &nbsp;{maecenate.url}
+                    &nbsp;{url}
                   </a>
                 </p>
               }
               {isAuthUserOwner &&
                 <Button
                   primary={true}
-                  label='Create Post'
+                  label={t('post.create')}
                   onClick={props.createPost}
                 />
               }
               <Button
                 primary={true}
-                label='See Content'
+                label={t('post.see')}
                 onClick={props.gotoContent}
                 style={{marginTop: '16px'}}
               />
@@ -76,3 +77,7 @@ MaecenatePresentation.propTypes = {
   gotoContent: PropTypes.func.isRequired,
   createPost: PropTypes.func.isRequired
 }
+
+export default translate(['common'])(
+  MaecenatePresentation
+)
