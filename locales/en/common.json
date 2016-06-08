@@ -61,7 +61,8 @@
     "cancel": "Cancel",
     "createUser": "Create User",
     "yourProfile": "Your Profile",
-    "yourMaecenates": "Your Maecenates"
+    "yourMaecenates": "Your Maecenates",
+    "maecenatesSupported": "Mæcenater du støtter"
   },
   "validationError": {
     "alreadyTaken": "This is unfortunately already in use by someone else",

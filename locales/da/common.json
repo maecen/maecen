@@ -61,7 +61,8 @@
     "cancel": "Annuller",
     "createUser": "Opret bruger",
     "yourProfile": "Din profil",
-    "yourMaecenates": "Dine Mæcenater"
+    "yourMaecenates": "Dine Mæcenater",
+    "maecenatesSupported": "Mæcenater du støtter"
   },
   "validationError": {
     "alreadyTaken": "Dette bruges desværre allerede af en anden",
