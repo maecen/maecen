@@ -23,6 +23,8 @@
     "descriptionPlaceholder": "Description of the Maecenate",
     "website": "Website",
     "websitePlaceholder": "Your website URL address",
+    "subscriptionPrice": "Monthly subscription costs in DKR",
+    "subscriptionPricePlaceholder": "e.g. 20",
     "coverImage": "Cover image"
   },
   "post": {

@@ -23,6 +23,8 @@
     "descriptionPlaceholder": "Beskrivelse af Mæcenatet",
     "website": "Hjemmeside",
     "websitePlaceholder": "Din hjemmesides URL-adresse",
+    "subscriptionPrice": "Pris for månedligt abonnement i kr",
+    "subscriptionPricePlaceholder": "fx 20",
     "coverImage": "Coverbillede"
   },
   "post": {

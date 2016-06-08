@@ -30,6 +30,13 @@ class CreateMaecenateContainer extends Component {
   }
 
   updateModel (path, value) {
+    if (value && path[0] === 'monthly_minimum') {
+      if (value.match(/^[0-9]*$/)) {
+        value = Number(value).toFixed(0)
+      } else {
+        return
+      }
+    }
     const maecenate = this.state.maecenate.setIn(path, value)
     this.setState({maecenate})
   }
@@ -92,6 +99,13 @@ class CreateMaecenateContainer extends Component {
                 path={['logo_url']} />
               <br />
 
+              <FileDropzone
+                multiple={false}
+                label='Upload Cover'
+                accept='video/*,image/*'
+                onChange={this.coverChange} />
+              <br />
+
               <TextField
                 path={['teaser']}
                 label={t('mc.teaser')}
@@ -112,11 +126,11 @@ class CreateMaecenateContainer extends Component {
                 placeholder={t('mc.websitePlaceholder')} />
               <br />
 
-              <FileDropzone
-                multiple={false}
-                label='Upload Cover'
-                accept='video/*,image/*'
-                onChange={this.coverChange} />
+              <TextField
+                fullWidth={false}
+                path={['monthly_minimum']}
+                label={t('mc.subscriptionPrice')}
+                placeholder={t('mc.subscriptionPricePlaceholder')} />
               <br />
 
               <Button type='submit'
