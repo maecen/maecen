@@ -5,6 +5,7 @@
 
 .tagline {
   font-size: 1.4rem;
+  font-size: calc(.8rem + .5vw + .5vh);
   font-style: italic;
   font-weight: 300;
   letter-spacing: .02rem;
