@@ -3,7 +3,7 @@ import React from 'react'
 import App from './container/App/App'
 
 import HomeContainer from './container/HomeContainer'
-import CreateMaecenateContainer from './container/CreateMaecenateContainer'
+import CreateMaecenateView from './container/CreateMaecenateView'
 import MaecenateOverviewContainer from './container/MaecenateOverviewContainer'
 
 import MaecenateView from './container/MaecenateView'
@@ -36,7 +36,7 @@ const getRoutes = (store) => {
       <IndexRoute component={HomeContainer} />
       <Route path='profile' component={MyPageView} />
       <Route path='create-maecenate'
-        component={CreateMaecenateContainer} onEnter={requiresAuth} />
+        component={CreateMaecenateView} onEnter={requiresAuth} />
       <Route path='maecenates' component={MaecenateOverviewContainer} />
       <Route path='maecenate/:slug' component={MaecenateView} />
       <Route path='maecenate/:slug/new-post' component={CreatePostView} />
