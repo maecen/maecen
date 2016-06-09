@@ -7,7 +7,7 @@ import expressJwt from 'express-jwt'
 import morgan from 'morgan'
 import serialize from 'serialize-javascript'
 
-import User from './models/user'
+import User from './models/User'
 import mapInitialState from '../shared/lib/mapInitialState'
 import i18n from './i18n-server'
 import i18nMiddleware from 'i18next-express-middleware'
@@ -140,6 +140,7 @@ app.use((req, res, next) => {
     },
     entities: {
       users: {},
+      userSupports: {},
       posts: {},
       media: {},
       maecenates: {}

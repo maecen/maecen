@@ -5,22 +5,33 @@ import MaterialTextField from 'material-ui/TextField'
 
 export default function TextField (props, context) {
   props = Immutable(props)
-  const path = Array.isArray(props.path) ? props.path.join('.') : props.path
-  let error = context.errors[path] || null
-  if (error && error.message) {
-    error = error.message
-  }
+  if (props.path) {
+    const path = Array.isArray(props.path) ? props.path.join('.') : props.path
+    let error = context.errors[path] || null
+    if (error && error.message) {
+      error = error.message
+    }
 
-  return (
-    <MaterialTextField
-      floatingLabelText={props.label}
-      hintText={props.placeholder}
-      value={get(context.model, path) || ''}
-      onChange={context.updateValue.bind(null, props.path)}
-      errorText={error}
-      {...props.without('placeholder', 'label', 'path')}
-    />
-  )
+    return (
+      <MaterialTextField
+        floatingLabelText={props.label}
+        hintText={props.placeholder}
+        value={get(context.model, path) || ''}
+        onChange={context.updateValue.bind(null, props.path)}
+        errorText={error || props.error}
+        {...props.without('placeholder', 'label', 'path')}
+      />
+    )
+  } else {
+    return (
+      <MaterialTextField
+        floatingLabelText={props.label}
+        hintText={props.placeholder}
+        errorText={props.error}
+        {...props.without('placeholder', 'label', 'path')}
+      />
+    )
+  }
 }
 
 TextField.defaultProps = {
@@ -34,12 +45,12 @@ TextField.propTypes = {
   path: React.PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string
-  ]).isRequired,
+  ]),
   placeholder: PropTypes.string
 }
 
 TextField.contextTypes = {
-  updateValue: PropTypes.func.isRequired,
-  model: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  updateValue: PropTypes.func,
+  model: PropTypes.object,
+  errors: PropTypes.object
 }

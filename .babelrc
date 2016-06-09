@@ -3,6 +3,7 @@
   "ignore": [
     "/**/*.scss"
   ],
+  "plugins": [ "transform-runtime" ],
   "env": {
     "production": {
       "plugins": [

@@ -1,10 +1,8 @@
-import Card from './Card'
-import CardContent from './CardContent.js'
-import CardTitle from './CardTitle.js'
 import { CardActions, CardHeader } from 'material-ui/Card'
 
-export { Card }
-export { CardContent }
-export { CardTitle }
+export { default as default } from './Card'
+export { default as Card } from './Card'
+export { default as CardContent } from './CardContent'
+export { default as CardTitle } from './CardTitle'
 export { CardActions }
 export { CardHeader }

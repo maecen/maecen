@@ -8,9 +8,7 @@ import { Row, Col } from 'react-flexbox-grid/lib'
 import * as Actions from '../actions/actions'
 
 import Dialog from '../components/Dialog/Dialog'
-import Form from '../components/Form/Form'
-import TextField from '../components/Form/TextField'
-import Button from '../components/Form/Button'
+import Form, { TextField, Button } from '../components/Form'
 
 class AuthDialogContainer extends React.Component {
 

@@ -6,6 +6,7 @@ import Joi from 'joi'
 import uuid from 'node-uuid'
 import { joiValidation } from '../util/ctrlHelpers'
 import { bookshelf } from '../database'
+import Maecenate from './Maecenate'
 
 const bcryptCompare = promisify(bcrypt.compare)
 const SALT_WORK_FACTOR = 10
@@ -70,6 +71,10 @@ const User = bookshelf.Model.extend({
         })
       })
     })
+  },
+
+  maecenatesSupported () {
+    return this.belongsToMany(Maecenate, 'supporters', 'user', 'maecenate')
   }
 })
 

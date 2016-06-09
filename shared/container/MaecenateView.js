@@ -17,6 +17,11 @@ class MaecenateView extends Component {
     super(props)
     this.createPost = this.createPost.bind(this)
     this.gotoContent = this.gotoContent.bind(this)
+    this.supportMaecenate = this.supportMaecenate.bind(this)
+
+    this.state = {
+      maecenateSupportOpen: false
+    }
   }
 
   componentDidMount () {
@@ -34,18 +39,26 @@ class MaecenateView extends Component {
     browserHistory.push(`/maecenate/${slug}/content`)
   }
 
+  supportMaecenate () {
+    const { slug } = this.props.params
+    browserHistory.push(`/maecenate/${slug}/support`)
+  }
+
   render () {
     const { maecenate, isAuthUserOwner } = this.props
 
     return (
       <ContentWrapper>
         {maecenate
-          ? <MaecenatePresentation
-              maecenate={maecenate}
-              isAuthUserOwner={isAuthUserOwner}
-              createPost={this.createPost}
-              gotoContent={this.gotoContent}
-            />
+          ? <div>
+              <MaecenatePresentation
+                maecenate={maecenate}
+                isAuthUserOwner={isAuthUserOwner}
+                createPost={this.createPost}
+                gotoContent={this.gotoContent}
+                supportMaecenate={this.supportMaecenate}
+              />
+            </div>
           : <div>Loading...</div>
         }
       </ContentWrapper>

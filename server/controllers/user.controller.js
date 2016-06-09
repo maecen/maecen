@@ -1,5 +1,7 @@
+import uuid from 'node-uuid'
 import { normalizeResponse } from '../util/ctrlHelpers'
 import User from '../models/User'
+import { knex } from '../database'
 
 export function createUser (req, res, next) {
   let { user: data } = req.body
@@ -60,6 +62,43 @@ export function setUserLanguage (req, res, next) {
   const expire = 365 * 24 * 60 * 60 // in 1 year
   res.cookie('i18n', lng, { maxAge: 1000 * expire, httpOnly: true })
   return res.json({success: true})
+}
+
+export function supportMaecenate (req, res, next) {
+  const { userId } = req.user
+  const { maecenateId, amount } = req.body
+
+  if (amount < 0) {
+    const error = {
+      amount: { message: 'validationError.numberMin' }, options: { limit: 0 }
+    }
+    throw error
+  }
+
+  return isUserSupportingMaecenate(maecenateId, userId)
+    .then(isSupporting => {
+      if (isSupporting === true) {
+        const error = { _: 'mc.alreadySupported' }
+        throw error
+      }
+
+      const support = {
+        id: uuid.v1(),
+        user: userId,
+        maecenate: maecenateId,
+        amount
+      }
+
+      return knex('supporters').insert(support).then(() => support)
+    }).then(support => {
+      return res.json(normalizeResponse({ userSupports: support }))
+    }).catch(next)
+}
+
+function isUserSupportingMaecenate (maecenateId, userId) {
+  return knex('supporters')
+    .where('user', userId).andWhere('maecenate', maecenateId).count('* as count')
+    .then(res => res[0].count >= 1)
 }
 
 function createUserAuthTokenInRes (user, res) {

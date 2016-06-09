@@ -10,7 +10,7 @@ import Media from '../Media/Media'
 import s from './MaecenatePresentation.scss'
 
 function MaecenatePresentation (props) {
-  const { maecenate, isAuthUserOwner, t } = props
+  const { maecenate, isAuthUserOwner, supportMaecenate, t } = props
   const { cover_type: coverType, cover_url: coverUrl, logo_url: logoUrl, url: url, monthly_minimum: monthlyMinimum } = maecenate
 
   return (
@@ -50,6 +50,12 @@ function MaecenatePresentation (props) {
                 primary={true}
                 label={t('post.see')}
                 onClick={props.gotoContent}
+                style={{marginTop: '16px'}}
+              />
+              <Button
+                primary={true}
+                label='Support Maecenate'
+                onClick={supportMaecenate}
                 style={{marginTop: '16px'}}
               />
             </CardContent>

@@ -21,7 +21,7 @@ router.use((err, req, res, next) => {
   let errors = formatResponseError(err)
 
   errors = mapValues(errors, (error, key) => {
-    if (error.message) {
+    if (error && error.message) {
       return localizeMessage(req.t, error.message, error.options)
     } else {
       return localizeMessage(req.t, error, { context: key })
@@ -33,7 +33,8 @@ router.use((err, req, res, next) => {
 
 function localizeMessage (t, message, options) {
   // Check if it's a token and not a normal text
-  if (message.includes(' ') === false && message.includes('.') === true) {
+  if (typeof message === 'string' && message.includes(' ') === false &&
+    message.includes('.') === true) {
     return t(message, options)
   }
 

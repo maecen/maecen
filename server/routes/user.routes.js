@@ -20,4 +20,6 @@ router.get('/getAuthUser', UserController.getAuthUser)
 // Set user language
 router.put('/setUserLanguage', UserController.setUserLanguage)
 
+router.post('/supportMaecenate', UserController.supportMaecenate)
+
 export default router

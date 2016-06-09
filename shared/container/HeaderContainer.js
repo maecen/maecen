@@ -4,6 +4,10 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions/actions'
 import Header from '../components/Header/Header'
 
+import {
+  isAuthorized, getAuthUser
+} from '../selectors/User.selectors'
+
 class HeaderContainer extends Component {
   constructor (props) {
     super(props)
@@ -35,14 +39,10 @@ class HeaderContainer extends Component {
   }
 }
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const hasAuth = !!app.authUser
-  const user = hasAuth && entities.users[app.authUser]
-
+function mapStateToProps (state) {
   return {
-    hasAuth,
-    user
+    hasAuth: isAuthorized(state),
+    user: getAuthUser(state)
   }
 }
 
