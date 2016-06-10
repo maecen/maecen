@@ -40,6 +40,10 @@ export function normalizeResponse (data, responseObject) {
 
   let response = {
     entities: mapValues(data, entities => {
+      if (!entities) {
+        return {}
+      }
+
       if (entities && typeof entities.toJSON === 'function') {
         entities = entities.toJSON()
       }
