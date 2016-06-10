@@ -90,15 +90,24 @@ class MaecenateSupportView extends React.Component {
           <Row>
             <Col smOffset={3} sm={6} xs={12}>
               <Card>
-                <CardTitle
-                  title={`Become a ${maecenate.title} maecen`}
-                  subtitle={'How much would you support with?'}
-                />
+                {!this.state.success &&
+                  <CardTitle
+                    title={`Become a ${maecenate.title} maecen`}
+                    subtitle={'How much would you support with?'}
+                  />
+                }
 
                 {this.state.success &&
                   <div>
-                    Success!
-                    <Button label='To content' onClick={this.gotoContent} />
+                    <CardTitle
+                      title={'Success!'}
+                    />
+                    <CardContent>
+                      <Button
+                        primary={true}
+                        label='To content'
+                        onClick={this.gotoContent} />
+                    </CardContent>
                   </div>
                 }
 
