@@ -50,7 +50,11 @@ export const getMaecenates = createSelector(
   )
 )
 
-export const isAuthUserMaecenateOwner = createSelector(
-  [ getMaecenateBySlug, getAuthUserId ],
-  (maecenate, userId) => maecenate && maecenate.creator === userId
-)
+// Factory selectors, which depends upon a maecenate selector method
+export const isAuthUserMaecenateOwner = (maecenateSelector) => {
+  return createSelector(
+    [ maecenateSelector, getAuthUserId ],
+    (maecenate, userId) => maecenate && maecenate.creator === userId
+  )
+}
+

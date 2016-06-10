@@ -6,6 +6,9 @@ import {
   getMaecenateBySlug,
   isAuthUserMaecenateOwner
 } from '../selectors/Maecenate.selectors'
+import {
+  isAuthUserMaecenateSupporter
+} from '../selectors/Support.selectors.js'
 import * as Actions from '../actions/actions'
 
 import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
@@ -45,7 +48,7 @@ class MaecenateView extends Component {
   }
 
   render () {
-    const { maecenate, isAuthUserOwner } = this.props
+    const { maecenate, isAuthUserOwner, isSupporter } = this.props
 
     return (
       <ContentWrapper>
@@ -54,6 +57,7 @@ class MaecenateView extends Component {
               <MaecenatePresentation
                 maecenate={maecenate}
                 isAuthUserOwner={isAuthUserOwner}
+                isSupporter={isSupporter}
                 createPost={this.createPost}
                 gotoContent={this.gotoContent}
                 supportMaecenate={this.supportMaecenate}
@@ -71,9 +75,13 @@ MaecenateView.need = [(params) => {
 }]
 
 function mapStateToProps (state, props) {
+  const isMaecenateOwner = isAuthUserMaecenateOwner(getMaecenateBySlug)
+  const isSupporter = isAuthUserMaecenateSupporter(getMaecenateBySlug)
+
   return {
     maecenate: getMaecenateBySlug(state, props),
-    isAuthUserOwner: isAuthUserMaecenateOwner(state, props)
+    isAuthUserOwner: isMaecenateOwner(state, props),
+    isSupporter: isSupporter(state, props)
   }
 }
 
