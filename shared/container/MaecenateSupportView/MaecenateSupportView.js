@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import axios from 'axios'
@@ -13,8 +13,8 @@ import {
 } from '../../selectors/Maecenate.selectors'
 
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
-import Card, { CardContent, CardTitle, CardHeader } from '../../components/Card'
-import Form, { Button, TextField } from '../../components/Form'
+import Card from '../../components/Card'
+import { Button, TextField } from '../../components/Form'
 
 class MaecenateSupportView extends React.Component {
   constructor (props) {
@@ -80,7 +80,7 @@ class MaecenateSupportView extends React.Component {
   }
 
   render () {
-    const { t, open, maecenate, hasAuth } = this.props
+    const { maecenate, hasAuth } = this.props
     const continueLabel = hasAuth ? 'Continue to Payment' : 'Continue'
 
     return (
