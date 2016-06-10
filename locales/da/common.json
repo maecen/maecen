@@ -17,6 +17,7 @@
     "upload": "Upload medie"
   },
   "mc": {
+    "alreadySupported": "Du støtter allerede dette Mæcenat",
     "backTo": "Tilbage til: {{title}}",
     "create": "Opret Mæcenat",
     "seeAll": "Se alle Mæcenater",
