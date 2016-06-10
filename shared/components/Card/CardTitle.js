@@ -2,8 +2,7 @@ import React, { PropTypes } from 'react'
 import { CardTitle as MaterialCardTitle } from 'material-ui/Card'
 
 export default function CardTitle (props) {
-  const bigTitle = props.big
-  if (bigTitle) {
+  if (props.big === true) {
     props.titleStyle.fontSize = '40px'
     props.titleStyle.fontWeight = '300'
     props.titleStyle.paddingTop = '16px'
@@ -20,7 +19,8 @@ CardTitle.defaultProps = {
   },
   subtitleStyle: {
     marginTop: '4px'
-  }
+  },
+  big: false
 }
 
 CardTitle.propTypes = {
