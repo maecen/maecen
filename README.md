@@ -29,3 +29,9 @@ https://github.com/maecen/maecen-webapp/blob/development/client/assets/js/locali
 
 ## Start
 `npm start`
+
+## Migrate datebase
+`npm run migrate:latest`
+
+## Create new migration
+`./node_modules/.bin/knex migrate:make maecenate-month-price`
