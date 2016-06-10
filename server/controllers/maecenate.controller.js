@@ -1,3 +1,4 @@
+import uuid from 'node-uuid'
 import { normalizeResponse } from '../util/ctrlHelpers'
 import { uploadDataUri } from '../util/fileUploader'
 import { knex } from '../database'
@@ -5,7 +6,9 @@ import Maecenate from '../models/Maecenate'
 
 export function getMaecenate (req, res, next) {
   const { slug } = req.params
+  const userId = req.user ? req.user.userId : null
   let maecenate = null
+
   return Maecenate.where({ slug }).fetch().then((data) => {
     if (data === null) {
       const error = { maecenate: 'noneExists' }
@@ -13,11 +16,14 @@ export function getMaecenate (req, res, next) {
     }
     maecenate = data
   }).then(() => {
-    return knex('media')
-      .where('id', maecenate.get('cover_media'))
-  }).then((media) => {
+    return Promise.all([
+      knex('media').where('id', maecenate.get('cover_media')),
+      getMaecenateUserSupports(maecenate.id, userId)
+    ])
+  }).then(([media, supports]) => {
+    console.log(supports)
     return res.json(normalizeResponse({
-      maecenates: maecenate, media
+      maecenates: maecenate, media, userSupports: supports
     }, 'maecenates'))
   }).catch(next)
 }
@@ -83,3 +89,51 @@ export function createMaecenate (req, res, next) {
       maecenates: maecenate, media }, 'maecenates'))
   }).catch(next)
 }
+
+export function supportMaecenate (req, res, next) {
+  const { userId } = req.user
+  const { maecenateId, amount } = req.body
+
+  if (amount < 0) {
+    const error = {
+      amount: { message: 'validationError.numberMin' }, options: { limit: 0 }
+    }
+    throw error
+  }
+
+  return Promise.all([
+    isUserSupportingMaecenate(maecenateId, userId),
+    Maecenate.isUserOwner(maecenateId, userId)
+  ]).then(([ isSupporting, isOwner ]) => {
+    if (isSupporting === true) {
+      const error = { _: 'mc.alreadySupported' }
+      throw error
+    }
+
+    const support = {
+      id: uuid.v1(),
+      user: userId,
+      maecenate: maecenateId,
+      amount
+    }
+
+    return knex('supporters').insert(support).then(() => support)
+  }).then(support => {
+    return res.json(normalizeResponse({ userSupports: support }))
+  }).catch(next)
+}
+
+function getMaecenateUserSupports (maecenateId, userId) {
+  if (userId) {
+    return knex('supporters')
+      .where('user', userId)
+      .andWhere('maecenate', maecenateId)
+  }
+}
+
+function isUserSupportingMaecenate (maecenateId, userId) {
+  return knex('supporters')
+    .where('user', userId).andWhere('maecenate', maecenateId).count('* as count')
+    .then(res => res[0].count >= 1)
+}
+
