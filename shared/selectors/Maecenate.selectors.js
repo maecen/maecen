@@ -1,3 +1,5 @@
+// Dette er en test
+
 import { createSelector } from 'reselect'
 import find from 'lodash/find'
 import { getAuthUserId } from './User.selectors'

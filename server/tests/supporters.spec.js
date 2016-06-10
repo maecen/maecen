@@ -6,7 +6,6 @@ import { knex } from '../database'
 import { base, userId, createDummyMaecenate } from './util'
 import User from '../models/User'
 
-
 test.beforeEach(t =>
   knex.migrate.latest().then(() => {
     let user = new User({
