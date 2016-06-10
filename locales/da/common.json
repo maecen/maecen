@@ -28,7 +28,9 @@
     "websitePlaceholder": "Din hjemmesides URL-adresse",
     "subscriptionPrice": "Pris for månedligt abonnement i kr",
     "subscriptionPricePlaceholder": "fx 20",
-    "coverImage": "Coverbillede"
+    "coverImage": "Coverbillede",
+    "alreadySupported": "Du støtter allerede dette Mæcenat",
+    "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke samtidig blive Mæcen for det"
   },
   "post": {
     "posts": "Indlæg",

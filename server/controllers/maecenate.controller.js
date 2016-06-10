@@ -110,6 +110,11 @@ export function supportMaecenate (req, res, next) {
       throw error
     }
 
+    if (isOwner === true) {
+      const error = { _: 'mc.ownersCannotSupport' }
+      throw error
+    }
+
     const support = {
       id: uuid.v1(),
       user: userId,
