@@ -56,10 +56,12 @@ class MaecenateSupportView extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault()
-    const { dispatch, maecenate, hasAuth } = this.props
+    const { dispatch, maecenate, hasAuth, t } = this.props
 
-    if (this.state.amount < 5) {
-      this.setState({ amountError: 'The minimum amount is 5 dkk' })
+    if (this.state.amount < maecenate.monthly_minimum) {
+      this.setState({
+        amountError: t('support.belowMin')
+      })
       return
     }
 
