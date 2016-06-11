@@ -11,7 +11,13 @@ import s from './MaecenatePresentation.scss'
 
 function MaecenatePresentation (props) {
   const { maecenate, isAuthUserOwner, isSupporter, supportMaecenate, t } = props
-  const { cover_type: coverType, cover_url: coverUrl, logo_url: logoUrl, url: url, monthly_minimum: monthlyMinimum } = maecenate
+  const {
+    cover_type: coverType,
+    cover_url: coverUrl,
+    logo_url: logoUrl,
+    url: url,
+    monthly_minimum: monthlyMinimum
+  } = maecenate
 
   return (
     <Card>
@@ -27,7 +33,7 @@ function MaecenatePresentation (props) {
                 className={s.logo} />
               <p>{t('maecens')}: 0</p>
               <p>{t('post.posts')}: 0</p>
-              <p>{t('minimumAmount')}: {monthlyMinimum}</p>
+              <p>{t('support.minimumAmount')}: {monthlyMinimum} {t('currency.DKR')}</p>
               {url &&
                 <p>
                   {t('website')}:
@@ -57,7 +63,7 @@ function MaecenatePresentation (props) {
               {isAuthUserOwner === false && isSupporter === false &&
                 <Button
                   primary={true}
-                  label='Become Maecene'
+                  label={t('support.join')}
                   onClick={supportMaecenate}
                   style={{marginTop: '16px'}}
                 />
@@ -72,7 +78,7 @@ function MaecenatePresentation (props) {
               title={maecenate.teaser}
               style={{paddingBottom: '0px'}}
             />
-            <CardContent style={{paddingBottom: '32px'}}>
+            <CardContent>
               {maecenate.description}
             </CardContent>
           </Col>

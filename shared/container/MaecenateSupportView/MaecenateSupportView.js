@@ -83,8 +83,10 @@ class MaecenateSupportView extends React.Component {
   }
 
   render () {
-    const { maecenate, hasAuth } = this.props
-    const continueLabel = hasAuth ? 'Continue to Payment' : 'Continue'
+    const { maecenate, hasAuth, t } = this.props
+    const continueLabel = hasAuth
+      ? t('support.continueToPayment')
+      : t('action.continue')
 
     return (
       <ContentWrapper>
@@ -94,20 +96,20 @@ class MaecenateSupportView extends React.Component {
               <Card>
                 {!this.state.success &&
                   <CardTitle
-                    title={`Become a ${maecenate.title} maecen`}
-                    subtitle={'How much would you support with?'}
+                    title={t('support.joinMc', { title: maecenate.title })}
+                    subtitle={t('support.howMuch')}
                   />
                 }
 
                 {this.state.success &&
                   <div>
                     <CardTitle
-                      title={'Success!'}
+                      title={t('support.success', { title: maecenate.title })}
                     />
                     <CardContent>
                       <Button
                         primary={true}
-                        label='To content'
+                        label={t('post.see')}
                         onClick={this.gotoContent} />
                     </CardContent>
                   </div>
@@ -127,7 +129,7 @@ class MaecenateSupportView extends React.Component {
                         value={this.state.amount}
                         name='amount'
                         onChange={this.handleChange}
-                        label='Value in DKK'
+                        label={`Min. ${maecenate.monthly_minimum} ${t('currency.DKR')}`}
                         error={this.state.amountError}
                         style={{marginTop: '-16px'}}
                       />
