@@ -13,8 +13,9 @@ import {
 } from '../../selectors/Maecenate.selectors'
 
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
-import Card from '../../components/Card'
+import Card, { CardContent, CardError, CardTitle } from '../../components/Card'
 import { Button, TextField } from '../../components/Form'
+import { Grid, Row, Col } from 'react-flexbox-grid/lib'
 
 class MaecenateSupportView extends React.Component {
   constructor (props) {
@@ -85,39 +86,60 @@ class MaecenateSupportView extends React.Component {
 
     return (
       <ContentWrapper>
-        <Card>
-          <h2>{`Become a ${maecenate.title} maecen`}</h2>
+        <Grid>
+          <Row>
+            <Col smOffset={3} sm={6} xs={12}>
+              <Card>
+                {!this.state.success &&
+                  <CardTitle
+                    title={`Become a ${maecenate.title} maecen`}
+                    subtitle={'How much would you support with?'}
+                  />
+                }
 
-          {this.state.success &&
-            <div>
-              Success!
-              <Button label='To content' onClick={this.gotoContent} />
-            </div>
-          }
+                {this.state.success &&
+                  <div>
+                    <CardTitle
+                      title={'Success!'}
+                    />
+                    <CardContent>
+                      <Button
+                        primary={true}
+                        label='To content'
+                        onClick={this.gotoContent} />
+                    </CardContent>
+                  </div>
+                }
 
-          {Object.keys(this.state.errors).length > 0 &&
-            <div>
-              {this.state.errors._}
-            </div>
-          }
+                {Object.keys(this.state.errors).length > 0 &&
+                  <CardError>
+                    {this.state.errors._}
+                  </CardError>
+                }
 
-          {!this.state.success &&
-            <div>
-              How much would you support with?
-              <TextField
-                value={this.state.amount}
-                name='amount'
-                onChange={this.handleChange}
-                label='Value in DKK'
-                error={this.state.amountError}
-              />
+                {!this.state.success &&
+                  <CardContent>
+                    <form
+                      onSubmit={this.handleSubmit}>
+                      <TextField
+                        value={this.state.amount}
+                        name='amount'
+                        onChange={this.handleChange}
+                        label='Value in DKK'
+                        error={this.state.amountError}
+                        style={{marginTop: '-16px'}}
+                      />
 
-              <Button label={continueLabel}
-                onClick={this.handleSubmit}
-                secondary={true} />
-            </div>
-          }
-        </Card>
+                      <Button label={continueLabel}
+                        type='submit'
+                        secondary={true} />
+                    </form>
+                  </CardContent>
+                }
+              </Card>
+            </Col>
+          </Row>
+        </Grid>
       </ContentWrapper>
     )
   }
