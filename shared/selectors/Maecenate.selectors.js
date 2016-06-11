@@ -1,11 +1,11 @@
-// Dette er en test
-
 import { createSelector } from 'reselect'
 import find from 'lodash/find'
+import filter from 'lodash/filter'
 import { getAuthUserId } from './User.selectors'
 import { getMediaEntities } from './Media.selectors'
+import { getSupports } from './Support.selectors'
 
-const getMaecenateEntities = (state, props) =>
+export const getMaecenateEntities = (state, props) =>
   state.entities.maecenates
 
 const getMaecenateId = (state, props) =>
@@ -51,6 +51,14 @@ export const getMaecenates = createSelector(
     withMedia(maecenates[id], media)
   )
 )
+
+export const getSupportedMaecenates = (userIdSelector) =>
+  createSelector(
+    [ userIdSelector, getMaecenateEntities, getSupports ],
+    (userId, maecenates, supports) =>
+      filter(supports, support => support.user === userId)
+        .map(support => maecenates[support.maecenate])
+  )
 
 // Factory selectors, which depends upon a maecenate selector method
 export const isAuthUserMaecenateOwner = (maecenateSelector) => {

@@ -4,14 +4,15 @@ import {
   getAuthUserId
 } from './User.selectors'
 
-const getUserSupports = (state, props) =>
-  state.entities.userSupports
+export const getSupports = (state, props) =>
+  state.entities.supports
 
 export const isAuthUserMaecenateSupporter = (maecenateSelector) => {
   return createSelector(
-    [ maecenateSelector, getAuthUserId, getUserSupports ],
+    [ maecenateSelector, getAuthUserId, getSupports ],
     (maecenate, userId, supports) =>
       !!find(supports, support =>
         support.user === userId && support.maecenate === maecenate.id)
   )
 }
+

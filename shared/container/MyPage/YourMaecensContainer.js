@@ -1,28 +1,27 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import filter from 'lodash/filter'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
+
+import { getAuthUserId } from '../../selectors/User.selectors'
+import {
+  getSupportedMaecenates
+} from '../../selectors/Maecenate.selectors'
 import * as Actions from '../../actions/actions'
 
-import { Card, CardTitle, CardContent } from '../../components/Card'
-import Button from '../../components/Form/Button'
+import { Card, CardTitle } from '../../components/Card'
 import { List, ListItem } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 
-class YourMaecenatesContainer extends Component {
+class YourMaecensContainer extends Component {
 
   componentDidMount () {
     const { dispatch, userId } = this.props
-    dispatch(Actions.fetchUserMaecenateList(userId))
+    dispatch(Actions.fetchSupportedMaecenateList(userId))
   }
 
   gotoMaecenate (slug) {
-    browserHistory.push(`/maecenate/${slug}`)
-  }
-
-  createMaecenate (slug) {
-    browserHistory.push('create-maecenate')
+    browserHistory.push(`/maecenate/${slug}/content`)
   }
 
   render () {
@@ -34,39 +33,30 @@ class YourMaecenatesContainer extends Component {
         <List>
           {maecenates.map((maecenate, i) => (
             <div key={i}>
+              {i > 0 &&
+                <Divider />
+              }
               <ListItem
                 primaryText={maecenate.title}
                 onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
               />
-              <Divider />
             </div>
           ))}
         </List>
-        <CardContent>
-          <Button
-            label={t('mc.create')}
-            primary={true}
-            onClick={this.createMaecenate.bind(this)}
-          />
-        </CardContent>
       </Card>
     )
   }
 }
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const userId = app.authUser || null
-  const allMaecenates = entities.maecenates || []
-  const maecenates = filter(allMaecenates, maecenate =>
-    maecenate.creator === userId)
-
+function mapStateToProps (state, props) {
+  const supportedMaecenates = getSupportedMaecenates(getAuthUserId)
   return {
-    userId,
-    maecenates
+    userId: getAuthUserId(state, props),
+    maecenates: supportedMaecenates(state, props)
   }
 }
 
 export default translate(['common'])(
-  connect(mapStateToProps)(YourMaecenatesContainer)
+  connect(mapStateToProps)(YourMaecensContainer)
 )
+

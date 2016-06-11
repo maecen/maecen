@@ -23,7 +23,7 @@ export function getMaecenate (req, res, next) {
   }).then(([media, supports]) => {
     console.log(supports)
     return res.json(normalizeResponse({
-      maecenates: maecenate, media, userSupports: supports
+      maecenates: maecenate, media, supports
     }, 'maecenates'))
   }).catch(next)
 }
@@ -124,7 +124,20 @@ export function supportMaecenate (req, res, next) {
 
     return knex('supporters').insert(support).then(() => support)
   }).then(support => {
-    return res.json(normalizeResponse({ userSupports: support }))
+    return res.json(normalizeResponse({ supports: support }))
+  }).catch(next)
+}
+
+export function getSupportedMaecenates (req, res, next) {
+  const userId = req.params.user
+
+  let supports = null
+  return knex('supporters').where('user', userId).then(res => {
+    supports = res
+    const maecenateIds = supports.map(support => support.maecenate)
+    return knex('maecenates').where('id', 'in', maecenateIds)
+  }).then(maecenates => {
+    return res.json(normalizeResponse({ maecenates, supports }, 'maecenates'))
   }).catch(next)
 }
 

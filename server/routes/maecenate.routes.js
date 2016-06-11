@@ -15,7 +15,11 @@ router.get('/getUserMaecenates/:user', MaecenateController.getUserMaecenates)
 // Create Maecenate
 router.post('/createMaecenate', verifyAuth, MaecenateController.createMaecenate)
 
+// Support a maecenate (become maecen)
 router.post('/supportMaecenate', MaecenateController.supportMaecenate)
+
+// Get all the maecenates a user supports
+router.get('/getSupportedMaecenates/:user', MaecenateController.getSupportedMaecenates)
 
 export default router
 

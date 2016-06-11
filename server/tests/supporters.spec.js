@@ -30,5 +30,17 @@ test('POST /api/supportMaecenate', async t => {
   t.is(res.status, 200)
 
   const entityId = res.body.result[0]
-  t.is(res.body.entities.userSupports[entityId].amount, 10)
+  t.is(res.body.entities.supports[entityId].amount, 10)
+
+  // Check if we can watch the newly supported maecenates again
+  const res2 = await request(app)
+    .get('/api/getSupportedMaecenates/' + userId)
+    .set(base)
+    .send()
+
+  t.is(res2.status, 200)
+  const { result, entities } = res2.body
+  t.is(result.length, 1)
+  t.is(Object.keys(entities.maecenates).length, 1)
+  t.is(Object.keys(entities.supports).length, 1)
 })

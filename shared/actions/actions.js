@@ -109,6 +109,15 @@ export function fetchUserMaecenateList (userId) {
   }
 }
 
+export function fetchSupportedMaecenateList (userId) {
+  return (dispatch) => {
+    return axios.get(`${baseURL}/getSupportedMaecenates/${userId}`)
+      .then(res => res.data)
+      .then(data => dispatch(fetchMaecenateListSuccess(data)))
+      .catch(err => console.log(err.stack))
+  }
+}
+
 export function changeLanguage (lang) {
   return (dispatch) => {
     return axios.put(`${baseURL}/setUserLanguage`, { lng: lang })
