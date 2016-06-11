@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { verifyAuth } from '../util/permissions'
+import { verifyAuth, verifyMaecenateAdmin } from '../util/permissions'
 import * as MaecenateController from '../controllers/maecenate.controller'
 const router = new Router()
 
@@ -20,6 +20,9 @@ router.post('/supportMaecenate', MaecenateController.supportMaecenate)
 
 // Get all the maecenates a user supports
 router.get('/getSupportedMaecenates/:user', MaecenateController.getSupportedMaecenates)
+
+router.get('/getMaecenateSupporters/:slug', verifyMaecenateAdmin,
+  MaecenateController.getMaecenateSupporters)
 
 export default router
 

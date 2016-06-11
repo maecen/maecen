@@ -81,6 +81,16 @@ export function fetchMaecenate (slug) {
   }
 }
 
+function fetchUserListSuccess (data) {
+  const ids = data.result
+
+  return {
+    type: ActionTypes.SET_USER_LIST,
+    ids,
+    entities: data.entities
+  }
+}
+
 function fetchMaecenateListSuccess (data) {
   const ids = data.result
 
@@ -114,6 +124,15 @@ export function fetchSupportedMaecenateList (userId) {
     return axios.get(`${baseURL}/getSupportedMaecenates/${userId}`)
       .then(res => res.data)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
+      .catch(err => console.log(err.stack))
+  }
+}
+
+export function fetchMaecenateSupporterList (slug) {
+  return (dispatch) => {
+    return axios.get(`${baseURL}/getMaecenateSupporters/${slug}`)
+      .then(res => res.data)
+      .then(data => dispatch(fetchUserListSuccess(data)))
       .catch(err => console.log(err.stack))
   }
 }

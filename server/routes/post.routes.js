@@ -3,10 +3,10 @@ import * as PostController from '../controllers/post.controller'
 import Maecenate from '../models/Maecenate'
 const router = new Router()
 
-function verifyMaecenateOwner (req, res, next) {
+function verifyMaecenateAdmin (req, res, next) {
   const { userId } = req.user
   const { post: { maecenate } } = req.body
-  return Maecenate.isUserOwner(maecenate, userId).then(result => {
+  return Maecenate.isUserAdmin(maecenate, userId).then(result => {
     if (result === true) {
       next()
     } else {
@@ -17,7 +17,7 @@ function verifyMaecenateOwner (req, res, next) {
 }
 
 // Create a post
-router.post('/createPost', verifyMaecenateOwner, PostController.createPost)
+router.post('/createPost', verifyMaecenateAdmin, PostController.createPost)
 
 // Get all posts by maecenate slug
 router.get('/getMaecenatePosts/:slug', PostController.getMaecenatePosts)

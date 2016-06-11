@@ -2,8 +2,11 @@ import Immutable from 'seamless-immutable'
 import * as ActionTypes from '../constants/constants'
 
 export const user = (state = Immutable({
+  ids: []
 }), action) => {
   switch (action.type) {
+    case ActionTypes.SET_USER_LIST:
+      return state.set('ids', action.ids)
     default:
       return state
   }
@@ -49,7 +52,7 @@ export const app = (state = Immutable({
 
 export const entities = (state = Immutable({
   users: {},
-  userSupports: {},
+  supports: {},
   posts: {},
   media: {},
   maecenates: {}

@@ -1,5 +1,6 @@
 import { normalizeResponse } from '../util/ctrlHelpers'
 import User from '../models/User'
+import Maecenate from '../models/Maecenate'
 
 export function createUser (req, res, next) {
   let { user: data } = req.body
@@ -60,6 +61,26 @@ export function setUserLanguage (req, res, next) {
   const expire = 365 * 24 * 60 * 60 // in 1 year
   res.cookie('i18n', lng, { maxAge: 1000 * expire, httpOnly: true })
   return res.json({success: true})
+}
+
+export function hasPermission (req, res, next) {
+  const userId = req.user && req.user.userId || null
+  const { area, id } = req.params
+
+  let permissionPromise = null
+
+  switch (area) {
+    case 'maecenateAdmin':
+      permissionPromise = Maecenate.isUserAdminBySlug(id, userId)
+  }
+
+  return permissionPromise.then(hasPermission => {
+    if (hasPermission === true) {
+      return res.json({ hasPermission })
+    } else {
+      return res.status(401).json({ hasPermission })
+    }
+  }).catch(next)
 }
 
 function createUserAuthTokenInRes (user, res) {

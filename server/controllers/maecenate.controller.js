@@ -141,6 +141,24 @@ export function getSupportedMaecenates (req, res, next) {
   }).catch(next)
 }
 
+export function getMaecenateSupporters (req, res, next) {
+  const { slug } = req.params
+
+  const maecenateIdQuery = knex('maecenates').where({ slug }).select('id')
+  let supports = null
+
+  return knex('supporters').where('maecenate', maecenateIdQuery).then(result => {
+    supports = result
+    const userIds = supports.map(support => support.user)
+    return knex('users').where('id', 'in', userIds)
+      .select('first_name', 'country', 'id').orderBy('created_at', 'desc')
+  }).then(users => {
+    return res.json(normalizeResponse({
+      users, supports
+    }, 'users'))
+  }).catch(next)
+}
+
 function getMaecenateUserSupports (maecenateId, userId) {
   if (userId) {
     return knex('supporters')

@@ -9,3 +9,5 @@ export const SET_MAECENATE = 'SET_MAECENATE'
 export const SET_MAECENATE_LIST = 'SET_MAECENATE_LIST'
 
 export const SET_POSTS = 'SET_POSTS'
+
+export const SET_USER_LIST = 'SET_USER_LIST'

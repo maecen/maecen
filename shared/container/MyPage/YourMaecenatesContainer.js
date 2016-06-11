@@ -21,6 +21,10 @@ class YourMaecenatesContainer extends Component {
     browserHistory.push(`/maecenate/${slug}`)
   }
 
+  gotoMaecenateDashboard (slug) {
+    browserHistory.push(`/maecenate/${slug}/dashboard`)
+  }
+
   createMaecenate (slug) {
     browserHistory.push('create-maecenate')
   }
@@ -37,6 +41,10 @@ class YourMaecenatesContainer extends Component {
               <ListItem
                 primaryText={maecenate.title}
                 onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
+              />
+              <ListItem
+                primaryText='Dashboard'
+                onClick={this.gotoMaecenateDashboard.bind(this, maecenate.slug)}
               />
               <Divider />
             </div>

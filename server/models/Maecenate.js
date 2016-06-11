@@ -63,9 +63,16 @@ const Maecenate = bookshelf.Model.extend({
   }
 })
 
-Maecenate.isUserOwner = function (id, userId) {
+Maecenate.isUserAdminBySlug = function (slug, userId) {
+  return Maecenate.where({ slug, creator: userId }).count()
+    .then(count => count > 0)
+}
+
+Maecenate.isUserAdmin = function (id, userId) {
   return Maecenate.where({ id, creator: userId }).count()
     .then(count => count > 0)
 }
+
+Maecenate.isUserOwner = Maecenate.isUserAdmin
 
 export default Maecenate

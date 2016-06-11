@@ -20,4 +20,8 @@ router.get('/getAuthUser', UserController.getAuthUser)
 // Set user language
 router.put('/setUserLanguage', UserController.setUserLanguage)
 
+// Check if the user has permission to the requested thing
+router.get('/hasPermission/:area', UserController.hasPermission)
+router.get('/hasPermission/:area/:id', UserController.hasPermission)
+
 export default router
