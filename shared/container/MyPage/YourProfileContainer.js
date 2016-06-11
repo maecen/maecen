@@ -127,18 +127,18 @@ class ProfileContainer extends Component {
                   ? <Button type='button'
                       onClick={this.toggleEdit.bind(this)}
                       primary={true}
-                      label={t('user.edit')} />
+                      label={t('action.edit')} />
 
                   : <span>
                       <Button
-                        label={t('user.update')}
+                        label={t('action.update')}
                         type='submit'
                         primary={true}
                         disabled={this.state.isSubmitting === true} />
                       <Button
                         flat={true}
                         onClick={this.toggleEdit.bind(this)}
-                        label={t('user.cancel')} />
+                        label={t('action.cancel')} />
                     </span>
                 }
                 <Button onClick={this.clearAuth.bind(this)}

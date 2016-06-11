@@ -90,7 +90,7 @@ class AuthDialogContainer extends React.Component {
     const actionLabel = t(isCreating === true ? 'user.createUser' : 'login')
 
     const actions = [
-      <Button label={t('user.cancel')}
+      <Button label={t('action.cancel')}
         onClick={this.cancel}
         secondary={true}
         flat={true} />,
