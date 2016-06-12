@@ -9,6 +9,8 @@ import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
 import { List, ListItem } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
+import cropCloudy from '../../lib/cropCloudy'
+import Avatar from 'material-ui/Avatar'
 
 class YourMaecenatesContainer extends Component {
 
@@ -19,10 +21,12 @@ class YourMaecenatesContainer extends Component {
 
   gotoMaecenate (slug) {
     browserHistory.push(`/maecenate/${slug}`)
+    console.log('gotoMaecenate')
   }
 
   gotoMaecenateDashboard (slug) {
     browserHistory.push(`/maecenate/${slug}/dashboard`)
+    console.log('gotoMaecenateDashboard')
   }
 
   createMaecenate (slug) {
@@ -39,12 +43,21 @@ class YourMaecenatesContainer extends Component {
           {maecenates.map((maecenate, i) => (
             <div key={i}>
               <ListItem
+                leftAvatar={
+                  <Avatar src={cropCloudy(maecenate.logo_url, 'logo')} />
+                }
                 primaryText={maecenate.title}
                 onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
-              />
-              <ListItem
-                primaryText='Dashboard'
-                onClick={this.gotoMaecenateDashboard.bind(this, maecenate.slug)}
+                rightIconButton={
+                  <Button
+                    label={t('mc.dashboard')}
+                    flat={true}
+                    onClick={
+                      this.gotoMaecenateDashboard.bind(this, maecenate.slug)
+                    }
+                    style={{marginTop: '5px'}}
+                  />
+                }
               />
               <Divider />
             </div>
