@@ -9,8 +9,10 @@ import {
 } from '../../selectors/Maecenate.selectors'
 import * as Actions from '../../actions/actions'
 
+import cropCloudy from '../../lib/cropCloudy'
 import { Card, CardTitle } from '../../components/Card'
 import { List, ListItem } from 'material-ui/List'
+import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 
 class YourMaecensContainer extends Component {
@@ -29,7 +31,7 @@ class YourMaecensContainer extends Component {
 
     return (
       <Card>
-        <CardTitle title={t('user.yourMaecenates')} />
+        <CardTitle title={t('user.maecenatesSupported')} />
         <List>
           {maecenates.map((maecenate, i) => (
             <div key={i}>
@@ -37,6 +39,7 @@ class YourMaecensContainer extends Component {
                 <Divider />
               }
               <ListItem
+                leftAvatar={<Avatar src={cropCloudy(maecenate.logo_url, 'logo')} />}
                 primaryText={maecenate.title}
                 onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
               />
@@ -59,4 +62,3 @@ function mapStateToProps (state, props) {
 export default translate(['common'])(
   connect(mapStateToProps)(YourMaecensContainer)
 )
-

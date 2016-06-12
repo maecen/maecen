@@ -27,7 +27,7 @@ function MaecenatePresentation (props) {
         style={{paddingBottom: '0px'}}
       />
         <Row>
-          <Col xs={5} sm={3} md={2}>
+          <Col xs={12} sm={3} lg={2}>
             <CardContent>
               <img src={cropCloudy(logoUrl, 'logo')}
                 className={s.logo} />
@@ -70,7 +70,7 @@ function MaecenatePresentation (props) {
               }
             </CardContent>
           </Col>
-          <Col xs={7} sm={9} md={10}>
+          <Col xs={12} sm={9} lg={10}>
             <CardContent>
               <Media type={coverType} url={coverUrl} fixAspect={true} />
             </CardContent>
