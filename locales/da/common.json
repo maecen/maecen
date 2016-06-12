@@ -79,8 +79,10 @@
     "createUser": "Opret bruger",
     "yourProfile": "Din profil",
     "yourMaecenates": "Dine mæcenater",
+    "yourNoMaecenates": "Du har ingen mæcenater endnu",
     "yourMaecenes": "Dine mæcener",
-    "maecenatesSupported": "Du er mæcen for"
+    "maecenatesSupported": "Du er mæcen for",
+    "noMaecenatesSupported": "Du er ikke mæcen for nogen endnu"
   },
   "validationError": {
     "alreadyTaken": "Dette bruges desværre allerede af en anden",
