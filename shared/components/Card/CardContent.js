@@ -11,6 +11,7 @@ export default class CardText extends Component {
 
 CardText.defaultProps = {
   style: {
-    lineHeight: '1.6'
+    lineHeight: '1.6',
+    wordBreak: 'break-word'
   }
 }
