@@ -19,6 +19,7 @@
     "alreadySupported": "Du støtter allerede dette Mæcenat",
     "backTo": "Tilbage til: {{title}}",
     "create": "Opret Mæcenat",
+    "dashboard": "Dashboard",
     "seeAll": "Se alle Mæcenater",
     "teaser": "Teaser",
     "teaserPlaceholder": "Max 140 tegn",
@@ -29,7 +30,6 @@
     "subscriptionPrice": "Pris for månedligt abonnement i kr",
     "subscriptionPricePlaceholder": "fx 20",
     "coverImage": "Coverbillede",
-    "alreadySupported": "Du støtter allerede dette Mæcenat",
     "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke samtidig blive Mæcen for det"
   },
   "currency": {
@@ -78,8 +78,8 @@
     "zip": "Postnummer",
     "createUser": "Opret bruger",
     "yourProfile": "Din profil",
-    "yourMaecenates": "Dine Mæcenater",
-    "maecenatesSupported": "Mæcenater du støtter"
+    "yourMaecenates": "Dine mæcenater",
+    "maecenatesSupported": "Du er mæcen for"
   },
   "validationError": {
     "alreadyTaken": "Dette bruges desværre allerede af en anden",
