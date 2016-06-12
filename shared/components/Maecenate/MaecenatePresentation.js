@@ -27,50 +27,66 @@ function MaecenatePresentation (props) {
         style={{paddingBottom: '0px'}}
       />
         <Row>
-          <Col xs={12} sm={3} lg={2}>
+          <Col xs={12} sm={3}>
             <CardContent>
-              <img src={cropCloudy(logoUrl, 'logo')}
-                className={s.logo} />
-              <p>{t('maecens')}: 0</p>
-              <p>{t('post.posts')}: 0</p>
-              <p>{t('support.minimumAmount')}: {monthlyMinimum} {t('currency.DKR')}</p>
-              {url &&
-                <p>
-                  {t('website')}:
-                  <a
-                    href={`http://${url}`}
-                    target='_blank'
-                    className={s.link}>
-                    &nbsp;{url}
-                  </a>
-                </p>
-              }
-              {isAuthUserOwner &&
-                <Button
-                  primary={true}
-                  label={t('post.create')}
-                  onClick={props.createPost}
-                />
-              }
-              {(isSupporter === true || isAuthUserOwner === true) &&
-                <Button
-                  primary={true}
-                  label={t('post.see')}
-                  onClick={props.gotoContent}
-                  style={{marginTop: '16px'}}
-                />
-              }
-              {isAuthUserOwner === false && isSupporter === false &&
-                <Button
-                  primary={true}
-                  label={t('support.join')}
-                  onClick={supportMaecenate}
-                  style={{marginTop: '16px'}}
-                />
-              }
+              <Row>
+                <Col xs={4} sm={12}>
+                  <img src={cropCloudy(logoUrl, 'logo')}
+                    className={s.logo} />
+                </Col>
+                <Col xs={8} sm={12}>
+                  <p>{t('maecens')}: 0</p>
+                  <p>{t('post.posts')}: 0</p>
+                  <p>
+                    {
+                      t('support.minimumAmount') +
+                      ': ' +
+                      monthlyMinimum +
+                      ' ' +
+                      t('currency.DKR')
+                    }
+                  </p>
+                  {url &&
+                    <p>
+                      {t('website')}:
+                      <a
+                        href={`http://${url}`}
+                        target='_blank'
+                        className={s.link}>
+                        &nbsp;{url}
+                      </a>
+                    </p>
+                  }
+                  {isAuthUserOwner &&
+                    <Button
+                      primary={true}
+                      label={t('post.create')}
+                      onClick={props.createPost}
+                    />
+                  }
+                  {(isSupporter === true || isAuthUserOwner === true) &&
+                    <div>
+                      <Button
+                        primary={true}
+                        label={t('post.see')}
+                        onClick={props.gotoContent}
+                        style={{marginTop: '16px'}}
+                      />
+                    </div>
+                  }
+                  {isAuthUserOwner === false && isSupporter === false &&
+                    <Button
+                      primary={true}
+                      label={t('support.join')}
+                      onClick={supportMaecenate}
+                      style={{marginTop: '16px'}}
+                    />
+                  }
+                </Col>
+              </Row>
             </CardContent>
           </Col>
-          <Col xs={12} sm={9} lg={10}>
+          <Col xs={12} sm={9}>
             <CardContent>
               <Media type={coverType} url={coverUrl} fixAspect={true} />
             </CardContent>
