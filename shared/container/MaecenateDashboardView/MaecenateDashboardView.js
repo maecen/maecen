@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
+import sumBy from 'lodash/sumBy'
 
 import * as Actions from '../../actions/actions'
 import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
@@ -20,6 +21,7 @@ class MaecenateDashboardView extends Component {
 
   render () {
     const { users, maecenate, t } = this.props
+    const totalAmount = sumBy(users, o => o.support.amount)
 
     return (
       <ContentWrapper>
@@ -31,9 +33,14 @@ class MaecenateDashboardView extends Component {
           <List>
             {
               users.map(user => (
-                <ListItem>{user.first_name} {user.support.amount}</ListItem>
+                <ListItem key={user.id}>
+                  {user.first_name} {user.support.amount}
+                </ListItem>
               ))
             }
+            <ListItem
+              key='total'
+              primaryText={`Total ${totalAmount} DKK per month`} />
           </List>
         </Card>
       </ContentWrapper>
