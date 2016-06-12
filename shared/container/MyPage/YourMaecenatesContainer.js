@@ -21,12 +21,12 @@ class YourMaecenatesContainer extends Component {
 
   gotoMaecenate (slug) {
     browserHistory.push(`/maecenate/${slug}`)
-    console.log('gotoMaecenate')
   }
 
-  gotoMaecenateDashboard (slug) {
+  gotoMaecenateDashboard (slug, e) {
+    e.stopPropagation()
     browserHistory.push(`/maecenate/${slug}/dashboard`)
-    console.log('gotoMaecenateDashboard')
+    event.stop
   }
 
   createMaecenate (slug) {

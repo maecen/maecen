@@ -79,6 +79,7 @@
     "createUser": "Create user",
     "yourProfile": "Your profile",
     "yourMaecenates": "Your maecenates",
+    "yourMaecenes": "Your maecenes",
     "maecenatesSupported": "You are maecen for"
   },
   "validationError": {

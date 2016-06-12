@@ -7,6 +7,8 @@ import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
 import { getCurrentUsersWithSupports } from '../../selectors/User.selectors'
 
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
+import { Card, CardTitle } from '../../components/Card'
+import { List, ListItem } from 'material-ui/List'
 
 class MaecenateDashboardView extends Component {
 
@@ -17,14 +19,23 @@ class MaecenateDashboardView extends Component {
   }
 
   render () {
-    const { users } = this.props
+    const { users, maecenate, t } = this.props
 
     return (
       <ContentWrapper>
-        Holla motherfucker!
-        {users.map(user => (
-          <div>{user.first_name} {user.support.amount}</div>
-        ))}
+        <Card>
+          <CardTitle
+            subtitle={t('user.yourMaecenes')}
+            title={maecenate.title}
+          />
+          <List>
+            {
+              users.map(user => (
+                <ListItem>{user.first_name} {user.support.amount}</ListItem>
+              ))
+            }
+          </List>
+        </Card>
       </ContentWrapper>
     )
   }
@@ -47,4 +58,3 @@ function mapStateToProps (state, props) {
 export default translate(['common'])(
  connect(mapStateToProps)(MaecenateDashboardView)
 )
-

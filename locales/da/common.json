@@ -79,6 +79,7 @@
     "createUser": "Opret bruger",
     "yourProfile": "Din profil",
     "yourMaecenates": "Dine mæcenater",
+    "yourMaecenes": "Dine mæcener",
     "maecenatesSupported": "Du er mæcen for"
   },
   "validationError": {
