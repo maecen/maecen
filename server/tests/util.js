@@ -7,9 +7,13 @@ export const base = {
   'Authorization': 'Token ' + User.createToken(userId)
 }
 
-export function createDummyMaecenate (creator) {
+export const customBase = (userId) => ({
+  'Authorization': 'Token ' + User.createToken(userId)
+})
+
+export function createDummyMaecenate (creator, title) {
   let maecenate = new Maecenate({
-    title: 'dummy maecenate',
+    title: title || 'dummy maecenate',
     creator: creator || userId
   })
   maecenate.generateId()
