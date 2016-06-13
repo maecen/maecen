@@ -8,3 +8,14 @@
   margin-left: 1rem;
   margin-top: .5rem;
 }
+
+.fabWrap {
+  bottom: 16px;
+  pointer-events: none;
+  position: fixed;
+}
+
+.fab {
+  float: right;
+  pointer-events: all;
+}
