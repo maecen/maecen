@@ -10,8 +10,8 @@ function Header (props, context) {
   const {
     hasAuth,
     t,
-    loginAction,
-    createMaecenateAction } = props
+    loginAction
+  } = props
 
   return (
     <header className={s.main}>
@@ -22,11 +22,6 @@ function Header (props, context) {
         />
       </Link>
       <div className={s.rightmenu}>
-        <Button
-          label={t('mc.create')}
-          primary={true}
-          onClick={createMaecenateAction}
-        />
 
         { hasAuth === false
           ? <Button label={t('login')} primary={true} last={true} onClick={loginAction} />
@@ -39,8 +34,7 @@ function Header (props, context) {
 
 Header.propTypes = {
   hasAuth: PropTypes.bool.isRequired,
-  loginAction: PropTypes.func.isRequired,
-  createMaecenateAction: PropTypes.func.isRequired
+  loginAction: PropTypes.func.isRequired
 }
 
 export default translate(['common'])(
