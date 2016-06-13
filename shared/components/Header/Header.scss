@@ -15,6 +15,7 @@
   position: fixed;
   max-width: 70rem;
   width: 100%;
+  width: calc(100% - 1rem);
 }
 
 .fab {
