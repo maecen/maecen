@@ -3,9 +3,11 @@
   flex-direction: column;
   min-height: 100vh;
   padding: 0 .5rem;
+  max-width: 70rem;
+  margin: 0 auto;
 }
 
-.mainContent {
+.contentWrap {
   align-items: center;
   display: flex;
   flex: 1;
@@ -13,6 +15,6 @@
   padding-bottom: 0;
 }
 
-.header {
-  max-width: 100%;
+.content {
+  flex-grow: 1;
 }

@@ -5,7 +5,6 @@ import { translate } from 'react-i18next'
 import s from './Header.scss'
 import Button from '../Form/Button'
 import Icon from '../Graphics/Icon'
-import { Grid } from 'react-flexbox-grid/lib'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
@@ -31,14 +30,14 @@ function Header (props, context) {
           : <Link to='/profile'><Button primary={true} last={true} label={t('profile')} /></Link>
         }
       </div>
-      <Grid className={s.fabWrap}>
+      <div className={s.fabWrap}>
         <FloatingActionButton
           className={s.fab}
           style={{backgroundColor: 'transparent'}}
         >
           <ContentAdd />
         </FloatingActionButton>
-      </Grid>
+      </div>
     </header>
   )
 }
