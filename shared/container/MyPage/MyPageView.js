@@ -7,8 +7,8 @@ import YourMaecensContainer from './YourMaecensContainer'
 export default function MyPageView () {
   return (
     <ContentWrapper>
-      <YourMaecensContainer />
       <YourMaecenatesContainer />
+      <YourMaecensContainer />
       <YourProfileContainer />
     </ContentWrapper>
   )
