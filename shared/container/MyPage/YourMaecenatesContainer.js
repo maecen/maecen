@@ -35,34 +35,40 @@ class YourMaecenatesContainer extends Component {
 
   render () {
     const { t, maecenates } = this.props
+    let title = t('user.yourMaecenates')
+    if (maecenates.length === 0) {
+      title = t('user.yourNoMaecenates')
+    }
 
     return (
       <Card>
-        <CardTitle title={t('user.yourMaecenates')} />
-        <List>
-          {maecenates.map((maecenate, i) => (
-            <div key={i}>
-              <ListItem
-                leftAvatar={
-                  <Avatar src={cropCloudy(maecenate.logo_url, 'logo')} />
-                }
-                primaryText={maecenate.title}
-                onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
-                rightIconButton={
-                  <Button
-                    label={t('mc.dashboard')}
-                    flat={true}
-                    onClick={
-                      this.gotoMaecenateDashboard.bind(this, maecenate.slug)
-                    }
-                    style={{marginTop: '5px'}}
-                  />
-                }
-              />
-              <Divider />
-            </div>
-          ))}
-        </List>
+        <CardTitle title={title} />
+        {maecenates.length > 0 &&
+          <List>
+            {maecenates.map((maecenate, i) => (
+              <div key={i}>
+                <ListItem
+                  leftAvatar={
+                    <Avatar src={cropCloudy(maecenate.logo_url, 'logo')} />
+                  }
+                  primaryText={maecenate.title}
+                  onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
+                  rightIconButton={
+                    <Button
+                      label={t('mc.dashboard')}
+                      flat={true}
+                      onClick={
+                        this.gotoMaecenateDashboard.bind(this, maecenate.slug)
+                      }
+                      style={{marginTop: '5px'}}
+                    />
+                  }
+                />
+                <Divider />
+              </div>
+            ))}
+          </List>
+        }
         <CardContent>
           <Button
             label={t('mc.create')}

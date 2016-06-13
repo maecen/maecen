@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
@@ -10,7 +10,8 @@ import {
 import * as Actions from '../../actions/actions'
 
 import cropCloudy from '../../lib/cropCloudy'
-import { Card, CardTitle } from '../../components/Card'
+import { Card, CardTitle, CardContent } from '../../components/Card'
+import Button from '../../components/Form/Button'
 import { List, ListItem } from 'material-ui/List'
 import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
@@ -28,24 +29,38 @@ class YourMaecensContainer extends Component {
 
   render () {
     const { t, maecenates } = this.props
-
+    let title = t('user.maecenatesSupported')
+    if (maecenates.length === 0) {
+      title = t('user.noMaecenatesSupported')
+    }
     return (
       <Card>
-        <CardTitle title={t('user.maecenatesSupported')} />
-        <List>
-          {maecenates.map((maecenate, i) => (
-            <div key={i}>
-              {i > 0 &&
-                <Divider />
-              }
-              <ListItem
-                leftAvatar={<Avatar src={cropCloudy(maecenate.logo_url, 'logo')} />}
-                primaryText={maecenate.title}
-                onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
-              />
-            </div>
-          ))}
-        </List>
+        <CardTitle
+          title={title}
+        />
+        {maecenates.length > 0 &&
+          <List>
+            {maecenates.map((maecenate, i) => (
+              <div key={i}>
+                {i > 0 &&
+                  <Divider />
+                }
+                <ListItem
+                  leftAvatar={<Avatar src={cropCloudy(maecenate.logo_url, 'logo')} />}
+                  primaryText={maecenate.title}
+                  onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
+                />
+              </div>
+            ))}
+          </List>
+        }
+        {maecenates.length === 0 &&
+          <CardContent>
+            <Link to='/maecenates'>
+              <Button primary={true} label={t('mc.seeAll')} />
+            </Link>
+          </CardContent>
+        }
       </Card>
     )
   }

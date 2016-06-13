@@ -17,7 +17,7 @@ const schema = {
   teaser: Joi.string().min(10).max(140).required(),
   description: Joi.string().min(30).required(),
   url: Joi.string().regex(urlRegex).allow(null, ''),
-  monthly_minimum: Joi.number().max(1000).required()
+  monthly_minimum: Joi.number().required()
 }
 
 const Maecenate = bookshelf.Model.extend({

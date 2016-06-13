@@ -80,7 +80,9 @@
     "yourProfile": "Your profile",
     "yourMaecenates": "Your maecenates",
     "yourMaecenes": "Your maecenes",
-    "maecenatesSupported": "You are maecen for"
+    "yourNoMaecenates": "You don't have any maecenates yet",
+    "maecenatesSupported": "You are maecen for",
+    "noMaecenatesSupported": "You are not maecen for anybody yet"
   },
   "validationError": {
     "alreadyTaken": "This is unfortunately already in use by someone else",

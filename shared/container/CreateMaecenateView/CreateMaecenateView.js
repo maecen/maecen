@@ -7,6 +7,7 @@ import Immutable from 'seamless-immutable'
 import { mediaUpload } from '../../lib/fileHandler'
 import * as Actions from '../../actions/actions'
 
+import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import { Card, CardContent, CardTitle } from '../../components/Card'
 import Form from '../../components/Form/Form'
@@ -104,6 +105,11 @@ class CreateMaecenateContainer extends Component {
                 label='Upload Cover'
                 accept='video/*,image/*'
                 onChange={this.coverChange} />
+
+              <LinearProgressDeterminate
+                value={this.state.coverUploadProgress}
+              />
+
               <br />
 
               <TextField

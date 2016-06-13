@@ -92,7 +92,6 @@ function MaecenatePresentation (props) {
             </CardContent>
             <CardHeader
               title={maecenate.teaser}
-              style={{paddingBottom: '0px'}}
             />
             <CardContent>
               {maecenate.description}
