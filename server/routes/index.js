@@ -1,44 +1,22 @@
 import { Router } from 'express'
-import mapValues from 'lodash/mapValues'
+import initialRender from '../index'
 import UserRoutes from '../routes/user.routes'
 import MaecenateRoutes from '../routes/maecenate.routes'
 import PostRoutes from '../routes/post.routes'
 import MediaRoutes from '../routes/media.routes'
-import { formatResponseError } from '../util/ctrlHelpers'
+import * as errors from '../routes/errors'
 
-const router = new Router()
+export default function configRoutes (app) {
+  const router = Router()
 
-router.use(UserRoutes)
-router.use(MaecenateRoutes)
-router.use(PostRoutes)
-router.use(MediaRoutes)
+  router.use('/api', UserRoutes)
+  router.use('/api', MaecenateRoutes)
+  router.use('/api', PostRoutes)
+  router.use('/api', MediaRoutes)
 
-router.use((err, req, res, next) => {
-  if (err.stack) {
-    console.log(err.stack)
-  }
+  router.use('/', initialRender)
+  router.use(errors.catchError)
 
-  let errors = formatResponseError(err)
-
-  errors = mapValues(errors, (error, key) => {
-    if (error && error.message) {
-      return localizeMessage(req.t, error.message, error.options)
-    } else {
-      return localizeMessage(req.t, error, { context: key })
-    }
-  })
-
-  res.status(500).json({ errors })
-})
-
-function localizeMessage (t, message, options) {
-  // Check if it's a token and not a normal text
-  if (typeof message === 'string' && message.includes(' ') === false &&
-    message.includes('.') === true) {
-    return t(message, options)
-  }
-
-  return message
+  app.use(router)
 }
 
-export default router

@@ -1,14 +1,14 @@
 import { browserHistory } from 'react-router'
 import * as ActionTypes from '../constants/constants'
-import * as sharedConfig from '../../shared/config'
-import axios from 'axios'
+import request from '../lib/request'
+import { getAuthToken } from '../selectors/User.selectors'
+import { apiURL } from '../config'
 
-const baseURL = (typeof window === 'undefined' ? sharedConfig.host : '') + '/api'
-
-export function setAuthUser (id, entities) {
+export function setAuthUser (id, token, entities) {
   return {
     type: ActionTypes.SET_AUTH_USER,
     id,
+    token,
     entities
   }
 }
@@ -24,8 +24,9 @@ function clearAuthUser () {
 }
 
 export function clearAuth () {
-  return (dispatch) => {
-    axios.post(`${baseURL}/clearAuth`)
+  return (dispatch, state) => {
+    const token = getAuthToken(state())
+    request(`${apiURL}/clearAuth`, { method: 'POST', token })
       .then(res => res.data)
       .then(data => {
         dispatch(clearAuthUser())
@@ -73,8 +74,9 @@ function fetchMaecenateSuccess (data) {
 }
 
 export function fetchMaecenate (slug) {
-  return (dispatch) => {
-    return axios.get(`${baseURL}/getMaecenate/${slug}`)
+  return (dispatch, state) => {
+    const token = getAuthToken(state())
+    return request(`${apiURL}/getMaecenate/${slug}`, { token })
       .then(res => res.data)
       .then(data => dispatch(fetchMaecenateSuccess(data)))
       .catch(err => console.log(err.stack))
@@ -102,8 +104,9 @@ function fetchMaecenateListSuccess (data) {
 }
 
 export function fetchMaecenateList () {
-  return (dispatch) => {
-    return axios.get(`${baseURL}/getMaecenates`)
+  return (dispatch, state) => {
+    const token = getAuthToken(state())
+    return request(`${apiURL}/getMaecenates`, { token })
       .then(res => res.data)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
       .catch(err => console.log(err.stack))
@@ -111,8 +114,9 @@ export function fetchMaecenateList () {
 }
 
 export function fetchUserMaecenateList (userId) {
-  return (dispatch) => {
-    return axios.get(`${baseURL}/getUserMaecenates/${userId}`)
+  return (dispatch, state) => {
+    const token = getAuthToken(state())
+    return request(`${apiURL}/getUserMaecenates/${userId}`, { token })
       .then(res => res.data)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
       .catch(err => console.log(err.stack))
@@ -120,8 +124,9 @@ export function fetchUserMaecenateList (userId) {
 }
 
 export function fetchSupportedMaecenateList (userId) {
-  return (dispatch) => {
-    return axios.get(`${baseURL}/getSupportedMaecenates/${userId}`)
+  return (dispatch, state) => {
+    const token = getAuthToken(state())
+    return request(`${apiURL}/getSupportedMaecenates/${userId}`, { token })
       .then(res => res.data)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
       .catch(err => console.log(err.stack))
@@ -129,8 +134,9 @@ export function fetchSupportedMaecenateList (userId) {
 }
 
 export function fetchMaecenateSupporterList (slug) {
-  return (dispatch) => {
-    return axios.get(`${baseURL}/getMaecenateSupporters/${slug}`)
+  return (dispatch, state) => {
+    const token = getAuthToken(state())
+    return request(`${apiURL}/getMaecenateSupporters/${slug}`, { token })
       .then(res => res.data)
       .then(data => dispatch(fetchUserListSuccess(data)))
       .catch(err => console.log(err.stack))
@@ -138,9 +144,13 @@ export function fetchMaecenateSupporterList (slug) {
 }
 
 export function changeLanguage (lang) {
-  return (dispatch) => {
-    return axios.put(`${baseURL}/setUserLanguage`, { lng: lang })
-      .then(res => res.data)
+  return (dispatch, state) => {
+    const token = getAuthToken(state())
+    return request(`${apiURL}/setUserLanguage`, {
+      method: 'PUT',
+      data: { lng: lang },
+      token
+    }).then(res => res.data)
       .then(res => {
         if (res.success === true) {
           window.location.reload()
@@ -169,9 +179,10 @@ function fetchMaecenatePostsSuccess (data) {
 }
 
 export function fetchMaecenatePosts (slug) {
-  return (dispatch) => {
+  return (dispatch, state) => {
     dispatch(setPosts([], null))
-    return axios.get(`${baseURL}/getMaecenatePosts/${slug}`)
+    const token = getAuthToken(state())
+    return request(`${apiURL}/getMaecenatePosts/${slug}`, { token })
       .then(res => res.data)
       .then(data => dispatch(fetchMaecenatePostsSuccess(data)))
       .catch(err => console.log(err.stack))

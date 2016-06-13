@@ -12,8 +12,11 @@ export function createUser (req, res, next) {
   user.generateId()
 
   user.save(null, { method: 'insert' }).then((model) => {
-    createUserAuthTokenInRes(model, res)
-    return res.json(normalizeResponse({ users: model }))
+    const token = createUserAuthTokenInRes(model, res)
+    const response = normalizeResponse({ users: model })
+    return res.json({
+      ...response, token
+    })
   }).catch(next)
 }
 
@@ -46,8 +49,11 @@ export function authUser (req, res, next) {
   const password = credentials.password || ''
 
   User.authenticate(email, password).then(user => {
-    createUserAuthTokenInRes(user, res)
-    return res.json(normalizeResponse({ users: user }))
+    const token = createUserAuthTokenInRes(user, res)
+    const response = normalizeResponse({ users: user })
+    return res.json({
+      ...response, token
+    })
   }).catch(next)
 }
 
@@ -72,6 +78,7 @@ export function hasPermission (req, res, next) {
   switch (area) {
     case 'maecenateAdmin':
       permissionPromise = Maecenate.isUserAdminBySlug(id, userId)
+      break
   }
 
   return permissionPromise.then(hasPermission => {
@@ -87,4 +94,5 @@ function createUserAuthTokenInRes (user, res) {
   const expiresIn = 60 * 60 * 24 * 30 // 30 days
   const token = User.createToken(user.id, expiresIn)
   res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true })
+  return token
 }

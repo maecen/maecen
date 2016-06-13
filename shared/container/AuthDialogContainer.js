@@ -70,7 +70,7 @@ class AuthDialogContainer extends React.Component {
     axios.post(requestUrl, data).then((res) => {
       return res.data
     }).then((data) => {
-      dispatch(Actions.setAuthUser(data.result[0], data.entities))
+      dispatch(Actions.setAuthUser(data.result[0], data.token, data.entities))
 
       // Navigate to the provided url on login success
       if (navToUrl) {

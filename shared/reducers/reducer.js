@@ -1,10 +1,19 @@
 import Immutable from 'seamless-immutable'
 import * as ActionTypes from '../constants/constants'
 
-export const user = (state = Immutable({
-  ids: []
+export const users = (state = Immutable({
+  ids: [],
+  authToken: null
 }), action) => {
   switch (action.type) {
+    case ActionTypes.SET_AUTH_USER:
+      return state.merge({
+        authToken: action.token
+      })
+    case ActionTypes.CLEAR_AUTH_USER:
+      return state.merge({
+        authToken: null
+      })
     case ActionTypes.SET_USER_LIST:
       return state.set('ids', action.ids)
     default:
@@ -22,8 +31,13 @@ export const app = (state = Immutable({
   switch (action.type) {
     case ActionTypes.SET_AUTH_USER:
       return state.merge({
-        'authUser': action.id,
-        'requireAuthorization': false
+        authUser: action.id,
+        requireAuthorization: false
+      })
+
+    case ActionTypes.CLEAR_AUTH_USER:
+      return state.merge({
+        authUser: null
       })
 
     case ActionTypes.REQUIRE_AUTHORIZATION:
@@ -32,9 +46,6 @@ export const app = (state = Immutable({
 
     case ActionTypes.CANCEL_REQUIRE_AUTHORIZATION:
       return state.set('requireAuthorization', false)
-
-    case ActionTypes.CLEAR_AUTH_USER:
-      return state.set('authUser', null)
 
     case ActionTypes.SET_MAECENATE:
       return state.set('maecenate', action.id)

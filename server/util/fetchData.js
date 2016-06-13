@@ -12,3 +12,12 @@ export function fetchComponentData (store, components, params) {
 
   return sequence(needs, need => store.dispatch(need(params, store.getState())))
 }
+
+export function getToken (req) {
+  if (req.cookies.id_token) {
+    return req.cookies.id_token
+  } else if (req.headers.authorization) {
+    return req.headers.authorization.replace(/^Token /, '')
+  }
+  return null
+}
