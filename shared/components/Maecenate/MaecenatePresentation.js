@@ -37,13 +37,8 @@ function MaecenatePresentation (props) {
                   <p>{t('maecens')}: 0</p>
                   <p>{t('post.posts')}: 0</p>
                   <p>
-                    {
-                      t('support.minimumAmount') +
-                      ': ' +
-                      monthlyMinimum +
-                      ' ' +
-                      t('currency.DKR')
-                    }
+                    {t('support.minimumAmount',
+                      { context: 'DKK', count: monthlyMinimum })}
                   </p>
                   {url &&
                     <p>

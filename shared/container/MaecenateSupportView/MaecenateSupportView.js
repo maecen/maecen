@@ -128,7 +128,10 @@ class MaecenateSupportView extends React.Component {
                       value={this.state.amount}
                       name='amount'
                       onChange={this.handleChange}
-                      label={`Min. ${maecenate.monthly_minimum} ${t('currency.DKR')}`}
+                      label={t('support.minimumAmount', {
+                        context: 'DKK',
+                        count: maecenate.monthly_minimum
+                      })}
                       error={this.state.amountError}
                       style={{marginTop: '-16px'}}
                     />

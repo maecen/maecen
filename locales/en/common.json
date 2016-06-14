@@ -27,7 +27,7 @@
     "descriptionPlaceholder": "Description of the Maecenate",
     "website": "Website",
     "websitePlaceholder": "Your website URL address",
-    "subscriptionPrice": "Monthly subscription costs in DKR",
+    "subscriptionPrice": "Monthly subscription costs in DKK",
     "subscriptionPricePlaceholder": "e.g. 20",
     "coverImage": "Cover image",
     "ownersCannotSupport": "You're an owner of this Maecenate, so you can't become a maecen for it",
@@ -35,10 +35,10 @@
     "uploadCoverLabel": "Upload Cover"
   },
   "currency": {
-    "DKR": "dkk"
+    "amount_DKK": "{{count}} DKK"
   },
   "support": {
-    "minimumAmount": "Min. monthly amount",
+    "minimumAmount": "Minimum $t(currency.amount)",
     "join": "Become maecen",
     "joinMc": "Become maecen for {{title}}",
     "howMuch": "How much would you support with per month?",
