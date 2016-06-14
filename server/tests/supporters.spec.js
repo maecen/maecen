@@ -60,7 +60,6 @@ test('POST /api/supportMaecenate', async t => {
   t.is(Object.keys(entities.maecenates).length, 1)
   t.is(Object.keys(entities.supports).length, 1)
 
-  console.log('slug', otherMaecenate.get('slug'))
   const resMaecens = await request(app)
     .get('/api/getMaecenateSupporters/' + otherMaecenate.get('slug'))
     .set(customBase(otherUser.id))
