@@ -139,6 +139,15 @@ class AuthDialogContainer extends React.Component {
             type='password'
             path={['password']}
             label={t('user.loginPassword')} />
+
+          {/* Browser hack to allow users to submit by clicking `enter`-key */}
+          <button style={{
+            position: 'absolute',
+            left: '-10000000px',
+            width: '1px',
+            height: '1px'
+          }} tabindex='-1' />
+
         </Form>
       </Dialog>
     )
