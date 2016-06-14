@@ -45,7 +45,7 @@ class MaecenateSupportView extends React.Component {
 
   gotoContent () {
     const { slug } = this.props.maecenate
-    browserHistory.push(`/maecenate/${slug}/content`)
+    browserHistory.push(`/maecenate/${slug}`)
   }
 
   handleChange (e) {

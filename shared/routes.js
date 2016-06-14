@@ -8,7 +8,6 @@ import MaecenateOverviewContainer from './container/MaecenateOverviewContainer'
 
 import MaecenateView from './container/MaecenateView'
 import CreatePostView from './container/CreatePostView'
-import MaecenateContentView from './container/MaecenateContentView'
 import MaecenateSupportView from './container/MaecenateSupportView'
 
 import MaecenateDashboardView from './container/MaecenateDashboardView'
@@ -58,7 +57,6 @@ const getRoutes = (store) => {
       <Route path='maecenates' component={MaecenateOverviewContainer} />
       <Route path='maecenate/:slug' component={MaecenateView} />
       <Route path='maecenate/:slug/new-post' component={CreatePostView} />
-      <Route path='maecenate/:slug/content' component={MaecenateContentView} />
       <Route path='maecenate/:slug/support' component={MaecenateSupportView} />
       <Route path='maecenate/:slug/dashboard' component={MaecenateDashboardView}
         onEnter={requiresMaecenateAdmin} />

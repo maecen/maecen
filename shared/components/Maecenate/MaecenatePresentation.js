@@ -10,7 +10,7 @@ import Media from '../Media/Media'
 import s from './MaecenatePresentation.scss'
 
 function MaecenatePresentation (props) {
-  const { maecenate, isAuthUserOwner, isSupporter, supportMaecenate, t } = props
+  const { maecenate, supportMaecenate, t } = props
   const {
     cover,
     logo,
@@ -51,31 +51,12 @@ function MaecenatePresentation (props) {
                       </a>
                     </p>
                   }
-                  {isAuthUserOwner &&
-                    <Button
-                      primary={true}
-                      label={t('post.create')}
-                      onClick={props.createPost}
-                    />
-                  }
-                  {(isSupporter === true || isAuthUserOwner === true) &&
-                    <div>
-                      <Button
-                        primary={true}
-                        label={t('post.see')}
-                        onClick={props.gotoContent}
-                        style={{marginTop: '16px'}}
-                      />
-                    </div>
-                  }
-                  {isAuthUserOwner === false && isSupporter === false &&
-                    <Button
-                      primary={true}
-                      label={t('support.join')}
-                      onClick={supportMaecenate}
-                      style={{marginTop: '16px'}}
-                    />
-                  }
+                  <Button
+                    primary={true}
+                    label={t('support.join')}
+                    onClick={supportMaecenate}
+                    style={{marginTop: '16px'}}
+                  />
                 </Col>
               </Row>
             </CardContent>
@@ -100,9 +81,7 @@ function MaecenatePresentation (props) {
 
 MaecenatePresentation.propTypes = {
   maecenate: PropTypes.object.isRequired,
-  isAuthUserOwner: PropTypes.bool.isRequired,
-  gotoContent: PropTypes.func.isRequired,
-  createPost: PropTypes.func.isRequired
+  supportMaecenate: PropTypes.func.isRequired
 }
 
 export default translate(['common'])(
