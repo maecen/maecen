@@ -37,7 +37,7 @@ class HomeContainer extends Component {
             icon='maecen-detail'
           />
           <div className={s.tagline}>{t('tagline')}</div>
-          <Link to='/maecenates'>
+          <Link to='/maecenates' className={s.marginBottom}>
             <Button primary={true} label={t('mc.seeAll')} />
           </Link>
           <Button
