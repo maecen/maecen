@@ -103,12 +103,12 @@ export function supportMaecenate (req, res, next) {
     Maecenate.isUserOwner(maecenateId, userId)
   ]).then(([ isSupporting, isOwner ]) => {
     if (isSupporting === true) {
-      const error = { _: 'mc.alreadySupported' }
+      const error = { _: 'maecenate.alreadySupported' }
       throw error
     }
 
     if (isOwner === true) {
-      const error = { _: 'mc.ownersCannotSupport' }
+      const error = { _: 'maecenate.ownersCannotSupport' }
       throw error
     }
 

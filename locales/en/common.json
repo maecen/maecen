@@ -15,7 +15,7 @@
   "media": {
     "upload": "Upload media"
   },
-  "mc": {
+  "maecenate": {
     "alreadySupported": "You are already supporting this Maecenate",
     "backTo": "Back to: {{title}}",
     "create": "Create Maecenate",

@@ -61,7 +61,7 @@ class YourMaecenatesContainer extends Component {
                   onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
                   rightIconButton={
                     <Button
-                      label={t('mc.dashboard')}
+                      label={t('maecenate.dashboard')}
                       flat={true}
                       onClick={
                         this.gotoMaecenateDashboard.bind(this, maecenate.slug)
@@ -77,7 +77,7 @@ class YourMaecenatesContainer extends Component {
         }
         <CardContent>
           <Button
-            label={t('mc.create')}
+            label={t('maecenate.create')}
             primary={true}
             onClick={this.createMaecenate.bind(this)}
           />
