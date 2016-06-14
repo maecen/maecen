@@ -21,7 +21,6 @@ export function getMaecenate (req, res, next) {
       getMaecenateUserSupports(maecenate.id, userId)
     ])
   }).then(([media, supports]) => {
-    console.log(supports)
     return res.json(normalizeResponse({
       maecenates: maecenate, media, supports
     }, 'maecenates'))
