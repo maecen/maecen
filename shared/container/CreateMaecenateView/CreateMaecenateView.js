@@ -91,7 +91,7 @@ class CreateMaecenateContainer extends Component {
       <ContentWrapper>
         <Card>
           <CardTitle
-            title={t('mc.create')}
+            title={t('maecenate.create')}
             style={{paddingBottom: '0px'}}
           />
             <CardContent>
@@ -107,7 +107,7 @@ class CreateMaecenateContainer extends Component {
 
               <FileDropzone
                 multiple={false}
-                label={t('mc.uploadLogoLabel')}
+                label={t('maecenate.uploadLogoLabel')}
                 accept='image/*'
                 onChange={this.logoChange}
               />
@@ -118,7 +118,7 @@ class CreateMaecenateContainer extends Component {
 
               <FileDropzone
                 multiple={false}
-                label={t('mc.uploadCoverLabel')}
+                label={t('maecenate.uploadCoverLabel')}
                 accept='video/*,image/*'
                 onChange={this.coverChange}
               />
@@ -129,35 +129,35 @@ class CreateMaecenateContainer extends Component {
 
               <TextField
                 path={['teaser']}
-                label={t('mc.teaser')}
-                placeholder={t('mc.teaserPlaceholder')}
+                label={t('maecenate.teaser')}
+                placeholder={t('maecenate.teaserPlaceholder')}
                 maxLength='140' />
               <br />
 
               <TextField
                 path={['description']}
-                label={t('mc.description')}
-                placeholder={t('mc.descriptionPlaceholder')}
+                label={t('maecenate.description')}
+                placeholder={t('maecenate.descriptionPlaceholder')}
                 multiLine={true} />
               <br />
 
               <TextField
                 path={['url']}
-                label={t('mc.website')}
-                placeholder={t('mc.websitePlaceholder')} />
+                label={t('maecenate.website')}
+                placeholder={t('maecenate.websitePlaceholder')} />
               <br />
 
               <TextField
                 fullWidth={false}
                 path={['monthly_minimum']}
-                label={t('mc.subscriptionPrice')}
-                placeholder={t('mc.subscriptionPricePlaceholder')} />
+                label={t('maecenate.subscriptionPrice')}
+                placeholder={t('maecenate.subscriptionPricePlaceholder')} />
               <br />
 
               <Button type='submit'
                 style={{marginTop: '16px'}}
                 primary={true}
-                label={t('mc.create')}
+                label={t('maecenate.create')}
                 disabled={this.state.isSubmitting === true} />
             </Form>
           </CardContent>

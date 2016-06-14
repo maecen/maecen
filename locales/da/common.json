@@ -15,7 +15,7 @@
   "media": {
     "upload": "Upload medie"
   },
-  "mc": {
+  "maecenate": {
     "alreadySupported": "Du støtter allerede dette Mæcenat",
     "backTo": "Tilbage til: {{title}}",
     "create": "Opret Mæcenat",
@@ -30,7 +30,9 @@
     "subscriptionPrice": "Pris for månedligt abonnement i kr",
     "subscriptionPricePlaceholder": "fx 20",
     "coverImage": "Coverbillede",
-    "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke samtidig blive Mæcen for det"
+    "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke samtidig blive Mæcen for det",
+    "uploadLogoLabel": "Upload logo",
+    "uploadCoverLabel": "Upload cover"
   },
   "currency": {
     "DKR": "kr"

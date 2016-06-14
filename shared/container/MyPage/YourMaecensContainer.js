@@ -61,7 +61,7 @@ class YourMaecensContainer extends Component {
         {maecenates.length === 0 &&
           <CardContent>
             <Link to='/maecenates'>
-              <Button primary={true} label={t('mc.seeAll')} />
+              <Button primary={true} label={t('maecenate.seeAll')} />
             </Link>
           </CardContent>
         }
