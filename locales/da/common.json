@@ -40,7 +40,7 @@
   "support": {
     "minimumAmount": "Min. pr. måned",
     "join": "Bliv mæcen",
-    "joinMc": "Bliv mæcen for {{title}}",
+    "joinMaecenate": "Bliv mæcen for {{title}}",
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
     "continueToPayment": "Fortsæt til betaling",
     "belowMin": "Beløbet er mindre end det månedlige minimum",

@@ -40,7 +40,7 @@
   "support": {
     "minimumAmount": "Minimum $t(currency.amount)",
     "join": "Become maecen",
-    "joinMc": "Become maecen for {{title}}",
+    "joinMaecenate": "Become maecen for {{title}}",
     "howMuch": "How much would you support with per month?",
     "continueToPayment": "Continue to payment",
     "belowMin": "The amount is below the monthly mininum",

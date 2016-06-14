@@ -38,10 +38,10 @@ class HomeContainer extends Component {
           />
           <div className={s.tagline}>{t('tagline')}</div>
           <Link to='/maecenates' className={s.marginBottom}>
-            <Button primary={true} label={t('mc.seeAll')} />
+            <Button primary={true} label={t('maecenate.seeAll')} />
           </Link>
           <Button
-            label={t('mc.create')}
+            label={t('maecenate.create')}
             primary={true}
             onClick={this.handleCreateMaecenate}
           />

@@ -95,7 +95,7 @@ class MaecenateSupportView extends React.Component {
             <Card>
               {!this.state.success &&
                 <CardTitle
-                  title={t('support.joinMc', { title: maecenate.title })}
+                  title={t('support.joinMaecenate', { title: maecenate.title })}
                   subtitle={t('support.howMuch')}
                 />
               }
