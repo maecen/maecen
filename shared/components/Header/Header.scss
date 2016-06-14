@@ -11,9 +11,9 @@
 
 .fabWrap {
   bottom: 16px;
+  max-width: 70rem;
   pointer-events: none;
   position: fixed;
-  max-width: 70rem;
   width: 100%;
   width: calc(100% - 1rem);
   z-index: 1300;
