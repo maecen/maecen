@@ -5,50 +5,50 @@
   "profile": "Profil",
   "login": "Login",
   "logout": "Log ud",
-  "tagline": "\"En person som støtter kunst og viden financielt\"",
+  "tagline": "\"En person som støtter kunst og videnskab økonomisk\"",
   "changeLanguage": "Skift sprog",
   "logo": "Logo",
   "title": "Titel",
   "backTo": "Tilbage til: ",
-  "loading": "Loader...",
-  "website": "Website",
+  "loading": "Henter...",
+  "website": "Mere info",
   "media": {
     "upload": "Upload medie"
   },
   "maecenate": {
     "alreadySupported": "Du støtter allerede dette Mæcenat",
     "backTo": "Tilbage til: {{title}}",
-    "create": "Opret Mæcenat",
+    "create": "Opret nyt Mæcenat",
     "dashboard": "Dashboard",
     "seeAll": "Se alle Mæcenater",
     "teaser": "Teaser",
-    "teaserPlaceholder": "Max 140 tegn",
+    "teaserPlaceholder": "Maks 140 tegn",
     "description": "Beskrivelse",
     "descriptionPlaceholder": "Beskrivelse af Mæcenatet",
-    "website": "Hjemmeside",
-    "websitePlaceholder": "Din hjemmesides URL-adresse",
-    "subscriptionPrice": "Pris for månedligt abonnement i kr",
-    "subscriptionPricePlaceholder": "fx 20",
+    "website": "Link til mere information",
+    "websitePlaceholder": "Skriv URL-adresse",
+    "subscriptionPrice": "Minimum beløb som dine Mæcener skal betale pr måned i DKK",
+    "subscriptionPricePlaceholder": "f.eks. 10",
     "coverImage": "Coverbillede",
-    "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke samtidig blive Mæcen for det",
-    "uploadLogoLabel": "Upload logo",
-    "uploadCoverLabel": "Upload cover"
+    "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke blive Mæcen for det",
+    "uploadLogoLabel": "Indsæt logo",
+    "uploadCoverLabel": "Indsæt coverbillede eller video"
   },
   "currency": {
-    "DKR": "kr"
+    "DKR": "DKK"
   },
   "support": {
     "minimumAmount": "Min. pr. måned",
     "join": "Bliv mæcen",
     "joinMaecenate": "Bliv mæcen for {{title}}",
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
-    "continueToPayment": "Fortsæt til betaling",
+    "continueToPayment": "Forsæt til betaling",
     "belowMin": "Beløbet er mindre end det månedlige minimum",
     "success": "Du er nu mæcen for {{title}}"
   },
   "action": {
     "edit": "Rediger",
-    "update": "Updater",
+    "update": "Opdater",
     "cancel": "Annuller",
     "continue": "Fortsæt"
   },
@@ -63,7 +63,7 @@
   "user": {
     "alias": "Alias",
     "firstName": "Fornavn",
-    "firstNamePlaceholder": "Dit firnavn",
+    "firstNamePlaceholder": "Dit fornavn",
     "lastName": "Efternavn",
     "lastNamePlaceholder": "Dit efternavn",
     "email": "Email",
@@ -80,17 +80,17 @@
     "zip": "Postnummer",
     "createUser": "Opret bruger",
     "yourProfile": "Din profil",
-    "yourMaecenates": "Dine mæcenater",
-    "yourNoMaecenates": "Du har ingen mæcenater endnu",
-    "yourMaecenes": "Dine mæcener",
-    "maecenatesSupported": "Du er mæcen for",
-    "noMaecenatesSupported": "Du er ikke mæcen for nogen endnu"
+    "yourMaecenates": "Dine Mæcenater",
+    "yourNoMaecenates": "Du har ingen Mæcenater endnu",
+    "yourMaecenes": "Dine Mæcener",
+    "maecenatesSupported": "Du er Mæcen for",
+    "noMaecenatesSupported": "Du støtter ingen Mæcenater endnu"
   },
   "validationError": {
     "alreadyTaken": "Dette bruges desværre allerede af en anden",
     "alreadyTaken_email": "Denne email er allerede i brug",
     "alreadyTaken_title": "Denne titel er allerede i brug",
-    "stringEmail": "Du skal indtaste en valid email",
+    "stringEmail": "Du skal indtaste en rigitg emailadresse",
     "anyRequired": "Dette skal udfyldes",
     "anyEmpty": "Dette skal udfyldes",
     "stringMin": "Du skal skrive mindst {{limit}} tegn",
@@ -103,6 +103,6 @@
   },
   "error": {
     "noUserWithEmail": "Der eksisterer ingen bruger med denne email",
-    "passwordIncorrect": "Dette password passer ikke til den email"
+    "passwordIncorrect": "Dette kodeord passer ikke til email adressen"
   }
 }
