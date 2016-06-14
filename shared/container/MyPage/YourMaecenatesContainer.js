@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
-import filter from 'lodash/filter'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import * as Actions from '../../actions/actions'
+
+import { getAuthUserId } from '../../selectors/User.selectors'
+import {
+  getUserMaecenates
+} from '../../selectors/Maecenate.selectors'
 
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
@@ -49,7 +53,9 @@ class YourMaecenatesContainer extends Component {
               <div key={i}>
                 <ListItem
                   leftAvatar={
-                    <Avatar src={cropCloudy(maecenate.logo_url, 'logo')} />
+                    <Avatar
+                      src={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}
+                    />
                   }
                   primaryText={maecenate.title}
                   onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
@@ -81,16 +87,12 @@ class YourMaecenatesContainer extends Component {
   }
 }
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const userId = app.authUser || null
-  const allMaecenates = entities.maecenates || []
-  const maecenates = filter(allMaecenates, maecenate =>
-    maecenate.creator === userId)
+function mapStateToProps (state) {
+  const getMaecenates = getUserMaecenates(getAuthUserId)
 
   return {
-    userId,
-    maecenates
+    userId: getAuthUserId(state),
+    maecenates: getMaecenates(state)
   }
 }
 

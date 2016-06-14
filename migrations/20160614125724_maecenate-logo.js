@@ -1,14 +1,14 @@
 
 exports.up = function (knex, Promise) {
   return knex.schema.table('maecenates', (table) => {
-    table.dropColumn('cover_url')
-    table.uuid('cover_media').references('media.id')
+    table.dropColumn('logo_url')
+    table.uuid('logo_media').references('media.id')
   })
 }
 
 exports.down = function (knex, Promise) {
   return knex.schema.table('maecenates', (table) => {
-    table.dropColumn('cover_media')
-    table.string('cover_url', 100)
+    table.dropColumn('logo_media')
+    table.string('logo_url', 100)
   })
 }

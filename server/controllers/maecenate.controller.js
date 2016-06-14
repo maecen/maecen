@@ -1,6 +1,5 @@
 import uuid from 'node-uuid'
 import { normalizeResponse } from '../util/ctrlHelpers'
-import { uploadDataUri } from '../util/fileUploader'
 import { knex } from '../database'
 import Maecenate from '../models/Maecenate'
 
@@ -17,7 +16,9 @@ export function getMaecenate (req, res, next) {
     maecenate = data
   }).then(() => {
     return Promise.all([
-      knex('media').where('id', maecenate.get('cover_media')),
+      knex('media')
+        .where('obj_type', 'maecenate')
+        .andWhere('obj_id', maecenate.id),
       getMaecenateUserSupports(maecenate.id, userId)
     ])
   }).then(([media, supports]) => {
@@ -32,7 +33,8 @@ export function getMaecenates (req, res, next) {
   return Maecenate.fetchAll().then((res) => {
     maecenates = res
     return knex('media')
-      .where('id', 'in', maecenates.map(obj => obj.get('cover_media')))
+      .where('obj_type', 'maecenate')
+      .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
   }).then((media) => {
     return res.json(normalizeResponse({
       maecenates, media
@@ -42,34 +44,30 @@ export function getMaecenates (req, res, next) {
 
 export function getUserMaecenates (req, res, next) {
   const { user } = req.params
-  return Maecenate.where({ creator: user }).fetchAll().then((maecenates) => {
-    return res.json(normalizeResponse({ maecenates }))
+  let maecenates = null
+  return knex('maecenates').where({ creator: user }).then((result) => {
+    maecenates = result
+    return knex('media')
+      .where('obj_type', 'maecenate')
+      .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
+  }).then((media) => {
+    return res.json(normalizeResponse({
+      maecenates, media
+    }, 'maecenates'))
   }).catch(next)
 }
 
 export function createMaecenate (req, res, next) {
   const { userId } = req.user
   const { maecenate: data } = req.body
-  const { logo_url: logoUrl, cover_media: coverMedia } = data
+  const { logo_media: logoMedia, cover_media: coverMedia } = data
 
-  let mediaIds = [coverMedia]
+  let mediaIds = [coverMedia, logoMedia]
   let maecenate = new Maecenate(data)
   maecenate.generateId()
   maecenate.set('creator', userId)
 
   return maecenate.validate().then(() => {
-    let imageUploads = []
-
-    // Do the upload after the save! (so we validate first)
-    if (logoUrl) {
-      const path = `maecenate/${maecenate.id}-logo`
-      imageUploads.push(uploadDataUri(logoUrl, path).then((result) => {
-        maecenate.set('logo_url', result.secure_url)
-      }))
-    }
-
-    return Promise.all(imageUploads)
-  }).then(() => {
     return maecenate.save(null, { method: 'insert' }).then(() => {
       return knex('media')
         .where('id', 'in', mediaIds)
@@ -131,12 +129,22 @@ export function getSupportedMaecenates (req, res, next) {
   const userId = req.params.user
 
   let supports = null
-  return knex('supporters').where('user', userId).then(res => {
-    supports = res
+  let maecenates = null
+  return knex('supporters').where('user', userId).then(result => {
+    supports = result
     const maecenateIds = supports.map(support => support.maecenate)
     return knex('maecenates').where('id', 'in', maecenateIds)
-  }).then(maecenates => {
-    return res.json(normalizeResponse({ maecenates, supports }, 'maecenates'))
+  }).then(result => {
+    maecenates = result
+    return knex('media')
+      .where('obj_type', 'maecenate')
+      .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
+  }).then(media => {
+    return res.json(normalizeResponse({
+      maecenates,
+      supports,
+      media
+    }, 'maecenates'))
   }).catch(next)
 }
 

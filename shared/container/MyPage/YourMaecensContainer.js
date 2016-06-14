@@ -46,7 +46,11 @@ class YourMaecensContainer extends Component {
                   <Divider />
                 }
                 <ListItem
-                  leftAvatar={<Avatar src={cropCloudy(maecenate.logo_url, 'logo')} />}
+                  leftAvatar={
+                    <Avatar
+                      src={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}
+                    />
+                  }
                   primaryText={maecenate.title}
                   onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
                 />

@@ -6,16 +6,18 @@ import Media from '../Media/Media'
 
 function MaecenateCard (props, context) {
   const { maecenate: {
-    title, logo_url: logoUrl, cover_url: coverUrl, cover_type: coverType, teaser
+    title, logo, cover, teaser
   }, onClick } = props
+
+  if (!logo || !cover) return null
 
   return (
     <Card onClick={onClick} className={s.main}>
       <div className={s.header}>
-        <img src={cropCloudy(logoUrl, 'logo')} className={s.logo} />
+        <img src={cropCloudy(logo.url, 'logo')} className={s.logo} />
         <h4 className={s.title}>{title}</h4>
       </div>
-      <Media type={coverType} url={coverUrl} fixAspect={true} />
+      <Media type={cover.type} url={cover.url} fixAspect={true} />
       <CardContent>{teaser}</CardContent>
     </Card>
   )
@@ -24,7 +26,8 @@ function MaecenateCard (props, context) {
 MaecenateCard.propTypes = {
   maecenate: PropTypes.shape({
     title: PropTypes.string,
-    logo_url: PropTypes.string
+    logo: PropTypes.object,
+    cover: PropTypes.object
   }).isRequired,
   onClick: PropTypes.func.isRequired
 }

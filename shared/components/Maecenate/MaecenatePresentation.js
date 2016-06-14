@@ -12,9 +12,8 @@ import s from './MaecenatePresentation.scss'
 function MaecenatePresentation (props) {
   const { maecenate, isAuthUserOwner, isSupporter, supportMaecenate, t } = props
   const {
-    cover_type: coverType,
-    cover_url: coverUrl,
-    logo_url: logoUrl,
+    cover,
+    logo,
     url: url,
     monthly_minimum: monthlyMinimum
   } = maecenate
@@ -31,7 +30,7 @@ function MaecenatePresentation (props) {
             <CardContent>
               <Row>
                 <Col xs={4} sm={12}>
-                  <img src={cropCloudy(logoUrl, 'logo')}
+                  <img src={cropCloudy(logo.url, 'logo')}
                     className={s.logo} />
                 </Col>
                 <Col xs={8} sm={12}>
@@ -88,7 +87,9 @@ function MaecenatePresentation (props) {
           </Col>
           <Col xs={12} sm={9}>
             <CardContent>
-              <Media type={coverType} url={coverUrl} fixAspect={true} />
+              {cover &&
+                <Media type={cover.type} url={cover.url} fixAspect={true} />
+              }
             </CardContent>
             <CardHeader
               title={maecenate.teaser}

@@ -12,7 +12,6 @@ import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import { Card, CardContent, CardTitle } from '../../components/Card'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
-import MediaField from '../../components/Form/MediaField'
 import Button from '../../components/Form/Button'
 import FileDropzone from '../../components/Form/FileDropzone'
 
@@ -24,10 +23,12 @@ class CreateMaecenateContainer extends Component {
       errors: null,
       maecenate: Immutable({ }),
       coverUploadProgress: 0,
+      logoUploadProgress: 0,
       isSubmitting: false
     }
 
     this.coverChange = this.coverChange.bind(this)
+    this.logoChange = this.logoChange.bind(this)
   }
 
   updateModel (path, value) {
@@ -48,6 +49,15 @@ class CreateMaecenateContainer extends Component {
       uploadProgressProp: 'coverUploadProgress'
     }).then((data) => {
       this.updateModel(['cover_media'], data.result[0])
+    })
+  }
+
+  logoChange (files) {
+    mediaUpload(files, {
+      setState: this.setState.bind(this),
+      uploadProgressProp: 'logoUploadProgress'
+    }).then((data) => {
+      this.updateModel(['logo_media'], data.result[0])
     })
   }
 
@@ -95,22 +105,27 @@ class CreateMaecenateContainer extends Component {
                 label={t('title')} />
               <br />
 
-              <MediaField
-                label={t('logo')}
-                path={['logo_url']} />
-              <br />
+              <FileDropzone
+                multiple={false}
+                label={t('mc.uploadLogoLabel')}
+                accept='image/*'
+                onChange={this.logoChange}
+              />
+
+              <LinearProgressDeterminate
+                value={this.state.logoUploadProgress}
+              />
 
               <FileDropzone
                 multiple={false}
-                label='Upload Cover'
+                label={t('mc.uploadCoverLabel')}
                 accept='video/*,image/*'
-                onChange={this.coverChange} />
+                onChange={this.coverChange}
+              />
 
               <LinearProgressDeterminate
                 value={this.state.coverUploadProgress}
               />
-
-              <br />
 
               <TextField
                 path={['teaser']}

@@ -23,10 +23,15 @@ const withMedia = (maecenate, media) => {
   }
 
   const cover = media[maecenate.cover_media]
+  const logo = media[maecenate.logo_media]
   return {
     ...maecenate,
-    cover_url: cover && cover.url,
-    cover_type: cover && cover.type
+    cover: (cover
+      ? { url: cover.url, type: cover.type }
+      : null),
+    logo: (logo
+      ? { url: logo.url, type: logo.type }
+      : null)
   }
 }
 
@@ -52,12 +57,20 @@ export const getMaecenates = createSelector(
   )
 )
 
+export const getUserMaecenates = (userIdSelector) =>
+  createSelector(
+    [ userIdSelector, getMaecenateEntities, getMediaEntities ],
+    (userId, maecenates, media) =>
+      filter(maecenates, maecenate => maecenate.creator === userId)
+        .map(maecenate => withMedia(maecenate, media))
+  )
+
 export const getSupportedMaecenates = (userIdSelector) =>
   createSelector(
-    [ userIdSelector, getMaecenateEntities, getSupports ],
-    (userId, maecenates, supports) =>
+    [ userIdSelector, getMaecenateEntities, getSupports, getMediaEntities ],
+    (userId, maecenates, supports, media) =>
       filter(supports, support => support.user === userId)
-        .map(support => maecenates[support.maecenate])
+        .map(support => withMedia(maecenates[support.maecenate], media))
   )
 
 // Factory selectors, which depends upon a maecenate selector method

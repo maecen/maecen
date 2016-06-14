@@ -12,7 +12,7 @@ const schema = {
   title: Joi.string().required(),
   slug: Joi.string(),
   creator: Joi.string().guid(),
-  logo_url: Joi.string().required(),
+  logo_media: Joi.string().guid().required(),
   cover_media: Joi.string().guid().required(),
   teaser: Joi.string().min(10).max(140).required(),
   description: Joi.string().min(30).required(),
