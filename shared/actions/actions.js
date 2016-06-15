@@ -113,7 +113,7 @@ export function fetchMaecenateList () {
   }
 }
 
-export function fetchUserMaecenateList (userId) {
+export function fetchAdminMaecenateList (userId) {
   return (dispatch, state) => {
     const token = getAuthToken(state())
     return request(`${apiURL}/getUserMaecenates/${userId}`, { token })

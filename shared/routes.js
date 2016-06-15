@@ -54,9 +54,9 @@ const getRoutes = (store) => {
       <Route path='profile' component={MyPageView} onEnter={requiresAuth} />
       <Route path='create-maecenate'
         component={CreateMaecenateView} onEnter={requiresAuth} />
+      <Route path='create-post' component={CreatePostView} />
       <Route path='maecenates' component={MaecenateOverviewContainer} />
       <Route path='maecenate/:slug' component={MaecenateView} />
-      <Route path='maecenate/:slug/new-post' component={CreatePostView} />
       <Route path='maecenate/:slug/support' component={MaecenateSupportView} />
       <Route path='maecenate/:slug/dashboard' component={MaecenateDashboardView}
         onEnter={requiresMaecenateAdmin} />

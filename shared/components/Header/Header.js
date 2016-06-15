@@ -6,13 +6,15 @@ import s from './Header.scss'
 import Button from '../Form/Button'
 import Icon from '../Graphics/Icon'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
+import ContentCreate from 'material-ui/svg-icons/content/create'
 
 function Header (props, context) {
   const {
     hasAuth,
     t,
-    loginAction
+    loginAction,
+    adminMaecenates,
+    createPost
   } = props
 
   return (
@@ -26,25 +28,40 @@ function Header (props, context) {
       <div className={s.rightmenu}>
 
         { hasAuth === false
-          ? <Button label={t('login')} primary={true} last={true} onClick={loginAction} />
-          : <Link to='/profile'><Button primary={true} last={true} label={t('profile')} /></Link>
+          ? <Button label={t('login')}
+              primary={true}
+              last={true}
+              onClick={loginAction}
+            />
+          : <Link to='/profile'>
+              <Button
+                primary={true}
+                last={true}
+                label={t('profile')}
+              />
+            </Link>
         }
       </div>
-      <div className={s.fabWrap}>
-        <FloatingActionButton
-          className={s.fab}
-          style={{backgroundColor: 'transparent'}}
-        >
-          <ContentAdd />
-        </FloatingActionButton>
-      </div>
+      { adminMaecenates.length !== 0 &&
+        <div className={s.fabWrap}>
+          <FloatingActionButton
+            className={s.fab}
+            style={{backgroundColor: 'transparent'}}
+            onClick={createPost}
+          >
+            <ContentCreate />
+          </FloatingActionButton>
+        </div>
+      }
     </header>
   )
 }
 
 Header.propTypes = {
   hasAuth: PropTypes.bool.isRequired,
-  loginAction: PropTypes.func.isRequired
+  loginAction: PropTypes.func.isRequired,
+  adminMaecenates: PropTypes.array.isRequired,
+  createPost: PropTypes.func.isRequired
 }
 
 export default translate(['common'])(

@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
+import find from 'lodash/find'
 
 import * as Actions from '../../actions/actions'
 import { mediaUpload } from '../../lib/fileHandler'
-import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
-import { getAuthUser } from '../../selectors/User.selectors'
+import { getUserMaecenates } from '../../selectors/Maecenate.selectors'
+import { getAuthUser, getAuthUserId } from '../../selectors/User.selectors'
 
 import { Row, Col } from 'react-flexbox-grid/lib'
 
@@ -35,12 +36,15 @@ class CreatePostView extends Component {
       uploadProgress: 0,
       media: []
     }
+    this.onChangeMaecenate = this.onChangeMaecenate.bind(this)
   }
 
   componentDidMount () {
-    const { dispatch, params } = this.props
-    dispatch(this.constructor.need[0](params))
+    const { dispatch, params, state, maecenates } = this.props
+    const maecenateId = getLastMaecenate(maecenates[0] && maecenates[0].id)
+    dispatch(this.constructor.need[0](params, state))
     this.setAuthorAlias(this.props)
+    this.maecenateChange(maecenateId)
   }
 
   updateModel (path, value) {
@@ -58,6 +62,10 @@ class CreatePostView extends Component {
 
   componentWillReceiveProps (nextProps) {
     this.setAuthorAlias(nextProps)
+    if (this.props.maecenates !== nextProps.maecenates) {
+      const maecenateId = getLastMaecenate(nextProps.maecenates[0].id)
+      this.maecenateChange(maecenateId)
+    }
   }
 
   mediaChange (files) {
@@ -69,12 +77,26 @@ class CreatePostView extends Component {
     })
   }
 
+  maecenateChange (maecenateId) {
+    const alias = getDefaultAlias(this.props, maecenateId)
+    const post = this.state.post.merge({
+      maecenate: maecenateId,
+      author_alias: alias
+    })
+    this.setState({ post })
+  }
+
+  onChangeMaecenate (event) {
+    this.maecenateChange(event.target.value)
+  }
+
   handleSubmit (e) {
     e.preventDefault()
-    const { dispatch, maecenate } = this.props
-    const { post: data } = this.state
+    const { dispatch, maecenates } = this.props
+    const { post } = this.state
 
-    const post = data.set('maecenate', maecenate.id)
+    console.log(post.maecenate)
+    const maecenate = find(maecenates, obj => obj.id === post.maecenate)
 
     this.setState({ isSubmitting: true })
     axios.post('/api/createPost', { post })
@@ -82,23 +104,25 @@ class CreatePostView extends Component {
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })
         dispatch(Actions.createMaecenatePostSuccess(data))
-        setDefaultAlias(this.props, post.author_alias)
+        setDefaultAlias(this.props, post.author_alias, maecenate.id)
+        setLastMaecenate(maecenate.id)
         browserHistory.push(`/maecenate/${maecenate.slug}`)
       }).catch((res) => {
+        console.log(res)
         this.setState({ errors: null, isSubmitting: false })
         this.setState({ errors: res.data.errors })
       })
   }
 
   render () {
-    const { maecenate, t } = this.props
+    const { maecenates, t } = this.props
     const { post, mediaPreview } = this.state
 
     return (
       <ContentWrapper>
         <Row>
           <Col smOffset={3} sm={6} xs={12}>
-            {maecenate
+            {maecenates
               ? <Card>
                   <CardTitle title={t('post.create')} />
                   <Form onSubmit={this.handleSubmit} model={post}
@@ -116,8 +140,7 @@ class CreatePostView extends Component {
                         onChange={this.mediaChange} />
 
                       <LinearProgressDeterminate
-                        value={this.state.uploadProgress}
-                      />
+                        value={this.state.uploadProgress} />
 
                       {mediaPreview &&
                         <img src={mediaPreview} width='100%' /> }
@@ -131,6 +154,17 @@ class CreatePostView extends Component {
                         path={['author_alias']}
                         placeholder={t('user.alias')}
                         fullWidth={false} />
+
+                      <select onChange={this.onChangeMaecenate} value={this.state.post.maecenate}>
+                        {maecenates.map((maecenate, i) => (
+                          <option
+                            value={maecenate.id}
+                            key={maecenate.id}
+                          >
+                            {maecenate.title}
+                          </option>
+                        ))}
+                      </select>
 
                     </CardContent>
                     <CardActions>
@@ -151,15 +185,17 @@ class CreatePostView extends Component {
   }
 }
 
-CreatePostView.need = [(params) => {
-  return Actions.fetchMaecenate(params.slug)
+CreatePostView.need = [(params, state) => {
+  console.log(state)
+  const userId = getAuthUserId(state)
+  return Actions.fetchAdminMaecenateList(userId)
 }]
 
-function getDefaultAlias (props) {
-  const { authUser, maecenate: { id } } = props
+function getDefaultAlias (props, maecenateId) {
+  const { authUser } = props
   let alias = null
   if (window && window.localStorage) {
-    alias = window.localStorage.getItem(`alias-for-${id}`, alias)
+    alias = window.localStorage.getItem(`alias-for-${maecenateId}`)
   }
 
   if (!alias && authUser && authUser.alias) {
@@ -169,17 +205,31 @@ function getDefaultAlias (props) {
   return alias
 }
 
-function setDefaultAlias (props, alias) {
-  const { maecenate: { id } } = props
+function setDefaultAlias (props, alias, maecenateId) {
   if (window && window.localStorage) {
-    window.localStorage.setItem(`alias-for-${id}`, alias)
+    window.localStorage.setItem(`alias-for-${maecenateId}`, alias)
+  }
+}
+
+function getLastMaecenate (maecenateId) {
+  if (window && window.localStorage) {
+    return window.localStorage.getItem('default-maecenate')
+  }
+  return maecenateId
+}
+
+function setLastMaecenate (maecenateId) {
+  if (window && window.localStorage) {
+    window.localStorage.setItem('default-maecenate', maecenateId)
   }
 }
 
 function mapStateToProps (state, props) {
+  const getMaecenates = getUserMaecenates(getAuthUserId)
   return {
-    maecenate: getMaecenateBySlug(state, props),
-    authUser: getAuthUser(state, props)
+    maecenates: getMaecenates(state, props),
+    authUser: getAuthUser(state, props),
+    state
   }
 }
 
