@@ -213,8 +213,8 @@ function setDefaultAlias (props, alias, maecenateId) {
 }
 
 function getLastMaecenate (maecenateId) {
-  if (window && window.localStorage && window.localStorage.getItem('default-maecenate')) {
-    return window.localStorage.getItem('default-maecenate')
+  if (window && window.localStorage) {
+    return window.localStorage.getItem('default-maecenate') || maecenateId
   }
   return maecenateId
 }
