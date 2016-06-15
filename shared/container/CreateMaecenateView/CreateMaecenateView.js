@@ -148,7 +148,6 @@ class CreateMaecenateContainer extends Component {
               <br />
 
               <TextField
-                fullWidth={false}
                 path={['monthly_minimum']}
                 label={t('maecenate.subscriptionPrice')}
                 placeholder={t('maecenate.subscriptionPricePlaceholder')} />
