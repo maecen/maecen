@@ -20,6 +20,8 @@ import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
 import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
 import FileDropzone from '../../components/Form/FileDropzone'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
 class CreatePostView extends Component {
 
@@ -28,6 +30,7 @@ class CreatePostView extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateModel = this.updateModel.bind(this)
     this.mediaChange = this.mediaChange.bind(this)
+    this.onChangeMaecenate = this.onChangeMaecenate.bind(this)
     this.state = {
       post: Immutable({ }),
       errors: null,
@@ -36,7 +39,6 @@ class CreatePostView extends Component {
       uploadProgress: 0,
       media: []
     }
-    this.onChangeMaecenate = this.onChangeMaecenate.bind(this)
   }
 
   componentDidMount () {
@@ -68,15 +70,6 @@ class CreatePostView extends Component {
     }
   }
 
-  mediaChange (files) {
-    this.setState({ media: files })
-    mediaUpload(files, {
-      setState: this.setState.bind(this)
-    }).then((data) => {
-      this.updateModel(['media'], data.result)
-    })
-  }
-
   maecenateChange (maecenateId) {
     const alias = getDefaultAlias(this.props, maecenateId)
     const post = this.state.post.merge({
@@ -86,8 +79,17 @@ class CreatePostView extends Component {
     this.setState({ post })
   }
 
-  onChangeMaecenate (event) {
-    this.maecenateChange(event.target.value)
+  onChangeMaecenate (event, index, maecenateId) {
+    this.maecenateChange(maecenateId)
+  }
+
+  mediaChange (files) {
+    this.setState({ media: files })
+    mediaUpload(files, {
+      setState: this.setState.bind(this)
+    }).then((data) => {
+      this.updateModel(['media'], data.result)
+    })
   }
 
   handleSubmit (e) {
@@ -95,7 +97,6 @@ class CreatePostView extends Component {
     const { dispatch, maecenates } = this.props
     const { post } = this.state
 
-    console.log(post.maecenate)
     const maecenate = find(maecenates, obj => obj.id === post.maecenate)
 
     this.setState({ isSubmitting: true })
@@ -108,7 +109,6 @@ class CreatePostView extends Component {
         setLastMaecenate(maecenate.id)
         browserHistory.push(`/maecenate/${maecenate.slug}`)
       }).catch((res) => {
-        console.log(res)
         this.setState({ errors: null, isSubmitting: false })
         this.setState({ errors: res.data.errors })
       })
@@ -128,6 +128,20 @@ class CreatePostView extends Component {
                   <Form onSubmit={this.handleSubmit} model={post}
                     updateModel={this.updateModel} errors={this.state.errors}>
                     <CardContent>
+
+                      <SelectField
+                        onChange={this.onChangeMaecenate}
+                        value={this.state.post.maecenate}
+                        floatingLabelText={t('post.maecenate')} >
+                        {maecenates.map((maecenate, i) => (
+                          <MenuItem
+                            value={maecenate.id}
+                            key={maecenate.id}
+                            primaryText={maecenate.title}
+                          />
+                        ))}
+                      </SelectField>
+                      <br />
 
                       <TextField
                         path={['title']}
@@ -152,19 +166,7 @@ class CreatePostView extends Component {
 
                       <TextField
                         path={['author_alias']}
-                        placeholder={t('user.alias')}
-                        fullWidth={false} />
-
-                      <select onChange={this.onChangeMaecenate} value={this.state.post.maecenate}>
-                        {maecenates.map((maecenate, i) => (
-                          <option
-                            value={maecenate.id}
-                            key={maecenate.id}
-                          >
-                            {maecenate.title}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder={t('user.alias')} />
 
                     </CardContent>
                     <CardActions>
@@ -186,7 +188,6 @@ class CreatePostView extends Component {
 }
 
 CreatePostView.need = [(params, state) => {
-  console.log(state)
   const userId = getAuthUserId(state)
   return Actions.fetchAdminMaecenateList(userId)
 }]
@@ -212,7 +213,7 @@ function setDefaultAlias (props, alias, maecenateId) {
 }
 
 function getLastMaecenate (maecenateId) {
-  if (window && window.localStorage) {
+  if (window && window.localStorage && window.localStorage.getItem('default-maecenate')) {
     return window.localStorage.getItem('default-maecenate')
   }
   return maecenateId
