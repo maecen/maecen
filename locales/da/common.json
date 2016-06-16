@@ -27,18 +27,18 @@
     "descriptionPlaceholder": "Beskrivelse af Mæcenatet",
     "website": "Link til mere information",
     "websitePlaceholder": "Skriv URL-adresse",
-    "subscriptionPrice": "Minimum beløb som dine Mæcener skal betale pr måned i DKK",
+    "subscriptionPrice": "Min. beløb som Mæcener skal betale pr md.",
     "subscriptionPricePlaceholder": "f.eks. 10",
     "coverImage": "Coverbillede",
     "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke blive Mæcen for det",
     "uploadLogoLabel": "Indsæt logo",
-    "uploadCoverLabel": "Indsæt coverbillede eller video"
+    "uploadCoverLabel": "Indsæt billede eller video"
   },
   "currency": {
-    "DKR": "DKK"
+    "amount_DKK": "{{count}} DKK"
   },
   "support": {
-    "minimumAmount": "Min. pr. måned",
+    "minimumAmount": "Minimum $t(currency.amount)",
     "join": "Bliv mæcen",
     "joinMaecenate": "Bliv mæcen for {{title}}",
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
