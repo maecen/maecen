@@ -35,10 +35,10 @@
     "uploadCoverLabel": "Indsæt billede eller video"
   },
   "currency": {
-    "DKR": "DKK"
+    "amount_DKK": "{{count}} DKK"
   },
   "support": {
-    "minimumAmount": "Min. pr. måned",
+    "minimumAmount": "Minimum $t(currency.amount)",
     "join": "Bliv mæcen",
     "joinMaecenate": "Bliv mæcen for {{title}}",
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
