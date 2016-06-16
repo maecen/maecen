@@ -34,14 +34,12 @@ function MaecenatePresentation (props) {
                     className={s.logo} />
                 </Col>
                 <Col xs={8} sm={12}>
-                  <p>{t('maecens')}: 0</p>
-                  <p>{t('post.posts')}: 0</p>
                   <p>
                     {t('support.minimumAmount',
                       { context: 'DKK', count: monthlyMinimum })}
-                  </p>
+                  <br />
                   {url &&
-                    <p>
+                    <span>
                       {t('website')}:
                       <a
                         href={`http://${url}`}
@@ -49,8 +47,9 @@ function MaecenatePresentation (props) {
                         className={s.link}>
                         &nbsp;{url}
                       </a>
-                    </p>
+                    </span>
                   }
+                  </p>
                   <Button
                     primary={true}
                     label={t('support.join')}
