@@ -25,26 +25,26 @@
     "teaserPlaceholder": "Max 140 characters",
     "description": "Description",
     "descriptionPlaceholder": "Description of the Maecenate",
-    "website": "Website",
-    "websitePlaceholder": "Your website URL address",
+    "website": "More info",
+    "websitePlaceholder": "Enter URL-adress",
     "subscriptionPrice": "Monthly subscription costs in DKK",
-    "subscriptionPricePlaceholder": "e.g. 20",
+    "subscriptionPricePlaceholder": "e.g. 10",
     "coverImage": "Cover image",
-    "ownersCannotSupport": "You're an owner of this Maecenate, so you can't become a maecen for it",
+    "ownersCannotSupport": "You are the owner of this Maecenate, so you can not become a Maecen for it",
     "uploadLogoLabel": "Upload Logo",
-    "uploadCoverLabel": "Upload Cover"
+    "uploadCoverLabel": "Upload picture or video"
   },
   "currency": {
     "amount_DKK": "{{count}} DKK"
   },
   "support": {
     "minimumAmount": "Minimum $t(currency.amount)",
-    "join": "Become maecen",
-    "joinMaecenate": "Become maecen for {{title}}",
-    "howMuch": "How much would you support with per month?",
+    "join": "Support",
+    "joinMaecenate": "Become Maecen for {{title}}",
+    "howMuch": "Enter your monthly support in DKK",
     "continueToPayment": "Continue to payment",
     "belowMin": "The amount is below the monthly mininum",
-    "success": "You are now maecen for {{title}}"
+    "success": "You are now Maecen for {{title}}"
   },
   "action": {
     "edit": "Edit",
@@ -83,9 +83,9 @@
     "yourProfile": "Your profile",
     "yourMaecenates": "Your maecenates",
     "yourMaecenes": "Your maecenes",
-    "yourNoMaecenates": "You don't have any maecenates yet",
-    "maecenatesSupported": "You are maecen for",
-    "noMaecenatesSupported": "You are not maecen for anybody yet"
+    "yourNoMaecenates": "You don't have any Maecenates yet",
+    "maecenatesSupported": "You are Maecen for",
+    "noMaecenatesSupported": "You are not a Maecen yet"
   },
   "validationError": {
     "alreadyTaken": "This is unfortunately already in use by someone else",
