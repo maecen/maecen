@@ -103,59 +103,58 @@ function fetchMaecenateListSuccess (data) {
   }
 }
 
+function apiRequest (state, url, options) {
+  const token = getAuthToken(state())
+  return request(apiURL + url, { token, ...options })
+    .then(res => res.data)
+    .catch(err => console.log(err.stack))
+}
+
 export function fetchMaecenateList () {
   return (dispatch, state) => {
-    const token = getAuthToken(state())
-    return request(`${apiURL}/getMaecenates`, { token })
-      .then(res => res.data)
+    return apiRequest(state, '/getMaecenates')
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
-      .catch(err => console.log(err.stack))
   }
 }
 
 export function fetchAdminMaecenateList (userId) {
   return (dispatch, state) => {
-    const token = getAuthToken(state())
-    return request(`${apiURL}/getUserMaecenates/${userId}`, { token })
-      .then(res => res.data)
+    return apiRequest(state, `/getUserMaecenates/${userId}`)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
-      .catch(err => console.log(err.stack))
+  }
+}
+
+export function fetchAdminMaecenates (userId) {
+  return (dispatch, state) => {
+    return apiRequest(state, `/getUserMaecenates/${userId}`)
+      .then(data => dispatch(updateEntities(data.entities)))
   }
 }
 
 export function fetchSupportedMaecenateList (userId) {
   return (dispatch, state) => {
-    const token = getAuthToken(state())
-    return request(`${apiURL}/getSupportedMaecenates/${userId}`, { token })
-      .then(res => res.data)
+    return apiRequest(state, `/getSupportedMaecenates/${userId}`)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
-      .catch(err => console.log(err.stack))
   }
 }
 
 export function fetchMaecenateSupporterList (slug) {
   return (dispatch, state) => {
-    const token = getAuthToken(state())
-    return request(`${apiURL}/getMaecenateSupporters/${slug}`, { token })
-      .then(res => res.data)
+    return apiRequest(state, `/getMaecenateSupporters/${slug}`)
       .then(data => dispatch(fetchUserListSuccess(data)))
-      .catch(err => console.log(err.stack))
   }
 }
 
 export function changeLanguage (lang) {
   return (dispatch, state) => {
-    const token = getAuthToken(state())
-    return request(`${apiURL}/setUserLanguage`, {
+    return apiRequest(state, `${apiURL}/setUserLanguage`, {
       method: 'PUT',
-      data: { lng: lang },
-      token
-    }).then(res => res.data)
-      .then(res => {
-        if (res.success === true) {
-          window.location.reload()
-        }
-      })
+      data: { lng: lang }
+    }).then(res => {
+      if (res.success === true) {
+        window.location.reload()
+      }
+    })
   }
 }
 
@@ -181,11 +180,8 @@ function fetchMaecenatePostsSuccess (data) {
 export function fetchMaecenatePosts (slug) {
   return (dispatch, state) => {
     dispatch(setPosts([], null))
-    const token = getAuthToken(state())
-    return request(`${apiURL}/getMaecenatePosts/${slug}`, { token })
-      .then(res => res.data)
+    return apiRequest(state, `/getMaecenatePosts/${slug}`)
       .then(data => dispatch(fetchMaecenatePostsSuccess(data)))
-      .catch(err => console.log(err.stack))
   }
 }
 
