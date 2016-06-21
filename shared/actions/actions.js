@@ -1,15 +1,6 @@
 import { browserHistory } from 'react-router'
 import * as ActionTypes from '../constants/constants'
-import request from '../lib/request'
-import { getAuthToken } from '../selectors/user'
-import { apiURL } from '../config'
-
-function apiRequest (state, url, options) {
-  const token = getAuthToken(state())
-  return request(apiURL + url, { token, ...options })
-    .then(res => res.data)
-    .catch(err => console.log(err.stack))
-}
+import { apiRequest } from '../lib/request'
 
 export function setAuthUser (id, token, entities) {
   return {
@@ -152,31 +143,3 @@ export function changeLanguage (lang) {
     })
   }
 }
-
-export function createMaecenatePostSuccess (data) {
-  return (dispatch) => {
-    dispatch(updateEntities(data.entities))
-  }
-}
-
-function setPosts (ids, entities) {
-  return {
-    type: ActionTypes.SET_POSTS,
-    ids,
-    entities
-  }
-}
-
-function fetchMaecenatePostsSuccess (data) {
-  const ids = data.result
-  return setPosts(ids, data.entities)
-}
-
-export function fetchMaecenatePosts (slug) {
-  return (dispatch, state) => {
-    dispatch(setPosts([], null))
-    return apiRequest(state, `/getMaecenatePosts/${slug}`)
-      .then(data => dispatch(fetchMaecenatePostsSuccess(data)))
-  }
-}
-

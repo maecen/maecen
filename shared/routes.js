@@ -7,7 +7,8 @@ import CreateMaecenateView from './container/CreateMaecenateView'
 import MaecenateOverviewView from './container/MaecenateOverviewView'
 
 import MaecenateView from './container/MaecenateView'
-import CreatePostView from './container/CreatePostView'
+import CreatePostView from './container/Post/CreatePostView'
+import EditPostView from './container/Post/EditPostView'
 import MaecenateSupportView from './container/MaecenateSupportView'
 
 import MaecenateDashboardView from './container/MaecenateDashboardView'

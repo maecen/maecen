@@ -7,6 +7,7 @@ import { translate } from 'react-i18next'
 import find from 'lodash/find'
 
 import * as Actions from '../../actions/actions'
+import * as PostActions from '../../actions/post'
 import { mediaUpload } from '../../lib/fileHandler'
 import { getUserMaecenates } from '../../selectors/maecenate'
 import { getAuthUser, getAuthUserId } from '../../selectors/user'
@@ -42,7 +43,7 @@ class CreatePostView extends Component {
 
   componentDidMount () {
     const { dispatch, params, state, maecenates } = this.props
-    const maecenateId = getLastMaecenate(maecenates[0] && maecenates[0].id)
+    const maecenateId = getLastMaecenate(maecenates)
     dispatch(this.constructor.need[0](params, state))
     this.setAuthorAlias(this.props)
     this.maecenateChange(maecenateId)
@@ -64,7 +65,7 @@ class CreatePostView extends Component {
   componentWillReceiveProps (nextProps) {
     this.setAuthorAlias(nextProps)
     if (this.props.maecenates !== nextProps.maecenates) {
-      const maecenateId = getLastMaecenate(nextProps.maecenates[0].id)
+      const maecenateId = getLastMaecenate(nextProps.maecenates)
       this.maecenateChange(maecenateId)
     }
   }
@@ -103,7 +104,7 @@ class CreatePostView extends Component {
       .then(res => res.data)
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })
-        dispatch(Actions.createMaecenatePostSuccess(data))
+        dispatch(PostActions.createMaecenatePostSuccess(data))
         setDefaultAlias(this.props, post.author_alias, maecenate.id)
         setLastMaecenate(maecenate.id)
         browserHistory.push(`/maecenate/${maecenate.slug}`)
@@ -116,6 +117,8 @@ class CreatePostView extends Component {
   render () {
     const { maecenates, t } = this.props
     const { post, mediaPreview } = this.state
+
+    console.log(this.state.post.maecenate, maecenates)
 
     return (
       <Row>
@@ -209,9 +212,18 @@ function setDefaultAlias (props, alias, maecenateId) {
   }
 }
 
-function getLastMaecenate (maecenateId) {
+function getLastMaecenate (options) {
+  options = options || []
+  const defaultMaecenateId = options[0] && options[0].id
+  let maecenateId = null
   if (window && window.localStorage) {
-    return window.localStorage.getItem('default-maecenate') || maecenateId
+    maecenateId = window.localStorage.getItem('default-maecenate') ||
+      defaultMaecenateId
+
+    // Check the `maecenateId` is a valid choice
+    if (options.map(o => o.id).includes(maecenateId) === false) {
+      maecenateId = defaultMaecenateId
+    }
   }
   return maecenateId
 }
