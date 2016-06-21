@@ -63,7 +63,7 @@ function MaecenatePresentation (props) {
           <Col xs={12} sm={9}>
             <CardContent>
               {cover &&
-                <Media type={cover.type} url={cover.url} fixAspect={true} />
+                <Media type={cover.type} url={cover.url} fixedRatio={true} />
               }
             </CardContent>
             <CardHeader
