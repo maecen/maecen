@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect'
 import find from 'lodash/find'
 import filter from 'lodash/filter'
-import { getAuthUserId } from './User.selectors'
-import { getMediaEntities } from './Media.selectors'
-import { getSupports } from './Support.selectors'
+import { getAuthUserId } from './user'
+import { getMediaEntities } from './media'
+import { getSupports } from './support'
 
 export const getMaecenateEntities = (state, props) =>
   state.entities.maecenates

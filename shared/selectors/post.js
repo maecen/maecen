@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 import filter from 'lodash/filter'
-import { getMediaEntities } from './Media.selectors'
+import { getMediaEntities } from './media'
 
 const getPostEntities = (state, props) =>
   state.entities.posts

@@ -1,8 +1,6 @@
 import { createSelector } from 'reselect'
 import find from 'lodash/find'
-import {
-  getSupports
-} from './Support.selectors'
+import { getSupports } from './support'
 
 const getUsers = (state, props) =>
   state.entities.users

@@ -5,7 +5,7 @@ import without from 'lodash/without'
 import * as Actions from '../actions/actions'
 import Footer from '../components/Footer/Footer'
 
-import { isAuthorized, getAuthUser } from '../selectors/User.selectors'
+import { isAuthorized, getAuthUser } from '../selectors/user'
 
 class FooterContainer extends Component {
   changeLang (e) {

@@ -5,8 +5,8 @@ import { translate } from 'react-i18next'
 import sumBy from 'lodash/sumBy'
 
 import * as Actions from '../../actions/actions'
-import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
-import { getCurrentUsersWithSupports } from '../../selectors/User.selectors'
+import { getMaecenateBySlug } from '../../selectors/maecenate'
+import { getCurrentUsersWithSupports } from '../../selectors/user'
 
 import { Card, CardHeader, CardContent } from '../../components/Card'
 import { List, ListItem } from 'material-ui/List'

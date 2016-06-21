@@ -5,7 +5,7 @@ import { translate } from 'react-i18next'
 import { Row, Col } from 'react-flexbox-grid/lib'
 import * as Actions from '../../actions/actions'
 
-import { getAuthUser } from '../../selectors/User.selectors'
+import { getAuthUser } from '../../selectors/user'
 
 import { Card, CardContent, CardTitle } from '../../components/Card'
 import Form from '../../components/Form/Form'

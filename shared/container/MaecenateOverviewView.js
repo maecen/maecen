@@ -6,7 +6,7 @@ import { Row, Col } from 'react-flexbox-grid/lib'
 import * as Actions from '../actions/actions'
 import {
   getMaecenates
-} from '../selectors/Maecenate.selectors'
+} from '../selectors/maecenate'
 
 import MaecenateCard from '../components/Maecenate/MaecenateCard'
 

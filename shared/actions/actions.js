@@ -1,7 +1,7 @@
 import { browserHistory } from 'react-router'
 import * as ActionTypes from '../constants/constants'
 import request from '../lib/request'
-import { getAuthToken } from '../selectors/User.selectors'
+import { getAuthToken } from '../selectors/user'
 import { apiURL } from '../config'
 
 function apiRequest (state, url, options) {

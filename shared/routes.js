@@ -13,7 +13,7 @@ import MaecenateSupportView from './container/MaecenateSupportView'
 import MaecenateDashboardView from './container/MaecenateDashboardView'
 import MyPageView from './container/MyPage/MyPageView'
 import { apiURL } from '../shared/config'
-import { isAuthorized, getAuthToken } from './selectors/User.selectors'
+import { isAuthorized, getAuthToken } from './selectors/user'
 import request from './lib/request'
 
 const requiresAuthFn = (store, nextState, replaceState, cb) => {
