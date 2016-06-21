@@ -7,8 +7,12 @@ import * as Actions from '../../actions/actions'
 import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
 import { getCurrentUsersWithSupports } from '../../selectors/User.selectors'
 
-import { Card, CardTitle } from '../../components/Card'
+import { Card, CardHeader, CardContent } from '../../components/Card'
 import { List, ListItem } from 'material-ui/List'
+import Button from '../../components/Form/Button'
+import Subheader from 'material-ui/Subheader'
+import Divider from 'material-ui/Divider'
+import cropCloudy from '../../lib/cropCloudy'
 
 class MaecenateDashboardView extends Component {
 
@@ -21,14 +25,26 @@ class MaecenateDashboardView extends Component {
   render () {
     const { users, maecenate, t } = this.props
     const totalAmount = sumBy(users, o => o.support.amount)
+    const totalString = t('maecenate.totalAmount', { total: totalAmount })
 
     return (
       <Card>
-        <CardTitle
-          subtitle={t('user.yourMaecenes')}
+        <CardHeader
           title={maecenate.title}
+          subtitle={t('maecenate.dashboard')}
+          avatar={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}
         />
+
+        <CardContent>
+          <Button
+            label={t('maecenate.viewPresentation')}
+            primary={true}
+            // onClick={this.createMaecenate.bind(this)}
+          />
+        </CardContent>
+        <Divider />
         <List>
+          <Subheader>{t('user.yourMaecenes')}</Subheader>
           {
             users.map(user => (
               <ListItem key={user.id}>
@@ -36,9 +52,13 @@ class MaecenateDashboardView extends Component {
               </ListItem>
             ))
           }
-          <ListItem
-            key='total'
-            primaryText={`Total ${totalAmount} DKK per month`} />
+          { users.length > 0
+            ? <ListItem
+                key='total'
+                primaryText={totalString} />
+            : <ListItem
+              primaryText={t('user.yourNoMaecenes')} />
+          }
         </List>
       </Card>
     )

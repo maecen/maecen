@@ -42,8 +42,10 @@
     "subscriptionPricePlaceholder": "f.eks. 10",
     "teaser": "Teaser",
     "teaserPlaceholder": "Maks 140 tegn",
+    "totalAmount": "I alt {{total}} DKK per måned",
     "uploadLogoLabel": "Indsæt logo",
     "uploadCoverLabel": "Indsæt billede eller video",
+    "viewPresentation": "Se din presentation",
     "website": "Link til mere information",
     "websitePlaceholder": "Skriv URL-adresse"
   },
@@ -88,6 +90,7 @@
     "yourProfile": "Din profil",
     "yourMaecenates": "Dine Mæcenater",
     "yourNoMaecenates": "Du har ingen Mæcenater endnu",
+    "yourNoMaecenes": "Du har ingen Mæcener endnu",
     "yourMaecenes": "Dine Mæcener",
     "zip": "Postnummer"
   },
