@@ -13,13 +13,11 @@ import MaecenateSupportView from './container/MaecenateSupportView'
 import MaecenateDashboardView from './container/MaecenateDashboardView'
 import MyPageView from './container/MyPage/MyPageView'
 import { apiURL } from '../shared/config'
-import { getAuthToken } from './selectors/User.selectors'
+import { isAuthorized, getAuthToken } from './selectors/user'
 import request from './lib/request'
 
-const selectHasAuth = state => !!state.app.authUser
-
 const requiresAuthFn = (store, nextState, replaceState, cb) => {
-  const hasAuth = selectHasAuth(store.getState())
+  const hasAuth = isAuthorized(store.getState())
   if (hasAuth === false) {
     replaceState('/')
     cb()

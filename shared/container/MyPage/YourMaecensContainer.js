@@ -3,11 +3,9 @@ import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
-import { getAuthUserId } from '../../selectors/User.selectors'
-import {
-  getSupportedMaecenates
-} from '../../selectors/Maecenate.selectors'
 import * as Actions from '../../actions/actions'
+import { getAuthUserId } from '../../selectors/user'
+import { getSupportedMaecenates } from '../../selectors/maecenate'
 
 import cropCloudy from '../../lib/cropCloudy'
 import { Card, CardTitle, CardContent } from '../../components/Card'

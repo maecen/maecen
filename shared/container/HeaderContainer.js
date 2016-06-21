@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions/actions'
 import Header from '../components/Header/Header'
 import { browserHistory } from 'react-router'
-import { getUserMaecenates } from '../selectors/Maecenate.selectors'
+import { getUserMaecenates } from '../selectors/maecenate'
 
 import {
   isAuthorized, getAuthUser, getAuthUserId
-} from '../selectors/User.selectors'
+} from '../selectors/user'
 
 class HeaderContainer extends Component {
   constructor (props) {

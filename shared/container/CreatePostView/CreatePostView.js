@@ -8,8 +8,8 @@ import find from 'lodash/find'
 
 import * as Actions from '../../actions/actions'
 import { mediaUpload } from '../../lib/fileHandler'
-import { getUserMaecenates } from '../../selectors/Maecenate.selectors'
-import { getAuthUser, getAuthUserId } from '../../selectors/User.selectors'
+import { getUserMaecenates } from '../../selectors/maecenate'
+import { getAuthUser, getAuthUserId } from '../../selectors/user'
 
 import { Row, Col } from 'react-flexbox-grid/lib'
 

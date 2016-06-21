@@ -1,8 +1,6 @@
 import { createSelector } from 'reselect'
 import find from 'lodash/find'
-import {
-  getAuthUserId
-} from './User.selectors'
+import { getAuthUserId } from './user'
 
 export const getSupports = (state, props) =>
   state.entities.supports

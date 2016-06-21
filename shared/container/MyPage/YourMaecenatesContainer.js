@@ -4,10 +4,8 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import * as Actions from '../../actions/actions'
 
-import { getAuthUserId } from '../../selectors/User.selectors'
-import {
-  getUserMaecenates
-} from '../../selectors/Maecenate.selectors'
+import { getAuthUserId } from '../../selectors/user'
+import { getUserMaecenates } from '../../selectors/maecenate'
 
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'

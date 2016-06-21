@@ -5,13 +5,9 @@ import { connect } from 'react-redux'
 import {
   getMaecenateBySlug,
   isAuthUserMaecenateOwner
-} from '../selectors/Maecenate.selectors'
-import {
-  isAuthUserMaecenateSupporter
-} from '../selectors/Support.selectors'
-import {
-  getPosts
-} from '../selectors/Post.selectors'
+} from '../selectors/maecenate'
+import { isAuthUserMaecenateSupporter } from '../selectors/support'
+import { getPosts } from '../selectors/post'
 import * as Actions from '../actions/actions'
 
 import MaecenatePresentation from '../components/Maecenate/MaecenatePresentation'

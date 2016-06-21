@@ -1,8 +1,9 @@
 import Immutable from 'seamless-immutable'
 import * as ActionTypes from '../constants/constants'
 
-export const users = (state = Immutable({
+export const user = (state = Immutable({
   ids: [],
+  authUser: null,
   authToken: null
 }), action) => {
   switch (action.type) {
@@ -22,7 +23,6 @@ export const users = (state = Immutable({
 }
 
 export const app = (state = Immutable({
-  authUser: null,
   maecenate: null,
   maecenates: [],
   posts: [],
