@@ -46,7 +46,6 @@ class MaecenateView extends Component {
 
   render () {
     const { maecenate } = this.props
-
     return (maecenate
       ? this.renderContent()
       : <div>Loading...</div>
@@ -55,7 +54,8 @@ class MaecenateView extends Component {
 
   renderContent () {
     const { maecenate, posts, isAuthUserOwner, isSupporter } = this.props
-    if (isAuthUserOwner || isSupporter) {
+    const forcePresentation = Boolean(this.props.route.presentation)
+    if (!forcePresentation && (isAuthUserOwner || isSupporter)) {
       return <MaecenateContent
         maecenate={maecenate}
         posts={posts}

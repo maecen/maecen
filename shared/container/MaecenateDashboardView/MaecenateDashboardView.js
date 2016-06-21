@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import sumBy from 'lodash/sumBy'
@@ -22,6 +23,11 @@ class MaecenateDashboardView extends Component {
     dispatch(this.constructor.need[1](params))
   }
 
+  gotoMaecenatePresentation (slug, e) {
+    browserHistory.push(`/maecenate/${slug}/presentation`)
+    event.stop
+  }
+
   render () {
     const { users, maecenate, t } = this.props
     const totalAmount = sumBy(users, o => o.support.amount)
@@ -39,7 +45,7 @@ class MaecenateDashboardView extends Component {
           <Button
             label={t('maecenate.viewPresentation')}
             primary={true}
-            // onClick={this.createMaecenate.bind(this)}
+            onClick={this.gotoMaecenatePresentation.bind(this, maecenate.slug)}
           />
         </CardContent>
         <Divider />
