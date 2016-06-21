@@ -14,7 +14,7 @@ function Post (props, context) {
       {media &&
         <Media type={media.type} url={media.url} fixedRatio={false} />
       }
-      <CardContent>
+      <CardContent noTopPadding={true}>
         {post.content}
       </CardContent>
     </Card>
