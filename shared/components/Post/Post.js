@@ -12,7 +12,7 @@ function Post (props, context) {
     <Card key={post.id}>
       <CardTitle title={post.title} subtitle={writtenByAlias} />
       {media &&
-        <Media type={media.type} url={media.url} fixAspect={false} />
+        <Media type={media.type} url={media.url} fixedRatio={false} />
       }
       <CardContent>
         {post.content}

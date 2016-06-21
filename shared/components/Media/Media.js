@@ -4,7 +4,7 @@ import cropCloudy from '../../lib/cropCloudy'
 import s from './Media.scss'
 
 export default function Media (props, context) {
-  if (props.fixAspect) {
+  if (props.fixedRatio) {
     return (
       <div className={s.cover}>
         {props.url && startsWith(props.type, 'video')
@@ -28,9 +28,9 @@ export default function Media (props, context) {
 Media.propTypes = {
   url: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  fixAspect: PropTypes.bool
+  fixedRatio: PropTypes.bool
 }
 
 Media.defaultProps = {
-  fixAspect: false
+  fixedRatio: false
 }
