@@ -42,8 +42,10 @@
     "subscriptionPricePlaceholder": "e.g. 10",
     "teaser": "Teaser",
     "teaserPlaceholder": "Max 140 characters",
+    "totalAmount": "Total {{total}} DKK per month",
     "uploadLogoLabel": "Upload Logo",
     "uploadCoverLabel": "Upload picture or video",
+    "viewPresentation": "See your presentation",
     "website": "More info",
     "websitePlaceholder": "Enter URL-adress"
   },
@@ -86,9 +88,10 @@
     "passwordPlaceholder": "Choose a password",
     "phoneNumber": "Phone number",
     "yourProfile": "Your profile",
-    "yourMaecenates": "Your maecenates",
-    "yourMaecenes": "Your maecenes",
+    "yourMaecenates": "Your Maecenates",
+    "yourMaecenes": "Your Maecenes",
     "yourNoMaecenates": "You don't have any Maecenates yet",
+    "yourNoMaecenes": "You don't have any Maecenes yet",
     "zip": "Zip Code"
   },
   "validationError": {
