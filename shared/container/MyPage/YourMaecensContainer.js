@@ -18,7 +18,7 @@ class YourMaecensContainer extends Component {
 
   componentDidMount () {
     const { dispatch, userId } = this.props
-    dispatch(Actions.fetchSupportedMaecenateList(userId))
+    dispatch(Actions.fetchSupportedMaecenates(userId))
   }
 
   gotoMaecenate (slug) {

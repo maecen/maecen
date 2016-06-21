@@ -126,10 +126,10 @@ export function fetchAdminMaecenates (userId) {
   }
 }
 
-export function fetchSupportedMaecenateList (userId) {
+export function fetchSupportedMaecenates (userId) {
   return (dispatch, state) => {
     return apiRequest(state, `/getSupportedMaecenates/${userId}`)
-      .then(data => dispatch(fetchMaecenateListSuccess(data)))
+      .then(data => dispatch(updateEntities(data.entities)))
   }
 }
 
