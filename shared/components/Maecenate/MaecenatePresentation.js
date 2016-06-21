@@ -10,7 +10,7 @@ import Media from '../Media/Media'
 import s from './MaecenatePresentation.scss'
 
 function MaecenatePresentation (props) {
-  const { maecenate, supportMaecenate, t } = props
+  const { maecenate, supportMaecenate, isAuthUserOwner, t } = props
   const {
     cover,
     logo,
@@ -50,12 +50,20 @@ function MaecenatePresentation (props) {
                     </span>
                   }
                   </p>
-                  <Button
-                    primary={true}
-                    label={t('support.join')}
-                    onClick={supportMaecenate}
-                    style={{marginTop: '16px'}}
-                  />
+                  {isAuthUserOwner
+                    ? <Button
+                        primary={true}
+                        label='Rediger'
+                        // onClick={supportMaecenate}
+                        style={{marginTop: '16px'}}
+                      />
+                    : <Button
+                        primary={true}
+                        label={t('support.join')}
+                        onClick={supportMaecenate}
+                        style={{marginTop: '16px'}}
+                      />
+                  }
                 </Col>
               </Row>
             </CardContent>

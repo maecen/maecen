@@ -60,6 +60,7 @@ class MaecenateView extends Component {
       return <MaecenatePresentation
         maecenate={maecenate}
         supportMaecenate={this.supportMaecenate}
+        isAuthUserOwner={isAuthUserOwner}
       />
     }
   }
