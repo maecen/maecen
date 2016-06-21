@@ -35,3 +35,10 @@ https://github.com/maecen/maecen-webapp/blob/development/client/assets/js/locali
 
 ## Create new migration
 `./node_modules/.bin/knex migrate:make maecenate-month-price`
+
+## Actions
+
+# Naming conventions
+- All actions that ends with the _List_ (fetchMaecenateList) creates an action
+  which should treat the list of id's it returns as the one that should be used
+  to display on the page.
