@@ -17,7 +17,7 @@ class HomeView extends Component {
 
   handleCreateMaecenate () {
     const { dispatch, hasAuth } = this.props
-    const path = '/create-maecenate'
+    const path = '/maecenate/create'
     if (hasAuth === true) {
       browserHistory.push(path)
     } else {

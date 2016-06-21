@@ -38,7 +38,7 @@ class HeaderContainer extends Component {
   }
 
   gotoCreatePost () {
-    browserHistory.push('/create-post')
+    browserHistory.push('/post/create')
   }
 
   render () {

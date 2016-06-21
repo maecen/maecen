@@ -32,7 +32,7 @@ class YourMaecenatesContainer extends Component {
   }
 
   createMaecenate (slug) {
-    browserHistory.push('create-maecenate')
+    browserHistory.push('maecenate/create')
   }
 
   render () {
