@@ -12,7 +12,6 @@ import {
   getMaecenateBySlug
 } from '../../selectors/Maecenate.selectors'
 
-import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import Card, { CardContent, CardError, CardTitle } from '../../components/Card'
 import { Button, TextField } from '../../components/Form'
 import { Row, Col } from 'react-flexbox-grid/lib'
@@ -89,63 +88,61 @@ class MaecenateSupportView extends React.Component {
       : t('action.continue')
 
     return (
-      <ContentWrapper>
-        <Row>
-          <Col smOffset={3} sm={6} xs={12}>
-            <Card>
-              {!this.state.success &&
+      <Row>
+        <Col smOffset={3} sm={6} xs={12}>
+          <Card>
+            {!this.state.success &&
+              <CardTitle
+                title={t('support.joinMaecenate', { title: maecenate.title })}
+                subtitle={t('support.howMuch')}
+              />
+            }
+
+            {this.state.success &&
+              <div>
                 <CardTitle
-                  title={t('support.joinMaecenate', { title: maecenate.title })}
-                  subtitle={t('support.howMuch')}
+                  title={t('support.success', { title: maecenate.title })}
                 />
-              }
-
-              {this.state.success &&
-                <div>
-                  <CardTitle
-                    title={t('support.success', { title: maecenate.title })}
-                  />
-                  <CardContent>
-                    <Button
-                      primary={true}
-                      label={t('post.see')}
-                      onClick={this.gotoContent} />
-                  </CardContent>
-                </div>
-              }
-
-              {Object.keys(this.state.errors).length > 0 &&
-                <CardError>
-                  {this.state.errors._}
-                </CardError>
-              }
-
-              {!this.state.success &&
                 <CardContent>
-                  <form
-                    onSubmit={this.handleSubmit}>
-                    <TextField
-                      value={this.state.amount}
-                      name='amount'
-                      onChange={this.handleChange}
-                      label={t('support.minimumAmount', {
-                        context: 'DKK',
-                        count: maecenate.monthly_minimum
-                      })}
-                      error={this.state.amountError}
-                      style={{marginTop: '-16px'}}
-                    />
-
-                    <Button label={continueLabel}
-                      type='submit'
-                      secondary={true} />
-                  </form>
+                  <Button
+                    primary={true}
+                    label={t('post.see')}
+                    onClick={this.gotoContent} />
                 </CardContent>
-              }
-            </Card>
-          </Col>
-        </Row>
-      </ContentWrapper>
+              </div>
+            }
+
+            {Object.keys(this.state.errors).length > 0 &&
+              <CardError>
+                {this.state.errors._}
+              </CardError>
+            }
+
+            {!this.state.success &&
+              <CardContent>
+                <form
+                  onSubmit={this.handleSubmit}>
+                  <TextField
+                    value={this.state.amount}
+                    name='amount'
+                    onChange={this.handleChange}
+                    label={t('support.minimumAmount', {
+                      context: 'DKK',
+                      count: maecenate.monthly_minimum
+                    })}
+                    error={this.state.amountError}
+                    style={{marginTop: '-16px'}}
+                  />
+
+                  <Button label={continueLabel}
+                    type='submit'
+                    secondary={true} />
+                </form>
+              </CardContent>
+            }
+          </Card>
+        </Col>
+      </Row>
     )
   }
 }

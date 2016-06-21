@@ -2,9 +2,9 @@ import { Route, IndexRoute } from 'react-router'
 import React from 'react'
 import App from './container/App/App'
 
-import HomeContainer from './container/HomeContainer'
+import HomeView from './container/HomeView'
 import CreateMaecenateView from './container/CreateMaecenateView'
-import MaecenateOverviewContainer from './container/MaecenateOverviewContainer'
+import MaecenateOverviewView from './container/MaecenateOverviewView'
 
 import MaecenateView from './container/MaecenateView'
 import CreatePostView from './container/CreatePostView'
@@ -50,12 +50,12 @@ const getRoutes = (store) => {
 
   return (
     <Route path='/' component={App}>
-      <IndexRoute component={HomeContainer} />
+      <IndexRoute component={HomeView} />
       <Route path='profile' component={MyPageView} onEnter={requiresAuth} />
       <Route path='create-maecenate'
         component={CreateMaecenateView} onEnter={requiresAuth} />
       <Route path='create-post' component={CreatePostView} />
-      <Route path='maecenates' component={MaecenateOverviewContainer} />
+      <Route path='maecenates' component={MaecenateOverviewView} />
       <Route path='maecenate/:slug' component={MaecenateView} />
       <Route path='maecenate/:slug/support' component={MaecenateSupportView} />
       <Route path='maecenate/:slug/dashboard' component={MaecenateDashboardView}

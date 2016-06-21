@@ -2,8 +2,11 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
+import HeaderContainer from '../HeaderContainer'
+import FooterContainer from '../FooterContainer'
 import AuthDialogContainer from '../AuthDialogContainer'
-import './App.scss'
+import s from './App.scss'
 
 const themeColor = '#967049'
 
@@ -26,7 +29,17 @@ function App (props) {
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
       <div>
-        { props.children }
+
+        <div className={s.main}>
+          <HeaderContainer />
+          <div className={s.contentWrap}>
+            <div className={s.content}>
+              { props.children }
+            </div>
+          </div>
+          <FooterContainer />
+        </div>
+
         <AuthDialogContainer
           open={showAuthModal}
           navToUrl={navToUrl}

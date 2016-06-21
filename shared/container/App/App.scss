@@ -31,3 +31,24 @@ a {
   color: white;
   text-decoration: none;
 }
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0 .5rem;
+  max-width: 70rem;
+  margin: 0 auto;
+}
+
+.contentWrap {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+.content {
+  flex-grow: 1;
+}

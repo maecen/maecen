@@ -14,7 +14,6 @@ import {
 } from '../selectors/Post.selectors'
 import * as Actions from '../actions/actions'
 
-import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import MaecenatePresentation from '../components/Maecenate/MaecenatePresentation'
 import MaecenateContent from '../components/Maecenate/MaecenateContent'
 
@@ -48,13 +47,9 @@ class MaecenateView extends Component {
   render () {
     const { maecenate } = this.props
 
-    return (
-      <ContentWrapper>
-        {maecenate
-          ? this.renderContent()
-          : <div>Loading...</div>
-        }
-      </ContentWrapper>
+    return (maecenate
+      ? this.renderContent()
+      : <div>Loading...</div>
     )
   }
 

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import map from 'lodash/map'
 import { Row, Col } from 'react-flexbox-grid/lib'
-import ContentWrapper from '../components/ContentWrapper/ContentWrapper'
 import * as Actions from '../actions/actions'
 import {
   getMaecenates
@@ -11,7 +10,7 @@ import {
 
 import MaecenateCard from '../components/Maecenate/MaecenateCard'
 
-class MaecenateOverviewContainer extends Component {
+class MaecenateOverviewView extends Component {
 
   gotoMaecenate (maecenate) {
     browserHistory.push(`/maecenate/${maecenate.slug}`)
@@ -26,22 +25,20 @@ class MaecenateOverviewContainer extends Component {
     const { maecenates } = this.props
 
     return (
-      <ContentWrapper>
-        <Row>
-          {map(maecenates, maecenate =>
-            <Col sm={6} xs={12} key={maecenate.id}>
-              <MaecenateCard
-                maecenate={maecenate}
-                onClick={this.gotoMaecenate.bind(this, maecenate)} />
-            </Col>
-          )}
-        </Row>
-      </ContentWrapper>
+      <Row>
+        {map(maecenates, maecenate =>
+          <Col sm={6} xs={12} key={maecenate.id}>
+            <MaecenateCard
+              maecenate={maecenate}
+              onClick={this.gotoMaecenate.bind(this, maecenate)} />
+          </Col>
+        )}
+      </Row>
     )
   }
 }
 
-MaecenateOverviewContainer.need = [(params) => {
+MaecenateOverviewView.need = [(params) => {
   return Actions.fetchMaecenateList(params.slug)
 }]
 
@@ -51,4 +48,4 @@ function mapStateToProps (state, props) {
   }
 }
 
-export default connect(mapStateToProps)(MaecenateOverviewContainer)
+export default connect(mapStateToProps)(MaecenateOverviewView)

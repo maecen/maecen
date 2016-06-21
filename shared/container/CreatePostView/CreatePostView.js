@@ -13,7 +13,6 @@ import { getAuthUser, getAuthUserId } from '../../selectors/User.selectors'
 
 import { Row, Col } from 'react-flexbox-grid/lib'
 
-import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import { Card, CardContent, CardTitle, CardActions } from '../../components/Card'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
@@ -119,70 +118,68 @@ class CreatePostView extends Component {
     const { post, mediaPreview } = this.state
 
     return (
-      <ContentWrapper>
-        <Row>
-          <Col smOffset={3} sm={6} xs={12}>
-            {maecenates
-              ? <Card>
-                  <CardTitle title={t('post.create')} />
-                  <Form onSubmit={this.handleSubmit} model={post}
-                    updateModel={this.updateModel} errors={this.state.errors}>
-                    <CardContent>
+      <Row>
+        <Col smOffset={3} sm={6} xs={12}>
+          {maecenates
+            ? <Card>
+                <CardTitle title={t('post.create')} />
+                <Form onSubmit={this.handleSubmit} model={post}
+                  updateModel={this.updateModel} errors={this.state.errors}>
+                  <CardContent>
 
-                      <SelectField
-                        onChange={this.onChangeMaecenate}
-                        value={this.state.post.maecenate}
-                        floatingLabelText={t('post.maecenate')} >
-                        {maecenates.map((maecenate, i) => (
-                          <MenuItem
-                            value={maecenate.id}
-                            key={maecenate.id}
-                            primaryText={maecenate.title}
-                          />
-                        ))}
-                      </SelectField>
-                      <br />
+                    <SelectField
+                      onChange={this.onChangeMaecenate}
+                      value={this.state.post.maecenate}
+                      floatingLabelText={t('post.maecenate')} >
+                      {maecenates.map((maecenate, i) => (
+                        <MenuItem
+                          value={maecenate.id}
+                          key={maecenate.id}
+                          primaryText={maecenate.title}
+                        />
+                      ))}
+                    </SelectField>
+                    <br />
 
-                      <TextField
-                        path={['title']}
-                        placeholder={t('post.title')} />
+                    <TextField
+                      path={['title']}
+                      placeholder={t('post.title')} />
 
-                      <FileDropzone
-                        multiple={false}
-                        label={t('media.upload')}
-                        accept='video/*,image/*'
-                        onChange={this.mediaChange} />
+                    <FileDropzone
+                      multiple={false}
+                      label={t('media.upload')}
+                      accept='video/*,image/*'
+                      onChange={this.mediaChange} />
 
-                      <LinearProgressDeterminate
-                        value={this.state.uploadProgress} />
+                    <LinearProgressDeterminate
+                      value={this.state.uploadProgress} />
 
-                      {mediaPreview &&
-                        <img src={mediaPreview} width='100%' /> }
+                    {mediaPreview &&
+                      <img src={mediaPreview} width='100%' /> }
 
-                      <TextField
-                        path={['content']}
-                        placeholder={t('post.content')}
-                        multiLine={true} />
+                    <TextField
+                      path={['content']}
+                      placeholder={t('post.content')}
+                      multiLine={true} />
 
-                      <TextField
-                        path={['author_alias']}
-                        placeholder={t('user.alias')} />
+                    <TextField
+                      path={['author_alias']}
+                      placeholder={t('user.alias')} />
 
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        type='submit'
-                        label={t('post.create')}
-                        primary={true}
-                        disabled={this.state.isSubmitting === true} />
-                    </CardActions>
-                  </Form>
-                </Card>
-              : <div>{t('loading')}</div>
-            }
-          </Col>
-        </Row>
-      </ContentWrapper>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      type='submit'
+                      label={t('post.create')}
+                      primary={true}
+                      disabled={this.state.isSubmitting === true} />
+                  </CardActions>
+                </Form>
+              </Card>
+            : <div>{t('loading')}</div>
+          }
+        </Col>
+      </Row>
     )
   }
 }

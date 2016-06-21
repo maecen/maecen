@@ -7,7 +7,6 @@ import * as Actions from '../../actions/actions'
 import { getMaecenateBySlug } from '../../selectors/Maecenate.selectors'
 import { getCurrentUsersWithSupports } from '../../selectors/User.selectors'
 
-import ContentWrapper from '../../components/ContentWrapper/ContentWrapper'
 import { Card, CardTitle } from '../../components/Card'
 import { List, ListItem } from 'material-ui/List'
 
@@ -24,26 +23,24 @@ class MaecenateDashboardView extends Component {
     const totalAmount = sumBy(users, o => o.support.amount)
 
     return (
-      <ContentWrapper>
-        <Card>
-          <CardTitle
-            subtitle={t('user.yourMaecenes')}
-            title={maecenate.title}
-          />
-          <List>
-            {
-              users.map(user => (
-                <ListItem key={user.id}>
-                  {user.first_name} {user.support.amount}
-                </ListItem>
-              ))
-            }
-            <ListItem
-              key='total'
-              primaryText={`Total ${totalAmount} DKK per month`} />
-          </List>
-        </Card>
-      </ContentWrapper>
+      <Card>
+        <CardTitle
+          subtitle={t('user.yourMaecenes')}
+          title={maecenate.title}
+        />
+        <List>
+          {
+            users.map(user => (
+              <ListItem key={user.id}>
+                {user.first_name} {user.support.amount}
+              </ListItem>
+            ))
+          }
+          <ListItem
+            key='total'
+            primaryText={`Total ${totalAmount} DKK per month`} />
+        </List>
+      </Card>
     )
   }
 }
