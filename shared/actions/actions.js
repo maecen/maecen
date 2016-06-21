@@ -4,6 +4,13 @@ import request from '../lib/request'
 import { getAuthToken } from '../selectors/User.selectors'
 import { apiURL } from '../config'
 
+function apiRequest (state, url, options) {
+  const token = getAuthToken(state())
+  return request(apiURL + url, { token, ...options })
+    .then(res => res.data)
+    .catch(err => console.log(err.stack))
+}
+
 export function setAuthUser (id, token, entities) {
   return {
     type: ActionTypes.SET_AUTH_USER,
@@ -25,9 +32,7 @@ function clearAuthUser () {
 
 export function clearAuth () {
   return (dispatch, state) => {
-    const token = getAuthToken(state())
-    request(`${apiURL}/clearAuth`, { method: 'POST', token })
-      .then(res => res.data)
+    apiRequest(state, '/clearAuth', { method: 'POST' })
       .then(data => {
         dispatch(clearAuthUser())
         browserHistory.push('/')
@@ -75,11 +80,8 @@ function fetchMaecenateSuccess (data) {
 
 export function fetchMaecenate (slug) {
   return (dispatch, state) => {
-    const token = getAuthToken(state())
-    return request(`${apiURL}/getMaecenate/${slug}`, { token })
-      .then(res => res.data)
+    return apiRequest(state, `/getMaecenate/${slug}`)
       .then(data => dispatch(fetchMaecenateSuccess(data)))
-      .catch(err => console.log(err.stack))
   }
 }
 
@@ -101,13 +103,6 @@ function fetchMaecenateListSuccess (data) {
     ids,
     entities: data.entities
   }
-}
-
-function apiRequest (state, url, options) {
-  const token = getAuthToken(state())
-  return request(apiURL + url, { token, ...options })
-    .then(res => res.data)
-    .catch(err => console.log(err.stack))
 }
 
 export function fetchMaecenateList () {
@@ -147,7 +142,7 @@ export function fetchMaecenateSupporterList (slug) {
 
 export function changeLanguage (lang) {
   return (dispatch, state) => {
-    return apiRequest(state, `${apiURL}/setUserLanguage`, {
+    return apiRequest(state, '/setUserLanguage', {
       method: 'PUT',
       data: { lng: lang }
     }).then(res => {

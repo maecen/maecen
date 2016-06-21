@@ -5,6 +5,8 @@ import without from 'lodash/without'
 import * as Actions from '../actions/actions'
 import Footer from '../components/Footer/Footer'
 
+import { isAuthorized, getAuthUser } from '../selectors/User.selectors'
+
 class FooterContainer extends Component {
   changeLang (e) {
     e.preventDefault()
@@ -26,14 +28,10 @@ class FooterContainer extends Component {
   }
 }
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const hasAuth = !!app.authUser
-  const user = hasAuth && entities.users[app.authUser]
-
+function mapStateToProps (state, props) {
   return {
-    hasAuth,
-    user
+    hasAuth: isAuthorized(state, props),
+    user: getAuthUser(state, props)
   }
 }
 
