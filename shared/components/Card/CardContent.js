@@ -1,12 +1,22 @@
-import React, { Component } from 'react'
+import React, { PropTypes } from 'react'
+import Immutable from 'seamless-immutable'
 import { CardText as MaterialCardText } from 'material-ui/Card'
 
-export default class CardText extends Component {
-  render () {
-    return (
-      <MaterialCardText {...this.props} />
-    )
+export default function CardText (props) {
+  props = Immutable(props)
+
+  let style = props.style
+  if (props.noTopPadding === true) {
+    style = {
+      ...style,
+      paddingTop: '0px'
+    }
   }
+  return (
+    <MaterialCardText
+      style={style}
+      {...props.without('style')} />
+  )
 }
 
 CardText.defaultProps = {
@@ -15,4 +25,8 @@ CardText.defaultProps = {
     wordBreak: 'break-word',
     whiteSpace: 'pre-line'
   }
+}
+
+CardText.propTypes = {
+  noTopPadding: PropTypes.bool
 }

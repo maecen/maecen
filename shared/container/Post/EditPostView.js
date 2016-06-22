@@ -32,7 +32,7 @@ class EditPostView extends Component {
 
   componentDidMount () {
     const { dispatch, params } = this.props
-    dispatch(this.constructor.need[-1](params))
+    dispatch(this.constructor.need[0](params))
   }
 
   componentWillReceiveProps (nextProps) {

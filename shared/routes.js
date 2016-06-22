@@ -33,7 +33,8 @@ const requiresMaecenateAdminFn = (store, nextState, replaceState, cb) => {
   request(`${apiURL}/hasPermission/maecenateAdmin/${slug}`, { token })
   .then(res => {
     cb()
-  }).catch(() => {
+  }).catch((err) => {
+    console.log('error', err.stack)
     replaceState('/')
     cb()
   })
@@ -50,20 +51,30 @@ const getRoutes = (store) => {
   return (
     <Route path='/' component={App}>
       <IndexRoute component={HomeView} />
-      <Route path='profile' component={MyPageView} onEnter={requiresAuth} />
-      <Route path='maecenate/create'
-        component={CreateMaecenateView} onEnter={requiresAuth} />
+      <Route path='profile'
+        component={MyPageView} onEnter={requiresAuth} />
 
-      <Route path='post/create' component={CreatePostView} />
+      <Route path='post/create'
+        component={CreatePostView} />
       <Route path='maecenate/:slug/post/:postId/edit' component={EditPostView}
         onEnter={requiresMaecenateAdmin} />
 
-      <Route path='maecenates' component={MaecenateOverviewView} />
-      <Route path='maecenate/:slug' component={MaecenateView} />
-      <Route path='maecenate/:slug/presentation' presentation={true} component={MaecenateView} />
-      <Route path='maecenate/:slug/support' component={MaecenateSupportView} />
-      <Route path='maecenate/:slug/dashboard' component={MaecenateDashboardView}
+      <Route path='maecenate/create'
+        component={CreateMaecenateView} onEnter={requiresAuth} />
+      <Route path='maecenates'
+        component={MaecenateOverviewView} />
+      <Route path='maecenate/:slug'
+        component={MaecenateView} onEnter={requiresAuth} />
+      <Route path='maecenate/:slug/edit'
+        edit={true} component={CreateMaecenateView}
         onEnter={requiresMaecenateAdmin} />
+
+      <Route path='maecenate/:slug/presentation'
+        presentation={true} component={MaecenateView} />
+      <Route path='maecenate/:slug/support'
+        component={MaecenateSupportView} />
+      <Route path='maecenate/:slug/dashboard'
+        component={MaecenateDashboardView} onEnter={requiresMaecenateAdmin} />
     </Route>
   )
 }

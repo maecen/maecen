@@ -29,6 +29,9 @@ CardTitle.defaultProps = {
   subtitleStyle: {
     marginTop: '4px'
   },
+  style: {
+    display: 'inline-block'
+  },
   big: false
 }
 
