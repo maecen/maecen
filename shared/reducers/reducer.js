@@ -9,11 +9,13 @@ export const user = (state = Immutable({
   switch (action.type) {
     case ActionTypes.SET_AUTH_USER:
       return state.merge({
+        authUser: action.id,
         authToken: action.token
       })
     case ActionTypes.CLEAR_AUTH_USER:
       return state.merge({
-        authToken: null
+        authToken: null,
+        authUser: null
       })
     case ActionTypes.SET_USER_LIST:
       return state.set('ids', action.ids)
@@ -31,13 +33,7 @@ export const app = (state = Immutable({
   switch (action.type) {
     case ActionTypes.SET_AUTH_USER:
       return state.merge({
-        authUser: action.id,
         requireAuthorization: false
-      })
-
-    case ActionTypes.CLEAR_AUTH_USER:
-      return state.merge({
-        authUser: null
       })
 
     case ActionTypes.REQUIRE_AUTHORIZATION:
