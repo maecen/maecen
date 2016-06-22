@@ -23,7 +23,6 @@ class MaecenateForm extends Component {
             coverChange,
             logoChange
           } = this.props
-
     return (
       <Card>
         <CardTitle
@@ -47,6 +46,7 @@ class MaecenateForm extends Component {
               label={t('maecenate.uploadLogoLabel')}
               accept='image/*'
               onChange={logoChange}
+              error={errors && errors.logo_media}
             />
 
             <LinearProgressDeterminate
@@ -58,6 +58,7 @@ class MaecenateForm extends Component {
               label={t('maecenate.uploadCoverLabel')}
               accept='video/*,image/*'
               onChange={coverChange}
+              error={errors && errors.cover_media}
             />
 
             <LinearProgressDeterminate

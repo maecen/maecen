@@ -9,7 +9,7 @@ import * as Actions from '../../actions/actions'
 
 import { MaecenateForm } from '../../components/Maecenate'
 
-class CreateMaecenateContainer extends Component {
+class CreateMaecenateView extends Component {
 
   constructor (props) {
     super()
@@ -96,12 +96,12 @@ class CreateMaecenateContainer extends Component {
   }
 }
 
-CreateMaecenateContainer.need = []
+CreateMaecenateView.need = []
 
 function mapStateToProps (store) {
   return { }
 }
 
 export default translate(['common'])(
-  connect(mapStateToProps)(CreateMaecenateContainer)
+  connect(mapStateToProps)(CreateMaecenateView)
 )

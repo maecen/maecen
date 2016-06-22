@@ -99,6 +99,8 @@
     "alreadyTaken_email": "This email is already in use",
     "alreadyTaken_title": "This title is already in use",
     "anyRequired": "You need to fill this out",
+    "anyRequired_cover_media": "You need to upload something",
+    "anyRequired_logo_media": "You need to upload a logo",
     "anyEmpty": "You need to fill this out",
     "numberMin": "This number is too low",
     "numberBase": "You need to fill in a number",
