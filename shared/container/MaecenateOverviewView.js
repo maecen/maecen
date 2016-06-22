@@ -4,11 +4,9 @@ import { browserHistory } from 'react-router'
 import map from 'lodash/map'
 import { Row, Col } from 'react-flexbox-grid/lib'
 import * as Actions from '../actions/actions'
-import {
-  getMaecenates
-} from '../selectors/maecenate'
+import { getMaecenates } from '../selectors/maecenate'
 
-import MaecenateCard from '../components/Maecenate/MaecenateCard'
+import { MaecenateCard } from '../components/Maecenate'
 
 class MaecenateOverviewView extends Component {
 

@@ -10,8 +10,10 @@ import { isAuthUserMaecenateSupporter } from '../selectors/support'
 import { getPosts } from '../selectors/post'
 import * as Actions from '../actions/actions'
 
-import MaecenatePresentation from '../components/Maecenate/MaecenatePresentation'
-import MaecenateContent from '../components/Maecenate/MaecenateContent'
+import {
+  MaecenatePresentation,
+  MaecenateContent
+} from '../components/Maecenate'
 
 class MaecenateView extends Component {
   constructor (props) {
