@@ -18,9 +18,8 @@ import {
 class MaecenateView extends Component {
   constructor (props) {
     super(props)
-    this.createPost = this.createPost.bind(this)
     this.supportMaecenate = this.supportMaecenate.bind(this)
-
+    this.editMaecenate = this.editMaecenate.bind(this)
     this.state = {
       maecenateSupportOpen: false
     }
@@ -32,14 +31,14 @@ class MaecenateView extends Component {
     dispatch(this.constructor.need[1](params))
   }
 
-  createPost () {
-    const { slug } = this.props.params
-    browserHistory.push(`/maecenate/${slug}/new-post`)
-  }
-
   supportMaecenate () {
     const { slug } = this.props.params
     browserHistory.push(`/maecenate/${slug}/support`)
+  }
+
+  editMaecenate () {
+    const { slug } = this.props.params
+    browserHistory.push(`/maecenate/${slug}/edit`)
   }
 
   render () {
@@ -62,6 +61,7 @@ class MaecenateView extends Component {
       return <MaecenatePresentation
         maecenate={maecenate}
         supportMaecenate={this.supportMaecenate}
+        editMaecenate={this.editMaecenate}
         isAuthUserOwner={isAuthUserOwner}
       />
     }

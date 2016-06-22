@@ -49,16 +49,25 @@ const getRoutes = (store) => {
   return (
     <Route path='/' component={App}>
       <IndexRoute component={HomeView} />
-      <Route path='profile' component={MyPageView} onEnter={requiresAuth} />
+      <Route path='profile'
+        component={MyPageView} onEnter={requiresAuth} />
       <Route path='create-maecenate'
         component={CreateMaecenateView} onEnter={requiresAuth} />
-      <Route path='create-post' component={CreatePostView} />
-      <Route path='maecenates' component={MaecenateOverviewView} />
-      <Route path='maecenate/:slug' component={MaecenateView} />
-      <Route path='maecenate/:slug/presentation' presentation={true} component={MaecenateView} />
-      <Route path='maecenate/:slug/support' component={MaecenateSupportView} />
-      <Route path='maecenate/:slug/dashboard' component={MaecenateDashboardView}
+      <Route path='create-post'
+        component={CreatePostView} />
+      <Route path='maecenates'
+        component={MaecenateOverviewView} />
+      <Route path='maecenate/:slug'
+        component={MaecenateView} onEnter={requiresAuth} />
+      <Route path='maecenate/:slug/edit'
+        edit={true} component={CreateMaecenateView}
         onEnter={requiresMaecenateAdmin} />
+      <Route path='maecenate/:slug/presentation'
+        presentation={true} component={MaecenateView} />
+      <Route path='maecenate/:slug/support'
+        component={MaecenateSupportView} />
+      <Route path='maecenate/:slug/dashboard'
+        component={MaecenateDashboardView} onEnter={requiresMaecenateAdmin} />
     </Route>
   )
 }

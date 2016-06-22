@@ -21,12 +21,14 @@ class MaecenateForm extends Component {
             coverUploadProgress,
             areWeSubmitting,
             coverChange,
-            logoChange
+            logoChange,
+            title,
+            submitLable
           } = this.props
     return (
       <Card>
         <CardTitle
-          title={t('maecenate.create')}
+          title={title}
           style={{paddingBottom: '0px'}}
         />
         <CardContent>
@@ -94,7 +96,7 @@ class MaecenateForm extends Component {
             <Button type='submit'
               style={{marginTop: '16px'}}
               primary={true}
-              label={t('maecenate.create')}
+              label={submitLable}
               disabled={areWeSubmitting} />
           </Form>
         </CardContent>

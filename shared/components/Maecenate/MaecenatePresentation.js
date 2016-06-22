@@ -10,7 +10,14 @@ import Media from '../Media/Media'
 import s from './MaecenatePresentation.scss'
 
 function MaecenatePresentation (props) {
-  const { maecenate, supportMaecenate, isAuthUserOwner, t } = props
+  const {
+    maecenate,
+    supportMaecenate,
+    editMaecenate,
+    isAuthUserOwner,
+    t
+  } = props
+
   const {
     cover,
     logo,
@@ -54,7 +61,7 @@ function MaecenatePresentation (props) {
                     ? <Button
                         primary={true}
                         label='Rediger'
-                        // onClick={supportMaecenate}
+                        onClick={editMaecenate}
                         style={{marginTop: '16px'}}
                       />
                     : <Button
@@ -88,7 +95,8 @@ function MaecenatePresentation (props) {
 
 MaecenatePresentation.propTypes = {
   maecenate: PropTypes.object.isRequired,
-  supportMaecenate: PropTypes.func.isRequired
+  supportMaecenate: PropTypes.func.isRequired,
+  editMaecenate: PropTypes.func.isRequired
 }
 
 export default translate(['common'])(

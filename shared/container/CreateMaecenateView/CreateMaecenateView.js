@@ -79,10 +79,21 @@ class CreateMaecenateView extends Component {
 
   render () {
     const { maecenate } = this.state
+    const { t } = this.props
+    const editMode = Boolean(this.props.route.edit)
+
+    let title = t('maecenate.create')
+    let submitLable = t('maecenate.create')
+    if (editMode) {
+      title = t('maecenate.edit', { maecenate: 'Hej med dig' })
+      submitLable = t('maecenate.update', { maecenate: 'Hej med dig' })
+    }
 
     return (
       <MaecenateForm
         maecenate={maecenate}
+        title={title}
+        submitLable={submitLable}
         handleSubmit={this.handleSubmit.bind(this)}
         updateModel={this.updateModel.bind(this)}
         errors={this.state.errors}
