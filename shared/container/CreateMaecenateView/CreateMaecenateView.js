@@ -7,12 +7,7 @@ import Immutable from 'seamless-immutable'
 import { mediaUpload } from '../../lib/fileHandler'
 import * as Actions from '../../actions/actions'
 
-import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
-import { Card, CardContent, CardTitle } from '../../components/Card'
-import Form from '../../components/Form/Form'
-import TextField from '../../components/Form/TextField'
-import Button from '../../components/Form/Button'
-import FileDropzone from '../../components/Form/FileDropzone'
+import { MaecenateForm } from '../../components/Maecenate'
 
 class CreateMaecenateContainer extends Component {
 
@@ -84,81 +79,19 @@ class CreateMaecenateContainer extends Component {
 
   render () {
     const { maecenate } = this.state
-    const { t } = this.props
 
     return (
-      <Card>
-        <CardTitle
-          title={t('maecenate.create')}
-          style={{paddingBottom: '0px'}}
-        />
-          <CardContent>
-
-          <Form onSubmit={this.handleSubmit.bind(this)} model={maecenate}
-            updateModel={this.updateModel.bind(this)}
-            errors={this.state.errors}>
-
-            <TextField
-              path={['title']}
-              label={t('title')} />
-            <br />
-
-            <FileDropzone
-              multiple={false}
-              label={t('maecenate.uploadLogoLabel')}
-              accept='image/*'
-              onChange={this.logoChange}
-            />
-
-            <LinearProgressDeterminate
-              value={this.state.logoUploadProgress}
-            />
-
-            <FileDropzone
-              multiple={false}
-              label={t('maecenate.uploadCoverLabel')}
-              accept='video/*,image/*'
-              onChange={this.coverChange}
-            />
-
-            <LinearProgressDeterminate
-              value={this.state.coverUploadProgress}
-            />
-
-            <TextField
-              path={['teaser']}
-              label={t('maecenate.teaser')}
-              placeholder={t('maecenate.teaserPlaceholder')}
-              maxLength='140' />
-            <br />
-
-            <TextField
-              path={['description']}
-              label={t('maecenate.description')}
-              placeholder={t('maecenate.descriptionPlaceholder')}
-              multiLine={true} />
-            <br />
-
-            <TextField
-              path={['url']}
-              label={t('maecenate.website')}
-              placeholder={t('maecenate.websitePlaceholder')} />
-            <br />
-
-            <TextField
-              path={['monthly_minimum']}
-              label={t('maecenate.subscriptionPrice')}
-              placeholder={t('maecenate.subscriptionPricePlaceholder')} />
-            <br />
-
-            <Button type='submit'
-              style={{marginTop: '16px'}}
-              primary={true}
-              label={t('maecenate.create')}
-              disabled={this.state.isSubmitting === true} />
-          </Form>
-        </CardContent>
-      </Card>
+      <MaecenateForm
+        maecenate={maecenate}
+        handleSubmit={this.handleSubmit.bind(this)}
+        updateModel={this.updateModel.bind(this)}
+        errors={this.state.errors}
+        logoUploadProgress={this.state.logoUploadProgress}
+        coverUploadProgress={this.state.coverUploadProgress}
+        areWeSubmitting={this.state.isSubmitting === true}
+        coverChange={this.coverChange}
+        logoChange={this.logoChange}
+      />
     )
   }
 }
