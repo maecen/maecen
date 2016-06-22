@@ -64,10 +64,12 @@ export function normalizeResponse (data, responseObject) {
   return response
 }
 
-export function joiValidation (obj, schema) {
+export function joiValidation (obj, schema, allowUnknown) {
+  allowUnknown = Boolean(allowUnknown)
   return new Promise((resolve, reject) => {
     const options = {
-      abortEarly: false
+      abortEarly: false,
+      allowUnknown
     }
 
     Joi.validate(obj, schema, options, (err, val) => {

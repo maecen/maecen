@@ -55,6 +55,8 @@ const getRoutes = (store) => {
         component={CreateMaecenateView} onEnter={requiresAuth} />
 
       <Route path='post/create' component={CreatePostView} />
+      <Route path='maecenate/:slug/post/:postId/edit' component={EditPostView}
+        onEnter={requiresMaecenateAdmin} />
 
       <Route path='maecenates' component={MaecenateOverviewView} />
       <Route path='maecenate/:slug' component={MaecenateView} />

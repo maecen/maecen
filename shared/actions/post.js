@@ -2,10 +2,12 @@ import * as ActionTypes from '../constants/constants'
 import * as Actions from './actions'
 import { apiRequest } from '../lib/request'
 
-export function createMaecenatePostSuccess (data) {
-  return (dispatch) => {
-    dispatch(Actions.updateEntities(data.entities))
-  }
+export function createPostSuccess (data) {
+  return Actions.updateEntities(data.entities)
+}
+
+export function editPostSuccess (data) {
+  return Actions.updateEntities(data.entities)
 }
 
 function setPosts (ids, entities) {
@@ -26,5 +28,12 @@ export function fetchMaecenatePosts (slug) {
     dispatch(setPosts([], null))
     return apiRequest(state, `/getMaecenatePosts/${slug}`)
       .then(data => dispatch(fetchMaecenatePostsSuccess(data)))
+  }
+}
+
+export function fetchPost (id) {
+  return (dispatch, state) => {
+    return apiRequest(state, `/getPost/${id}`)
+      .then(data => dispatch(Actions.updateEntities(data.entities)))
   }
 }

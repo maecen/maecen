@@ -43,6 +43,12 @@ export const getMaecenateBySlug = createSelector(
   }
 )
 
+export const getMaecenateByPost = (postSelector) =>
+  createSelector(
+    [ postSelector, getMaecenateEntities ],
+    (post, maecenates) => maecenates[post.maecenate]
+  )
+
 export const getMaecenate = createSelector(
   [ getMaecenateId, getMaecenateEntities, getMediaEntities ],
   (id, maecenates, media) => (

@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
-import { Card, CardContent, CardTitle } from '../Card'
+import { Card, CardContent, CardTitle, CardActions } from '../Card'
+import { Button } from '../Form'
 import Media from '../Media/Media'
 
 function Post (props, context) {
-  const { post, t } = props
+  const { post, editPost, t } = props
   const media = post.media && post.media[0]
   const writtenByAlias = t('post.writtenByAlias', { alias: post.author_alias })
 
@@ -17,12 +18,27 @@ function Post (props, context) {
       <CardContent>
         {post.content}
       </CardContent>
+      {editPost &&
+        <CardActions>
+          <Button
+            label='Edit post'
+            flat={true}
+            onClick={editPost.bind(null, post.id)} />
+        </CardActions>
+      }
     </Card>
   )
 }
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    author_alias: PropTypes.string.isRequired,
+    media: PropTypes.array.isRequired,
+    content: PropTypes.string,
+    editPost: PropTypes.func
+  }).isRequired
 }
 
 export default translate(['common'])(Post)

@@ -44,3 +44,19 @@ export function uploadDataUri (dataUri, path) {
   const buffer = new Buffer(data, 'base64')
   return uploadBuffer(buffer, path)
 }
+
+export function deleteFile (imageUrl) {
+  const m = imageUrl.match(/\/v\d+\/(.+)?\.\S{3,5}$/)
+  const publicId = m[1]
+  console.log('publicId', publicId)
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.destroy(publicId, (result) => {
+      if (result.error) {
+        return reject(result.error.message)
+      } else {
+        return resolve(result)
+      }
+    }, { invalidate: true })
+    resolve()
+  })
+}

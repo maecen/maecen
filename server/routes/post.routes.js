@@ -16,8 +16,12 @@ function verifyMaecenateAdmin (req, res, next) {
   }).catch(next)
 }
 
+router.get('/getPost/:postId', PostController.getPost)
+
 // Create a post
 router.post('/createPost', verifyMaecenateAdmin, PostController.createPost)
+
+router.put('/editPost', verifyMaecenateAdmin, PostController.editPost)
 
 // Get all posts by maecenate slug
 router.get('/getMaecenatePosts/:slug', PostController.getMaecenatePosts)

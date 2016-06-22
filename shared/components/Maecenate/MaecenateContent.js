@@ -7,7 +7,7 @@ import Post from '../Post/Post'
 import s from './MaecenateContent.scss'
 
 function MaecenateContent (props) {
-  const { maecenate, posts } = props
+  const { maecenate, posts, editPost } = props
 
   return (
     <div className={s.wrap}>
@@ -18,7 +18,10 @@ function MaecenateContent (props) {
               <CardTitle big={true} title={maecenate.title} />
             </Card>
             {posts.map(post => (
-              <Post post={post} key={post.id} />
+              <Post
+                post={post}
+                editPost={editPost}
+                key={post.id} />
             ))}
           </div>
         </Col>

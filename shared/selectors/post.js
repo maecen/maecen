@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-import filter from 'lodash/filter'
 import { getMediaEntities } from './media'
 
 const getPostEntities = (state, props) =>
@@ -8,15 +7,16 @@ const getPostEntities = (state, props) =>
 const getPostIds = (state, props) =>
   state.app.posts
 
-const getMedia = (mediaEntities, postId) =>
-  filter(mediaEntities, m => m.obj_id === postId)
+const getPostId = (state, props) =>
+  props.params.postId
 
 export const getPosts = createSelector(
   [ getPostIds, getPostEntities, getMediaEntities ],
   (ids, posts, mediaEntities) =>
-    ids.map(id => ({
-      ...posts[id],
-      media: getMedia(mediaEntities, id)
-    }))
+    ids.map(id => posts[id])
 )
 
+export const getPostById = createSelector(
+  [ getPostId, getPostEntities, getMediaEntities ],
+  (id, posts, mediaEntities) => posts[id]
+)

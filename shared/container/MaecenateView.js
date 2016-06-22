@@ -18,6 +18,7 @@ class MaecenateView extends Component {
   constructor (props) {
     super(props)
     this.createPost = this.createPost.bind(this)
+    this.editPost = this.editPost.bind(this)
     this.supportMaecenate = this.supportMaecenate.bind(this)
 
     this.state = {
@@ -41,6 +42,11 @@ class MaecenateView extends Component {
     browserHistory.push(`/maecenate/${slug}/support`)
   }
 
+  editPost (postId) {
+    const { slug } = this.props.params
+    browserHistory.push(`/maecenate/${slug}/post/${postId}/edit`)
+  }
+
   render () {
     const { maecenate } = this.props
     return (maecenate
@@ -52,10 +58,13 @@ class MaecenateView extends Component {
   renderContent () {
     const { maecenate, posts, isAuthUserOwner, isSupporter } = this.props
     const forcePresentation = Boolean(this.props.route.presentation)
+
     if (!forcePresentation && (isAuthUserOwner || isSupporter)) {
       return <MaecenateContent
         maecenate={maecenate}
         posts={posts}
+        editPost={isAuthUserOwner && this.editPost}
+        isAuthUserOwner={isAuthUserOwner}
       />
     } else {
       return <MaecenatePresentation

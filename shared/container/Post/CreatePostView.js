@@ -12,16 +12,7 @@ import { mediaUpload } from '../../lib/fileHandler'
 import { getUserMaecenates } from '../../selectors/maecenate'
 import { getAuthUser, getAuthUserId } from '../../selectors/user'
 
-import { Row, Col } from 'react-flexbox-grid/lib'
-
-import { Card, CardContent, CardTitle, CardActions } from '../../components/Card'
-import Form from '../../components/Form/Form'
-import TextField from '../../components/Form/TextField'
-import Button from '../../components/Form/Button'
-import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
-import FileDropzone from '../../components/Form/FileDropzone'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import PostForm from '../../components/Post/PostForm'
 
 class CreatePostView extends Component {
 
@@ -102,9 +93,9 @@ class CreatePostView extends Component {
     this.setState({ isSubmitting: true })
     axios.post('/api/createPost', { post })
       .then(res => res.data)
-      .then((data) => {
+      .then(data => {
         this.setState({ errors: null, isSubmitting: false })
-        dispatch(PostActions.createMaecenatePostSuccess(data))
+        dispatch(PostActions.createPostSuccess(data))
         setDefaultAlias(this.props, post.author_alias, maecenate.id)
         setLastMaecenate(maecenate.id)
         browserHistory.push(`/maecenate/${maecenate.slug}`)
@@ -115,74 +106,22 @@ class CreatePostView extends Component {
   }
 
   render () {
-    const { maecenates, t } = this.props
-    const { post, mediaPreview } = this.state
+    const { maecenates } = this.props
+    const { post } = this.state
 
-    console.log(this.state.post.maecenate, maecenates)
-
-    return (
-      <Row>
-        <Col smOffset={3} sm={6} xs={12}>
-          {maecenates
-            ? <Card>
-                <CardTitle title={t('post.create')} />
-                <Form onSubmit={this.handleSubmit} model={post}
-                  updateModel={this.updateModel} errors={this.state.errors}>
-                  <CardContent>
-
-                    <SelectField
-                      onChange={this.onChangeMaecenate}
-                      value={this.state.post.maecenate}
-                      floatingLabelText={t('post.maecenate')} >
-                      {maecenates.map((maecenate, i) => (
-                        <MenuItem
-                          value={maecenate.id}
-                          key={maecenate.id}
-                          primaryText={maecenate.title}
-                        />
-                      ))}
-                    </SelectField>
-                    <br />
-
-                    <TextField
-                      path={['title']}
-                      placeholder={t('post.title')} />
-
-                    <FileDropzone
-                      multiple={false}
-                      label={t('media.upload')}
-                      accept='video/*,image/*'
-                      onChange={this.mediaChange} />
-
-                    <LinearProgressDeterminate
-                      value={this.state.uploadProgress} />
-
-                    {mediaPreview &&
-                      <img src={mediaPreview} width='100%' /> }
-
-                    <TextField
-                      path={['content']}
-                      placeholder={t('post.content')}
-                      multiLine={true} />
-
-                    <TextField
-                      path={['author_alias']}
-                      placeholder={t('user.alias')} />
-
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      type='submit'
-                      label={t('post.create')}
-                      primary={true}
-                      disabled={this.state.isSubmitting === true} />
-                  </CardActions>
-                </Form>
-              </Card>
-            : <div>{t('loading')}</div>
-          }
-        </Col>
-      </Row>
+    return (maecenates
+      ? <PostForm
+          maecenates={maecenates}
+          post={post}
+          handleSubmit={this.handleSubmit}
+          updateModel={this.updateModel}
+          errors={this.state.errors}
+          onChangeMaecenate={this.onChangeMaecenate}
+          uploadProgress={this.state.uploadProgress}
+          mediaChange={this.mediaChange}
+          isSubmitting={this.state.isSubmitting}
+        />
+      : <div>Loading...</div>
     )
   }
 }
@@ -192,6 +131,21 @@ CreatePostView.need = [(params, state) => {
   return Actions.fetchAdminMaecenateList(userId)
 }]
 
+function mapStateToProps (state, props) {
+  const getMaecenates = getUserMaecenates(getAuthUserId)
+  return {
+    maecenates: getMaecenates(state, props),
+    authUser: getAuthUser(state, props),
+    state
+  }
+}
+
+export default translate(['common'])(
+  connect(mapStateToProps)(CreatePostView)
+)
+
+// Helper methods
+// ==============
 function getDefaultAlias (props, maecenateId) {
   const { authUser } = props
   let alias = null
@@ -233,16 +187,3 @@ function setLastMaecenate (maecenateId) {
     window.localStorage.setItem('default-maecenate', maecenateId)
   }
 }
-
-function mapStateToProps (state, props) {
-  const getMaecenates = getUserMaecenates(getAuthUserId)
-  return {
-    maecenates: getMaecenates(state, props),
-    authUser: getAuthUser(state, props),
-    state
-  }
-}
-
-export default translate(['common'])(
-  connect(mapStateToProps)(CreatePostView)
-)
