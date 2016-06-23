@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import find from 'lodash/find'
+import filter from 'lodash/filter'
 import { getSupports } from './support'
 
 const getUsers = (state, props) =>
@@ -29,15 +29,15 @@ export const getCurrentUsers = createSelector(
   (users, ids) => ids.map(id => users[id])
 )
 
-export const getCurrentUsersWithSupports = (maecenateSelector) =>
+export const getSupportingUsers = (maecenateSelector) =>
   createSelector(
-    [ maecenateSelector, getCurrentUsers, getSupports ],
-    (maecenate, users, supports) => users.map(user => {
-      const support = find(supports, support =>
-        support.maecenate === maecenate.id && support.user === user.id)
-      return {
-        ...user,
-        support
-      }
-    })
+    [ maecenateSelector, getUsers, getSupports ],
+    (maecenate, users, supports) =>
+      filter(supports, support => support.maecenate === maecenate.id)
+        .map(support => ({
+          ...users[support.user],
+          support
+        }))
+
   )
+

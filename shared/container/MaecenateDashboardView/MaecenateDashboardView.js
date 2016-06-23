@@ -6,7 +6,7 @@ import sumBy from 'lodash/sumBy'
 
 import * as Actions from '../../actions/actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
-import { getCurrentUsersWithSupports } from '../../selectors/user'
+import { getSupportingUsers } from '../../selectors/user'
 
 import { Card, CardHeader, CardContent } from '../../components/Card'
 import { List, ListItem } from 'material-ui/List'
@@ -30,6 +30,7 @@ class MaecenateDashboardView extends Component {
 
   render () {
     const { users, maecenate, t } = this.props
+
     const totalAmount = sumBy(users, o => o.support.amount)
     const totalString = t('maecenate.totalAmount', { total: totalAmount })
 
@@ -74,11 +75,11 @@ class MaecenateDashboardView extends Component {
 MaecenateDashboardView.need = [(params) => {
   return Actions.fetchMaecenate(params.slug)
 }, (params) => {
-  return Actions.fetchMaecenateSupporterList(params.slug)
+  return Actions.fetchMaecenateSupporter(params.slug)
 }]
 
 function mapStateToProps (state, props) {
-  const getUsers = getCurrentUsersWithSupports(getMaecenateBySlug)
+  const getUsers = getSupportingUsers(getMaecenateBySlug)
   return {
     maecenate: getMaecenateBySlug(state, props),
     users: getUsers(state, props)

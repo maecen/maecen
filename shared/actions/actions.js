@@ -76,16 +76,6 @@ export function fetchMaecenate (slug) {
   }
 }
 
-function fetchUserListSuccess (data) {
-  const ids = data.result
-
-  return {
-    type: ActionTypes.SET_USER_LIST,
-    ids,
-    entities: data.entities
-  }
-}
-
 function fetchMaecenateListSuccess (data) {
   const ids = data.result
 
@@ -124,10 +114,10 @@ export function fetchSupportedMaecenates (userId) {
   }
 }
 
-export function fetchMaecenateSupporterList (slug) {
+export function fetchMaecenateSupporter (slug) {
   return (dispatch, state) => {
     return apiRequest(state, `/getMaecenateSupporters/${slug}`)
-      .then(data => dispatch(fetchUserListSuccess(data)))
+      .then(data => dispatch(updateEntities(data.entities)))
   }
 }
 
