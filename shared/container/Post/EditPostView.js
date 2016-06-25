@@ -16,10 +16,6 @@ class EditPostView extends Component {
 
   constructor (props) {
     super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.updateModel = this.updateModel.bind(this)
-    this.mediaChange = this.mediaChange.bind(this)
-
     this.state = {
       post: null,
       errors: null,
@@ -28,6 +24,10 @@ class EditPostView extends Component {
       uploadProgress: 0,
       media: []
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.updateModel = this.updateModel.bind(this)
+    this.mediaChange = this.mediaChange.bind(this)
   }
 
   componentDidMount () {

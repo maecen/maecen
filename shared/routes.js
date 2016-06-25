@@ -3,13 +3,14 @@ import React from 'react'
 import App from './container/App/App'
 
 import HomeView from './container/HomeView'
-import CreateMaecenateView from './container/CreateMaecenateView'
+import CreateMaecenateView from './container/Maecenate/CreateMaecenateView'
+import EditMaecenateView from './container/Maecenate/EditMaecenateView'
 import MaecenateOverviewView from './container/MaecenateOverviewView'
-
 import MaecenateView from './container/MaecenateView'
+import MaecenateSupportView from './container/MaecenateSupportView'
+
 import CreatePostView from './container/Post/CreatePostView'
 import EditPostView from './container/Post/EditPostView'
-import MaecenateSupportView from './container/MaecenateSupportView'
 
 import MaecenateDashboardView from './container/MaecenateDashboardView'
 import MyPageView from './container/MyPage/MyPageView'
@@ -65,7 +66,7 @@ const getRoutes = (store) => {
         component={MaecenateOverviewView} />
       <Route path='maecenate/:slug' component={MaecenateView} />
       <Route path='maecenate/:slug/edit'
-        edit={true} component={CreateMaecenateView}
+        component={EditMaecenateView}
         onEnter={requiresMaecenateAdmin} />
 
       <Route path='maecenate/:slug/presentation'

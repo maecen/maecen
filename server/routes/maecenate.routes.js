@@ -1,28 +1,32 @@
 import { Router } from 'express'
 import { verifyAuth, verifyMaecenateAdmin } from '../util/permissions'
-import * as MaecenateController from '../controllers/maecenate.controller'
+import * as controllers from '../controllers/maecenate.controller'
+
 const router = new Router()
 
 // Get Maecenate by slug
-router.get('/getMaecenate/:slug', MaecenateController.getMaecenate)
+router.get('/getMaecenate/:slug', controllers.getMaecenate)
 
 // Get all Maecenates
-router.get('/getMaecenates', MaecenateController.getMaecenates)
+router.get('/getMaecenates', controllers.getMaecenates)
 
 // Get all Maecenates by user
-router.get('/getUserMaecenates/:user', MaecenateController.getUserMaecenates)
+router.get('/getUserMaecenates/:user', controllers.getUserMaecenates)
 
 // Create Maecenate
-router.post('/createMaecenate', verifyAuth, MaecenateController.createMaecenate)
+router.post('/createMaecenate', verifyAuth, controllers.createMaecenate)
+
+router.put('/editMaecenate/:slug', verifyMaecenateAdmin,
+  controllers.editMaecenate)
 
 // Support a maecenate (become maecen)
-router.post('/supportMaecenate', MaecenateController.supportMaecenate)
+router.post('/supportMaecenate', controllers.supportMaecenate)
 
 // Get all the maecenates a user supports
-router.get('/getSupportedMaecenates/:user', MaecenateController.getSupportedMaecenates)
+router.get('/getSupportedMaecenates/:user', controllers.getSupportedMaecenates)
 
 router.get('/getMaecenateSupporters/:slug', verifyMaecenateAdmin,
-  MaecenateController.getMaecenateSupporters)
+  controllers.getMaecenateSupporters)
 
 export default router
 

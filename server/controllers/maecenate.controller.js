@@ -1,5 +1,6 @@
 import uuid from 'node-uuid'
 import { normalizeResponse } from '../util/ctrlHelpers'
+import * as service from '../services/maecenates'
 import { knex } from '../database'
 import Maecenate from '../models/Maecenate'
 
@@ -85,6 +86,11 @@ export function createMaecenate (req, res, next) {
     return res.json(normalizeResponse({
       maecenates: maecenate, media }, 'maecenates'))
   }).catch(next)
+}
+
+export function editMaecenate (req, res, next) {
+  const { maecenate } = req.body
+  //return service.updateMaecenate(maecenate.id
 }
 
 export function supportMaecenate (req, res, next) {

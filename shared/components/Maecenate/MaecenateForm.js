@@ -9,107 +9,106 @@ import Button from '../../components/Form/Button'
 import FileDropzone from '../../components/Form/FileDropzone'
 import { Card, CardContent, CardTitle } from '../../components/Card'
 
-class MaecenateForm extends Component {
+function MaecenateForm (props) {
+  const {
+    t,
+    maecenate,
+    handleSubmit,
+    updateModel,
+    errors,
+    logoUploadProgress,
+    coverUploadProgress,
+    isSubmitting,
+    coverChange,
+    logoChange
+  } = props
 
-  render () {
-    const { t,
-            maecenate,
-            handleSubmit,
-            updateModel,
-            errors,
-            logoUploadProgress,
-            coverUploadProgress,
-            areWeSubmitting,
-            coverChange,
-            logoChange,
-            title,
-            submitLable
-          } = this.props
-    return (
-      <Card>
-        <CardTitle
-          title={title}
-          style={{paddingBottom: '0px'}}
-        />
-        <CardContent>
-          <Form
-            onSubmit={handleSubmit}
-            model={maecenate}
-            updateModel={updateModel}
-            errors={errors}>
+  const editMode = Boolean(props.editMode)
 
-            <TextField
-              path={['title']}
-              label={t('title')} />
-            <br />
+  const titleStr = editMode
+    ? t('maecenate.edit', { maecenate: maecenate.title })
+    : t('maecenate.create')
+  const submitStr = editMode
+    ? t('maecenate.update', { maecenate: maecenate.title })
+    : t('maecenate.create')
 
-            <FileDropzone
-              multiple={false}
-              label={t('maecenate.uploadLogoLabel')}
-              accept='image/*'
-              onChange={logoChange}
-              error={errors && errors.logo_media}
-            />
+  return (
+    <Card>
+      <CardTitle
+        title={titleStr}
+        style={{paddingBottom: '0px'}}
+      />
+      <CardContent>
+        <Form
+          onSubmit={handleSubmit}
+          model={maecenate}
+          updateModel={updateModel}
+          errors={errors}>
 
-            <LinearProgressDeterminate
-              value={logoUploadProgress}
-            />
+          <TextField
+            path={['title']}
+            label={t('title')} />
+          <br />
 
-            <FileDropzone
-              multiple={false}
-              label={t('maecenate.uploadCoverLabel')}
-              accept='video/*,image/*'
-              onChange={coverChange}
-              error={errors && errors.cover_media}
-            />
+          <FileDropzone
+            multiple={false}
+            label={t('maecenate.uploadLogoLabel')}
+            accept='image/*'
+            onChange={logoChange}
+            error={errors && errors.logo_media}
+          />
 
-            <LinearProgressDeterminate
-              value={coverUploadProgress}
-            />
+          <LinearProgressDeterminate
+            value={logoUploadProgress}
+          />
 
-            <TextField
-              path={['teaser']}
-              label={t('maecenate.teaser')}
-              placeholder={t('maecenate.teaserPlaceholder')}
-              maxLength='140' />
-            <br />
+          <FileDropzone
+            multiple={false}
+            label={t('maecenate.uploadCoverLabel')}
+            accept='video/*,image/*'
+            onChange={coverChange}
+            error={errors && errors.cover_media}
+          />
 
-            <TextField
-              path={['description']}
-              label={t('maecenate.description')}
-              placeholder={t('maecenate.descriptionPlaceholder')}
-              multiLine={true} />
-            <br />
+          <LinearProgressDeterminate
+            value={coverUploadProgress}
+          />
 
-            <TextField
-              path={['url']}
-              label={t('maecenate.website')}
-              placeholder={t('maecenate.websitePlaceholder')} />
-            <br />
+          <TextField
+            path={['teaser']}
+            label={t('maecenate.teaser')}
+            placeholder={t('maecenate.teaserPlaceholder')}
+            maxLength='140' />
+          <br />
 
-            <TextField
-              path={['monthly_minimum']}
-              label={t('maecenate.subscriptionPrice')}
-              placeholder={t('maecenate.subscriptionPricePlaceholder')} />
-            <br />
+          <TextField
+            path={['description']}
+            label={t('maecenate.description')}
+            placeholder={t('maecenate.descriptionPlaceholder')}
+            multiLine={true} />
+          <br />
 
-            <Button type='submit'
-              style={{marginTop: '16px'}}
-              primary={true}
-              label={submitLable}
-              disabled={areWeSubmitting} />
-          </Form>
-        </CardContent>
-      </Card>
+          <TextField
+            path={['url']}
+            label={t('maecenate.website')}
+            placeholder={t('maecenate.websitePlaceholder')} />
+          <br />
 
-    )
-  }
+          <TextField
+            path={['monthly_minimum']}
+            label={t('maecenate.subscriptionPrice')}
+            placeholder={t('maecenate.subscriptionPricePlaceholder')} />
+          <br />
+
+          <Button type='submit'
+            style={{marginTop: '16px'}}
+            primary={true}
+            label={submitStr}
+            disabled={isSubmitting} />
+        </Form>
+      </CardContent>
+    </Card>
+  )
 }
 
-function mapStateToProps (store) {
-  return { }
-}
-
-export default translate(['common'])(
-  connect(mapStateToProps)(MaecenateForm)
-)
+export default translate(['common'])(MaecenateForm)
