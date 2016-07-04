@@ -67,6 +67,7 @@
     "edit": "Edit post",
     "maecenate": "Maecenate",
     "posts": "Posts",
+    "saveEdit": "Save edits",
     "see": "See posts",
     "title": "Title",
     "writtenByAlias": "By: {{alias}}"
