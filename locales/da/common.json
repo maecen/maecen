@@ -26,7 +26,8 @@
     "passwordIncorrect": "Dette kodeord passer ikke til email adressen"
   },
   "media": {
-    "upload": "Upload medie"
+    "upload": "Upload medie",
+    "replace": "Erstat medie"
   },
   "maecenate": {
     "alreadySupported": "Du støtter allerede dette Mæcenat",
@@ -54,6 +55,7 @@
   "post": {
     "content": "Indhold",
     "create": "Opret indlæg",
+    "edit": "Redigér indlæg",
     "maecenate": "Mæcenat",
     "posts": "Indlæg",
     "see": "Se indlæg",
