@@ -1,9 +1,6 @@
 import { knex } from '../database'
 import { deleteFile } from '../util/fileUploader'
 
-// Database tables
-// =========================
-
 // Database Calls
 // ==============
 export function deleteMedia (ids, trx) {
