@@ -28,6 +28,12 @@ class MaecenateDashboardView extends Component {
     event.stop
   }
 
+  linkToParent (slug) {
+    let rootDir = document.location.hostname
+    let maecenatesDir = '/maecenate/'
+    return rootDir + maecenatesDir + slug
+  }
+
   render () {
     const { users, maecenate, t } = this.props
 
@@ -48,6 +54,10 @@ class MaecenateDashboardView extends Component {
             primary={true}
             onClick={this.gotoMaecenatePresentation.bind(this, maecenate.slug)}
           />
+          <br />
+          <p>
+            {this.linkToParent(maecenate.slug)}
+          </p>
         </CardContent>
         <Divider />
         <List>
