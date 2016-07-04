@@ -4,11 +4,6 @@ import { knex } from '../database'
 import { joiValidation } from '../util/ctrlHelpers'
 import { deleteMedia } from './media'
 
-// Database tables
-// =========================
-const Post = knex('posts')
-const Media = knex('media')
-
 // Schema validation of the data
 // =============================
 const schema = Joi.object({
@@ -25,9 +20,10 @@ const schema = Joi.object({
 // ==============
 export function fetchPost (id) {
   return Promise.all([
-    Post.where({ id }).limit(1),
-    Media.where('obj_id', id).andWhere('obj_type', 'post').select('id', 'type', 'url')
-  ]).then(([[post], media]) => {
+    knex('posts').where({ id }).limit(1),
+    knex('media').where('obj_id', id).andWhere('obj_type', 'post').select('id', 'type', 'url')
+  ]).then((args) => {
+    const [[post], media] = args
     return {
       ...post,
       media
