@@ -44,6 +44,7 @@ function App (props) {
           open={showAuthModal}
           navToUrl={navToUrl}
         />
+
       </div>
     </MuiThemeProvider>
   )
