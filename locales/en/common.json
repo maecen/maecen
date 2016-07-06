@@ -38,6 +38,7 @@
     "description": "Description",
     "descriptionPlaceholder": "Description of the Maecenate",
     "edit": "Edit {{maecenate}}",
+    "linkToPresentation": "Link to your presentation: ",
     "ownersCannotSupport": "You are the owner of this Maecenate, so you can not become a Maecen for it",
     "seeAll": "See all Maecenates",
     "subscriptionPrice": "Monthly subscription costs in DKK",

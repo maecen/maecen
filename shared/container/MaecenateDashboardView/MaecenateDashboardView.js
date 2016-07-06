@@ -29,9 +29,16 @@ class MaecenateDashboardView extends Component {
   }
 
   linkToParent (slug) {
-    let rootDir = document.location.hostname
-    let maecenatesDir = '/maecenate/'
-    return rootDir + maecenatesDir + slug
+    // Have to check - otherwise it fails when refreshing the page
+    let canUseDOM = !!(
+      (typeof window !== 'undefined' &&
+      window.document && window.document.createElement)
+    )
+    if (canUseDOM) {
+      let rootDir = window.location.hostname
+      let maecenatesDir = '/maecenate/'
+      return rootDir + maecenatesDir + slug
+    }
   }
 
   render () {
@@ -56,6 +63,7 @@ class MaecenateDashboardView extends Component {
           />
           <br />
           <p>
+            {t('maecenate.linkToPresentation')}
             {this.linkToParent(maecenate.slug)}
           </p>
         </CardContent>
