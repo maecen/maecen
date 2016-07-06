@@ -1,6 +1,7 @@
 import Joi from 'joi'
 import Immutable from 'seamless-immutable'
 import mapKeys from 'lodash/mapKeys'
+import { slugify } from 'strman'
 import { joiValidation } from '../util/ctrlHelpers'
 import { knex } from '../database'
 import { claimMedia, deleteUnusedMedia } from './media'
@@ -25,12 +26,15 @@ const schema = {
 // ==============
 export function updateMaecenate (id, data) {
   data = Immutable(data)
+    .set('slug', slugify(data.title))
 
   return validateMaecenate(data).then(() => {
     const mediaIds = [data.logo_media, data.cover_media]
 
     return knex.transaction(trx => {
-      const maecenate = data.without('cover', 'logo', 'id')
+      const maecenate = data
+        .without('cover', 'logo', 'id')
+      console.log(maecenate)
       return trx('maecenates').where({ id }).update(maecenate).then(() => {
         return claimMedia(mediaIds, 'maecenate', id, trx)
       }).then(() => {
