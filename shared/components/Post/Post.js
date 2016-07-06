@@ -21,7 +21,7 @@ function Post (props, context) {
       {editPost &&
         <CardActions>
           <Button
-            label='Edit post'
+            label={t('post.saveEdit')}
             flat={true}
             onClick={editPost.bind(null, post.id)} />
         </CardActions>

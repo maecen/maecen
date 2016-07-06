@@ -28,6 +28,19 @@ class MaecenateDashboardView extends Component {
     event.stop
   }
 
+  linkToParent (slug) {
+    // Have to check - otherwise it fails when refreshing the page
+    let canUseDOM = !!(
+      (typeof window !== 'undefined' &&
+      window.document && window.document.createElement)
+    )
+    if (canUseDOM) {
+      let rootDir = window.location.hostname
+      let maecenatesDir = '/maecenate/'
+      return rootDir + maecenatesDir + slug
+    }
+  }
+
   render () {
     const { users, maecenate, t } = this.props
 
@@ -48,6 +61,11 @@ class MaecenateDashboardView extends Component {
             primary={true}
             onClick={this.gotoMaecenatePresentation.bind(this, maecenate.slug)}
           />
+          <br />
+          <p>
+            {t('maecenate.linkToPresentation')}
+            {this.linkToParent(maecenate.slug)}
+          </p>
         </CardContent>
         <Divider />
         <List>

@@ -6,7 +6,7 @@ import s from './Header.scss'
 import Button from '../Form/Button'
 import Icon from '../Graphics/Icon'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentCreate from 'material-ui/svg-icons/content/create'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 function Header (props, context) {
   const {
@@ -49,7 +49,7 @@ function Header (props, context) {
             style={{backgroundColor: 'transparent'}}
             onClick={createPost}
           >
-            <ContentCreate />
+            <ContentAdd />
           </FloatingActionButton>
         </div>
       }

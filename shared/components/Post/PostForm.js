@@ -29,7 +29,7 @@ function PostForm (props) {
 
   const editMode = Boolean(props.editMode)
   const titleStr = editMode ? t('post.edit') : t('post.create')
-  const submitStr = editMode ? t('post.edit') : t('post.create')
+  const submitStr = editMode ? t('post.saveEdit') : t('post.create')
   const mediaStr = hasMedia ? t('media.replace') : t('media.upload')
 
   return (

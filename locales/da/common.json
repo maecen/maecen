@@ -38,6 +38,7 @@
     "description": "Beskrivelse",
     "descriptionPlaceholder": "Beskrivelse af Mæcenatet",
     "edit": "Redigér {{maecenate}}",
+    "linkToPresentation": "Link til din præsentation: ",
     "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke blive Mæcen for det",
     "seeAll": "Se alle Mæcenater",
     "subscriptionPrice": "Min. beløb som Mæcener skal betale pr md.",
@@ -60,6 +61,7 @@
     "edit": "Redigér indlæg",
     "maecenate": "Mæcenat",
     "posts": "Indlæg",
+    "saveEdit": "Gem ændringer",
     "see": "Se indlæg",
     "title": "Titel",
     "writtenByAlias": "Af: {{alias}}"
