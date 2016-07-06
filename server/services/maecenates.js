@@ -32,9 +32,7 @@ export function updateMaecenate (id, data) {
     const mediaIds = [data.logo_media, data.cover_media]
 
     return knex.transaction(trx => {
-      const maecenate = data
-        .without('cover', 'logo', 'id')
-      console.log(maecenate)
+      const maecenate = data.without('cover', 'logo', 'id')
       return trx('maecenates').where({ id }).update(maecenate).then(() => {
         return claimMedia(mediaIds, 'maecenate', id, trx)
       }).then(() => {
@@ -128,9 +126,9 @@ function validateMaecenate (data) {
       .where({ slug: data.slug })
       .whereNot({ id: data.id })
       .count('* as count')
-      .select('')
+      .limit(1)
       .then(([ result ]) => {
-        const exists = Boolean(result.count)
+        const exists = Boolean(Number(result.count))
         if (exists) {
           const error = { title: 'validationError.alreadyTaken' }
           throw error

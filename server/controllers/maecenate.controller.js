@@ -147,6 +147,6 @@ export function getMaecenateSupporters (req, res, next) {
 function isUserSupportingMaecenate (maecenateId, userId) {
   return knex('supporters')
     .where('user', userId).andWhere('maecenate', maecenateId).count('* as count')
-    .then(res => res[0].count >= 1)
+    .then(res => Number(res[0].count) >= 1)
 }
 
