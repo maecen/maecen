@@ -7,54 +7,30 @@ import Maecenate from '../models/Maecenate'
 export function getMaecenate (req, res, next) {
   const { slug } = req.params
   const userId = req.user ? req.user.userId : null
-  let maecenate = null
 
-  return Maecenate.where({ slug }).fetch().then((data) => {
-    if (data === null) {
-      const error = { maecenate: 'noneExists' }
-      throw error
-    }
-    maecenate = data
-  }).then(() => {
-    return Promise.all([
-      knex('media')
-        .where('obj_type', 'maecenate')
-        .andWhere('obj_id', maecenate.id),
-      getMaecenateUserSupports(maecenate.id, userId)
-    ])
-  }).then(([media, supports]) => {
+  service.fetchMaecenate({ slug }, userId).then((result) => {
+    const { maecenate, supports } = result
     return res.json(normalizeResponse({
-      maecenates: maecenate, media, supports
+      maecenates: maecenate,
+      supports
     }, 'maecenates'))
   }).catch(next)
 }
 
 export function getMaecenates (req, res, next) {
-  let maecenates = null
-  return Maecenate.fetchAll().then((res) => {
-    maecenates = res
-    return knex('media')
-      .where('obj_type', 'maecenate')
-      .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
-  }).then((media) => {
+  service.fetchMaecenates().then((maecenates) => {
     return res.json(normalizeResponse({
-      maecenates, media
-    }, 'maecenates'))
+      maecenates
+    }))
   }).catch(next)
 }
 
 export function getUserMaecenates (req, res, next) {
   const { user } = req.params
-  let maecenates = null
-  return knex('maecenates').where({ creator: user }).then((result) => {
-    maecenates = result
-    return knex('media')
-      .where('obj_type', 'maecenate')
-      .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
-  }).then((media) => {
+  service.fetchMaecenates({ creator: user }).then((maecenates) => {
     return res.json(normalizeResponse({
-      maecenates, media
-    }, 'maecenates'))
+      maecenates
+    }))
   }).catch(next)
 }
 
@@ -79,18 +55,23 @@ export function createMaecenate (req, res, next) {
         })
     })
   }).then(() => {
-    return knex('media')
-      .where('obj_id', maecenate.id)
-      .andWhere('obj_type', 'maecenate')
-  }).then((media) => {
+    return service.fetchMaecenate({ id: maecenate.id })
+  }).then((result) => {
     return res.json(normalizeResponse({
-      maecenates: maecenate, media }, 'maecenates'))
+      maecenates: result.maecenate
+    }))
   }).catch(next)
 }
 
 export function editMaecenate (req, res, next) {
   const { maecenate } = req.body
-  //return service.updateMaecenate(maecenate.id
+  return service.updateMaecenate(maecenate.id, maecenate).then(() => {
+    return service.fetchMaecenate({ id: maecenate.id })
+  }).then((result) => {
+    return res.json(normalizeResponse({
+      maecenates: result.maecenate
+    }))
+  }).catch(next)
 }
 
 export function supportMaecenate (req, res, next) {
@@ -134,22 +115,11 @@ export function supportMaecenate (req, res, next) {
 export function getSupportedMaecenates (req, res, next) {
   const userId = req.params.user
 
-  let supports = null
-  let maecenates = null
-  return knex('supporters').where('user', userId).then(result => {
-    supports = result
-    const maecenateIds = supports.map(support => support.maecenate)
-    return knex('maecenates').where('id', 'in', maecenateIds)
-  }).then(result => {
-    maecenates = result
-    return knex('media')
-      .where('obj_type', 'maecenate')
-      .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
-  }).then(media => {
+  return service.fetchSupportedMaecenates(userId).then((result) => {
+    const { maecenates, supports } = result
     return res.json(normalizeResponse({
       maecenates,
-      supports,
-      media
+      supports
     }, 'maecenates'))
   }).catch(next)
 }
@@ -172,14 +142,6 @@ export function getMaecenateSupporters (req, res, next) {
       users, supports
     }, 'users'))
   }).catch(next)
-}
-
-function getMaecenateUserSupports (maecenateId, userId) {
-  if (userId) {
-    return knex('supporters')
-      .where('user', userId)
-      .andWhere('maecenate', maecenateId)
-  }
 }
 
 function isUserSupportingMaecenate (maecenateId, userId) {

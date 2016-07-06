@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import { translate } from 'react-i18next'
 
 import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
@@ -32,6 +31,13 @@ function MaecenateForm (props) {
     ? t('maecenate.update', { maecenate: maecenate.title })
     : t('maecenate.create')
 
+  const uploadLogoStr = maecenate.logo_media
+    ? t('maecenate.replaceLogoLabel')
+    : t('maecenate.uploadLogoLabel')
+  const uploadCoverStr = maecenate.cover_media
+    ? t('maecenate.replaceCoverLabel')
+    : t('maecenate.uploadCoverLabel')
+
   return (
     <Card>
       <CardTitle
@@ -52,7 +58,7 @@ function MaecenateForm (props) {
 
           <FileDropzone
             multiple={false}
-            label={t('maecenate.uploadLogoLabel')}
+            label={uploadLogoStr}
             accept='image/*'
             onChange={logoChange}
             error={errors && errors.logo_media}
@@ -64,7 +70,7 @@ function MaecenateForm (props) {
 
           <FileDropzone
             multiple={false}
-            label={t('maecenate.uploadCoverLabel')}
+            label={uploadCoverStr}
             accept='video/*,image/*'
             onChange={coverChange}
             error={errors && errors.cover_media}

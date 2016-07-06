@@ -59,6 +59,12 @@ export function createMaecenateSuccess (data) {
   }
 }
 
+export function editMaecenateSuccess (data) {
+  return (dispatch) => {
+    dispatch(updateEntities(data.entities))
+  }
+}
+
 function fetchMaecenateSuccess (data) {
   const id = data.result[0]
 

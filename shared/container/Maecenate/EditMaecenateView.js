@@ -28,6 +28,10 @@ class EditMaecenateView extends Component {
     this.logoChange = this.logoChange.bind(this)
   }
 
+  componentWillMount () {
+    this.setState({ maecenate: Immutable(this.props.maecenate) || null })
+  }
+
   componentDidMount () {
     const { dispatch, params } = this.props
     dispatch(this.constructor.need[0](params))
@@ -79,23 +83,21 @@ class EditMaecenateView extends Component {
 
     const maecenate = data.set('url', (data.url || '').replace(/https?:\/\//i, ''))
 
-    axios.post('/api/createMaecenate', { maecenate })
+    axios.put(`/api/editMaecenate/${maecenate.slug}`, { maecenate })
       .then(res => res.data)
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })
         const slug = data.entities.maecenates[data.result[0]].slug
-        dispatch(Actions.createMaecenateSuccess(data))
-        browserHistory.push(`/maecenate/${slug}`)
+        dispatch(Actions.editMaecenateSuccess(data))
+        browserHistory.push(`/maecenate/${slug}/presentation`)
       }, (res) => {
-        this.setState({ errors: null })
-        this.setState({ errors: res.data.errors, isSubmitting: false })
+        this.setState({ errors: null, isSubmitting: false })
+        this.setState({ errors: res.data.errors })
       })
   }
 
   render () {
     const { maecenate } = this.state
-    const { t } = this.props
-    const editMode = Boolean(this.props.route.edit)
 
     return (maecenate
       ? <MaecenateForm
@@ -121,7 +123,7 @@ EditMaecenateView.need = [(params) => {
 
 function mapStateToProps (state, props) {
   return {
-    maecenate: getMaecenateBySlug(state, props),
+    maecenate: getMaecenateBySlug(state, props)
   }
 }
 

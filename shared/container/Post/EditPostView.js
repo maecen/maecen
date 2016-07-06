@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { translate } from 'react-i18next'
+import Immutable from 'seamless-immutable'
 
 import * as PostActions from '../../actions/post'
 import { mediaUpload } from '../../lib/fileHandler'
@@ -28,6 +29,10 @@ class EditPostView extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateModel = this.updateModel.bind(this)
     this.mediaChange = this.mediaChange.bind(this)
+  }
+
+  componentWillMount () {
+    this.setState({ post: Immutable(this.props.post) || null })
   }
 
   componentDidMount () {

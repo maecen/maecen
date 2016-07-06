@@ -47,7 +47,9 @@
     "totalAmount": "Total {{total}} DKK per month",
     "update": "Update {{maecenate}}",
     "uploadLogoLabel": "Upload Logo",
+    "replaceLogoLabel": "Replace Logo",
     "uploadCoverLabel": "Upload picture or video",
+    "replaceCoverLabel": "Replace picture or video",
     "viewPresentation": "See your presentation",
     "website": "More info",
     "websitePlaceholder": "Enter URL-adress"

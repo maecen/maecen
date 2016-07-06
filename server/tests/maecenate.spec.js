@@ -49,6 +49,8 @@ test('POST /api/createMaecenate', async t => {
   t.is(res.status, 200)
   const { result, entities } = res.body
   t.is(result.length, 1)
+  const id = result[0]
   t.is(Object.keys(entities.maecenates).length, 1)
-  t.is(Object.keys(entities.media).length, 2)
+  t.truthy(entities.maecenates[id].logo)
+  t.truthy(entities.maecenates[id].cover)
 })

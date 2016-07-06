@@ -47,7 +47,9 @@
     "totalAmount": "I alt {{total}} DKK per måned",
     "update": "Opdatér {{maecenate}}",
     "uploadLogoLabel": "Indsæt logo",
+    "replaceLogoLabel": "Erstat logo",
     "uploadCoverLabel": "Indsæt billede eller video",
+    "replaceCoverLabel": "Erstat billede eller video",
     "viewPresentation": "Se præsentation",
     "website": "Link til mere information",
     "websitePlaceholder": "Skriv URL-adresse"

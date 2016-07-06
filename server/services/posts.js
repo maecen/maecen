@@ -2,7 +2,7 @@ import Joi from 'joi'
 import Immutable from 'seamless-immutable'
 import { knex } from '../database'
 import { joiValidation } from '../util/ctrlHelpers'
-import { deleteMedia } from './media'
+import { claimMedia, deleteUnusedMedia } from './media'
 
 // Schema validation of the data
 // =============================
@@ -24,9 +24,13 @@ export function fetchPost (id) {
     knex('media').where('obj_id', id).andWhere('obj_type', 'post').select('id', 'type', 'url')
   ]).then((args) => {
     const [[post], media] = args
-    return {
-      ...post,
-      media
+    if (post) {
+      return {
+        ...post,
+        media
+      }
+    } else {
+      return null
     }
   })
 }
@@ -42,20 +46,11 @@ export function updatePost (id, data) {
     return knex.transaction(trx => {
       return trx('posts').where({ id }).update(data).then(() => {
         if (mediaIds) {
-          return trx('media')
-            .where('id', 'in', mediaIds)
-            .andWhere('obj_id', null)
-            .update({ obj_id: id, obj_type: 'post' })
+          return claimMedia(mediaIds, 'post', id, trx)
         }
       }).then(() => {
         if (mediaIds.length > 0) {
-          return trx('media').whereNotIn('id', mediaIds)
-            .andWhere('obj_id', id)
-            .select('id')
-            .then(media => media.map(o => o.id))
-            .then(deleteMediaIds => {
-              return deleteMedia(deleteMediaIds, trx)
-            })
+          return deleteUnusedMedia('post', id, mediaIds, trx)
         }
       })
     })

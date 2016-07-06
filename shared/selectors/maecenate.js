@@ -2,7 +2,6 @@ import { createSelector } from 'reselect'
 import find from 'lodash/find'
 import filter from 'lodash/filter'
 import { getAuthUserId } from './user'
-import { getMediaEntities } from './media'
 import { getSupports } from './support'
 
 export const getMaecenateEntities = (state, props) =>
@@ -17,30 +16,10 @@ const getMaecenateIds = (state, props) =>
 const getSlugFromPath = (state, props) =>
   props.params.slug
 
-const withMedia = (maecenate, media) => {
-  if (typeof maecenate === 'undefined') {
-    return maecenate
-  }
-
-  const cover = media[maecenate.cover_media]
-  const logo = media[maecenate.logo_media]
-  return {
-    ...maecenate,
-    cover: (cover
-      ? { url: cover.url, type: cover.type }
-      : null),
-    logo: (logo
-      ? { url: logo.url, type: logo.type }
-      : null)
-  }
-}
-
 export const getMaecenateBySlug = createSelector(
-  [ getSlugFromPath, getMaecenateEntities, getMediaEntities ],
-  (slug, maecenates, media) => {
-    const maecenate = find(maecenates, maecenate => maecenate.slug === slug)
-    return withMedia(maecenate, media)
-  }
+  [ getSlugFromPath, getMaecenateEntities ],
+  (slug, maecenates) =>
+    find(maecenates, maecenate => maecenate.slug === slug)
 )
 
 export const getMaecenateByPost = (postSelector) =>
@@ -50,33 +29,30 @@ export const getMaecenateByPost = (postSelector) =>
   )
 
 export const getMaecenate = createSelector(
-  [ getMaecenateId, getMaecenateEntities, getMediaEntities ],
-  (id, maecenates, media) => (
-    withMedia(maecenates[id], media)
+  [ getMaecenateId, getMaecenateEntities ],
+  (id, maecenates) => (
+    maecenates[id]
   )
 )
 
 export const getMaecenates = createSelector(
-  [ getMaecenateIds, getMaecenateEntities, getMediaEntities ],
-  (ids, maecenates, media) => ids.map(id =>
-    withMedia(maecenates[id], media)
-  )
+  [ getMaecenateIds, getMaecenateEntities ],
+  (ids, maecenates) => ids.map(id => maecenates[id])
 )
 
 export const getUserMaecenates = (userIdSelector) =>
   createSelector(
-    [ userIdSelector, getMaecenateEntities, getMediaEntities ],
-    (userId, maecenates, media) =>
+    [ userIdSelector, getMaecenateEntities ],
+    (userId, maecenates) =>
       filter(maecenates, maecenate => maecenate.creator === userId)
-        .map(maecenate => withMedia(maecenate, media))
   )
 
 export const getSupportedMaecenates = (userIdSelector) =>
   createSelector(
-    [ userIdSelector, getMaecenateEntities, getSupports, getMediaEntities ],
-    (userId, maecenates, supports, media) =>
+    [ userIdSelector, getMaecenateEntities, getSupports ],
+    (userId, maecenates, supports) =>
       filter(supports, support => support.user === userId)
-        .map(support => withMedia(maecenates[support.maecenate], media))
+        .map(support => maecenates[support.maecenate])
   )
 
 // Factory selectors, which depends upon a maecenate selector method
