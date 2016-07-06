@@ -32,7 +32,9 @@ function App (props) {
       <div>
 
         <div className={s.main}>
-          <HeaderContainer />
+          <HeaderContainer>
+            { props.children }
+          </HeaderContainer>
           <div className={s.contentWrap}>
             <div className={s.content}>
               { props.children }

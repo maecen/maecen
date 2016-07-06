@@ -42,11 +42,13 @@ class HeaderContainer extends Component {
   }
 
   render () {
+    const hideFab = Boolean(this.props.children.props.route.hideFab)
     return <Header
       hasAuth={this.props.hasAuth}
       loginAction={this.handleLogin}
       createPost={this.gotoCreatePost}
       adminMaecenates={this.props.adminMaecenates}
+      hideFab={hideFab}
     />
   }
 }
