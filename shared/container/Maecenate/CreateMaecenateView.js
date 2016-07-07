@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import { mediaUpload } from '../../lib/fileHandler'
-import * as Actions from '../../actions/actions'
+import * as Actions from '../../actions'
 
 import { MaecenateForm } from '../../components/Maecenate'
 

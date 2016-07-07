@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import sumBy from 'lodash/sumBy'
 
-import * as Actions from '../../actions/actions'
+import * as Actions from '../../actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
 

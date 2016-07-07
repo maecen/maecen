@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { translate } from 'react-i18next'
 import { Row, Col } from 'react-flexbox-grid/lib'
-import * as Actions from '../../actions/actions'
+import * as Actions from '../../actions'
 
 import { getAuthUser } from '../../selectors/user'
 

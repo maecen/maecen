@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-import * as Actions from '../../actions/actions'
+import * as Actions from '../../actions'
 import { isAuthorized, getAuthUser } from '../../selectors/user'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
 

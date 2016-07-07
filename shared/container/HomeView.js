@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import * as Actions from '../actions/actions'
+import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
 
 import Icon from '../components/Graphics/Icon'

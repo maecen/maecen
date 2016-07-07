@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions/actions'
+import * as Actions from '../actions'
 import Header from '../components/Header/Header'
 import { browserHistory } from 'react-router'
 import { getUserMaecenates } from '../selectors/maecenate'

@@ -3,7 +3,7 @@ import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
-import * as Actions from '../../actions/actions'
+import * as Actions from '../../actions'
 import { getAuthUserId } from '../../selectors/user'
 import { getSupportedMaecenates } from '../../selectors/maecenate'
 

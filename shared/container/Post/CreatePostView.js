@@ -6,8 +6,7 @@ import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 import find from 'lodash/find'
 
-import * as Actions from '../../actions/actions'
-import * as PostActions from '../../actions/post'
+import * as Actions from '../../actions'
 import { mediaUpload } from '../../lib/fileHandler'
 import { getUserMaecenates } from '../../selectors/maecenate'
 import { getAuthUser, getAuthUserId } from '../../selectors/user'
@@ -95,7 +94,7 @@ class CreatePostView extends Component {
       .then(res => res.data)
       .then(data => {
         this.setState({ errors: null, isSubmitting: false })
-        dispatch(PostActions.createPostSuccess(data))
+        dispatch(Actions.createPostSuccess(data))
         setDefaultAlias(this.props, post.author_alias, maecenate.id)
         setLastMaecenate(maecenate.id)
         browserHistory.push(`/maecenate/${maecenate.slug}`)

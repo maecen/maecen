@@ -5,7 +5,7 @@ import axios from 'axios'
 import { translate } from 'react-i18next'
 import Immutable from 'seamless-immutable'
 
-import * as PostActions from '../../actions/post'
+import * as Actions from '../../actions'
 import { mediaUpload } from '../../lib/fileHandler'
 
 import { getPostById } from '../../selectors/post'
@@ -69,7 +69,7 @@ class EditPostView extends Component {
       .then(res => res.data)
       .then(data => {
         this.setState({ errors: null, isSubmitting: false })
-        dispatch(PostActions.editPostSuccess(data))
+        dispatch(Actions.editPostSuccess(data))
         browserHistory.push(`/maecenate/${maecenate.slug}`)
       }).catch((res) => {
         this.setState({ errors: null, isSubmitting: false })
@@ -97,7 +97,7 @@ class EditPostView extends Component {
 }
 
 EditPostView.need = [(params) => {
-  return PostActions.fetchPost(params.postId)
+  return Actions.fetchPost(params.postId)
 }]
 
 function mapStateToProps (state, props) {

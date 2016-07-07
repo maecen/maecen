@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import without from 'lodash/without'
-import * as Actions from '../actions/actions'
+import * as Actions from '../actions'
 import Footer from '../components/Footer/Footer'
 
 import { isAuthorized, getAuthUser } from '../selectors/user'

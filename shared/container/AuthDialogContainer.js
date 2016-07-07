@@ -5,7 +5,7 @@ import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 import { Row, Col } from 'react-flexbox-grid/lib'
-import * as Actions from '../actions/actions'
+import * as Actions from '../actions'
 
 import Dialog from '../components/Dialog/Dialog'
 import Form, { TextField, Button } from '../components/Form'

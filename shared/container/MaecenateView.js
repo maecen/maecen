@@ -8,8 +8,7 @@ import {
 } from '../selectors/maecenate'
 import { isAuthUserMaecenateSupporter } from '../selectors/support'
 import { getPosts } from '../selectors/post'
-import * as Actions from '../actions/actions'
-import * as PostActions from '../actions/post'
+import * as Actions from '../actions'
 
 import {
   MaecenatePresentation,
@@ -82,7 +81,7 @@ class MaecenateView extends Component {
 MaecenateView.need = [(params) => {
   return Actions.fetchMaecenate(params.slug)
 }, (params) => {
-  return PostActions.fetchMaecenatePosts(params.slug)
+  return Actions.fetchMaecenatePosts(params.slug)
 }]
 
 function mapStateToProps (state, props) {
