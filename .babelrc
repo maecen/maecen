@@ -1,9 +1,15 @@
 {
-  "presets": ["react", "es2015", "stage-2"],
+  "passPerPreset": true,
+  "presets": [
+    { "plugins": [ "transform-runtime" ] },
+    {
+      "passPerPreset": false,
+      "presets": ["react", "es2015", "stage-2"]
+    }
+  ],
   "ignore": [
     "/**/*.scss"
   ],
-  "plugins": [ "transform-runtime" ],
   "env": {
     "production": {
       "plugins": [
