@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
 import { Card, CardContent, CardTitle, CardActions, CardHeader } from '../Card'
 import { Button } from '../Form'
+import cropCloudy from '../../lib/cropCloudy'
 import Media from '../Media/Media'
 
 function Post (props, context) {
@@ -13,7 +14,7 @@ function Post (props, context) {
     <Card key={post.id}>
       <CardHeader
         title={maecenate.title}
-        avatar={maecenate.logo.url}
+        avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
       />
       <CardTitle title={post.title} subtitle={writtenByAlias} />
       {media &&
