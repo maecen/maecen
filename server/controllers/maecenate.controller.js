@@ -127,7 +127,7 @@ export function getSupportedMaecenates (req, res, next) {
 export function getMaecenateSupporters (req, res, next) {
   const { slug } = req.params
 
-  const maecenateIdQuery = knex('maecenates').where({ slug }).select('id')
+  const maecenateIdQuery = knex('maecenates').where({ slug }).select('id').limit(1)
   let supports = null
 
   return knex('supporters').where('maecenate', maecenateIdQuery)
