@@ -29,6 +29,7 @@ function MaecenateContent (props) {
           {posts.map(post => (
               <Post
                 post={post}
+                maecenate={maecenate}
                 editPost={editPost}
                 key={post.id} />
           ))}

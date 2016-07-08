@@ -24,10 +24,29 @@ export const user = (state = Immutable({
   }
 }
 
+export const posts = (state = Immutable({
+  ids: [],
+  isFetching: false
+}), action) => {
+  switch (action.type) {
+    case ActionTypes.FETCH_USER_FEED_REQUEST:
+      return state.set('isFetching', true)
+    case ActionTypes.SET_POSTS:
+    case ActionTypes.FETCH_USER_FEED_SUCCESS:
+      return state.merge({
+        ids: action.ids,
+        isFetching: false
+      })
+    case ActionTypes.FETCH_USER_FEED_FAILURE:
+      return state.set('isFetching', false)
+    default:
+      return state
+  }
+}
+
 export const app = (state = Immutable({
   maecenate: null,
   maecenates: [],
-  posts: [],
   requireAuthorization: false
 }), action) => {
   switch (action.type) {
@@ -49,9 +68,6 @@ export const app = (state = Immutable({
     case ActionTypes.SET_MAECENATE_LIST:
       return state.set('maecenates', action.ids)
 
-    case ActionTypes.SET_POSTS:
-      return state.set('posts', action.ids)
-
     default:
       return state
   }
@@ -70,4 +86,3 @@ export const entities = (state = Immutable({
 
   return state
 }
-

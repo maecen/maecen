@@ -26,5 +26,7 @@ router.put('/editPost', verifyMaecenateAdmin, PostController.editPost)
 // Get all posts by maecenate slug
 router.get('/getMaecenatePosts/:slug', PostController.getMaecenatePosts)
 
+router.get('/getUserFeed', PostController.getUserFeed)
+
 export default router
 

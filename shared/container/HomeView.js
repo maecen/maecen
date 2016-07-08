@@ -5,6 +5,7 @@ import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
 
+import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
 import Button from '../components/Form/Button'
 import s from './HomeView.scss'
@@ -25,9 +26,8 @@ class HomeView extends Component {
     }
   }
 
-  render () {
+  renderDefaultHome () {
     const { t } = this.props
-
     return (
       <div className={s.home}>
         <Icon size='calc(12vh + 12vw)'
@@ -45,6 +45,16 @@ class HomeView extends Component {
         />
       </div>
     )
+  }
+
+  render () {
+    const { hasAuth } = this.props
+
+    if (hasAuth === false) {
+      return this.renderDefaultHome()
+    } else {
+      return <UserFeedView />
+    }
   }
 }
 

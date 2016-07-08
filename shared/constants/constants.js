@@ -8,6 +8,12 @@ export const UPDATE_ENTITIES = 'UPDATE_ENTITIES'
 export const SET_MAECENATE = 'SET_MAECENATE'
 export const SET_MAECENATE_LIST = 'SET_MAECENATE_LIST'
 
+export const SET_USER_LIST = 'SET_USER_LIST'
+
+// Post constants
+// ==============
+export const FETCH_USER_FEED_REQUEST = 'FETCH_USER_FEED_REQUEST'
+export const FETCH_USER_FEED_FAILURE = 'FETCH_USER_FEED_FAILURE'
+export const FETCH_USER_FEED_SUCCESS = 'FETCH_USER_FEED_SUCCESS'
 export const SET_POSTS = 'SET_POSTS'
 
-export const SET_USER_LIST = 'SET_USER_LIST'

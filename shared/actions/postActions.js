@@ -35,7 +35,7 @@ function fetchUserFeedSuccess (ids, entities) {
 
 function fetchUserFeedFailure (err, status) {
   return {
-    type: ActionTypes.FETCH_USER_FEED_SUCCESS,
+    type: ActionTypes.FETCH_USER_FEED_FAILURE,
     err,
     status
   }

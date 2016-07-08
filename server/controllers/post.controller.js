@@ -51,6 +51,18 @@ export function editPost (req, res, next) {
   }).catch(next)
 }
 
+export function getUserFeed (req, res, next) {
+  const { userId } = req.user
+  service.fetchSupportedMaecenatePosts(userId).then((result) => {
+    const { maecenates, posts, supports } = result
+    res.json(normalizeResponse({
+      maecenates,
+      posts,
+      supports
+    }, 'posts'))
+  })
+}
+
 export function getMaecenatePosts (req, res, next) {
   const { slug } = req.params
   let posts = null
