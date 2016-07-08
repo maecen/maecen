@@ -14,7 +14,8 @@ function Header (props, context) {
     t,
     loginAction,
     adminMaecenates,
-    createPost
+    createPost,
+    hideFab
   } = props
 
   return (
@@ -42,17 +43,18 @@ function Header (props, context) {
             </Link>
         }
       </div>
-      { adminMaecenates.length !== 0 &&
-        <div className={s.fabWrap}>
-          <FloatingActionButton
-            className={s.fab}
-            style={{backgroundColor: 'transparent'}}
-            onClick={createPost}
-          >
-            <ContentAdd />
-          </FloatingActionButton>
-        </div>
-      }
+      { !hideFab &&
+        adminMaecenates.length !== 0 &&
+          <div className={s.fabWrap}>
+            <FloatingActionButton
+              className={s.fab}
+              style={{backgroundColor: 'transparent'}}
+              onClick={createPost}
+            >
+              <ContentAdd />
+            </FloatingActionButton>
+          </div>
+        }
     </header>
   )
 }
