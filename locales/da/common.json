@@ -25,6 +25,10 @@
     "noUserWithEmail": "Der eksisterer ingen bruger med denne email",
     "passwordIncorrect": "Dette kodeord passer ikke til email adressen"
   },
+  "feed": {
+    "getStarted": "Tak for din interesse og tilmelding. For at se indhold skal du støtte mindst et Mæcenat.",
+    "yourNews": "Seneste fra dine Mæcenater"
+  },
   "media": {
     "upload": "Upload medie",
     "replace": "Erstat medie"

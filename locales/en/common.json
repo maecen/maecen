@@ -25,6 +25,10 @@
     "noUserWithEmail": "No user exists with this email",
     "passwordIncorrect": "This password doesn't match the provided email"
   },
+  "feed": {
+    "getStarted": "Thanks for you interest and signing up. You need to support at least one Maecenate to begin seing some content",
+    "yourNews": "Latest from your Maecenates"
+  },
   "media": {
     "upload": "Upload media",
     "replace": "Replace media"
