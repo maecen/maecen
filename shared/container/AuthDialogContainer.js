@@ -9,6 +9,8 @@ import * as Actions from '../actions'
 
 import Dialog from '../components/Dialog/Dialog'
 import Form, { TextField, Button } from '../components/Form'
+import IconButton from 'material-ui/IconButton'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
 class AuthDialogContainer extends React.Component {
 
@@ -90,10 +92,6 @@ class AuthDialogContainer extends React.Component {
     const actionLabel = t(isCreating === true ? 'user.createUser' : 'login')
 
     const actions = [
-      <Button label={t('action.cancel')}
-        onClick={this.cancel}
-        secondary={true}
-        flat={true} />,
       (isCreating === false &&
         <Button label={t('user.createUser')}
           flat={true}
@@ -112,6 +110,9 @@ class AuthDialogContainer extends React.Component {
         actions={actions}
         onRequestClose={this.cancel}
         title={actionLabel}>
+        <IconButton style={{position: 'absolute', right: '0px', top: '0px'}} onClick={this.cancel}>
+          <NavigationClose />
+        </IconButton>
         <Form onSubmit={this.handleSubmit} model={user}
           updateModel={this.updateModel.bind(this)}
           errors={this.state.errors}>
