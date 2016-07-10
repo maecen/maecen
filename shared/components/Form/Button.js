@@ -28,8 +28,7 @@ Button.defaultProps = {
     lineHeight: '20px',
     display: 'block',
     padding: '8px 0',
-    margin: '0 12px',
-    color: 'black'
+    margin: '0 12px'
   }
 }
 
