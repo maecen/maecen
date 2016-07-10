@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import { Card, CardContent, CardTitle, CardActions, CardHeader } from '../Card'
 import { Button } from '../Form'
@@ -9,13 +10,16 @@ function Post (props, context) {
   const { post, maecenate, editPost, t } = props
   const media = post.media && post.media[0]
   const writtenByAlias = t('post.writtenByAlias', { alias: post.author_alias })
+  const maecenateUrl = '/maecenate/' + maecenate.slug
 
   return (
     <Card key={post.id}>
-      <CardHeader
-        title={maecenate.title}
-        avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-      />
+      <Link to={maecenateUrl}>
+        <CardHeader
+          title={maecenate.title}
+          avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+        />
+      </Link>
       <CardTitle title={post.title} subtitle={writtenByAlias} />
       {media &&
         <Media type={media.type} url={media.url} fixedRatio={false} />
