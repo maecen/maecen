@@ -19,6 +19,10 @@ class UserFeedView extends Component {
   render () {
     const { posts, t } = this.props
 
+    const feedStyle = {
+      padding: '4vw 0 6vw'
+    }
+
     const h1Style = {
       fontSize: '30px',
       color: 'white',
@@ -38,7 +42,7 @@ class UserFeedView extends Component {
     }
 
     return (
-      <div>
+      <div style={feedStyle}>
         <Row>
           <Col md={3} sm={3} xs={12} style={colStyle}>
             <h1 style={h1Style}>{t('feed.yourNews')}</h1>
