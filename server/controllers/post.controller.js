@@ -1,6 +1,14 @@
 import { normalizeResponse } from '../util/ctrlHelpers'
+import * as service from '../services/posts'
 import { knex } from '../database'
 import Post from '../models/Post'
+
+export function getPost (req, res, next) {
+  const { postId } = req.params
+  return service.fetchPost(postId).then(post => {
+    return res.json(normalizeResponse({ posts: post }))
+  }).catch(next)
+}
 
 // verify that the user owns the maecenate
 export function createPost (req, res, next) {
@@ -28,12 +36,31 @@ export function createPost (req, res, next) {
       })
     })
   }).then(() => {
-    return knex('media').where('obj_id', post.id).andWhere('obj_type', 'post')
-  }).then((media) => {
-    post = post.toJSON()
-    post.media = media.map(media => media.id)
-    return res.json(normalizeResponse({ posts: post, media }, 'posts'))
+    return service.fetchPost(post.id)
+  }).then(result => {
+    return res.json(normalizeResponse({ posts: result }))
   }).catch(next)
+}
+
+export function editPost (req, res, next) {
+  const { post } = req.body
+  return service.updatePost(post.id, post).then(() => {
+    return service.fetchPost(post.id)
+  }).then(post => {
+    return res.json(normalizeResponse({ posts: post }))
+  }).catch(next)
+}
+
+export function getUserFeed (req, res, next) {
+  const { userId } = req.user
+  service.fetchSupportedMaecenatePosts(userId).then((result) => {
+    const { maecenates, posts, supports } = result
+    res.json(normalizeResponse({
+      maecenates,
+      posts,
+      supports
+    }, 'posts'))
+  })
 }
 
 export function getMaecenatePosts (req, res, next) {
@@ -52,9 +79,9 @@ export function getMaecenatePosts (req, res, next) {
     }).then(media => {
       posts = posts.map(post => ({
         ...post,
-        media: media.filter(m => m.obj_id === post.id).map(m => m.id)
+        media: media.filter(m => m.obj_id === post.id)
       }))
 
-      res.json(normalizeResponse({ posts, media }, 'posts'))
+      res.json(normalizeResponse({ posts }))
     }).catch(next)
 }

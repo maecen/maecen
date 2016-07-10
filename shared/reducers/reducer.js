@@ -1,18 +1,21 @@
 import Immutable from 'seamless-immutable'
 import * as ActionTypes from '../constants/constants'
 
-export const users = (state = Immutable({
+export const user = (state = Immutable({
   ids: [],
+  authUser: null,
   authToken: null
 }), action) => {
   switch (action.type) {
     case ActionTypes.SET_AUTH_USER:
       return state.merge({
+        authUser: action.id,
         authToken: action.token
       })
     case ActionTypes.CLEAR_AUTH_USER:
       return state.merge({
-        authToken: null
+        authToken: null,
+        authUser: null
       })
     case ActionTypes.SET_USER_LIST:
       return state.set('ids', action.ids)
@@ -21,23 +24,35 @@ export const users = (state = Immutable({
   }
 }
 
+export const posts = (state = Immutable({
+  ids: [],
+  isFetching: false
+}), action) => {
+  switch (action.type) {
+    case ActionTypes.FETCH_USER_FEED_REQUEST:
+      return state.set('isFetching', true)
+    case ActionTypes.SET_POSTS:
+    case ActionTypes.FETCH_USER_FEED_SUCCESS:
+      return state.merge({
+        ids: action.ids,
+        isFetching: false
+      })
+    case ActionTypes.FETCH_USER_FEED_FAILURE:
+      return state.set('isFetching', false)
+    default:
+      return state
+  }
+}
+
 export const app = (state = Immutable({
-  authUser: null,
   maecenate: null,
   maecenates: [],
-  posts: [],
   requireAuthorization: false
 }), action) => {
   switch (action.type) {
     case ActionTypes.SET_AUTH_USER:
       return state.merge({
-        authUser: action.id,
         requireAuthorization: false
-      })
-
-    case ActionTypes.CLEAR_AUTH_USER:
-      return state.merge({
-        authUser: null
       })
 
     case ActionTypes.REQUIRE_AUTHORIZATION:
@@ -52,9 +67,6 @@ export const app = (state = Immutable({
 
     case ActionTypes.SET_MAECENATE_LIST:
       return state.set('maecenates', action.ids)
-
-    case ActionTypes.SET_POSTS:
-      return state.set('posts', action.ids)
 
     default:
       return state
@@ -74,4 +86,3 @@ export const entities = (state = Immutable({
 
   return state
 }
-

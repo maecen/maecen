@@ -1,8 +1,8 @@
-import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { routerMiddleware, routerReducer } from 'react-router-redux'
 import { browserHistory } from 'react-router'
-import DevTools from '../container/DevTools/DevTools'
+import createLogger from 'redux-logger'
 import * as reducers from '../reducers/reducer'
 
 export function configureStore (initialState = {}) {
@@ -15,11 +15,11 @@ export function configureStore (initialState = {}) {
 
   // Client for development
   if (process.env.CLIENT && process.env.NODE_ENV !== 'production') {
-    const enhancer = compose(
-      applyMiddleware(thunk, routerMiddleware(browserHistory)),
-      window.devToolsExtension
-        ? window.devToolsExtension()
-        : DevTools.instrument()
+    const logger = createLogger({ collapsed: true })
+    const enhancer = applyMiddleware(
+      thunk,
+      routerMiddleware(browserHistory),
+      logger
     )
     store = createStore(reducer, initialState, enhancer)
   } else {

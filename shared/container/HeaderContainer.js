@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions/actions'
+import * as Actions from '../actions'
 import Header from '../components/Header/Header'
 import { browserHistory } from 'react-router'
-import { getUserMaecenates } from '../selectors/Maecenate.selectors'
+import { getUserMaecenates } from '../selectors/maecenate'
 
 import {
   isAuthorized, getAuthUser, getAuthUserId
-} from '../selectors/User.selectors'
+} from '../selectors/user'
 
 class HeaderContainer extends Component {
   constructor (props) {
@@ -16,15 +16,20 @@ class HeaderContainer extends Component {
   }
 
   componentDidMount () {
-    const { dispatch, userId } = this.props
-    dispatch(Actions.fetchAdminMaecenateList(userId))
+    const { userId } = this.props
+    this.fetchAdminMaecenates(userId)
   }
 
   componentWillReceiveProps (nextProps) {
-    const { dispatch, userId } = this.props
-    if (userId !== nextProps.userId) {
-      dispatch(Actions.fetchAdminMaecenateList(nextProps.userId))
+    const { userId } = this.props
+    if (nextProps.userId && userId !== nextProps.userId) {
+      this.fetchAdminMaecenates(nextProps.userId)
     }
+  }
+
+  fetchAdminMaecenates (userId) {
+    const { dispatch } = this.props
+    dispatch(Actions.fetchAdminMaecenates(userId))
   }
 
   handleLogin () {
@@ -32,16 +37,18 @@ class HeaderContainer extends Component {
     dispatch(Actions.requireAuth())
   }
 
-  goToCreatePost () {
-    browserHistory.push('/create-post')
+  gotoCreatePost () {
+    browserHistory.push('/post/create')
   }
 
   render () {
+    const hideFab = Boolean(this.props.children.props.route.hideFab)
     return <Header
       hasAuth={this.props.hasAuth}
       loginAction={this.handleLogin}
-      createPost={this.goToCreatePost}
+      createPost={this.gotoCreatePost}
       adminMaecenates={this.props.adminMaecenates}
+      hideFab={hideFab}
     />
   }
 }

@@ -5,24 +5,23 @@ import { connect } from 'react-redux'
 import {
   getMaecenateBySlug,
   isAuthUserMaecenateOwner
-} from '../selectors/Maecenate.selectors'
-import {
-  isAuthUserMaecenateSupporter
-} from '../selectors/Support.selectors'
-import {
-  getPosts
-} from '../selectors/Post.selectors'
-import * as Actions from '../actions/actions'
+} from '../selectors/maecenate'
+import { isAuthUserMaecenateSupporter } from '../selectors/support'
+import { getPosts } from '../selectors/post'
+import * as Actions from '../actions'
 
-import MaecenatePresentation from '../components/Maecenate/MaecenatePresentation'
-import MaecenateContent from '../components/Maecenate/MaecenateContent'
+import {
+  MaecenatePresentation,
+  MaecenateContent
+} from '../components/Maecenate'
 
 class MaecenateView extends Component {
   constructor (props) {
     super(props)
-    this.createPost = this.createPost.bind(this)
-    this.supportMaecenate = this.supportMaecenate.bind(this)
 
+    this.editPost = this.editPost.bind(this)
+    this.supportMaecenate = this.supportMaecenate.bind(this)
+    this.editMaecenate = this.editMaecenate.bind(this)
     this.state = {
       maecenateSupportOpen: false
     }
@@ -34,19 +33,23 @@ class MaecenateView extends Component {
     dispatch(this.constructor.need[1](params))
   }
 
-  createPost () {
-    const { slug } = this.props.params
-    browserHistory.push(`/maecenate/${slug}/new-post`)
-  }
-
   supportMaecenate () {
     const { slug } = this.props.params
     browserHistory.push(`/maecenate/${slug}/support`)
   }
 
+  editMaecenate () {
+    const { slug } = this.props.params
+    browserHistory.push(`/maecenate/${slug}/edit`)
+  }
+
+  editPost (postId) {
+    const { slug } = this.props.params
+    browserHistory.push(`/maecenate/${slug}/post/${postId}/edit`)
+  }
+
   render () {
     const { maecenate } = this.props
-
     return (maecenate
       ? this.renderContent()
       : <div>Loading...</div>
@@ -55,15 +58,21 @@ class MaecenateView extends Component {
 
   renderContent () {
     const { maecenate, posts, isAuthUserOwner, isSupporter } = this.props
-    if (isAuthUserOwner || isSupporter) {
+    const forcePresentation = Boolean(this.props.route.presentation)
+
+    if (!forcePresentation && (isAuthUserOwner || isSupporter)) {
       return <MaecenateContent
         maecenate={maecenate}
         posts={posts}
+        editPost={isAuthUserOwner && this.editPost}
+        isAuthUserOwner={isAuthUserOwner}
       />
     } else {
       return <MaecenatePresentation
         maecenate={maecenate}
         supportMaecenate={this.supportMaecenate}
+        editMaecenate={this.editMaecenate}
+        isAuthUserOwner={isAuthUserOwner}
       />
     }
   }

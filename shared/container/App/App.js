@@ -8,7 +8,8 @@ import FooterContainer from '../FooterContainer'
 import AuthDialogContainer from '../AuthDialogContainer'
 import s from './App.scss'
 
-const themeColor = '#967049'
+const themeColor = 'hsl(190, 100%, 30%)'
+// const themeColor = '#967049'
 
 const muiTheme = getMuiTheme({
   userAgent: 'all',
@@ -31,7 +32,9 @@ function App (props) {
       <div>
 
         <div className={s.main}>
-          <HeaderContainer />
+          <HeaderContainer>
+            { props.children }
+          </HeaderContainer>
           <div className={s.contentWrap}>
             <div className={s.content}>
               { props.children }
@@ -44,6 +47,7 @@ function App (props) {
           open={showAuthModal}
           navToUrl={navToUrl}
         />
+
       </div>
     </MuiThemeProvider>
   )

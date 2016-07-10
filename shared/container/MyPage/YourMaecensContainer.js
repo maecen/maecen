@@ -3,11 +3,9 @@ import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
-import { getAuthUserId } from '../../selectors/User.selectors'
-import {
-  getSupportedMaecenates
-} from '../../selectors/Maecenate.selectors'
-import * as Actions from '../../actions/actions'
+import * as Actions from '../../actions'
+import { getAuthUserId } from '../../selectors/user'
+import { getSupportedMaecenates } from '../../selectors/maecenate'
 
 import cropCloudy from '../../lib/cropCloudy'
 import { Card, CardTitle, CardContent } from '../../components/Card'
@@ -20,7 +18,7 @@ class YourMaecensContainer extends Component {
 
   componentDidMount () {
     const { dispatch, userId } = this.props
-    dispatch(Actions.fetchSupportedMaecenateList(userId))
+    dispatch(Actions.fetchSupportedMaecenates(userId))
   }
 
   gotoMaecenate (slug) {

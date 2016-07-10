@@ -76,12 +76,12 @@ function initializeStore (data) {
   const authUser = data.authUserEntity || null
 
   return configureStore(mapInitialState({
-    users: {
+    user: {
       ids: [],
-      authToken: data.authToken || null
+      authToken: data.authToken || null,
+      authUser: authUser && authUser.id
     },
     app: {
-      authUser: authUser && authUser.id,
       maecenate: null,
       maecenates: [],
       posts: [],

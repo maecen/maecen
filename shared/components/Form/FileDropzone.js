@@ -8,7 +8,7 @@ class FileDropzone extends Component {
     super(props)
     this.state = {
       isDragActive: false,
-      message: 'No file chosen'
+      message: ''
     }
     this.onClick = this.onClick.bind(this)
     this.onDrop = this.onDrop.bind(this)
@@ -46,7 +46,7 @@ class FileDropzone extends Component {
     }
 
     if (files.length === 0) {
-      this.setState({ message: 'No file chosen' })
+      this.setState({ message: '' })
     } else if (files.length === 1) {
       this.setState({ message: files[0].name })
     } else if (files.length > 1) {
@@ -66,6 +66,7 @@ class FileDropzone extends Component {
 
   render () {
     const label = this.props.label || 'Upload File'
+    const { error } = this.props
     return (
       <div
         className={s.main}
@@ -85,9 +86,14 @@ class FileDropzone extends Component {
           ? this.props.children
           : <div>
               <Button label={label} flat={true} style={{border: '1px solid #e0e0e0', borderRadius: '3px', height: '40px', marginTop: '-1px'}} />
-              <span className={s.filename}>
-                {this.state.message}
-              </span>
+              {error
+                ? <div className={s.error}>
+                    {error}
+                  </div>
+                : <span className={s.filename}>
+                    {this.state.message}
+                  </span>
+              }
             </div>
         }
       </div>
@@ -102,6 +108,7 @@ FileDropzone.defaultProps = {
 FileDropzone.propTypes = {
   multiple: PropTypes.bool,
   label: PropTypes.string,
+  error: PropTypes.string,
   accept: PropTypes.string,
   onChange: PropTypes.func,
   children: PropTypes.node

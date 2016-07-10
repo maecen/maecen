@@ -2,12 +2,10 @@ import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import * as Actions from '../../actions/actions'
+import * as Actions from '../../actions'
 
-import { getAuthUserId } from '../../selectors/User.selectors'
-import {
-  getUserMaecenates
-} from '../../selectors/Maecenate.selectors'
+import { getAuthUserId } from '../../selectors/user'
+import { getUserMaecenates } from '../../selectors/maecenate'
 
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
@@ -20,7 +18,7 @@ class YourMaecenatesContainer extends Component {
 
   componentDidMount () {
     const { dispatch, userId } = this.props
-    dispatch(Actions.fetchAdminMaecenateList(userId))
+    dispatch(Actions.fetchAdminMaecenates(userId))
   }
 
   gotoMaecenate (slug) {
@@ -34,7 +32,7 @@ class YourMaecenatesContainer extends Component {
   }
 
   createMaecenate (slug) {
-    browserHistory.push('create-maecenate')
+    browserHistory.push('maecenate/create')
   }
 
   render () {

@@ -4,13 +4,9 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-import * as Actions from '../../actions/actions'
-import {
-  isAuthorized, getAuthUser
-} from '../../selectors/User.selectors'
-import {
-  getMaecenateBySlug
-} from '../../selectors/Maecenate.selectors'
+import * as Actions from '../../actions'
+import { isAuthorized, getAuthUser } from '../../selectors/user'
+import { getMaecenateBySlug } from '../../selectors/maecenate'
 
 import Card, { CardContent, CardError, CardTitle } from '../../components/Card'
 import { Button, TextField } from '../../components/Form'

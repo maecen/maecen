@@ -6,7 +6,7 @@ import s from './Header.scss'
 import Button from '../Form/Button'
 import Icon from '../Graphics/Icon'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentCreate from 'material-ui/svg-icons/content/create'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 function Header (props, context) {
   const {
@@ -14,7 +14,8 @@ function Header (props, context) {
     t,
     loginAction,
     adminMaecenates,
-    createPost
+    createPost,
+    hideFab
   } = props
 
   return (
@@ -42,17 +43,18 @@ function Header (props, context) {
             </Link>
         }
       </div>
-      { adminMaecenates.length !== 0 &&
-        <div className={s.fabWrap}>
-          <FloatingActionButton
-            className={s.fab}
-            style={{backgroundColor: 'transparent'}}
-            onClick={createPost}
-          >
-            <ContentCreate />
-          </FloatingActionButton>
-        </div>
-      }
+      { !hideFab &&
+        adminMaecenates.length !== 0 &&
+          <div className={s.fabWrap}>
+            <FloatingActionButton
+              className={s.fab}
+              style={{backgroundColor: 'transparent'}}
+              onClick={createPost}
+            >
+              <ContentAdd />
+            </FloatingActionButton>
+          </div>
+        }
     </header>
   )
 }

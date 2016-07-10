@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import without from 'lodash/without'
-import * as Actions from '../actions/actions'
+import * as Actions from '../actions'
 import Footer from '../components/Footer/Footer'
+
+import { isAuthorized, getAuthUser } from '../selectors/user'
 
 class FooterContainer extends Component {
   changeLang (e) {
@@ -26,14 +28,10 @@ class FooterContainer extends Component {
   }
 }
 
-function mapStateToProps (store) {
-  const { app, entities } = store
-  const hasAuth = !!app.authUser
-  const user = hasAuth && entities.users[app.authUser]
-
+function mapStateToProps (state, props) {
   return {
-    hasAuth,
-    user
+    hasAuth: isAuthorized(state, props),
+    user: getAuthUser(state, props)
   }
 }
 

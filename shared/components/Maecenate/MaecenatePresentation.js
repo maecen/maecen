@@ -10,7 +10,14 @@ import Media from '../Media/Media'
 import s from './MaecenatePresentation.scss'
 
 function MaecenatePresentation (props) {
-  const { maecenate, supportMaecenate, t } = props
+  const {
+    maecenate,
+    supportMaecenate,
+    editMaecenate,
+    isAuthUserOwner,
+    t
+  } = props
+
   const {
     cover,
     logo,
@@ -50,12 +57,20 @@ function MaecenatePresentation (props) {
                     </span>
                   }
                   </p>
-                  <Button
-                    primary={true}
-                    label={t('support.join')}
-                    onClick={supportMaecenate}
-                    style={{marginTop: '16px'}}
-                  />
+                  {isAuthUserOwner
+                    ? <Button
+                        primary={true}
+                        label='Rediger'
+                        onClick={editMaecenate}
+                        style={{marginTop: '16px'}}
+                      />
+                    : <Button
+                        primary={true}
+                        label={t('support.join')}
+                        onClick={supportMaecenate}
+                        style={{marginTop: '16px'}}
+                      />
+                  }
                 </Col>
               </Row>
             </CardContent>
@@ -63,7 +78,7 @@ function MaecenatePresentation (props) {
           <Col xs={12} sm={9}>
             <CardContent>
               {cover &&
-                <Media type={cover.type} url={cover.url} fixAspect={true} />
+                <Media type={cover.type} url={cover.url} fixedRatio={true} />
               }
             </CardContent>
             <CardHeader
@@ -80,7 +95,8 @@ function MaecenatePresentation (props) {
 
 MaecenatePresentation.propTypes = {
   maecenate: PropTypes.object.isRequired,
-  supportMaecenate: PropTypes.func.isRequired
+  supportMaecenate: PropTypes.func.isRequired,
+  editMaecenate: PropTypes.func.isRequired
 }
 
 export default translate(['common'])(

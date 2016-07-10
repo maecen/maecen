@@ -3,23 +3,23 @@ import React from 'react'
 import App from './container/App/App'
 
 import HomeView from './container/HomeView'
-import CreateMaecenateView from './container/CreateMaecenateView'
+import CreateMaecenateView from './container/Maecenate/CreateMaecenateView'
+import EditMaecenateView from './container/Maecenate/EditMaecenateView'
 import MaecenateOverviewView from './container/MaecenateOverviewView'
-
 import MaecenateView from './container/MaecenateView'
-import CreatePostView from './container/CreatePostView'
 import MaecenateSupportView from './container/MaecenateSupportView'
+
+import CreatePostView from './container/Post/CreatePostView'
+import EditPostView from './container/Post/EditPostView'
 
 import MaecenateDashboardView from './container/MaecenateDashboardView'
 import MyPageView from './container/MyPage/MyPageView'
 import { apiURL } from '../shared/config'
-import { getAuthToken } from './selectors/User.selectors'
+import { isAuthorized, getAuthToken } from './selectors/user'
 import request from './lib/request'
 
-const selectHasAuth = state => !!state.app.authUser
-
 const requiresAuthFn = (store, nextState, replaceState, cb) => {
-  const hasAuth = selectHasAuth(store.getState())
+  const hasAuth = isAuthorized(store.getState())
   if (hasAuth === false) {
     replaceState('/')
     cb()
@@ -34,7 +34,8 @@ const requiresMaecenateAdminFn = (store, nextState, replaceState, cb) => {
   request(`${apiURL}/hasPermission/maecenateAdmin/${slug}`, { token })
   .then(res => {
     cb()
-  }).catch(() => {
+  }).catch((err) => {
+    console.log('error', err.stack)
     replaceState('/')
     cb()
   })
@@ -51,14 +52,38 @@ const getRoutes = (store) => {
   return (
     <Route path='/' component={App}>
       <IndexRoute component={HomeView} />
-      <Route path='profile' component={MyPageView} onEnter={requiresAuth} />
-      <Route path='create-maecenate'
-        component={CreateMaecenateView} onEnter={requiresAuth} />
-      <Route path='create-post' component={CreatePostView} />
-      <Route path='maecenates' component={MaecenateOverviewView} />
-      <Route path='maecenate/:slug' component={MaecenateView} />
-      <Route path='maecenate/:slug/support' component={MaecenateSupportView} />
-      <Route path='maecenate/:slug/dashboard' component={MaecenateDashboardView}
+      <Route path='profile'
+        component={MyPageView}
+        onEnter={requiresAuth} />
+
+      <Route path='post/create'
+        component={CreatePostView}
+        hideFab={true} />
+      <Route path='maecenate/:slug/post/:postId/edit'
+        component={EditPostView}
+        hideFab={true}
+        onEnter={requiresMaecenateAdmin} />
+
+      <Route path='maecenate/create'
+        component={CreateMaecenateView}
+        hideFab={true}
+        onEnter={requiresAuth} />
+      <Route path='maecenates'
+        component={MaecenateOverviewView} />
+      <Route path='maecenate/:slug'
+        component={MaecenateView} />
+      <Route path='maecenate/:slug/edit'
+        component={EditMaecenateView}
+        hideFab={true}
+        onEnter={requiresMaecenateAdmin} />
+
+      <Route path='maecenate/:slug/presentation'
+        component={MaecenateView}
+        presentation={true} />
+      <Route path='maecenate/:slug/support'
+        component={MaecenateSupportView} />
+      <Route path='maecenate/:slug/dashboard'
+        component={MaecenateDashboardView}
         onEnter={requiresMaecenateAdmin} />
     </Route>
   )
