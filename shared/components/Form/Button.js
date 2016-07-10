@@ -19,11 +19,17 @@ Button.defaultProps = {
   flat: false,
   last: false,
   style: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    height: 'auto'
   },
   labelStyle: {
+    height: 'auto',
     letterSpacing: '0.1rem',
-    padding: '12px'
+    lineHeight: '20px',
+    display: 'block',
+    padding: '8px 0',
+    margin: '0 12px',
+    color: 'black'
   }
 }
 
