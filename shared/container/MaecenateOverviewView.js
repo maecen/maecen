@@ -25,6 +25,7 @@ class MaecenateOverviewView extends Component {
 
     return (
       <Row>
+        {/* TODO this could prolly be done smarter ¯\_(ツ)_/¯, sort()? */}
         {map(maecenates, maecenate =>
           maecenate.id === aboutMaecenateId &&
             <Col sm={6} xs={12} key={maecenate.id}>
