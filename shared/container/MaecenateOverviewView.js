@@ -21,15 +21,26 @@ class MaecenateOverviewView extends Component {
 
   render () {
     const { maecenates } = this.props
+    const aboutMaecenateId = '78892b00-33a3-11e6-bb94-c586d1c98fee'
 
     return (
       <Row>
+        {/* TODO this could prolly be done smarter ¯\_(ツ)_/¯, sort()? */}
         {map(maecenates, maecenate =>
-          <Col sm={6} xs={12} key={maecenate.id}>
-            <MaecenateCard
-              maecenate={maecenate}
-              onClick={this.gotoMaecenate.bind(this, maecenate)} />
-          </Col>
+          maecenate.id === aboutMaecenateId &&
+            <Col sm={6} xs={12} key={maecenate.id}>
+              <MaecenateCard
+                maecenate={maecenate}
+                onClick={this.gotoMaecenate.bind(this, maecenate)} />
+            </Col>
+        )}
+        {map(maecenates, maecenate =>
+          maecenate.id !== aboutMaecenateId &&
+            <Col sm={6} xs={12} key={maecenate.id}>
+              <MaecenateCard
+                maecenate={maecenate}
+                onClick={this.gotoMaecenate.bind(this, maecenate)} />
+            </Col>
         )}
       </Row>
     )
