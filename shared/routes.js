@@ -1,4 +1,4 @@
-import { Route, IndexRoute } from 'react-router'
+import { Route, IndexRoute, Redirect } from 'react-router'
 import React from 'react'
 import App from './container/App/App'
 
@@ -80,6 +80,8 @@ const getRoutes = (store) => {
       <Route path='maecenate/:slug/presentation'
         component={MaecenateView}
         presentation={true} />
+      {/* TODO solve this without redirect, see attempt in feature/about */}
+      <Redirect from='about' to='maecenate/maecen-projekt/presentation' />
       <Route path='maecenate/:slug/support'
         component={MaecenateSupportView} />
       <Route path='maecenate/:slug/dashboard'
