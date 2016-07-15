@@ -29,6 +29,7 @@ class HomeView extends Component {
   renderDefaultHome () {
     const { t } = this.props
     let letMeSee = false
+    const window = global.window
     if (window && window.localStorage) {
       letMeSee = window.localStorage.getItem('LetMeSee') === 'true'
     }

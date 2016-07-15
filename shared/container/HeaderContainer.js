@@ -38,6 +38,7 @@ class HeaderContainer extends Component {
   }
 
   getAccess () {
+    const window = global.window
     if (window && window.localStorage) {
       window.localStorage.setItem('LetMeSee', 'true')
     }
@@ -49,6 +50,7 @@ class HeaderContainer extends Component {
 
   render () {
     const hideFab = Boolean(this.props.children.props.route.hideFab)
+    const window = global.window
     let hasAccess = false
     if (window && window.localStorage) {
       hasAccess = window.localStorage.getItem('LetMeSee') === 'true'
