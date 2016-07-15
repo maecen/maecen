@@ -28,6 +28,8 @@ class HomeView extends Component {
 
   renderDefaultHome () {
     const { t } = this.props
+    const letMeSee = window.location.hostname + 'LetMeSee'
+
     return (
       <div className={s.home}>
         <Icon size='calc(12vh + 12vw)'
@@ -35,14 +37,18 @@ class HomeView extends Component {
           icon='maecen-detail'
         />
         <div className={s.tagline}>{t('tagline')}</div>
-        <Link to='/maecenates' className={s.marginBottom}>
-          <Button primary={true} label={t('maecenate.seeAll')} />
-        </Link>
-        <Button
-          label={t('maecenate.create')}
-          primary={true}
-          onClick={this.handleCreateMaecenate}
-        />
+        {localStorage.getItem(letMeSee) === 'true' &&
+          <div>
+            <Link to='/maecenates' className={s.marginBottom}>
+              <Button primary={true} label={t('maecenate.seeAll')} />
+            </Link>
+            <Button
+              label={t('maecenate.create')}
+              primary={true}
+              onClick={this.handleCreateMaecenate}
+            />
+          </div>
+        }
       </div>
     )
   }
