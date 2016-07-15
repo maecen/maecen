@@ -38,7 +38,9 @@ class HeaderContainer extends Component {
   }
 
   getAccess () {
-    localStorage.setItem('LetMeSee', 'true')
+    if (window && window.localStorage) {
+      window.localStorage.setItem('LetMeSee', 'true')
+    }
   }
 
   gotoCreatePost () {
@@ -47,7 +49,10 @@ class HeaderContainer extends Component {
 
   render () {
     const hideFab = Boolean(this.props.children.props.route.hideFab)
-    const hasAccess = localStorage.getItem('LetMeSee') === 'true'
+    let hasAccess = false
+    if (window && window.localStorage) {
+      hasAccess = window.localStorage.getItem('LetMeSee') === 'true'
+    }
     return <Header
       hasAuth={this.props.hasAuth}
       loginAction={this.handleLogin}

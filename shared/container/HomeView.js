@@ -28,6 +28,10 @@ class HomeView extends Component {
 
   renderDefaultHome () {
     const { t } = this.props
+    let letMeSee = false
+    if (window && window.localStorage) {
+      letMeSee = window.localStorage.getItem('LetMeSee') === 'true'
+    }
 
     return (
       <div className={s.home}>
@@ -36,7 +40,7 @@ class HomeView extends Component {
           icon='maecen-detail'
         />
         <div className={s.tagline}>{t('tagline')}</div>
-        {localStorage.getItem('LetMeSee') === 'true' &&
+        {letMeSee &&
           <div>
             <Link to='/maecenates' className={s.marginBottom}>
               <Button primary={true} label={t('maecenate.seeAll')} />
