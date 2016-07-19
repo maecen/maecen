@@ -8,6 +8,7 @@ import * as Actions from '../../actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
 
+import * as constants from '../../container/App/App'
 import { Card, CardHeader, CardContent } from '../../components/Card'
 import { List, ListItem } from 'material-ui/List'
 import Button from '../../components/Form/Button'
@@ -28,7 +29,7 @@ class MaecenateDashboardView extends Component {
     event.stop
   }
 
-  linkToParent (slug) {
+  linkToPresentation (slug) {
     // Have to check - otherwise it fails when refreshing the page
     let canUseDOM = !!(
       (typeof window !== 'undefined' &&
@@ -36,8 +37,7 @@ class MaecenateDashboardView extends Component {
     )
     if (canUseDOM) {
       let rootDir = window.location.hostname
-      let maecenatesDir = '/maecenate/'
-      return rootDir + maecenatesDir + slug
+      return `${rootDir}/maecenate/${slug}/presentation`
     }
   }
 
@@ -64,8 +64,11 @@ class MaecenateDashboardView extends Component {
           <br />
           <p>
             {t('maecenate.linkToPresentation')}
-            <br />
-            {this.linkToParent(maecenate.slug)}
+            <a
+              style={{color: constants.themeColor}}
+              href={`https://${this.linkToPresentation(maecenate.slug)}`}>
+              {this.linkToPresentation(maecenate.slug)}
+            </a>
           </p>
         </CardContent>
         <Divider />
