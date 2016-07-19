@@ -67,6 +67,7 @@ class HomeView extends Component {
                 id='mc-embedded-subscribe-form'
                 name='mc-embedded-subscribe-form'
                 target='_blank'
+                style={{marginBottom: '1rem'}}
                 novalidate>
                 <div id='mc_embed_signup_scroll'
                   style={{maxWidth: '100%', display: 'flex', justifyContent: 'center'}}>
@@ -102,7 +103,11 @@ class HomeView extends Component {
                         display: 'inline-block',
                         height: 'calc(2.2rem + 4px)',
                         lineHeight: '2.2rem',
-                        padding: '0 0.8rem'
+                        padding: '0 0.8rem',
+                        fontSize: '14px',
+                        fontWeight: '500',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase'
                       }}
                     />
                   </div>
@@ -124,6 +129,9 @@ class HomeView extends Component {
                   </div>
                 </div>
               </form>
+              <Link to='/about'>
+                <Button primary={true} label={t('aboutMaecen')} />
+              </Link>
             </div>
         }
       </div>
