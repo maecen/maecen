@@ -64,6 +64,7 @@ class MaecenateDashboardView extends Component {
           <br />
           <p>
             {t('maecenate.linkToPresentation')}
+            <br />
             {this.linkToParent(maecenate.slug)}
           </p>
         </CardContent>
