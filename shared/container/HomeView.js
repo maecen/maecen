@@ -70,47 +70,51 @@ class HomeView extends Component {
                 style={{marginBottom: '1rem'}}
                 novalidate>
                 <div id='mc_embed_signup_scroll'
-                  style={{maxWidth: '100%', display: 'flex', justifyContent: 'center'}}>
-                  <div>
-                    <input type='email'
-                      name='EMAIL'
-                      id='mce-EMAIL'
-                      placeholder={t('user.emailPlaceholder')}
-                      style={{
-                        padding: '0 0.6rem',
-                        width: '100%',
-                        borderColor: constants.themeColor,
-                        borderWidth: '2px',
-                        borderStyle: 'solid',
-                        borderRadius: '0px',
-                        display: 'inline-block',
-                        outline: 'none',
-                        height: '2.2rem',
-                        lineHeight: '2.2rem'
-                      }}
-                    />
-                  </div>
-                  <div style={{display: 'inline-block'}}>
-                    <input type='submit'
-                      value={t('signUp')}
-                      name='subscribe'
-                      id='mc-embedded-subscribe'
-                      style={{
-                        backgroundColor: constants.themeColor,
-                        borderWidth: '0',
-                        borderRadius: '0px',
-                        color: 'white',
-                        display: 'inline-block',
-                        height: 'calc(2.2rem + 4px)',
-                        lineHeight: '2.2rem',
-                        padding: '0 0.8rem',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        letterSpacing: '0.1em',
-                        textTransform: 'uppercase'
-                      }}
-                    />
-                  </div>
+                  style={{
+                    maxWidth: '20rem',
+                    margin: '0 auto',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    borderColor: constants.themeColor,
+                    borderWidth: '2px',
+                    borderRadius: '2px',
+                    borderStyle: 'solid'
+                  }}>
+                  <input type='email'
+                    name='EMAIL'
+                    id='mce-EMAIL'
+                    placeholder={t('user.emailPlaceholder')}
+                    style={{
+                      flexGrow: '2',
+                      padding: '0 0.6rem',
+                      width: '100%',
+                      display: 'inline-block',
+                      outline: 'none',
+                      height: '2.2rem',
+                      lineHeight: '2.2rem',
+                      border: '0px'
+                    }}
+                  />
+                  <input type='submit'
+                    value={t('signUp')}
+                    name='subscribe'
+                    id='mc-embedded-subscribe'
+                    style={{
+                      backgroundColor: constants.themeColor,
+                      borderWidth: '0',
+                      borderRadius: '0px',
+                      color: 'white',
+                      display: 'inline-block',
+                      height: '2.2rem',
+                      lineHeight: '2.2rem',
+                      padding: '0 0.8rem',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      flexShrink: '0',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase'
+                    }}
+                  />
                   <div style={{position: 'absolute', left: '-5000px'}} aria-hidden='true'>
                     <input type='text'
                       name='b_1e4624f4f555b78ee9644d7c9_a04ee31e14'
