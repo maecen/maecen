@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
+import * as constants from '../container/App/App'
 
 import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
@@ -26,6 +27,10 @@ class HomeView extends Component {
     }
   }
 
+  handleChange (event) {
+    this.setState({emailInput: event.target.value})
+  }
+
   renderDefaultHome () {
     const { t } = this.props
     let letMeSee = false
@@ -40,18 +45,84 @@ class HomeView extends Component {
           viewBox='0 0 832 997'
           icon='maecen-detail'
         />
-        <div className={s.tagline}>{t('tagline')}</div>
-        {letMeSee &&
-          <div>
-            <Link to='/maecenates' className={s.marginBottom}>
-              <Button primary={true} label={t('maecenate.seeAll')} />
-            </Link>
-            <Button
-              label={t('maecenate.create')}
-              primary={true}
-              onClick={this.handleCreateMaecenate}
-            />
-          </div>
+        {letMeSee
+          ? <div>
+              <div className={s.tagline}>{t('tagline')}</div>
+              <div>
+                <Link to='/maecenates' className={s.marginBottom}>
+                  <Button primary={true} label={t('maecenate.seeAll')} />
+                </Link>
+                <Button
+                  label={t('maecenate.create')}
+                  primary={true}
+                  onClick={this.handleCreateMaecenate}
+                />
+              </div>
+            </div>
+          : <div id='mc_embed_signup'>
+              <div className={s.tagline}>{t('curiousEmail')}</div>
+              <form
+                action='//maecen.us9.list-manage.com/subscribe/post?u=1e4624f4f555b78ee9644d7c9&amp;id=a04ee31e14'
+                method='post'
+                id='mc-embedded-subscribe-form'
+                name='mc-embedded-subscribe-form'
+                target='_blank'
+                novalidate>
+                <div id='mc_embed_signup_scroll'>
+                  <div style={{display: 'inline-block'}}>
+                    <input type='email'
+                      name='EMAIL'
+                      id='mce-EMAIL'
+                      placeholder={t('user.emailPlaceholder')}
+                      style={{
+                        padding: '0 0.6rem',
+                        width: '20rem',
+                        maxWidth: '100%',
+                        borderColor: constants.themeColor,
+                        borderWidth: '2px',
+                        borderStyle: 'solid',
+                        display: 'inline-block',
+                        outline: 'none',
+                        height: '2.2rem',
+                        lineHeight: '2.2rem'
+                      }}
+                    />
+                  </div>
+                  <div style={{display: 'inline-block'}}>
+                    <input type='submit'
+                      value={t('signUp')}
+                      name='subscribe'
+                      id='mc-embedded-subscribe'
+                      style={{
+                        backgroundColor: constants.themeColor,
+                        borderWidth: '0',
+                        color: 'white',
+                        display: 'inline-block',
+                        height: 'calc(2.2rem + 4px)',
+                        lineHeight: '2.2rem',
+                        padding: '0 0.8rem'
+                      }}
+                    />
+                  </div>
+                  <div style={{position: 'absolute', left: '-5000px'}} aria-hidden='true'>
+                    <input type='text'
+                      name='b_1e4624f4f555b78ee9644d7c9_a04ee31e14'
+                      tabindex='-1'
+                      value=''/>
+                  </div>
+                  <div id='mce-responses'>
+                    <div
+                      id='mce-error-response'
+                      style={{display: 'none'}}>
+                    </div>
+                    <div
+                      id='mce-success-response'
+                      style={{display: 'none'}}>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
         }
       </div>
     )
