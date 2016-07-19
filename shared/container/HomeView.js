@@ -68,19 +68,20 @@ class HomeView extends Component {
                 name='mc-embedded-subscribe-form'
                 target='_blank'
                 novalidate>
-                <div id='mc_embed_signup_scroll'>
-                  <div style={{display: 'inline-block'}}>
+                <div id='mc_embed_signup_scroll'
+                  style={{maxWidth: '100%', display: 'flex', justifyContent: 'center'}}>
+                  <div>
                     <input type='email'
                       name='EMAIL'
                       id='mce-EMAIL'
                       placeholder={t('user.emailPlaceholder')}
                       style={{
                         padding: '0 0.6rem',
-                        width: '20rem',
-                        maxWidth: '100%',
+                        width: '100%',
                         borderColor: constants.themeColor,
                         borderWidth: '2px',
                         borderStyle: 'solid',
+                        borderRadius: '0px',
                         display: 'inline-block',
                         outline: 'none',
                         height: '2.2rem',
@@ -96,6 +97,7 @@ class HomeView extends Component {
                       style={{
                         backgroundColor: constants.themeColor,
                         borderWidth: '0',
+                        borderRadius: '0px',
                         color: 'white',
                         display: 'inline-block',
                         height: 'calc(2.2rem + 4px)',
