@@ -13,6 +13,7 @@ import { List, ListItem } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import cropCloudy from '../../lib/cropCloudy'
 import Avatar from 'material-ui/Avatar'
+import ActionInfo from 'material-ui/svg-icons/action/info'
 
 class YourMaecenatesContainer extends Component {
 
@@ -57,14 +58,13 @@ class YourMaecenatesContainer extends Component {
                   }
                   primaryText={maecenate.title}
                   onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
-                  rightIconButton={
-                    <Button
-                      label={t('maecenate.dashboard')}
-                      flat={true}
+                  /* TODO this should probably be default for all list items */
+                  innerDivStyle={{wordWrap: 'break-word'}}
+                  rightIcon={
+                    <ActionInfo
                       onClick={
                         this.gotoMaecenateDashboard.bind(this, maecenate.slug)
                       }
-                      style={{marginTop: '5px'}}
                     />
                   }
                 />
