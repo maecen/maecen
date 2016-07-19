@@ -30,28 +30,27 @@ function Header (props, context) {
           icon='maecen-m-only'
         />
       </Link>
-        <div className={s.rightmenu}>
+      <div className={s.rightmenu}>
         {hasAccess
-          ? hasAuth === false
-            ? <Button label={t('login')}
+        ? hasAuth === false
+          ? <Button label={t('login')}
+              primary={true}
+              last={true}
+              onClick={loginAction}
+            />
+          : <Link to='/profile'>
+              <Button
                 primary={true}
                 last={true}
-                onClick={loginAction}
+                label={t('profile')}
               />
-            : <Link to='/profile'>
-                <Button
-                  primary={true}
-                  last={true}
-                  label={t('profile')}
-                />
-              </Link>
-          : <IconButton
-              onClick={getAccessAction} >
-              <Burn color='rgba(255,255,255,0.25)'/>
-            </IconButton>
-          }
-        </div>
-      }
+            </Link>
+        : <IconButton
+            onClick={getAccessAction} >
+            <Burn color='rgba(255,255,255,0.25)'/>
+          </IconButton>
+        }
+      </div>
       { !hideFab &&
         adminMaecenates.length !== 0 &&
           <div className={s.fabWrap}>
