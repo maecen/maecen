@@ -10,6 +10,7 @@ function Post (props, context) {
   const { post, maecenate, editPost, t } = props
   const media = post.media && post.media[0]
   const writtenByAlias = t('post.writtenByAlias', { alias: post.author_alias })
+  const postMeta = `${writtenByAlias} — ${post.created_at}`
   const maecenateUrl = '/maecenate/' + maecenate.slug
 
   return (
@@ -20,7 +21,7 @@ function Post (props, context) {
           avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
         />
       </Link>
-      <CardTitle title={post.title} subtitle={writtenByAlias} />
+      <CardTitle title={post.title} subtitle={postMeta} />
       {media &&
         <Media type={media.type} url={media.url} fixedRatio={false} />
       }
