@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
+import Time from 'react-time'
+
 import { Card, CardContent, CardTitle, CardActions, CardHeader } from '../Card'
 import { Button } from '../Form'
 import cropCloudy from '../../lib/cropCloudy'
@@ -20,7 +22,13 @@ function Post (props, context) {
           avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
         />
       </Link>
-      <CardTitle title={post.title} subtitle={writtenByAlias} />
+      <CardTitle title={post.title}
+        style={{paddingBottom: '0px', paddingTop: '6px'}} />
+      <CardContent
+        style={{paddingTop: '0px', opacity: '0.6'}}>
+        {writtenByAlias}
+        <Time style={{float: 'right'}} value={post.created_at} format='DD/MM/YYYY' />
+      </CardContent>
       {media &&
         <Media type={media.type} url={media.url} fixedRatio={false} />
       }

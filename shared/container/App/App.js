@@ -8,7 +8,7 @@ import FooterContainer from '../FooterContainer'
 import AuthDialogContainer from '../AuthDialogContainer'
 import s from './App.scss'
 
-const themeColor = 'hsl(190, 100%, 30%)'
+export const themeColor = 'hsl(190, 100%, 30%)'
 // const themeColor = '#967049'
 
 const muiTheme = getMuiTheme({

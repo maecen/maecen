@@ -7,6 +7,8 @@ import Button from '../Form/Button'
 import Icon from '../Graphics/Icon'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import IconButton from 'material-ui/IconButton'
+import Burn from 'material-ui/svg-icons/social/whatshot'
 
 function Header (props, context) {
   const {
@@ -15,7 +17,9 @@ function Header (props, context) {
     loginAction,
     adminMaecenates,
     createPost,
-    hideFab
+    hideFab,
+    getAccessAction,
+    hasAccess
   } = props
 
   return (
@@ -27,8 +31,8 @@ function Header (props, context) {
         />
       </Link>
       <div className={s.rightmenu}>
-
-        { hasAuth === false
+        {hasAccess
+        ? hasAuth === false
           ? <Button label={t('login')}
               primary={true}
               last={true}
@@ -41,6 +45,10 @@ function Header (props, context) {
                 label={t('profile')}
               />
             </Link>
+        : <IconButton
+            onClick={getAccessAction} >
+            <Burn color='rgba(255,255,255,0.25)'/>
+          </IconButton>
         }
       </div>
       { !hideFab &&
@@ -63,7 +71,9 @@ Header.propTypes = {
   hasAuth: PropTypes.bool.isRequired,
   loginAction: PropTypes.func.isRequired,
   adminMaecenates: PropTypes.array.isRequired,
-  createPost: PropTypes.func.isRequired
+  createPost: PropTypes.func.isRequired,
+  getAccessAction: PropTypes.func.isRequired,
+  hasAccess: PropTypes.bool.isRequired
 }
 
 export default translate(['common'])(

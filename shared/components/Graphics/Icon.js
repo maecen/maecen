@@ -34,7 +34,6 @@ let Icons = React.createClass({
   render () {
     let styles = {
       fill: 'currentcolor',
-      verticalAlign: 'middle',
       width: this.props.size, // CSS instead of the width attr to support non-pixel units
       height: this.props.size // Prevents scaling issue in IE
     }

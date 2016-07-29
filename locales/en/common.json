@@ -1,6 +1,8 @@
 {
+  "aboutMaecen": "About the Maecen Project",
   "backTo": "Back to: ",
   "changeLanguage": "Change Language",
+  "curiousEmail": "Curious? Sign up here and we'll keep you updated!",
   "home": "Home",
   "loading": "Loading...",
   "login": "Login",
@@ -9,6 +11,7 @@
   "maecen": "Maecen",
   "maecens": "Maecens",
   "profile": "Profile",
+  "signUp": "Sign Up",
   "tagline": "\"A person who supports art and science financially\"",
   "title": "Title",
   "website": "Website",

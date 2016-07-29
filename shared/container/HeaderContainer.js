@@ -37,18 +37,32 @@ class HeaderContainer extends Component {
     dispatch(Actions.requireAuth())
   }
 
+  getAccess () {
+    const window = global.window
+    if (window && window.localStorage) {
+      window.localStorage.setItem('LetMeSee', 'true')
+    }
+  }
+
   gotoCreatePost () {
     browserHistory.push('/post/create')
   }
 
   render () {
     const hideFab = Boolean(this.props.children.props.route.hideFab)
+    const window = global.window
+    let hasAccess = false
+    if (window && window.localStorage) {
+      hasAccess = window.localStorage.getItem('LetMeSee') === 'true'
+    }
     return <Header
       hasAuth={this.props.hasAuth}
       loginAction={this.handleLogin}
       createPost={this.gotoCreatePost}
       adminMaecenates={this.props.adminMaecenates}
       hideFab={hideFab}
+      getAccessAction={this.getAccess}
+      hasAccess={hasAccess}
     />
   }
 }

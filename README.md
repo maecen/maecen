@@ -1,3 +1,5 @@
+# Maecen.net development
+
 ## Setup postgres
 Download and install postgres through homebrew: `brew install postgresql` or
 from the website here: http://www.postgresql.org/download/.

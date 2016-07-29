@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
+import * as constants from '../container/App/App'
 
 import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
@@ -26,23 +27,117 @@ class HomeView extends Component {
     }
   }
 
+  handleChange (event) {
+    this.setState({emailInput: event.target.value})
+  }
+
   renderDefaultHome () {
     const { t } = this.props
+    let letMeSee = false
+    const window = global.window
+    if (window && window.localStorage) {
+      letMeSee = window.localStorage.getItem('LetMeSee') === 'true'
+    }
+
     return (
       <div className={s.home}>
         <Icon size='calc(12vh + 12vw)'
           viewBox='0 0 832 997'
           icon='maecen-detail'
         />
-        <div className={s.tagline}>{t('tagline')}</div>
-        <Link to='/maecenates' className={s.marginBottom}>
-          <Button primary={true} label={t('maecenate.seeAll')} />
-        </Link>
-        <Button
-          label={t('maecenate.create')}
-          primary={true}
-          onClick={this.handleCreateMaecenate}
-        />
+        {letMeSee
+          ? <div>
+              <div className={s.tagline}>{t('tagline')}</div>
+              <div>
+                <Link to='/maecenates' className={s.marginBottom}>
+                  <Button primary={true} label={t('maecenate.seeAll')} />
+                </Link>
+                <Button
+                  label={t('maecenate.create')}
+                  primary={true}
+                  onClick={this.handleCreateMaecenate}
+                />
+              </div>
+            </div>
+          : <div id='mc_embed_signup'>
+              <div className={s.tagline}>{t('curiousEmail')}</div>
+              <form
+                action='//maecen.us9.list-manage.com/subscribe/post?u=1e4624f4f555b78ee9644d7c9&amp;id=a04ee31e14'
+                method='post'
+                id='mc-embedded-subscribe-form'
+                name='mc-embedded-subscribe-form'
+                target='_blank'
+                style={{marginBottom: '1rem'}}
+                novalidate>
+                <div id='mc_embed_signup_scroll'
+                  style={{
+                    maxWidth: '20rem',
+                    margin: '0 auto',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    borderColor: constants.themeColor,
+                    borderWidth: '2px',
+                    borderRadius: '2px',
+                    borderStyle: 'solid'
+                  }}>
+                  <input type='email'
+                    name='EMAIL'
+                    id='mce-EMAIL'
+                    placeholder={t('user.emailPlaceholder')}
+                    style={{
+                      flexGrow: '2',
+                      padding: '0 0.6rem',
+                      width: '100%',
+                      display: 'inline-block',
+                      outline: 'none',
+                      height: '2.2rem',
+                      lineHeight: '2.2rem',
+                      border: '0px'
+                    }}
+                  />
+                  <input type='submit'
+                    value={t('signUp')}
+                    name='subscribe'
+                    id='mc-embedded-subscribe'
+                    style={{
+                      backgroundColor: constants.themeColor,
+                      borderWidth: '0',
+                      borderRadius: '0px',
+                      color: 'white',
+                      display: 'inline-block',
+                      height: '2.2rem',
+                      lineHeight: '2.2rem',
+                      padding: '0 0.8rem',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      flexShrink: '0',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase'
+                    }}
+                  />
+                  <div style={{position: 'absolute', left: '-5000px'}} aria-hidden='true'>
+                    <input type='text'
+                      name='b_1e4624f4f555b78ee9644d7c9_a04ee31e14'
+                      tabindex='-1'
+                      value=''/>
+                  </div>
+                  <div id='mce-responses'>
+                    <div
+                      id='mce-error-response'
+                      style={{display: 'none'}}>
+                    </div>
+                    <div
+                      id='mce-success-response'
+                      style={{display: 'none'}}>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <Link to='/about'>
+                <Button primary={true} label={t('aboutMaecen')} />
+              </Link>
+            </div>
+        }
       </div>
     )
   }
