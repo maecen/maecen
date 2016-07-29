@@ -14,7 +14,7 @@
   "signUp": "Tilmeld",
   "tagline": "\"En person som støtter kunst og videnskab økonomisk\"",
   "title": "Titel",
-  "website": "Mere info",
+  "website": "Yderligere information",
   "action": {
     "cancel": "Annuller",
     "continue": "Fortsæt",
@@ -22,14 +22,14 @@
     "update": "Opdater"
   },
   "currency": {
-    "amount_DKK": "{{count}} DKK"
+    "amount_DKK": "{{count}} kr"
   },
   "error": {
     "noUserWithEmail": "Der eksisterer ingen bruger med denne email",
     "passwordIncorrect": "Dette kodeord passer ikke til email adressen"
   },
   "feed": {
-    "getStarted": "Tak for din interesse og tilmelding. For at se indhold skal du støtte mindst et Mæcenat.",
+    "getStarted": "Tak for din interesse og tilmelding. For at se indlæg skal du støtte mindst ét Mæcenat.",
     "yourNews": "Seneste indlæg",
     "findMaecenate": "Find et Mæcenat at støtte"
   },
@@ -80,7 +80,7 @@
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
     "join": "Bliv mæcen",
     "joinMaecenate": "Bliv mæcen for {{title}}",
-    "minimumAmount": "Minimum $t(currency.amount)",
+    "minimumAmount": "Minimum betaling $t(currency.amount) pr. måned",
     "success": "Du er nu mæcen for {{title}}"
   },
   "user": {
