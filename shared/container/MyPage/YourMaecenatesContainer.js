@@ -13,7 +13,7 @@ import { List, ListItem } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import cropCloudy from '../../lib/cropCloudy'
 import Avatar from 'material-ui/Avatar'
-import ActionInfo from 'material-ui/svg-icons/action/info'
+import ActionInfo from 'material-ui/svg-icons/action/info-outline'
 
 class YourMaecenatesContainer extends Component {
 
@@ -62,6 +62,7 @@ class YourMaecenatesContainer extends Component {
                   innerDivStyle={{wordWrap: 'break-word'}}
                   rightIcon={
                     <ActionInfo
+                      style={{width: '30px', height: '30px'}}
                       onClick={
                         this.gotoMaecenateDashboard.bind(this, maecenate.slug)
                       }
@@ -73,8 +74,9 @@ class YourMaecenatesContainer extends Component {
             ))}
           </List>
         }
-        <CardContent>
+        <CardContent style={{textAlign: 'right'}}>
           <Button
+            last={true}
             label={t('maecenate.create')}
             primary={true}
             onClick={this.createMaecenate.bind(this)}

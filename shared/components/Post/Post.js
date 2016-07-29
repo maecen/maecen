@@ -3,10 +3,11 @@ import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import Time from 'react-time'
 
-import { Card, CardContent, CardTitle, CardActions, CardHeader } from '../Card'
-import { Button } from '../Form'
+import { Card, CardContent, CardTitle, CardHeader } from '../Card'
+import IconButton from 'material-ui/IconButton'
 import cropCloudy from '../../lib/cropCloudy'
 import Media from '../Media/Media'
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 
 function Post (props, context) {
   const { post, maecenate, editPost, t } = props
@@ -22,6 +23,13 @@ function Post (props, context) {
           avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
         />
       </Link>
+      {editPost &&
+        <IconButton
+          style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
+          onClick={editPost.bind(null, post.id)}>
+          <EditIcon />
+        </IconButton>
+      }
       <CardTitle title={post.title}
         style={{paddingBottom: '0px', paddingTop: '6px'}} />
       <CardContent
@@ -35,14 +43,6 @@ function Post (props, context) {
       <CardContent noTopPadding={true}>
         {post.content}
       </CardContent>
-      {editPost &&
-        <CardActions>
-          <Button
-            label={t('post.edit')}
-            flat={true}
-            onClick={editPost.bind(null, post.id)} />
-        </CardActions>
-      }
     </Card>
   )
 }

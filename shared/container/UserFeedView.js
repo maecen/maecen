@@ -20,7 +20,7 @@ class UserFeedView extends Component {
     const { posts, t } = this.props
 
     const feedStyle = {
-      padding: '4vw 0 6vw'
+      padding: '0 0 6vw'
     }
 
     const h1Style = {
@@ -31,23 +31,26 @@ class UserFeedView extends Component {
       marginTop: '0px'
     }
 
-    const colStyle = {
-      marginBottom: '24px'
-    }
-
     const getStartedStyle = {
       color: 'white',
-      lineHeight: '1.6'
+      lineHeight: '1.6',
+      verticalAlign: 'middle'
+    }
+
+    const findMaecenateStyle = {
+      color: 'white',
+      lineHeight: '1.6',
+      verticalAlign: 'top',
+      marginTop: '15px',
+      display: 'inline-block'
     }
 
     return (
       <div style={feedStyle}>
         <Row>
-          <Col md={3} sm={3} xs={12} style={colStyle}>
+          <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
             <h1 style={h1Style}>{t('feed.yourNews')}</h1>
-          </Col>
-          <Col sm={8} md={6} xs={12}>
-            {posts.length !== 0
+            { posts.length !== 0
               ? posts.map(post =>
                   <Post
                     key={post.id}
@@ -57,18 +60,14 @@ class UserFeedView extends Component {
                 )
               : <div>
                   <div style={getStartedStyle}>{t('feed.getStarted')}</div>
-                  <Row>
-                    <Col xs={2} style={colStyle}>
-                      <Link to='/maecenates' style={{marginRight: '5px'}}>
-                        <SearchIcon color={'white'} style={{width: '60px', height: '60px', opacity: '0.6'}}/>
-                      </Link>
-                    </Col>
-                    <Col xs={10} style={colStyle}>>
-                      <div style={getStartedStyle}>{t('feed.findMaecenate')}</div>
-                    </Col>
-                  </Row>
+                  <div>
+                    <Link to='/maecenates' style={{marginRight: '5px'}}>
+                      <SearchIcon color={'white'} style={{width: '60px', height: '60px', opacity: '0.6'}}/>
+                    </Link>
+                    <span style={findMaecenateStyle}>{t('feed.findMaecenate')}</span>
+                  </div>
                 </div>
-            }
+              }
           </Col>
         </Row>
       </div>

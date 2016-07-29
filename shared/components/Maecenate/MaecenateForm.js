@@ -106,11 +106,14 @@ function MaecenateForm (props) {
             placeholder={t('maecenate.subscriptionPricePlaceholder')} />
           <br />
 
-          <Button type='submit'
-            style={{marginTop: '16px'}}
-            primary={true}
-            label={submitStr}
-            disabled={isSubmitting} />
+          <div style={{textAlign: 'right'}}>
+            <Button type='submit'
+              style={{marginTop: '16px'}}
+              primary={true}
+              last={true}
+              label={submitStr}
+              disabled={isSubmitting} />
+          </div>
         </Form>
       </CardContent>
     </Card>

@@ -6,6 +6,8 @@ import { translate } from 'react-i18next'
 import cropCloudy from '../../lib/cropCloudy'
 import Button from '../Form/Button'
 import Media from '../Media/Media'
+import IconButton from 'material-ui/IconButton'
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 
 import s from './MaecenatePresentation.scss'
 
@@ -32,6 +34,14 @@ function MaecenatePresentation (props) {
         title={maecenate.title}
         style={{paddingBottom: '0px'}}
       />
+      {isAuthUserOwner &&
+        <IconButton
+          style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
+          onClick={editMaecenate} >
+          <EditIcon />
+        </IconButton>
+      }
+
         <Row>
           <Col xs={12} sm={3}>
             <CardContent>
@@ -57,19 +67,13 @@ function MaecenatePresentation (props) {
                     </span>
                   }
                   </p>
-                  {isAuthUserOwner
-                    ? <Button
-                        primary={true}
-                        label='Rediger'
-                        onClick={editMaecenate}
-                        style={{marginTop: '16px'}}
-                      />
-                    : <Button
-                        primary={true}
-                        label={t('support.join')}
-                        onClick={supportMaecenate}
-                        style={{marginTop: '16px'}}
-                      />
+                  {!isAuthUserOwner &&
+                    <Button
+                      primary={true}
+                      label={t('support.join')}
+                      onClick={supportMaecenate}
+                      style={{marginTop: '16px'}}
+                    />
                   }
                 </Col>
               </Row>

@@ -79,7 +79,7 @@ function PostForm (props) {
                 placeholder={t('user.alias')} />
 
             </CardContent>
-            <CardActions>
+            <CardActions style={{textAlign: 'right'}}>
               <Button
                 type='submit'
                 label={submitStr}
