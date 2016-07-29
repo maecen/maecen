@@ -19,11 +19,13 @@ export default function CardText (props) {
   )
 }
 
+// TODO 16px på mobil og 18px på desktop
 CardText.defaultProps = {
   style: {
-    lineHeight: '1.6',
+    lineHeight: '1.7',
     wordBreak: 'break-word',
-    whiteSpace: 'pre-line'
+    whiteSpace: 'pre-line',
+    fontSize: '16px'
   }
 }
 
