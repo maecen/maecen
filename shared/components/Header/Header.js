@@ -9,6 +9,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import IconButton from 'material-ui/IconButton'
 import Burn from 'material-ui/svg-icons/social/whatshot'
+import PersonIcon from 'material-ui/svg-icons/social/person-outline'
+import SearchIcon from 'material-ui/svg-icons/action/search'
 
 function Header (props, context) {
   const {
@@ -38,13 +40,14 @@ function Header (props, context) {
               last={true}
               onClick={loginAction}
             />
-          : <Link to='/profile'>
-              <Button
-                primary={true}
-                last={true}
-                label={t('profile')}
-              />
-            </Link>
+          : <span style={{marginRight: '5px'}}>
+              <Link to='/maecenates' style={{marginRight: '5px'}}>
+                <SearchIcon color={'white'} style={{width: '40px', height: '40px', opacity: '0.6'}}/>
+              </Link>
+              <Link to='/profile'>
+                <PersonIcon color={'white'} style={{width: '40px', height: '40px', opacity: '0.6'}}/>
+              </Link>
+            </span>
         : <IconButton
             onClick={getAccessAction} >
             <Burn color='rgba(255,255,255,0.25)'/>

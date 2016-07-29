@@ -8,7 +8,7 @@ import { getPosts } from '../selectors/post'
 import * as Actions from '../actions'
 
 import Post from '../components/Post/Post'
-import Button from '../components/Form/Button'
+import SearchIcon from 'material-ui/svg-icons/action/search'
 
 class UserFeedView extends Component {
   componentDidMount () {
@@ -37,8 +37,7 @@ class UserFeedView extends Component {
 
     const getStartedStyle = {
       color: 'white',
-      lineHeight: '1.6',
-      marginTop: '10px'
+      lineHeight: '1.6'
     }
 
     return (
@@ -46,9 +45,6 @@ class UserFeedView extends Component {
         <Row>
           <Col md={3} sm={3} xs={12} style={colStyle}>
             <h1 style={h1Style}>{t('feed.yourNews')}</h1>
-            <Link to='/maecenates'>
-              <Button primary={true} label={t('maecenate.seeAll')} />
-            </Link>
           </Col>
           <Col sm={8} md={6} xs={12}>
             {posts.length !== 0
@@ -59,7 +55,20 @@ class UserFeedView extends Component {
                     maecenate={post.maecenate}
                   />
                 )
-              : <div style={getStartedStyle}>{t('feed.getStarted')}</div>}
+              : <div>
+                  <div style={getStartedStyle}>{t('feed.getStarted')}</div>
+                  <Row>
+                    <Col xs={2} style={colStyle}>
+                      <Link to='/maecenates' style={{marginRight: '5px'}}>
+                        <SearchIcon color={'white'} style={{width: '60px', height: '60px', opacity: '0.6'}}/>
+                      </Link>
+                    </Col>
+                    <Col xs={10} style={colStyle}>>
+                      <div style={getStartedStyle}>{t('feed.findMaecenate')}</div>
+                    </Col>
+                  </Row>
+                </div>
+            }
           </Col>
         </Row>
       </div>

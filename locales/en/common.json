@@ -30,7 +30,8 @@
   },
   "feed": {
     "getStarted": "Thanks for you interest and signing up. You need to support at least one Maecenate to begin seing some content",
-    "yourNews": "Latest from your Maecenates"
+    "yourNews": "Latest from your Maecenates",
+    "findMaecenate": "Find a Maecenate to support"
   },
   "media": {
     "upload": "Upload media",
