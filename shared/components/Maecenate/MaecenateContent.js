@@ -14,14 +14,15 @@ function MaecenateContent (props) {
   return (
     <div className={s.wrap}>
       <Row>
-        <Col smOffset={2} sm={8} mdOffset={3} md={6} xs={12}>
+        <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
           <Card>
             <Avatar
               src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
               size={60}
               style={{
                 marginLeft: '16px',
-                marginBottom: '-16px'
+                marginBottom: '-16px',
+                marginTop: '16px'
               }}
             />
             <CardTitle big={true} title={maecenate.title} />

@@ -53,10 +53,14 @@ class HomeView extends Component {
                   <Button primary={true} label={t('maecenate.seeAll')} />
                 </Link>
                 <Button
+                  className={s.marginBottom}
                   label={t('maecenate.create')}
                   primary={true}
                   onClick={this.handleCreateMaecenate}
                 />
+                <Link to='/about'>
+                  <Button primary={true} label={t('aboutMaecen')} />
+                </Link>
               </div>
             </div>
           : <div id='mc_embed_signup'>

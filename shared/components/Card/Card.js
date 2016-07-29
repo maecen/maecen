@@ -16,7 +16,8 @@ export default class Card extends Component {
 
 Card.defaultProps = {
   style: {
-    marginBottom: '2rem'
+    marginBottom: '4px',
+    position: 'relative'
   }
 }
 
