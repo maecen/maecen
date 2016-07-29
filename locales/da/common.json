@@ -30,7 +30,7 @@
   },
   "feed": {
     "getStarted": "Tak for din interesse og tilmelding. For at se indhold skal du støtte mindst et Mæcenat.",
-    "yourNews": "Seneste fra dine Mæcenater"
+    "yourNews": "Seneste indlægr"
   },
   "media": {
     "upload": "Upload medie",
@@ -98,7 +98,7 @@
     "loginPassword": "Kodeord",
     "loginPasswordPlaceholder": "Dit kodeord",
     "maecenatesSupported": "Du er Mæcen for",
-    "noMaecenatesSupported": "Du støtter ingen Mæcenater endnu",
+    "noMaecenatesSupported": "Du støtter ingen Mæcenater",
     "password": "Kodeord",
     "passwordPlaceholder": "Vælg et kodeord",
     "phoneNumber": "Telefonnummer",
