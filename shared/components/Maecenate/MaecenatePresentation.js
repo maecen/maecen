@@ -4,6 +4,7 @@ import { Row, Col } from 'react-flexbox-grid/lib'
 import { Card, CardContent, CardTitle, CardHeader } from '../../components/Card'
 import { translate } from 'react-i18next'
 import cropCloudy from '../../lib/cropCloudy'
+import Avatar from 'material-ui/Avatar'
 import Button from '../Form/Button'
 import Media from '../Media/Media'
 import IconButton from 'material-ui/IconButton'
@@ -28,58 +29,29 @@ function MaecenatePresentation (props) {
   } = maecenate
 
   return (
-    <Card>
-      <CardTitle
-        big={true}
-        title={maecenate.title}
-        style={{paddingBottom: '0px'}}
-      />
-      {isAuthUserOwner &&
-        <IconButton
-          style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
-          onClick={editMaecenate} >
-          <EditIcon />
-        </IconButton>
-      }
-
-        <Row>
-          <Col xs={12} sm={3}>
-            <CardContent>
-              <Row>
-                <Col xs={4} sm={12}>
-                  <img src={cropCloudy(logo.url, 'logo')}
-                    className={s.logo} />
-                </Col>
-                <Col xs={8} sm={12}>
-                  <p>
-                    {t('support.minimumAmount',
-                      { context: 'DKK', count: monthlyMinimum })}
-                  <br />
-                  {url &&
-                    <span>
-                      {t('website')}:
-                      <a
-                        href={`http://${url}`}
-                        target='_blank'
-                        className={s.link}>
-                        &nbsp;{url}
-                      </a>
-                    </span>
-                  }
-                  </p>
-                  {!isAuthUserOwner &&
-                    <Button
-                      primary={true}
-                      label={t('support.join')}
-                      onClick={supportMaecenate}
-                      style={{marginTop: '16px'}}
-                    />
-                  }
-                </Col>
-              </Row>
-            </CardContent>
-          </Col>
-          <Col xs={12} sm={9}>
+    <div>
+      <Row>
+        <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+          <Card>
+            <Avatar
+              src={cropCloudy(logo.url, 'logo-tiny')}
+              size={60}
+              style={{
+                marginLeft: '16px',
+                marginBottom: '-16px',
+                marginTop: '16px'
+              }}
+            />
+            <CardTitle big={true} title={maecenate.title} />
+            {isAuthUserOwner &&
+              <IconButton
+                style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
+                onClick={editMaecenate} >
+                <EditIcon />
+              </IconButton>
+            }
+          </Card>
+          <Card>
             <CardContent>
               {cover &&
                 <Media type={cover.type} url={cover.url} fixedRatio={true} />
@@ -91,9 +63,36 @@ function MaecenatePresentation (props) {
             <CardContent>
               {maecenate.description}
             </CardContent>
-          </Col>
-        </Row>
-    </Card>
+          </Card>
+          <Card>
+            <CardContent>
+              {t('support.minimumAmount',
+                { context: 'DKK', count: monthlyMinimum })}
+              <br />
+              {url &&
+                <span>
+                  {t('website')}:
+                  <a
+                    href={`http://${url}`}
+                    target='_blank'
+                    className={s.link}>
+                    &nbsp;{url}
+                  </a>
+                </span>
+              }
+              {!isAuthUserOwner &&
+                <Button
+                  primary={true}
+                  label={t('support.join')}
+                  onClick={supportMaecenate}
+                  style={{marginTop: '16px'}}
+                />
+              }
+            </CardContent>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   )
 }
 
