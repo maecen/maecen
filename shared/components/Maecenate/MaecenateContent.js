@@ -9,7 +9,7 @@ import Avatar from 'material-ui/Avatar'
 import cropCloudy from '../../lib/cropCloudy'
 
 function MaecenateContent (props) {
-  const { maecenate, posts, editPost } = props
+  const { maecenate, posts, editPost, noTitleOnPosts } = props
 
   return (
     <div className={s.wrap}>
@@ -32,7 +32,8 @@ function MaecenateContent (props) {
                 post={post}
                 maecenate={maecenate}
                 editPost={editPost}
-                key={post.id} />
+                key={post.id}
+                noTitleOnPosts={noTitleOnPosts} />
           ))}
         </Col>
       </Row>

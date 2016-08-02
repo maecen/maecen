@@ -71,7 +71,9 @@ const getRoutes = (store) => {
       <Route path='maecenates'
         component={MaecenateOverviewView} />
       <Route path='maecenate/:slug'
-        component={MaecenateView} />
+        component={MaecenateView}
+        noTitleOnPosts={true}
+        />
       <Route path='maecenate/:slug/edit'
         component={EditMaecenateView}
         hideFab={true}

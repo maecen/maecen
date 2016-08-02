@@ -62,7 +62,7 @@ class YourMaecenatesContainer extends Component {
                   innerDivStyle={{wordWrap: 'break-word'}}
                   rightIcon={
                     <ActionInfo
-                      style={{width: '30px', height: '30px'}}
+                      style={{width: '30px', height: '30px', margin: '9px'}}
                       onClick={
                         this.gotoMaecenateDashboard.bind(this, maecenate.slug)
                       }
