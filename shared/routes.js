@@ -54,6 +54,7 @@ const getRoutes = (store) => {
       <IndexRoute component={HomeView} />
       <Route path='profile'
         component={MyPageView}
+        showLangSwitch={true}
         onEnter={requiresAuth} />
 
       <Route path='post/create'

@@ -8,16 +8,20 @@ const languageNames = {
 }
 
 function Footer (props, context) {
-  const { lang, langOptions, changeLang, t } = props
+  const { hasAuth, lang, langOptions, changeLang, showLangSwitch, t } = props
 
   return (
     <footer className={s.footer}>
-      <span className={s.langSelectText}>{t('changeLanguage')}</span>
-      <select onChange={changeLang} defaultValue={lang}>
-        {langOptions.map((option) =>
-          <option value={option} key={option}>{languageNames[option]}</option>
-        )}
-      </select>
+      { (hasAuth && !showLangSwitch) ||
+        <div>
+          <span className={s.langSelectText}>{t('changeLanguage')}</span>
+          <select onChange={changeLang} defaultValue={lang}>
+            {langOptions.map((option) =>
+              <option value={option} key={option}>{languageNames[option]}</option>
+            )}
+          </select>
+        </div>
+      }
     </footer>
   )
 }

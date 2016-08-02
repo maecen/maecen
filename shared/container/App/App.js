@@ -40,7 +40,9 @@ function App (props) {
               { props.children }
             </div>
           </div>
-          <FooterContainer />
+          <FooterContainer>
+            { props.children }
+          </FooterContainer>
         </div>
 
         <AuthDialogContainer

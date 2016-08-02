@@ -19,8 +19,11 @@ class FooterContainer extends Component {
     const { i18n } = this.context
     const langOptions = without(i18n.options.whitelist, 'cimode')
     const currLang = i18n.language
+    const showLangSwitch = Boolean(this.props.children.props.route.showLangSwitch)
     return (
       <Footer
+        hasAuth={this.props.hasAuth}
+        showLangSwitch={showLangSwitch}
         lang={currLang}
         langOptions={langOptions}
         changeLang={this.changeLang.bind(this)} />
