@@ -1,34 +1,40 @@
 import React, { PropTypes } from 'react'
 import Immutable from 'seamless-immutable'
-import { CardText as MaterialCardText } from 'material-ui/Card'
+import Radium from 'radium'
 
-export default function CardText (props) {
+function CardText (props) {
   props = Immutable(props)
 
-  let style = props.style
+  let styling = {...props.style, ...style}
+
   if (props.noTopPadding === true) {
-    style = {
+    styling = {
       ...style,
       paddingTop: '0px'
     }
   }
   return (
-    <MaterialCardText
-      style={style}
-      {...props.without('style')} />
+    <div style={styling}>
+      { props.children }
+    </div>
   )
 }
 
-// TODO 16px på mobil og 18px på desktop
-CardText.defaultProps = {
-  style: {
-    lineHeight: '1.7',
-    wordBreak: 'break-word',
-    whiteSpace: 'pre-line',
-    fontSize: '16px'
+const style = {
+  padding: '16px',
+  fontSize: '16px',
+  lineHeight: '1.7',
+  wordBreak: 'break-word',
+  whiteSpace: 'pre-line',
+  '@media (min-width: 992px)': {
+    fontSize: '18px'
   }
 }
 
 CardText.propTypes = {
   noTopPadding: PropTypes.bool
 }
+
+export default Radium(
+  CardText
+)

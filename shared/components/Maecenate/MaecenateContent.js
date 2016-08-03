@@ -12,6 +12,14 @@ import cropCloudy from '../../lib/cropCloudy'
 function MaecenateContent (props) {
   const { maecenate, posts, editPost, noTitleOnPosts, t } = props
 
+  const style = {
+    avatar: {
+      marginLeft: '16px',
+      marginBottom: '-16px',
+      marginTop: '16px'
+    }
+  }
+
   return (
     <div className={s.wrap}>
       <Row>
@@ -25,11 +33,7 @@ function MaecenateContent (props) {
             <Avatar
               src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
               size={60}
-              style={{
-                marginLeft: '16px',
-                marginBottom: '-16px',
-                marginTop: '16px'
-              }}
+              style={style.avatar}
             />
             <CardTitle big={true} title={maecenate.title} />
             <CardContent expandable={true}>
