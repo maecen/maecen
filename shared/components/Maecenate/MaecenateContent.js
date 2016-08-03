@@ -15,7 +15,7 @@ function MaecenateContent (props) {
   const style = {
     avatar: {
       marginLeft: styleVariables.spacer.base,
-      marginBottom: '-' + styleVariables.spacer.base,
+      marginBottom: `-${styleVariables.spacer.base}`,
       marginTop: styleVariables.spacer.base
     },
     header: {
