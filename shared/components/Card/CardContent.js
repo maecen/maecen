@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import Immutable from 'seamless-immutable'
 import Radium from 'radium'
+import styleVariables from '../styleVariables'
 
 function CardText (props) {
   props = Immutable(props)
@@ -21,7 +22,7 @@ function CardText (props) {
 }
 
 const style = {
-  padding: '16px',
+  padding: styleVariables.spacer.base,
   fontSize: '16px',
   lineHeight: '1.7',
   wordBreak: 'break-word',

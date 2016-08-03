@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react'
 import { Row, Col } from 'react-flexbox-grid/lib'
 import { translate } from 'react-i18next'
 
+import styleVariables from '../styleVariables'
 import { Card, CardTitle, CardHeader, CardContent } from '../Card'
 import Post from '../Post/Post'
-import s from './MaecenateContent.scss'
 import Avatar from 'material-ui/Avatar'
 import Media from '../Media/Media'
 import cropCloudy from '../../lib/cropCloudy'
@@ -14,19 +14,27 @@ function MaecenateContent (props) {
 
   const style = {
     avatar: {
-      marginLeft: '16px',
-      marginBottom: '-16px',
-      marginTop: '16px'
+      marginLeft: styleVariables.spacer.base,
+      marginBottom: '-' + styleVariables.spacer.base,
+      marginTop: styleVariables.spacer.base
+    },
+    header: {
+      position: 'absolute',
+      right: '0px',
+      top: styleVariables.spacer.double
+    },
+    wrap: {
+      padding: styleVariables.layout.wrap
     }
   }
 
   return (
-    <div className={s.wrap}>
+    <div style={style.wrap}>
       <Row>
         <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
           <Card>
             <CardHeader
-              style={{position: 'absolute', right: '0px', top: '32px'}}
+              style={style.header}
               actAsExpander={true}
               showExpandableButton={true}
             />
@@ -66,12 +74,12 @@ function MaecenateContent (props) {
             </CardContent>
           </Card>
           {posts.map(post => (
-              <Post
-                post={post}
-                maecenate={maecenate}
-                editPost={editPost}
-                key={post.id}
-                noTitleOnPosts={noTitleOnPosts} />
+            <Post
+              post={post}
+              maecenate={maecenate}
+              editPost={editPost}
+              key={post.id}
+              noTitleOnPosts={noTitleOnPosts} />
           ))}
         </Col>
       </Row>

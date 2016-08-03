@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 
+import styleVariables from '../styleVariables'
 import { Row, Col } from 'react-flexbox-grid/lib'
 import { Card, CardContent, CardTitle, CardHeader } from '../../components/Card'
 import { translate } from 'react-i18next'
@@ -9,8 +10,6 @@ import Button from '../Form/Button'
 import Media from '../Media/Media'
 import IconButton from 'material-ui/IconButton'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
-
-import s from './MaecenatePresentation.scss'
 
 function MaecenatePresentation (props) {
   const {
@@ -28,6 +27,22 @@ function MaecenatePresentation (props) {
     monthly_minimum: monthlyMinimum
   } = maecenate
 
+  const style = {
+    avatar: {
+      marginLeft: styleVariables.spacer.base,
+      marginBottom: '-' + styleVariables.spacer.base,
+      marginTop: styleVariables.spacer.base
+    },
+    header: {
+      position: 'absolute',
+      right: '0px',
+      top: styleVariables.spacer.double
+    },
+    wrap: {
+      padding: styleVariables.layout.wrap
+    }
+  }
+
   return (
     <div>
       <Row>
@@ -36,11 +51,7 @@ function MaecenatePresentation (props) {
             <Avatar
               src={cropCloudy(logo.url, 'logo-tiny')}
               size={60}
-              style={{
-                marginLeft: '16px',
-                marginBottom: '-16px',
-                marginTop: '16px'
-              }}
+              style={style.avatar}
             />
             <CardTitle big={true} title={maecenate.title} />
             {isAuthUserOwner &&
@@ -75,7 +86,7 @@ function MaecenatePresentation (props) {
                   <a
                     href={`http://${url}`}
                     target='_blank'
-                    className={s.link}>
+                    style={{color: 'inherit'}}>
                     &nbsp;{url}
                   </a>
                 </span>
