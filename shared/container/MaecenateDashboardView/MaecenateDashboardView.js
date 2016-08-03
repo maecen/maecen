@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import sumBy from 'lodash/sumBy'
 
+import { isBrowser } from '../../config'
 import * as Actions from '../../actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
@@ -31,11 +32,7 @@ class MaecenateDashboardView extends Component {
 
   linkToPresentation (slug) {
     // Have to check - otherwise it fails when refreshing the page
-    let canUseDOM = !!(
-      (typeof window !== 'undefined' &&
-      window.document && window.document.createElement)
-    )
-    if (canUseDOM) {
+    if (isBrowser) {
       let rootDir = window.location.hostname
       return `${rootDir}/maecenate/${slug}/presentation`
     }

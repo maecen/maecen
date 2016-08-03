@@ -4,6 +4,7 @@ import * as Actions from '../actions'
 import Header from '../components/Header/Header'
 import { browserHistory } from 'react-router'
 import { getUserMaecenates } from '../selectors/maecenate'
+import { isBrowser } from '../config'
 
 import {
   isAuthorized, getAuthUser, getAuthUserId
@@ -38,8 +39,7 @@ class HeaderContainer extends Component {
   }
 
   getAccess () {
-    const window = global.window
-    if (window && window.localStorage) {
+    if (isBrowser) {
       window.localStorage.setItem('LetMeSee', 'true')
     }
   }
@@ -50,11 +50,12 @@ class HeaderContainer extends Component {
 
   render () {
     const hideFab = Boolean(this.props.children.props.route.hideFab)
-    const window = global.window
+
     let hasAccess = false
-    if (window && window.localStorage) {
+    if (isBrowser) {
       hasAccess = window.localStorage.getItem('LetMeSee') === 'true'
     }
+
     return <Header
       hasAuth={this.props.hasAuth}
       loginAction={this.handleLogin}

@@ -5,6 +5,7 @@ import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
 import * as constants from '../container/App/App'
+import { isBrowser } from '../config'
 
 import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
@@ -34,8 +35,7 @@ class HomeView extends Component {
   renderDefaultHome () {
     const { t } = this.props
     let letMeSee = false
-    const window = global.window
-    if (window && window.localStorage) {
+    if (isBrowser) {
       letMeSee = window.localStorage.getItem('LetMeSee') === 'true'
     }
 
