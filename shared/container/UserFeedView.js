@@ -8,6 +8,7 @@ import { getPosts } from '../selectors/post'
 import * as Actions from '../actions'
 
 import Post from '../components/Post/Post'
+import styleVariables from '../components/styleVariables'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 
 class UserFeedView extends Component {
@@ -25,21 +26,21 @@ class UserFeedView extends Component {
 
     const h1Style = {
       fontSize: '30px',
-      color: 'white',
+      color: styleVariables.color.bodyText,
       lineHeight: '1.2',
       fontWeight: '300',
       marginTop: '0px'
     }
 
     const getStartedStyle = {
-      color: 'white',
-      lineHeight: '1.6',
+      color: styleVariables.color.bodyText,
+      lineHeight: styleVariables.layout.lineHeight,
       verticalAlign: 'middle'
     }
 
     const findMaecenateStyle = {
-      color: 'white',
-      lineHeight: '1.6',
+      color: styleVariables.color.bodyText,
+      lineHeight: styleVariables.layout.lineHeight,
       verticalAlign: 'top',
       marginTop: '15px',
       display: 'inline-block'

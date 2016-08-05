@@ -21,8 +21,9 @@
     "lint",
     "test:server"
   ],
-  "homepage": "",
-  "author": "",
+  "homepage": "maecen.net",
+  "author": "digidi + socialsquare",
+  "repository": "https://github.com/maecen/maecen",
   "license": "",
   "dependencies": {
     "axios": "^0.11.0",
@@ -75,6 +76,7 @@
     "pg": "^4.5.5",
     "postcss-loader": "^0.9.1",
     "postcss-scss": "^0.1.7",
+    "radium": "^0.18.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-flexbox-grid": "^0.9.6",

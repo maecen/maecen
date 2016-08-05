@@ -25,6 +25,8 @@ function Post (props, context) {
           />
         </Link>
       }
+      <CardTitle title={post.title}
+        style={{paddingBottom: '0px'}} />
       {editPost &&
         <IconButton
           style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
@@ -32,10 +34,9 @@ function Post (props, context) {
           <EditIcon />
         </IconButton>
       }
-      <CardTitle title={post.title}
-        style={{paddingBottom: '0px'}} />
       <CardContent
-        style={{paddingTop: '0px', opacity: '0.6'}}>
+        noTopPadding={true}
+        style={{opacity: '0.6'}}>
         {writtenByAlias}
         <Time style={{float: 'right'}} value={post.created_at} format='DD/MM/YYYY' />
       </CardContent>

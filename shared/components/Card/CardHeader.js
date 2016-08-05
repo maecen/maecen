@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { CardHeader as MaterialCardHeader } from 'material-ui/Card'
+import styleVariables from '../styleVariables'
 
 export default class CardHeader extends Component {
   render () {
@@ -11,7 +12,7 @@ export default class CardHeader extends Component {
 
 CardHeader.defaultProps = {
   style: {
-    lineHeight: '1.6',
+    lineHeight: styleVariables.layout.lineHeight,
     wordBreak: 'break-word',
     paddingBottom: '0px'
   }

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { StyleRoot } from 'radium'
 
 import HeaderContainer from '../HeaderContainer'
 import FooterContainer from '../FooterContainer'
@@ -28,30 +29,32 @@ function App (props) {
   const { showAuthModal, navToUrl } = props
 
   return (
-    <MuiThemeProvider muiTheme={muiTheme}>
-      <div>
+    <StyleRoot>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div>
 
-        <div className={s.main}>
-          <HeaderContainer>
-            { props.children }
-          </HeaderContainer>
-          <div className={s.contentWrap}>
-            <div className={s.content}>
+          <div className={s.main}>
+            <HeaderContainer>
               { props.children }
+            </HeaderContainer>
+            <div className={s.contentWrap}>
+              <div className={s.content}>
+                { props.children }
+              </div>
             </div>
+            <FooterContainer>
+              { props.children }
+            </FooterContainer>
           </div>
-          <FooterContainer>
-            { props.children }
-          </FooterContainer>
+
+          <AuthDialogContainer
+            open={showAuthModal}
+            navToUrl={navToUrl}
+          />
+
         </div>
-
-        <AuthDialogContainer
-          open={showAuthModal}
-          navToUrl={navToUrl}
-        />
-
-      </div>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
+    </StyleRoot>
   )
 }
 
