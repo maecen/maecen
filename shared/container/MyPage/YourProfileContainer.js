@@ -65,103 +65,101 @@ class ProfileContainer extends Component {
     const { t } = this.props
 
     return (
-      <Row>
-        <Col xs={12} lg={6}>
-          <Card>
-            <CardTitle
-              title={t('user.yourProfile')}
-              style={{paddingBottom: '0px'}}
-            />
-            <CardContent>
-              <Form onSubmit={this.handleSubmit.bind(this)} model={user}
-                updateModel={this.updateModel.bind(this)}
-                errors={this.state.errors}
-              >
-                <Row>
-                  <Col xs={12} sm={3}>
-                    <TextField
-                      path={['first_name']}
-                      placeholder={t('user.firstName')}
-                      disabled={!isEdit} />
-                  </Col>
-                  <Col xs={12} sm={3}>
-                    <TextField
-                      path={['last_name']}
-                      placeholder={t('user.lastName')}
-                      disabled={!isEdit} />
-                  </Col>
-                  <Col xs={12} sm={6}>
-                    <TextField
-                      path={['email']}
-                      placeholder={t('user.email')}
-                      disabled={!isEdit} />
-                  </Col>
-                </Row>
+      <div>
+        <Card>
+          <CardTitle
+            title={t('user.yourProfile')}
+            style={{paddingBottom: '0px'}}
+          />
+          <CardContent>
+            <Form onSubmit={this.handleSubmit.bind(this)} model={user}
+              updateModel={this.updateModel.bind(this)}
+              errors={this.state.errors}
+            >
+              <Row>
+                <Col xs={12} sm={3}>
+                  <TextField
+                    path={['first_name']}
+                    placeholder={t('user.firstName')}
+                    disabled={!isEdit} />
+                </Col>
+                <Col xs={12} sm={3}>
+                  <TextField
+                    path={['last_name']}
+                    placeholder={t('user.lastName')}
+                    disabled={!isEdit} />
+                </Col>
+                <Col xs={12} sm={6}>
+                  <TextField
+                    path={['email']}
+                    placeholder={t('user.email')}
+                    disabled={!isEdit} />
+                </Col>
+              </Row>
 
-                <Row>
-                  <Col xs={12} sm={3}>
-                    <TextField
-                      path={['alias']}
-                      placeholder={t('user.alias')}
-                      disabled={!isEdit} />
-                  </Col>
-                  <Col xs={12} sm={3}>
-                    <TextField
-                      path={['phone_number']}
-                      placeholder={t('user.phoneNumber')}
-                      disabled={!isEdit} />
-                  </Col>
-                  <Col xs={12} sm={3}>
-                    <TextField
-                      path={['country']}
-                      placeholder={t('user.country')}
-                      disabled={!isEdit} />
-                  </Col>
-                  <Col xs={12} sm={3}>
-                    <TextField
-                      path={['zip_code']}
-                      placeholder={t('user.zip')}
-                      disabled={!isEdit} />
-                  </Col>
-                </Row>
+              <Row>
+                <Col xs={12} sm={3}>
+                  <TextField
+                    path={['alias']}
+                    placeholder={t('user.alias')}
+                    disabled={!isEdit} />
+                </Col>
+                <Col xs={12} sm={3}>
+                  <TextField
+                    path={['phone_number']}
+                    placeholder={t('user.phoneNumber')}
+                    disabled={!isEdit} />
+                </Col>
+                <Col xs={12} sm={3}>
+                  <TextField
+                    path={['country']}
+                    placeholder={t('user.country')}
+                    disabled={!isEdit} />
+                </Col>
+                <Col xs={12} sm={3}>
+                  <TextField
+                    path={['zip_code']}
+                    placeholder={t('user.zip')}
+                    disabled={!isEdit} />
+                </Col>
+              </Row>
 
-                <Row style={{marginTop: '16px', textAlign: 'right'}}>
-                  <Col xs={12}>
-                    { isEdit === false
-                      ? <Button type='button'
-                          last={true}
+              <Row style={{marginTop: '16px', textAlign: 'right'}}>
+                <Col xs={12}>
+                  { isEdit === false
+                    ? <Button type='button'
+                        last={true}
+                        onClick={this.toggleEdit.bind(this)}
+                        primary={true}
+                        label={t('action.edit')} />
+
+                    : <span>
+                        <Button
+                          flat={true}
                           onClick={this.toggleEdit.bind(this)}
+                          label={t('action.cancel')} />
+                        <Button
+                          last={true}
+                          label={t('post.saveEdit')}
+                          type='submit'
                           primary={true}
-                          label={t('action.edit')} />
-
-                      : <span>
-                          <Button
-                            flat={true}
-                            onClick={this.toggleEdit.bind(this)}
-                            label={t('action.cancel')} />
-                          <Button
-                            last={true}
-                            label={t('post.saveEdit')}
-                            type='submit'
-                            primary={true}
-                            disabled={this.state.isSubmitting === true} />
-                        </span>
-                    }
-                  </Col>
-                </Row>
-              </Form>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent style={{textAlign: 'right'}}>
-              <Button onClick={this.clearAuth.bind(this)}
-                primary={true}
-                last={true}
-                label={t('logout')} />
-            </CardContent>
-          </Card>
-        </Col>
-      </Row>
+                          disabled={this.state.isSubmitting === true} />
+                      </span>
+                  }
+                </Col>
+              </Row>
+            </Form>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent style={{textAlign: 'right'}}>
+            <Button onClick={this.clearAuth.bind(this)}
+              primary={true}
+              last={true}
+              label={t('logout')} />
+          </CardContent>
+        </Card>
+      </div>
     )
   }
 }

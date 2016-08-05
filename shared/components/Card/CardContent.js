@@ -3,6 +3,15 @@ import Immutable from 'seamless-immutable'
 import Radium from 'radium'
 import styleVariables from '../styleVariables'
 
+const style = {
+  padding: styleVariables.spacer.base,
+  fontSize: styleVariables.font.size.body,
+  lineHeight: '1.7',
+  '@media (min-width: 992px)': {
+    fontSize: styleVariables.font.size.bodyDesktop
+  }
+}
+
 function CardText (props) {
   props = Immutable(props)
 
@@ -19,17 +28,6 @@ function CardText (props) {
       { props.children }
     </div>
   )
-}
-
-const style = {
-  padding: styleVariables.spacer.base,
-  fontSize: '16px',
-  lineHeight: '1.7',
-  wordBreak: 'break-word',
-  whiteSpace: 'pre-line',
-  '@media (min-width: 992px)': {
-    fontSize: '18px'
-  }
 }
 
 CardText.propTypes = {

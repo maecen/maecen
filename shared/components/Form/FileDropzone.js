@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Button from './Button'
-import s from './FileDropzone.scss'
+import styleVariables from '../styleVariables'
 
 class FileDropzone extends Component {
 
@@ -67,34 +67,58 @@ class FileDropzone extends Component {
   render () {
     const label = this.props.label || 'Upload File'
     const { error } = this.props
+    const style = {
+      filename: {
+        paddingLeft: styleVariables.spacer.base
+      },
+      dropZone: {
+        cursor: 'pointer',
+        display: 'inline-block',
+        marginBottom: styleVariables.spacer.half,
+        marginTop: styleVariables.spacer.base
+      },
+      error: {
+        color: styleVariables.color.alert,
+        fontSize: styleVariables.font.size.bodySmall,
+        marginTop: styleVariables.spacer.half
+      },
+      input: {
+        display: 'none'
+      },
+      button: {
+        border: '1px solid #e0e0e0',
+        borderRadius: '3px',
+        height: '40px',
+        marginTop: '-1px'
+      }
+    }
     return (
       <div
-        className={s.main}
+        style={style.dropZone}
         onClick={this.onClick}
         onDragLeave={this.onDragLeave}
         onDragOver={this.onDragOver}
         onDrop={this.onDrop}
       >
-        <input style={{ display: 'none' }}
+        <input style={style.input}
           type='file'
           multiple={this.props.multiple}
           accept={this.props.accept}
           ref='fileInput'
           onChange={this.onDrop}
         />
-        {this.props.children
-          ? this.props.children
-          : <div>
-              <Button label={label} flat={true} style={{border: '1px solid #e0e0e0', borderRadius: '3px', height: '40px', marginTop: '-1px'}} />
-              {error
-                ? <div className={s.error}>
-                    {error}
-                  </div>
-                : <span className={s.filename}>
-                    {this.state.message}
-                  </span>
-              }
-            </div>
+        { this.props.children ||
+          <div>
+            <Button label={label} flat={true} style={style.button} />
+            {error
+              ? <div style={style.error}>
+                  {error}
+                </div>
+              : <span style={style.filename}>
+                  {this.state.message}
+                </span>
+            }
+          </div>
         }
       </div>
     )

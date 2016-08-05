@@ -10,12 +10,12 @@ export default function MyPageView () {
       <Row>
         <Col md={6} sm={12} xs={12}>
           <YourMaecenatesContainer />
-        </Col>
-        <Col md={6} sm={12} xs={12}>
           <YourMaecensContainer />
         </Col>
+        <Col md={6} sm={12} xs={12}>
+          <YourProfileContainer />
+        </Col>
       </Row>
-      <YourProfileContainer />
     </div>
   )
 }

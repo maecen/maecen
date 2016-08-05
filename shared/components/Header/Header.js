@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
+import styleVariables from '../styleVariables'
 
-import s from './Header.scss'
 import Button from '../Form/Button'
 import Icon from '../Graphics/Icon'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
@@ -24,15 +24,46 @@ function Header (props, context) {
     hasAccess
   } = props
 
+  const style = {
+    icon: {
+      width: styleVariables.icon.size.big,
+      height: styleVariables.icon.size.big,
+      opacity: '0.6'
+    },
+    iconColor: styleVariables.color.bodyText,
+    main: {
+      marginBottom: styleVariables.spacer.base,
+      padding: '1vw 0'
+    },
+    rightmenu: {
+      float: 'right',
+      marginLeft: styleVariables.spacer.base,
+      marginTop: styleVariables.spacer.half
+    },
+    fabWrap: {
+      bottom: styleVariables.spacer.base,
+      maxWidth: styleVariables.media.lg,
+      pointerEvents: 'none',
+      position: 'fixed',
+      width: `calc(100% - ${styleVariables.spacer.base})`,
+      zIndex: '1300'
+    },
+    fab: {
+      float: 'right',
+      pointerEvents: 'all'
+    }
+
+  }
+
   return (
-    <header className={s.main}>
+    <header style={style.main}>
       <Link to='/'>
         <Icon size='3rem'
           viewBox='0 0 832 687'
           icon='maecen-m-only'
         />
       </Link>
-      <div className={s.rightmenu}>
+      <div style={style.rightmenu}>
         {hasAccess
         ? hasAuth === false
           ? <Button label={t('login')}
@@ -40,12 +71,12 @@ function Header (props, context) {
               last={true}
               onClick={loginAction}
             />
-          : <span style={{marginRight: '5px'}}>
-              <Link to='/maecenates' style={{marginRight: '5px'}}>
-                <SearchIcon color={'white'} style={{width: '40px', height: '40px', opacity: '0.6'}}/>
+          : <span>
+              <Link to='/maecenates'>
+                <SearchIcon color={style.iconColor} style={style.icon}/>
               </Link>
               <Link to='/profile'>
-                <PersonIcon color={'white'} style={{width: '40px', height: '40px', opacity: '0.6'}}/>
+                <PersonIcon color={style.iconColor} style={style.icon}/>
               </Link>
             </span>
         : <IconButton
@@ -56,9 +87,9 @@ function Header (props, context) {
       </div>
       { !hideFab &&
         adminMaecenates.length !== 0 &&
-          <div className={s.fabWrap}>
+          <div style={style.fabWrap}>
             <FloatingActionButton
-              className={s.fab}
+              style={style.fab}
               style={{backgroundColor: 'transparent'}}
               onClick={createPost}
             >
