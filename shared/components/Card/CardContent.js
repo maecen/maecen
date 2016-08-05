@@ -7,7 +7,7 @@ const style = {
   padding: styleVariables.spacer.base,
   fontSize: styleVariables.font.size.body,
   lineHeight: '1.7',
-  '@media (min-width: 992px)': {
+  '@media (min-width: 70rem)': {
     fontSize: styleVariables.font.size.bodyDesktop
   }
 }
@@ -19,7 +19,7 @@ function CardText (props) {
 
   if (props.noTopPadding === true) {
     styling = {
-      ...style,
+      ...styling,
       paddingTop: '0px'
     }
   }

@@ -1,15 +1,33 @@
 import React, { PropTypes } from 'react'
 import { startsWith } from 'strman'
 import cropCloudy from '../../lib/cropCloudy'
-import s from './Media.scss'
+
+const style = {
+  cover: {
+    position: 'relative',
+    paddingBottom: '56.25%',
+    height: '0',
+    overflow: 'hidden'
+  },
+  coverMedia: {
+    height: '100%',
+    left: '0',
+    position: 'absolute',
+    top: '0',
+    width: '100%'
+  },
+  coverVideo: {
+    backgroundColor: 'black'
+  }
+}
 
 export default function Media (props, context) {
   if (props.fixedRatio) {
     return (
-      <div className={s.cover}>
+      <div style={style.cover}>
         {props.url && startsWith(props.type, 'video')
-          ? <video className={`${s.coverMedia} ${s.coverVideo}`} src={props.url} controls />
-          : <img className={s.coverMedia} src={cropCloudy(props.url, 'cover')} />
+          ? <video style={`${style.coverMedia} ${style.coverVideo}`} src={props.url} controls />
+          : <img style={style.coverMedia} src={cropCloudy(props.url, 'cover')} />
         }
       </div>
     )

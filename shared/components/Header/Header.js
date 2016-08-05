@@ -49,6 +49,7 @@ function Header (props, context) {
       zIndex: '1300'
     },
     fab: {
+      backgroundColor: 'transparent',
       float: 'right',
       pointerEvents: 'all'
     }
@@ -90,7 +91,6 @@ function Header (props, context) {
           <div style={style.fabWrap}>
             <FloatingActionButton
               style={style.fab}
-              style={{backgroundColor: 'transparent'}}
               onClick={createPost}
             >
               <ContentAdd />

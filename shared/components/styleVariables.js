@@ -2,6 +2,12 @@
 const defaultUnit = 16
 
 export default {
+  animation: {
+    default: '.3s ease'
+  },
+  border: {
+    radius: '3px'
+  },
   color: {
     alert: 'rgb(244, 67, 54)',
     bodyText: 'white'
@@ -19,7 +25,8 @@ export default {
     }
   },
   layout: {
-    wrap: '4vw 0 6vw'
+    wrap: '4vw 0 6vw',
+    lineHeight: '1.6'
   },
   media: {
     lg: '70rem'
