@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import uuid from 'uuid'
 import Immutable from 'seamless-immutable'
 import mapKeys from 'lodash/mapKeys'
 import { slugify } from 'strman'
@@ -107,6 +108,31 @@ export function userIsAdmin (maecenateId, userId) {
   .count('1')
   .then(res => {
     console.log(res)
+  })
+}
+
+// Create a new support between the user and the maecenate
+// If a support between them already exists, we just alter it
+// and update the amount
+export function supportMaecenate (maecenateId, userId, amount) {
+  return knex('supporters').where({ maecenate: maecenateId, user: userId }).limit(0)
+  .then(([currentSupport]) => {
+    if (currentSupport) {
+      const support = {
+        ...currentSupport,
+        amount
+      }
+      return knex('supporters').where({ id: currentSupport.id })
+        .update(support).then(() => support)
+    } else {
+      const support = {
+        id: uuid.v1(),
+        user: userId,
+        maecenate: maecenateId,
+        amount
+      }
+      return knex('supporters').insert(support).then(() => support)
+    }
   })
 }
 

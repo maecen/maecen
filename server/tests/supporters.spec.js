@@ -35,18 +35,25 @@ test.beforeEach(async t => {
 })
 test.afterEach.always(t => knex.migrate.rollback())
 
-test('POST /api/supportMaecenate', async t => {
+test('Support maecenates', async t => {
   const otherMaecenate = t.context.otherMaecenate
   const otherUser = t.context.otherUser
+  const amount = 1000
   const res = await request(app)
-    .post('/api/supportMaecenate')
+    .post('/api/maecenates/initiate-payment')
     .set(base)
-    .send({ maecenateId: otherMaecenate.id, amount: 10 })
+    .send({ maecenateId: otherMaecenate.id, amount })
 
   t.is(res.status, 200)
+  t.is(res.body.amount, String(amount))
+  const orderId = res.body.orderid
 
-  const entityId = res.body.result[0]
-  t.is(res.body.entities.supports[entityId].amount, 10)
+  const txnid = '123456789'
+  const cbRes = await request(app)
+    .get(`/api/transactions/payment-callback?txnid=${txnid}&orderid=${orderId}` +
+         `&amount=${amount}`)
+
+  t.is(cbRes.status, 200)
 
   // Check if we can watch the newly supported maecenates again
   const resSupported = await request(app)

@@ -89,6 +89,7 @@
     "redux-thunk": "^1.0.3",
     "reselect": "^2.5.1",
     "sanitize-html": "^1.11.3",
+    "scriptjs": "^2.5.8",
     "seamless-immutable": "^6.1.0",
     "serialize-javascript": "^1.2.0",
     "simple-bufferstream": "^1.0.0",
