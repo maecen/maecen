@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import styleVariables from '../styleVariables'
 import { Card, CardContent, CardTitle } from '../Card'
 import cropCloudy from '../../lib/cropCloudy'
+import Media from '../Media/Media'
 import Avatar from 'material-ui/Avatar'
 
 function MaecenateCard (props, context) {
@@ -30,8 +31,8 @@ function MaecenateCard (props, context) {
         size={60}
         style={style.avatar}
       />
-
       <CardTitle title={title} />
+      <Media type={cover.type} url={cover.url} fixedRatio={true} />
       <CardContent>{teaser}</CardContent>
     </Card>
   )
