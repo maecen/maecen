@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import MaterialCard from 'material-ui/Card'
+import styleVariables from '../styleVariables'
 
 export default class Card extends Component {
   render () {
@@ -16,7 +17,8 @@ export default class Card extends Component {
 
 Card.defaultProps = {
   style: {
-    marginBottom: '4px',
+    marginBottom: styleVariables.spacer.quart,
+    // relative because absolute positioned edit buttons
     position: 'relative'
   }
 }

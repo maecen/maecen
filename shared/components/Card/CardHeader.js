@@ -12,7 +12,7 @@ export default class CardHeader extends Component {
 
 CardHeader.defaultProps = {
   style: {
-    lineHeight: styleVariables.layout.lineHeight,
+    lineHeight: styleVariables.font.lineHeight.body,
     wordBreak: 'break-word',
     paddingBottom: '0px'
   }

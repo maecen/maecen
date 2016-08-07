@@ -12,7 +12,7 @@ export default class CardError extends Component {
 
 CardError.defaultProps = {
   style: {
-    lineHeight: styleVariables.layout.lineHeight,
-    color: 'red'
+    lineHeight: styleVariables.font.lineHeight.body,
+    color: styleVariables.color.alert
   }
 }

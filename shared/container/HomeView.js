@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
-import * as constants from '../container/App/App'
 import { isBrowser } from '../config'
 
+import styleVariables from '../components/styleVariables'
 import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
 import Button from '../components/Form/Button'
@@ -79,7 +79,7 @@ class HomeView extends Component {
                     margin: '0 auto',
                     display: 'flex',
                     justifyContent: 'center',
-                    borderColor: constants.themeColor,
+                    borderColor: styleVariables.color.primary,
                     borderWidth: '2px',
                     borderRadius: '2px',
                     borderStyle: 'solid'
@@ -104,7 +104,7 @@ class HomeView extends Component {
                     name='subscribe'
                     id='mc-embedded-subscribe'
                     style={{
-                      backgroundColor: constants.themeColor,
+                      backgroundColor: styleVariables.color.primary,
                       borderWidth: '0',
                       borderRadius: '0px',
                       color: 'white',

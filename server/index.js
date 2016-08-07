@@ -122,9 +122,27 @@ function getAuthenticatedUser (userId, clearCookie) {
 
 function renderTemplate (html, initialState, i18n) {
   const cssPath = '/dist/app.css'
+  const style = {
+    html: `
+      overflow-x: hidden;
+      font-family: Roboto, sans-serif;
+      font-size: 16px;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;`,
+    body: `
+      background-image: url('img/bg.svg');
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #202020;
+      background-position: 50%;
+      background-size: cover;
+      background-attachment: fixed;`
+  }
   return `
     <!DOCTYPE html>
-    <html>
+    <html style="${style.html}">
       <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -141,7 +159,7 @@ function renderTemplate (html, initialState, i18n) {
         <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
       </head>
-      <body>
+      <body style="${style.body}">
         <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${serialize(initialState)}

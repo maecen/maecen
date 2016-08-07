@@ -10,18 +10,31 @@ export default {
   },
   color: {
     alert: 'rgb(244, 67, 54)',
-    bodyText: 'white'
+    bodyText: 'white',
+    icon: 'rgba(255,255,255,0.6)',
+    primary: 'hsl(190, 100%, 30%)'
   },
   font: {
     size: {
       bodySmall: '12px',
       body: `${defaultUnit}px`,
-      bodyDesktop: '18px'
+      bodyLarge: '18px',
+      h1: '30px',
+      h1Big: '40px'
+    },
+    weight: {
+      heading: '300'
+    },
+    lineHeight: {
+      body: '1.6',
+      heading: '1.2'
     }
   },
   icon: {
     size: {
-      big: '40px'
+      md: '30px',
+      lg: '40px',
+      xl: '60px'
     }
   },
   layout: {
@@ -34,7 +47,8 @@ export default {
   spacer: {
     base: `${defaultUnit}px`,
     double: `${defaultUnit * 2}px`,
-    half: `${defaultUnit / 2}px`
+    half: `${defaultUnit / 2}px`,
+    quart: `${defaultUnit / 4}px`
   }
 }
 

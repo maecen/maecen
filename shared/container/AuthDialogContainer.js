@@ -95,6 +95,7 @@ class AuthDialogContainer extends React.Component {
       (isCreating === false &&
         <Button label={t('user.createUser')}
           flat={true}
+          primary={true}
           onClick={this.setActionCreate} />),
       <Button type='submit'
         label={actionLabel}
