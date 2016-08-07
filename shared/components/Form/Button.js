@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import Immutable from 'seamless-immutable'
 import MaterialRaisedButton from 'material-ui/RaisedButton'
 import MaterialFlatButton from 'material-ui/FlatButton'
+import styleVariables from '../styleVariables'
 
 export default function Button (props, context) {
   props = Immutable(props)
@@ -25,9 +26,9 @@ Button.defaultProps = {
   labelStyle: {
     height: 'auto',
     letterSpacing: '0.1rem',
-    lineHeight: '20px',
+    lineHeight: styleVariables.font.lineHeight.body,
     display: 'block',
-    padding: '8px 0',
+    padding: `${styleVariables.spacer.half} 0`,
     margin: '0 12px'
   }
 }

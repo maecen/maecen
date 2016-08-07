@@ -26,11 +26,10 @@ function Header (props, context) {
 
   const style = {
     icon: {
-      width: styleVariables.icon.size.big,
-      height: styleVariables.icon.size.big,
-      opacity: '0.6'
+      width: styleVariables.icon.size.lg,
+      height: styleVariables.icon.size.lg
     },
-    iconColor: styleVariables.color.bodyText,
+    iconColor: styleVariables.color.icon,
     main: {
       marginBottom: styleVariables.spacer.base,
       padding: '1vw 0'
@@ -59,7 +58,7 @@ function Header (props, context) {
   return (
     <header style={style.main}>
       <Link to='/'>
-        <Icon size='3rem'
+        <Icon size={styleVariables.icon.size.xl}
           viewBox='0 0 832 687'
           icon='maecen-m-only'
         />

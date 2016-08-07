@@ -20,37 +20,41 @@ class UserFeedView extends Component {
   render () {
     const { posts, t } = this.props
 
-    const feedStyle = {
-      padding: '0 0 6vw'
-    }
-
-    const h1Style = {
-      fontSize: '30px',
-      color: styleVariables.color.bodyText,
-      lineHeight: '1.2',
-      fontWeight: '300',
-      marginTop: '0px'
-    }
-
-    const getStartedStyle = {
-      color: styleVariables.color.bodyText,
-      lineHeight: styleVariables.layout.lineHeight,
-      verticalAlign: 'middle'
-    }
-
-    const findMaecenateStyle = {
-      color: styleVariables.color.bodyText,
-      lineHeight: styleVariables.layout.lineHeight,
-      verticalAlign: 'top',
-      marginTop: '15px',
-      display: 'inline-block'
+    const style = {
+      wrap: {
+        padding: styleVariables.layout.wrap
+      },
+      h1: {
+        fontSize: styleVariables.font.size.h1,
+        color: styleVariables.color.bodyText,
+        lineHeight: '1.2',
+        fontWeight: '300',
+        marginTop: '0px'
+      },
+      getStarted: {
+        color: styleVariables.color.bodyText,
+        lineHeight: styleVariables.font.lineHeight.body,
+        marginBottom: styleVariables.spacer.base,
+        verticalAlign: 'middle'
+      },
+      findMaecenate: {
+        color: styleVariables.color.bodyText,
+        lineHeight: styleVariables.font.lineHeight.body,
+        verticalAlign: 'top',
+        marginTop: styleVariables.spacer.base,
+        display: 'inline-block'
+      },
+      icon: {
+        width: styleVariables.icon.size.xl,
+        height: styleVariables.icon.size.xl
+      }
     }
 
     return (
-      <div style={feedStyle}>
+      <div style={style.wrap}>
         <Row>
           <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
-            <h1 style={h1Style}>{t('feed.yourNews')}</h1>
+            <h1 style={style.h1}>{t('feed.yourNews')}</h1>
             { posts.length !== 0
               ? posts.map(post =>
                   <Post
@@ -60,12 +64,12 @@ class UserFeedView extends Component {
                   />
                 )
               : <div>
-                  <div style={getStartedStyle}>{t('feed.getStarted')}</div>
+                  <div style={style.getStarted}>{t('feed.getStarted')}</div>
                   <div>
-                    <Link to='/maecenates' style={{marginRight: '5px'}}>
-                      <SearchIcon color={'white'} style={{width: '60px', height: '60px', opacity: '0.6'}}/>
+                    <Link to='/maecenates'>
+                      <SearchIcon color={styleVariables.color.icon} style={style.icon}/>
                     </Link>
-                    <span style={findMaecenateStyle}>{t('feed.findMaecenate')}</span>
+                    <span style={style.findMaecenate}>{t('feed.findMaecenate')}</span>
                   </div>
                 </div>
               }
