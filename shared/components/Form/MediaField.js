@@ -1,15 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import styleVariables from '../styleVariables'
 
-const style = {
-  main: {
-    marginTop: styleVariables.spacer.base
-  },
-  error: {
-    color: styleVariables.color.alert
-  }
-}
-
 class ImageField extends Component {
 
   constructor (props) {
@@ -46,6 +37,15 @@ class ImageField extends Component {
     let error = context.errors[path] || null
     if (error && error.message) {
       error = error.message
+    }
+
+    const style = {
+      main: {
+        marginTop: styleVariables.spacer.base
+      },
+      error: {
+        color: styleVariables.color.alert
+      }
     }
 
     return (

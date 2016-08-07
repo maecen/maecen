@@ -11,7 +11,8 @@ export default {
   color: {
     alert: 'rgb(244, 67, 54)',
     bodyText: 'white',
-    icon: 'rgba(255,255,255,0.6)'
+    icon: 'rgba(255,255,255,0.6)',
+    primary: 'hsl(190, 100%, 30%)'
   },
   font: {
     size: {
@@ -31,6 +32,7 @@ export default {
   },
   icon: {
     size: {
+      md: '30px',
       lg: '40px',
       xl: '60px'
     }
