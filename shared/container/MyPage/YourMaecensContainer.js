@@ -44,7 +44,7 @@ class YourMaecensContainer extends Component {
                   <Divider />
                 }
                 <ListItem
-                  style={{webkitAppearance: 'none'}}
+                  style={{WebkitAppearance: 'none'}}
                   leftAvatar={
                     <Avatar
                       src={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}

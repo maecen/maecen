@@ -60,7 +60,7 @@ class YourMaecenatesContainer extends Component {
                   onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
                   /* TODO this should probably be default for all list items */
                   innerDivStyle={{wordWrap: 'break-word'}}
-                  style={{webkitAppearance: 'none'}}
+                  style={{WebkitAppearance: 'none'}}
                   rightIcon={
                     <ActionInfo
                       style={{width: '30px', height: '30px', margin: '9px'}}
