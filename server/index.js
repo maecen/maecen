@@ -160,7 +160,8 @@ function renderTemplate (html, initialState, i18n) {
         <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
       </head>
       <body style="${style.body}">
-        <div id="root">${html}</div>
+        <!-- Extra div to fix isomorphic rendering -->
+        <div id="root"><div>${html}</div></div>
         <script>
           window.__INITIAL_STATE__ = ${serialize(initialState)}
           window.__i18n = ${serialize(i18n)}
