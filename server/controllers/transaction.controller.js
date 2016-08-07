@@ -1,3 +1,4 @@
+import { apiURL } from '../../shared/config'
 import * as service from '../services/transactions'
 import * as maecenateService from '../services/maecenates'
 
@@ -8,8 +9,6 @@ export function maecenateInitiatePayment (req, res, next) {
   service.createPayment(
     service.SUPPORT_MAECENATE, userId, maecenateId, amount
   ).then(transaction => {
-    const apiURL = 'http://beta.maecen.net'
-
     const epayPaymentParams = {
       merchantnumber: process.env.EPAY_MERCANT_NUMBER,
       amount: String(amount),

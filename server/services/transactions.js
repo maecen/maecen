@@ -1,4 +1,4 @@
-import uuid from 'uuid'
+import uuid from 'node-uuid'
 import { knex } from '../database'
 
 // Constants

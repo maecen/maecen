@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import uuid from 'uuid'
+import uuid from 'node-uuid'
 import Immutable from 'seamless-immutable'
 import mapKeys from 'lodash/mapKeys'
 import { slugify } from 'strman'
