@@ -1,5 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import s from './MediaField.scss'
+import styleVariables from '../styleVariables'
+
+const style = {
+  main: {
+    marginTop: styleVariables.spacer.base
+  },
+  error: {
+    color: styleVariables.color.alert
+  }
+}
 
 class ImageField extends Component {
 
@@ -40,7 +49,7 @@ class ImageField extends Component {
     }
 
     return (
-      <div className={s.main}>
+      <div style={style.main}>
         { props.label &&
           <label>{props.label} </label>
         }
@@ -48,7 +57,7 @@ class ImageField extends Component {
           multiple
           onChange={this.handleChange.bind(this)} />
         {error &&
-          <div style={{color: '#ff0000'}}>{error}</div>
+          <div style={style.error}>{error}</div>
         }
       </div>
     )
