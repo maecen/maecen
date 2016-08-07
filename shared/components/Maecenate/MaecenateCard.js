@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react'
 
 import styleVariables from '../styleVariables'
 import { Card, CardContent, CardTitle } from '../Card'
+import cropCloudy from '../../lib/cropCloudy'
+import Avatar from 'material-ui/Avatar'
 
 function MaecenateCard (props, context) {
   const { maecenate: {
@@ -23,6 +25,12 @@ function MaecenateCard (props, context) {
 
   return (
     <Card onClick={onClick} style={style.card}>
+      <Avatar
+        src={cropCloudy(logo.url, 'logo-tiny')}
+        size={60}
+        style={style.avatar}
+      />
+
       <CardTitle title={title} />
       <CardContent>{teaser}</CardContent>
     </Card>
