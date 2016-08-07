@@ -29,6 +29,9 @@ function Header (props, context) {
       width: styleVariables.icon.size.lg,
       height: styleVariables.icon.size.lg
     },
+    logo: {
+      color: styleVariables.color.bodyText
+    },
     iconColor: styleVariables.color.icon,
     main: {
       marginBottom: styleVariables.spacer.base,
@@ -57,7 +60,7 @@ function Header (props, context) {
 
   return (
     <header style={style.main}>
-      <Link to='/'>
+      <Link to='/' style={style.logo}>
         <Icon size={styleVariables.icon.size.xl}
           viewBox='0 0 832 687'
           icon='maecen-m-only'
