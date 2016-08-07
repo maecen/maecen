@@ -11,6 +11,8 @@ import { Card, CardContent, CardTitle } from '../../components/Card'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
+import IconButton from 'material-ui/IconButton'
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 
 class ProfileContainer extends Component {
 
@@ -72,6 +74,13 @@ class ProfileContainer extends Component {
             style={{paddingBottom: '0px'}}
           />
           <CardContent>
+            { isEdit === false &&
+              <IconButton
+                style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
+                onClick={this.toggleEdit.bind(this)}>
+                <EditIcon />
+              </IconButton>
+            }
             <Form onSubmit={this.handleSubmit.bind(this)} model={user}
               updateModel={this.updateModel.bind(this)}
               errors={this.state.errors}
@@ -126,25 +135,20 @@ class ProfileContainer extends Component {
 
               <Row style={{marginTop: '16px', textAlign: 'right'}}>
                 <Col xs={12}>
-                  { isEdit === false
-                    ? <Button type='button'
-                        last={true}
-                        onClick={this.toggleEdit.bind(this)}
+                  { isEdit === true &&
+                    <span>
+                      <Button
+                        flat={true}
                         primary={true}
-                        label={t('action.edit')} />
-
-                    : <span>
-                        <Button
-                          flat={true}
-                          onClick={this.toggleEdit.bind(this)}
-                          label={t('action.cancel')} />
-                        <Button
-                          last={true}
-                          label={t('post.saveEdit')}
-                          type='submit'
-                          primary={true}
-                          disabled={this.state.isSubmitting === true} />
-                      </span>
+                        onClick={this.toggleEdit.bind(this)}
+                        label={t('action.cancel')} />
+                      <Button
+                        last={true}
+                        label={t('post.saveEdit')}
+                        type='submit'
+                        primary={true}
+                        disabled={this.state.isSubmitting === true} />
+                    </span>
                   }
                 </Col>
               </Row>
@@ -155,6 +159,7 @@ class ProfileContainer extends Component {
           <CardContent style={{textAlign: 'right'}}>
             <Button onClick={this.clearAuth.bind(this)}
               primary={true}
+              flat={true}
               last={true}
               label={t('logout')} />
           </CardContent>
