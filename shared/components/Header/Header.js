@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
+import Link from '../Link/Link'
 import { translate } from 'react-i18next'
 import styleVariables from '../styleVariables'
 
