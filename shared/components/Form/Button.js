@@ -11,7 +11,7 @@ export default function Button (props, context) {
     props = props.setIn(['style', 'marginRight'], '0.5rem')
     return <ButtonType {...props.without('flat')} />
   } else {
-    return <ButtonType {...props.without('flat')} />
+    return <ButtonType {...props.without('flat', 'last')} />
   }
 }
 

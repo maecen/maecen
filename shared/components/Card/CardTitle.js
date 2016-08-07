@@ -19,7 +19,7 @@ export default function CardTitle (props) {
   return (
     <MaterialCardTitle
       titleStyle={titleStyle}
-      {...props.without('titleStyle')} />
+      {...props.without('titleStyle', 'big')} />
   )
 }
 
