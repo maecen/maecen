@@ -51,7 +51,6 @@ module.exports = {
       'process.env': {
         CLIENT: JSON.stringify(true)
       }
-      // TODO should we do window = global.window here?
     })
   ],
 };

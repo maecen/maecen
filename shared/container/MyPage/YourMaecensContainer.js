@@ -58,9 +58,13 @@ class YourMaecensContainer extends Component {
           </List>
         }
         {maecenates.length === 0 &&
-          <CardContent>
+          <CardContent style={{textAlign: 'right'}}>
             <Link to='/maecenates'>
-              <Button primary={true} label={t('maecenate.seeAll')} />
+              <Button
+                primary={true}
+                label={t('maecenate.seeAll')}
+                last={true}
+              />
             </Link>
           </CardContent>
         }

@@ -9,7 +9,6 @@ import styleVariables from '../../components/styleVariables'
 import HeaderContainer from '../HeaderContainer'
 import FooterContainer from '../FooterContainer'
 import AuthDialogContainer from '../AuthDialogContainer'
-import s from './App.scss'
 
 const themeColor = styleVariables.color.primary
 const muiTheme = getMuiTheme({
@@ -33,6 +32,16 @@ const style = {
     padding: '0 .5rem',
     maxWidth: '70rem',
     margin: '0 auto'
+  },
+  contentWrap: {
+    alignItems: 'center',
+    display: 'flex',
+    flex: '1',
+    justifyContent: 'center',
+    paddingBottom: '0px'
+  },
+  content: {
+    flexGrow: '1'
   }
 }
 
@@ -48,8 +57,8 @@ function App (props) {
             <HeaderContainer>
               { props.children }
             </HeaderContainer>
-            <div className={s.contentWrap}>
-              <div className={s.content}>
+            <div style={style.contentWrap}>
+              <div style={style.content}>
                 { props.children }
               </div>
             </div>
