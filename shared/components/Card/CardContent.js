@@ -8,7 +8,7 @@ const style = {
   fontSize: styleVariables.font.size.body,
   lineHeight: '1.7',
   '@media (min-width: 70rem)': {
-    fontSize: styleVariables.font.size.bodyDesktop
+    fontSize: styleVariables.font.size.bodyLarge
   }
 }
 

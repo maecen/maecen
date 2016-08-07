@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
 import Immutable from 'seamless-immutable'
+
+import styleVariables from '../styleVariables'
 import { CardTitle as MaterialCardTitle } from 'material-ui/Card'
 
 export default function CardTitle (props) {
@@ -9,10 +11,9 @@ export default function CardTitle (props) {
   if (props.big === true) {
     titleStyle = {
       ...titleStyle,
-      fontSize: '40px',
-      fontWeight: '300',
-      paddingTop: '16px',
-      paddingBottom: '16px'
+      fontSize: styleVariables.font.size.h1Big,
+      fontWeight: styleVariables.font.weight.heading,
+      padding: `${styleVariables.spacer.base} 0`
     }
   }
   return (
@@ -24,10 +25,10 @@ export default function CardTitle (props) {
 
 CardTitle.defaultProps = {
   titleStyle: {
-    lineHeight: '1.2'
+    lineHeight: styleVariables.font.lineHeight.heading
   },
   subtitleStyle: {
-    marginTop: '4px'
+    marginTop: styleVariables.spacer.quart
   },
   style: {
     display: 'inline-block'
