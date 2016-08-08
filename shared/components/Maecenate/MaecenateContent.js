@@ -3,7 +3,7 @@ import { Row, Col } from 'react-flexbox-grid/lib'
 import { translate } from 'react-i18next'
 
 import styleVariables from '../styleVariables'
-import { Card, CardTitle, CardHeader, CardContent } from '../Card'
+import { Card, CardTitle, CardContent } from '../Card'
 import Post from '../Post/Post'
 import Avatar from 'material-ui/Avatar'
 import Media from '../Media/Media'
@@ -25,6 +25,13 @@ function MaecenateContent (props) {
     },
     wrap: {
       padding: styleVariables.layout.wrap
+    },
+    link: {
+      color: styleVariables.color.primary,
+      textDecoration: 'none'
+    },
+    subtitle: {
+      fontWeight: styleVariables.font.weight.subtitle
     }
   }
 
@@ -49,16 +56,15 @@ function MaecenateContent (props) {
                 <Media type={maecenate.cover.type} url={maecenate.cover.url} fixedRatio={true} />
               }
             </CardContent>
-            <CardHeader
-              title={maecenate.teaser}
-              expandable={true}
-            />
+            <CardContent style={style.subtitle} expandable={true}>
+              { maecenate.teaser }
+            </CardContent>
             <CardContent expandable={true}>
               { maecenate.description }
             </CardContent>
             <CardContent expandable={true}>
               {t('support.minimumAmount',
-                { context: 'DKK', count: maecenate.monthlyMinimum })}
+                { context: 'DKK', count: maecenate.monthly_minimum })}
               <br />
               {maecenate.url &&
                 <span>
@@ -66,7 +72,7 @@ function MaecenateContent (props) {
                   <a
                     href={`http://${maecenate.url}`}
                     target='_blank'
-                    style={{color: 'inherit'}}>
+                    style={style.link}>
                     &nbsp;{maecenate.url}
                   </a>
                 </span>

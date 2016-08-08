@@ -18,7 +18,8 @@ function MaecenateCard (props, context) {
       marginTop: styleVariables.spacer.base
     },
     card: {
-      marginBottom: styleVariables.spacer.base
+      marginBottom: styleVariables.spacer.base,
+      cursor: 'pointer'
     }
   }
 

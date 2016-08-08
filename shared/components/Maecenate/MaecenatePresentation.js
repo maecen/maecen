@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 
 import styleVariables from '../styleVariables'
 import { Row, Col } from 'react-flexbox-grid/lib'
-import { Card, CardContent, CardTitle, CardHeader } from '../../components/Card'
+import { Card, CardContent, CardTitle } from '../../components/Card'
 import { translate } from 'react-i18next'
 import cropCloudy from '../../lib/cropCloudy'
 import Avatar from 'material-ui/Avatar'
@@ -40,6 +40,18 @@ function MaecenatePresentation (props) {
     },
     wrap: {
       padding: styleVariables.layout.wrap
+    },
+    button: {
+      position: 'absolute',
+      right: styleVariables.spacer.base,
+      bottom: styleVariables.spacer.base
+    },
+    link: {
+      color: styleVariables.color.primary,
+      textDecoration: 'none'
+    },
+    subtitle: {
+      fontWeight: styleVariables.font.weight.subtitle
     }
   }
 
@@ -68,9 +80,9 @@ function MaecenatePresentation (props) {
                 <Media type={cover.type} url={cover.url} fixedRatio={true} />
               }
             </CardContent>
-            <CardHeader
-              title={maecenate.teaser}
-            />
+            <CardContent style={style.subtitle}>
+              { maecenate.teaser }
+            </CardContent>
             <CardContent>
               {maecenate.description}
             </CardContent>
@@ -86,7 +98,7 @@ function MaecenatePresentation (props) {
                   <a
                     href={`http://${url}`}
                     target='_blank'
-                    style={{color: 'inherit'}}>
+                    style={style.link}>
                     &nbsp;{url}
                   </a>
                 </span>
@@ -94,9 +106,10 @@ function MaecenatePresentation (props) {
               {!isAuthUserOwner &&
                 <Button
                   primary={true}
+                  last={true}
                   label={t('support.join')}
                   onClick={supportMaecenate}
-                  style={{marginTop: '16px'}}
+                  style={style.button}
                 />
               }
             </CardContent>
