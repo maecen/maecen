@@ -42,7 +42,7 @@ class MaecenateDashboardView extends Component {
   render () {
     const { users, maecenate, t } = this.props
 
-    const totalAmount = sumBy(users, o => o.support.amount)
+    const totalAmount = Math.round(sumBy(users, o => o.support.amount) / 100)
     const totalString = t('maecenate.totalAmount', { total: totalAmount })
 
     return (
@@ -75,7 +75,7 @@ class MaecenateDashboardView extends Component {
           {
             users.map(user => (
               <ListItem key={user.id}>
-                {user.first_name} {user.support.amount}
+                {user.first_name} {Math.round(user.support.amount / 100)}
               </ListItem>
             ))
           }
