@@ -3,7 +3,7 @@ import { Row, Col } from 'react-flexbox-grid/lib'
 import { translate } from 'react-i18next'
 
 import styleVariables from '../styleVariables'
-import { Card, CardTitle, CardContent } from '../Card'
+import { Card, CardHeader, CardTitle, CardContent } from '../Card'
 import Post from '../Post/Post'
 import Avatar from 'material-ui/Avatar'
 import Media from '../Media/Media'
