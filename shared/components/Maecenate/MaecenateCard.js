@@ -14,7 +14,7 @@ function MaecenateCard (props, context) {
   const style = {
     avatar: {
       marginLeft: styleVariables.spacer.base,
-      marginBottom: '-' + styleVariables.spacer.base,
+      marginBottom: '-12px',
       marginTop: styleVariables.spacer.base
     },
     card: {

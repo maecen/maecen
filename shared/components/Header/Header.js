@@ -21,7 +21,9 @@ function Header (props, context) {
     createPost,
     hideFab,
     getAccessAction,
-    hasAccess
+    hasAccess,
+    gotoAllMaecenates,
+    gotoMyPage
   } = props
 
   const style = {
@@ -55,7 +57,6 @@ function Header (props, context) {
       float: 'right',
       pointerEvents: 'all'
     }
-
   }
 
   return (
@@ -75,12 +76,18 @@ function Header (props, context) {
               onClick={loginAction}
             />
           : <span>
-              <Link to='/maecenates'>
-                <SearchIcon color={style.iconColor} style={style.icon}/>
-              </Link>
-              <Link to='/profile'>
+              <IconButton
+                style={{width: 64, height: 64, margin: -10}}
+                iconStyle={{width: 40, height: 40}}
+                onTouchTap={gotoAllMaecenates}>
+                <SearchIcon color={style.iconColor}/>
+              </IconButton>
+              <IconButton
+                style={{width: 64, height: 64, margin: -10}}
+                iconStyle={{width: 40, height: 40}}
+                onTouchTap={gotoMyPage}>
                 <PersonIcon color={style.iconColor} style={style.icon}/>
-              </Link>
+              </IconButton>
             </span>
         : <IconButton
             onClick={getAccessAction} >
@@ -108,6 +115,8 @@ Header.propTypes = {
   loginAction: PropTypes.func.isRequired,
   adminMaecenates: PropTypes.array.isRequired,
   createPost: PropTypes.func.isRequired,
+  gotoMyPage: PropTypes.func.isRequired,
+  gotoAllMaecenates: PropTypes.func.isRequired,
   getAccessAction: PropTypes.func.isRequired,
   hasAccess: PropTypes.bool.isRequired
 }
