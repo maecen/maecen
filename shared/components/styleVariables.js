@@ -23,7 +23,8 @@ export default {
       h1Big: '40px'
     },
     weight: {
-      heading: '300'
+      heading: '300',
+      subtitle: '500'
     },
     lineHeight: {
       body: '1.6',

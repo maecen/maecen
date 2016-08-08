@@ -1,16 +1,15 @@
 import React, { PropTypes } from 'react'
-import Link from '../Link/Link'
 import { translate } from 'react-i18next'
 import styleVariables from '../styleVariables'
 
 import Button from '../Form/Button'
-import Icon from '../Graphics/Icon'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import IconButton from 'material-ui/IconButton'
 import Burn from 'material-ui/svg-icons/social/whatshot'
 import PersonIcon from 'material-ui/svg-icons/social/person-outline'
 import SearchIcon from 'material-ui/svg-icons/action/search'
+import SvgIcon from 'material-ui/SvgIcon'
 
 function Header (props, context) {
   const {
@@ -23,8 +22,15 @@ function Header (props, context) {
     getAccessAction,
     hasAccess,
     gotoAllMaecenates,
-    gotoMyPage
+    gotoMyPage,
+    gotoHome
   } = props
+
+  const MaecenIcon = (props) => (
+    <SvgIcon {...props}>
+      <path d='M0 124c0-3 2-3 5-3 45 0 112 97 139 138 65 99 156 333 223 333 55 0 176-262 212-326C622 190 733 0 821 0c7 0 11 4 11 12 0 33-57 109-89 150 4 98 10 201 22 291 8 60 26 105 26 167 0 28-17 67-44 67-21 0-31-33-37-55-16-63-23-146-23-224 0-57 13-130 14-186-60 88-124 248-196 350-28 40-73 94-125 94-79 0-157-155-215-270-8 86 11 171-34 251-8 17-26 28-45 27-16 0-39-6-39-22 0-44 43-79 65-318 1-11 0-17 4-25C84 220 0 145 0 124z'/> /* eslint-disable max-len */
+    </SvgIcon>
+  )
 
   const style = {
     icon: {
@@ -35,6 +41,7 @@ function Header (props, context) {
       color: styleVariables.color.bodyText
     },
     iconColor: styleVariables.color.icon,
+    homeIconColor: styleVariables.color.bodyText,
     main: {
       marginBottom: styleVariables.spacer.base,
       padding: '1vw 0'
@@ -56,17 +63,37 @@ function Header (props, context) {
       backgroundColor: 'transparent',
       float: 'right',
       pointerEvents: 'all'
+    },
+    btnIconStyle: {
+      width: '40px',
+      height: '40px'
+    },
+    btnStyle: {
+      width: '64px',
+      height: '64px',
+      margin: '-12px'
+    },
+    homeBtnIconStyle: {
+      width: '50px',
+      height: '50px'
+    },
+    homeBtnStyle: {
+      width: '74px',
+      height: '74px',
+      margin: '-12px'
     }
   }
 
   return (
     <header style={style.main}>
-      <Link to='/' style={style.logo}>
-        <Icon size={styleVariables.icon.size.xl}
-          viewBox='0 0 832 687'
-          icon='maecen-m-only'
-        />
-      </Link>
+      <IconButton
+        style={style.homeBtnStyle}
+        iconStyle={style.homeBtnIconStyle}
+        onTouchTap={gotoHome}>
+        <MaecenIcon
+          color={style.homeIconColor}
+          viewBox='0 0 832 687' />
+      </IconButton>
       <div style={style.rightmenu}>
         {hasAccess
         ? hasAuth === false
@@ -77,20 +104,20 @@ function Header (props, context) {
             />
           : <span>
               <IconButton
-                style={{width: 64, height: 64, margin: -10}}
-                iconStyle={{width: 40, height: 40}}
+                style={style.btnStyle}
+                iconStyle={style.btnIconStyle}
                 onTouchTap={gotoAllMaecenates}>
                 <SearchIcon color={style.iconColor}/>
               </IconButton>
               <IconButton
-                style={{width: 64, height: 64, margin: -10}}
-                iconStyle={{width: 40, height: 40}}
+                style={style.btnStyle}
+                iconStyle={style.btnIconStyle}
                 onTouchTap={gotoMyPage}>
                 <PersonIcon color={style.iconColor} style={style.icon}/>
               </IconButton>
             </span>
         : <IconButton
-            onClick={getAccessAction} >
+            onTouchTap={getAccessAction} >
             <Burn color='rgba(255,255,255,0.25)'/>
           </IconButton>
         }
@@ -100,8 +127,7 @@ function Header (props, context) {
           <div style={style.fabWrap}>
             <FloatingActionButton
               style={style.fab}
-              onClick={createPost}
-            >
+              onTouchTap={createPost}>
               <ContentAdd />
             </FloatingActionButton>
           </div>
@@ -115,6 +141,7 @@ Header.propTypes = {
   loginAction: PropTypes.func.isRequired,
   adminMaecenates: PropTypes.array.isRequired,
   createPost: PropTypes.func.isRequired,
+  gotoHome: PropTypes.func.isRequired,
   gotoMyPage: PropTypes.func.isRequired,
   gotoAllMaecenates: PropTypes.func.isRequired,
   getAccessAction: PropTypes.func.isRequired,

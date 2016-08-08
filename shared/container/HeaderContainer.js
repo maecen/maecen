@@ -56,6 +56,10 @@ class HeaderContainer extends Component {
     browserHistory.push('/profile')
   }
 
+  gotoHome () {
+    browserHistory.push('/')
+  }
+
   render () {
     const hideFab = Boolean(this.props.children.props.route.hideFab)
 
@@ -70,6 +74,7 @@ class HeaderContainer extends Component {
       createPost={this.gotoCreatePost}
       gotoAllMaecenates={this.gotoAllMaecenates}
       gotoMyPage={this.gotoMyPage}
+      gotoHome={this.gotoHome}
       adminMaecenates={this.props.adminMaecenates}
       hideFab={hideFab}
       getAccessAction={this.getAccess}
