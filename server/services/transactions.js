@@ -54,7 +54,8 @@ export function verifyPayment (orderId, amount) {
 
 export function paymentSuccess (orderId, epayId) {
   return knex('transactions').where({ order_id: orderId }).limit(1).update({
-    status: 'success'
+    status: 'success',
+    epay_id: Number(epayId)
   }).then(() => {
     return knex('transactions').where({ order_id: orderId }).limit(1)
   }).then(result => result[0])

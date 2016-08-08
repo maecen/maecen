@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-import { isBrowser } from '../config'
+import { isBrowser, isSmallDevice } from '../config'
 import * as Actions from '../actions'
 import { isAuthorized, getAuthUser } from '../selectors/user'
 import { getMaecenateBySlug } from '../selectors/maecenate'
@@ -59,10 +59,24 @@ class MaecenateSupportView extends React.Component {
   }
 
   openEpayPayment (options) {
+    const { dispatch } = this.props
+
+    if (isSmallDevice) {
+      options = {
+        ...options,
+        accepturl: `${window.location.href}`
+      }
+    }
+
     const paymentWindow = new PaymentWindow(options) // eslint-disable-line no-undef
-    paymentWindow.on('completed', () => {
-      return Actions.fetchMaecenate(this.props.params.slug)
+
+    // We fetch the maecenate again when the payment window has been closed to
+    // check if the payment has gone through (a support object will be included
+    // from the server)
+    paymentWindow.on('close', () => {
+      dispatch(Actions.fetchMaecenate(this.props.params.slug))
     })
+
     paymentWindow.open()
   }
 
