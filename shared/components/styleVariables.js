@@ -39,14 +39,14 @@ export default {
     }
   },
   layout: {
-    wrap: '4vw 0 6vw',
-    lineHeight: '1.6'
+    wrap: '4vw 0 6vw'
   },
   media: {
     lg: '70rem'
   },
   spacer: {
     base: `${defaultUnit}px`,
+    onePointFive: `${defaultUnit * 1.5}px`,
     double: `${defaultUnit * 2}px`,
     half: `${defaultUnit / 2}px`,
     quart: `${defaultUnit / 4}px`

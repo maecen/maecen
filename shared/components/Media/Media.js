@@ -7,15 +7,15 @@ const style = {
   cover: {
     position: 'relative',
     paddingBottom: '56.25%',
-    height: '0',
+    height: '0px',
     overflow: 'hidden',
     marginBottom: styleVariables.spacer.quart
   },
   coverMedia: {
     height: '100%',
-    left: '0',
+    left: '0px',
     position: 'absolute',
-    top: '0',
+    top: '0px',
     width: '100%'
   },
   coverVideo: {

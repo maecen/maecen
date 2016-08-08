@@ -29,9 +29,10 @@ function MaecenatePresentation (props) {
 
   const style = {
     avatar: {
-      marginLeft: styleVariables.spacer.base,
-      marginBottom: '-' + styleVariables.spacer.base,
-      marginTop: styleVariables.spacer.base
+      margin: styleVariables.spacer.base,
+      marginRight: '0px',
+      marginTop: styleVariables.spacer.base,
+      flexShrink: '0'
     },
     header: {
       position: 'absolute',
@@ -52,6 +53,13 @@ function MaecenatePresentation (props) {
     },
     subtitle: {
       fontWeight: styleVariables.font.weight.subtitle
+    },
+    titleWrap: {
+      display: 'flex',
+      alignItems: 'center'
+    },
+    titleSubtitle: {
+      display: 'none'
     }
   }
 
@@ -60,16 +68,21 @@ function MaecenatePresentation (props) {
       <Row>
         <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
           <Card>
-            <Avatar
-              src={cropCloudy(logo.url, 'logo-tiny')}
-              size={60}
-              style={style.avatar}
-            />
-            <CardTitle big={true} title={maecenate.title} />
+            <div style={style.titleWrap}>
+              <Avatar
+                src={cropCloudy(logo.url, 'logo-tiny')}
+                size={60}
+                style={style.avatar}
+              />
+              <CardTitle big={true}
+                title={maecenate.title}
+                subtitleStyle={style.titleSubtitle}
+              />
+            </div>
             {isAuthUserOwner &&
               <IconButton
                 style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
-                onClick={editMaecenate} >
+                onTouchTap={editMaecenate} >
                 <EditIcon />
               </IconButton>
             }

@@ -13,7 +13,7 @@ export default function CardTitle (props) {
       ...titleStyle,
       fontSize: styleVariables.font.size.h1Big,
       fontWeight: styleVariables.font.weight.heading,
-      padding: `${styleVariables.spacer.base} 0`
+      padding: 0
     }
   }
   return (
@@ -25,13 +25,17 @@ export default function CardTitle (props) {
 
 CardTitle.defaultProps = {
   titleStyle: {
-    lineHeight: styleVariables.font.lineHeight.heading
+    lineHeight: styleVariables.font.lineHeight.heading,
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
   },
   subtitleStyle: {
     marginTop: styleVariables.spacer.quart
   },
   style: {
-    display: 'inline-block'
+    display: 'inline-block',
+    overflow: 'hidden'
   },
   big: false
 }

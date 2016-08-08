@@ -14,14 +14,13 @@ function MaecenateContent (props) {
 
   const style = {
     avatar: {
-      marginLeft: styleVariables.spacer.base,
-      marginBottom: `-${styleVariables.spacer.base}`,
-      marginTop: styleVariables.spacer.base
+      margin: styleVariables.spacer.base,
+      marginRight: '0px'
     },
     header: {
       position: 'absolute',
       right: '0px',
-      top: styleVariables.spacer.double
+      top: styleVariables.spacer.onePointFive
     },
     wrap: {
       padding: styleVariables.layout.wrap
@@ -32,6 +31,13 @@ function MaecenateContent (props) {
     },
     subtitle: {
       fontWeight: styleVariables.font.weight.subtitle
+    },
+    titleWrap: {
+      display: 'flex',
+      alignItems: 'center'
+    },
+    titleSubtitle: {
+      display: 'none'
     }
   }
 
@@ -45,12 +51,17 @@ function MaecenateContent (props) {
               actAsExpander={true}
               showExpandableButton={true}
             />
-            <Avatar
-              src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-              size={60}
-              style={style.avatar}
-            />
-            <CardTitle big={true} title={maecenate.title} />
+            <div style={style.titleWrap}>
+              <Avatar
+                src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+                size={60}
+                style={style.avatar}
+              />
+              <CardTitle big={true}
+                title={maecenate.title}
+                subtitleStyle={style.titleSubtitle}
+              />
+            </div>
             <CardContent expandable={true}>
               { maecenate.cover &&
                 <Media type={maecenate.cover.type} url={maecenate.cover.url} fixedRatio={true} />
