@@ -13,7 +13,7 @@ export function maecenateInitiatePayment (req, res, next) {
       merchantnumber: process.env.EPAY_MERCANT_NUMBER,
       amount: String(amount),
       currency: 'DKK',
-      windowid: '4',
+      windowid: String(process.env.EPAY_WINDOW_ID),
       group: 'Maecen',
       orderid: transaction.order_id,
       paymentcollection: '1',
