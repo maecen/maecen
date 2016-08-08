@@ -1,13 +1,15 @@
 import React, { PropTypes } from 'react'
 import { startsWith } from 'strman'
 import cropCloudy from '../../lib/cropCloudy'
+import styleVariables from '../styleVariables'
 
 const style = {
   cover: {
     position: 'relative',
     paddingBottom: '56.25%',
     height: '0',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    marginBottom: styleVariables.spacer.quart
   },
   coverMedia: {
     height: '100%',
@@ -20,7 +22,8 @@ const style = {
     backgroundColor: 'black'
   },
   noFixedAspect: {
-    width: '100%'
+    width: '100%',
+    marginBottom: styleVariables.spacer.base
   }
 }
 
