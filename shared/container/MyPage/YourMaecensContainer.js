@@ -10,7 +10,8 @@ import { getSupportedMaecenates } from '../../selectors/maecenate'
 import cropCloudy from '../../lib/cropCloudy'
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
-import { List, ListItem } from 'material-ui/List'
+import { List } from 'material-ui/List'
+import ListItem from '../../components/List/ListItem'
 import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 
@@ -44,7 +45,6 @@ class YourMaecensContainer extends Component {
                   <Divider />
                 }
                 <ListItem
-                  style={{WebkitAppearance: 'none'}}
                   leftAvatar={
                     <Avatar
                       src={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}

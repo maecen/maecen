@@ -9,7 +9,8 @@ import { getUserMaecenates } from '../../selectors/maecenate'
 
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
-import { List, ListItem } from 'material-ui/List'
+import { List } from 'material-ui/List'
+import ListItem from '../../components/List/ListItem'
 import Divider from 'material-ui/Divider'
 import cropCloudy from '../../lib/cropCloudy'
 import Avatar from 'material-ui/Avatar'
@@ -60,7 +61,6 @@ class YourMaecenatesContainer extends Component {
                   onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
                   /* TODO this should probably be default for all list items */
                   innerDivStyle={{wordWrap: 'break-word'}}
-                  style={{WebkitAppearance: 'none'}}
                   rightIcon={
                     <ActionInfo
                       style={{width: '30px', height: '30px', margin: '9px'}}
