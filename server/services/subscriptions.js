@@ -26,8 +26,8 @@ function fetchActiveSubPeriods (knex, date) {
     )
     .innerJoin('sub_periods', 'subscription', 'subscriptions.id')
     .innerJoin('transactions', 'transaction', 'transactions.id')
-    .where('start', '<', date)
-    .where('end', '>=', date)
+    .where('start', '<=', date)
+    .where('end', '>', date)
 }
 
 export function fetchSubscription (knex, subscriptionId) {
