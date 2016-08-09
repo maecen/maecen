@@ -39,9 +39,6 @@ export default {
       xl: '60px'
     }
   },
-  layout: {
-    wrap: '4vw 0 6vw'
-  },
   media: {
     lg: '70rem'
   },

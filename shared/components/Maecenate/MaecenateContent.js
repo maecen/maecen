@@ -22,9 +22,6 @@ function MaecenateContent (props) {
       right: '0px',
       top: styleVariables.spacer.onePointFive
     },
-    wrap: {
-      padding: styleVariables.layout.wrap
-    },
     link: {
       color: styleVariables.color.primary,
       textDecoration: 'none'
@@ -42,65 +39,63 @@ function MaecenateContent (props) {
   }
 
   return (
-    <div style={style.wrap}>
-      <Row>
-        <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
-          <Card>
-            <div style={style.titleWrap}>
-              <Avatar
-                src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-                size={60}
-                style={style.avatar}
-              />
-              <CardTitle big={true}
-                title={maecenate.title}
-                subtitleStyle={style.titleSubtitle}
-              />
-            </div>
-            <CardHeader
-              style={style.header}
-              actAsExpander={true}
-              showExpandableButton={true}
+    <Row>
+      <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+        <Card>
+          <div style={style.titleWrap}>
+            <Avatar
+              src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+              size={60}
+              style={style.avatar}
             />
-            <CardContent expandable={true}>
-              { maecenate.cover &&
-                <Media type={maecenate.cover.type} url={maecenate.cover.url} fixedRatio={true} />
-              }
-            </CardContent>
-            <CardContent style={style.subtitle} expandable={true}>
-              { maecenate.teaser }
-            </CardContent>
-            <CardContent expandable={true}>
-              { maecenate.description }
-            </CardContent>
-            <CardContent expandable={true}>
-              {t('support.minimumAmount',
-                { context: 'DKK', count: maecenate.monthly_minimum })}
-              <br />
-              {maecenate.url &&
-                <span>
-                  {t('website')}:
-                  <a
-                    href={`http://${maecenate.url}`}
-                    target='_blank'
-                    style={style.link}>
-                    &nbsp;{maecenate.url}
-                  </a>
-                </span>
-              }
-            </CardContent>
-          </Card>
-          {posts.map(post => (
-            <Post
-              post={post}
-              maecenate={maecenate}
-              editPost={editPost}
-              key={post.id}
-              noTitleOnPosts={noTitleOnPosts} />
-          ))}
-        </Col>
-      </Row>
-    </div>
+            <CardTitle big={true}
+              title={maecenate.title}
+              subtitleStyle={style.titleSubtitle}
+            />
+          </div>
+          <CardHeader
+            style={style.header}
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardContent expandable={true}>
+            { maecenate.cover &&
+              <Media type={maecenate.cover.type} url={maecenate.cover.url} fixedRatio={true} />
+            }
+          </CardContent>
+          <CardContent style={style.subtitle} expandable={true}>
+            { maecenate.teaser }
+          </CardContent>
+          <CardContent expandable={true}>
+            { maecenate.description }
+          </CardContent>
+          <CardContent expandable={true}>
+            {t('support.minimumAmount',
+              { context: 'DKK', count: maecenate.monthly_minimum })}
+            <br />
+            {maecenate.url &&
+              <span>
+                {t('website')}:
+                <a
+                  href={`http://${maecenate.url}`}
+                  target='_blank'
+                  style={style.link}>
+                  &nbsp;{maecenate.url}
+                </a>
+              </span>
+            }
+          </CardContent>
+        </Card>
+        {posts.map(post => (
+          <Post
+            post={post}
+            maecenate={maecenate}
+            editPost={editPost}
+            key={post.id}
+            noTitleOnPosts={noTitleOnPosts} />
+        ))}
+      </Col>
+    </Row>
   )
 }
 

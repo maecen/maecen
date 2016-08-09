@@ -26,9 +26,6 @@ class UserFeedView extends Component {
     const { posts, t } = this.props
 
     const style = {
-      wrap: {
-        padding: styleVariables.layout.wrap
-      },
       h1: {
         fontSize: styleVariables.font.size.h1,
         color: styleVariables.color.bodyText,
@@ -56,31 +53,29 @@ class UserFeedView extends Component {
     }
 
     return (
-      <div style={style.wrap}>
-        <Row>
-          <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
-            <h1 style={style.h1}>{t('feed.yourNews')}</h1>
-            { posts.length !== 0
-              ? posts.map(post =>
-                  <Post
-                    key={post.id}
-                    post={post}
-                    maecenate={post.maecenate}
-                  />
-                )
-              : <div>
-                  <div style={style.getStarted}>{t('feed.getStarted')}</div>
-                  <Button
-                    label={t('feed.findMaecenate')}
-                    primary={true}
-                    onTouchTap={this.gotoAllMaecenates}
-                    icon={<SearchIcon />}
-                  />
-                </div>
-              }
-          </Col>
-        </Row>
-      </div>
+      <Row>
+        <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+          <h1 style={style.h1}>{t('feed.yourNews')}</h1>
+          { posts.length !== 0
+            ? posts.map(post =>
+                <Post
+                  key={post.id}
+                  post={post}
+                  maecenate={post.maecenate}
+                />
+              )
+            : <div>
+                <div style={style.getStarted}>{t('feed.getStarted')}</div>
+                <Button
+                  label={t('feed.findMaecenate')}
+                  primary={true}
+                  onTouchTap={this.gotoAllMaecenates}
+                  icon={<SearchIcon />}
+                />
+              </div>
+            }
+        </Col>
+      </Row>
     )
   }
 }

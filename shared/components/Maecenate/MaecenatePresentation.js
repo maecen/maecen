@@ -39,9 +39,6 @@ function MaecenatePresentation (props) {
       right: '0px',
       top: styleVariables.spacer.double
     },
-    wrap: {
-      padding: styleVariables.layout.wrap
-    },
     link: {
       color: styleVariables.color.primary,
       textDecoration: 'none'
@@ -64,73 +61,71 @@ function MaecenatePresentation (props) {
   }
 
   return (
-    <div>
-      <Row>
-        <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
-          <Card>
-            <div style={style.titleWrap}>
-              <Avatar
-                src={cropCloudy(logo.url, 'logo-tiny')}
-                size={60}
-                style={style.avatar}
-              />
-              <CardTitle big={true}
-                title={maecenate.title}
-                subtitleStyle={style.titleSubtitle}
-              />
-            </div>
-            {isAuthUserOwner &&
-              <IconButton
-                style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
-                onTouchTap={editMaecenate} >
-                <EditIcon />
-              </IconButton>
+    <Row>
+      <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+        <Card>
+          <div style={style.titleWrap}>
+            <Avatar
+              src={cropCloudy(logo.url, 'logo-tiny')}
+              size={60}
+              style={style.avatar}
+            />
+            <CardTitle big={true}
+              title={maecenate.title}
+              subtitleStyle={style.titleSubtitle}
+            />
+          </div>
+          {isAuthUserOwner &&
+            <IconButton
+              style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
+              onTouchTap={editMaecenate} >
+              <EditIcon />
+            </IconButton>
+          }
+        </Card>
+        <Card>
+          <CardContent>
+            {cover &&
+              <Media type={cover.type} url={cover.url} fixedRatio={true} />
             }
-          </Card>
-          <Card>
-            <CardContent>
-              {cover &&
-                <Media type={cover.type} url={cover.url} fixedRatio={true} />
+          </CardContent>
+          <CardContent style={style.subtitle}>
+            { maecenate.teaser }
+          </CardContent>
+          <CardContent>
+            {maecenate.description}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent style={style.flexMe}>
+            <div>
+              {t('support.minimumAmount',
+                { context: 'DKK', count: monthlyMinimum })}
+              {url &&
+                <span>
+                  <br />
+                  {t('website')}:
+                  <a
+                    href={`http://${url}`}
+                    target='_blank'
+                    style={style.link}>
+                    &nbsp;{url}
+                  </a>
+                </span>
               }
-            </CardContent>
-            <CardContent style={style.subtitle}>
-              { maecenate.teaser }
-            </CardContent>
-            <CardContent>
-              {maecenate.description}
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent style={style.flexMe}>
-              <div>
-                {t('support.minimumAmount',
-                  { context: 'DKK', count: monthlyMinimum })}
-                {url &&
-                  <span>
-                    <br />
-                    {t('website')}:
-                    <a
-                      href={`http://${url}`}
-                      target='_blank'
-                      style={style.link}>
-                      &nbsp;{url}
-                    </a>
-                  </span>
-                }
-              </div>
-              {!isAuthUserOwner &&
-                <Button
-                  primary={true}
-                  last={true}
-                  label={t('support.join')}
-                  onClick={supportMaecenate}
-                />
-              }
-            </CardContent>
-          </Card>
-        </Col>
-      </Row>
-    </div>
+            </div>
+            {!isAuthUserOwner &&
+              <Button
+                primary={true}
+                last={true}
+                label={t('support.join')}
+                onClick={supportMaecenate}
+              />
+            }
+          </CardContent>
+        </Card>
+      </Col>
+    </Row>
   )
 }
 
