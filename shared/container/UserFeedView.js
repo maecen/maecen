@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { Row, Col } from 'react-flexbox-grid/lib'
@@ -7,6 +7,7 @@ import { Row, Col } from 'react-flexbox-grid/lib'
 import { getPosts } from '../selectors/post'
 import * as Actions from '../actions'
 
+import Button from '../components/Form/Button'
 import Post from '../components/Post/Post'
 import styleVariables from '../components/styleVariables'
 import SearchIcon from 'material-ui/svg-icons/action/search'
@@ -15,6 +16,10 @@ class UserFeedView extends Component {
   componentDidMount () {
     const { dispatch } = this.props
     dispatch(Actions.fetchUserFeed())
+  }
+
+  gotoAllMaecenates () {
+    browserHistory.push('/maecenates')
   }
 
   render () {
@@ -65,12 +70,12 @@ class UserFeedView extends Component {
                 )
               : <div>
                   <div style={style.getStarted}>{t('feed.getStarted')}</div>
-                  <div>
-                    <Link to='/maecenates'>
-                      <SearchIcon color={styleVariables.color.icon} style={style.icon}/>
-                    </Link>
-                    <span style={style.findMaecenate}>{t('feed.findMaecenate')}</span>
-                  </div>
+                  <Button
+                    label={t('feed.findMaecenate')}
+                    primary={true}
+                    onTouchTap={this.gotoAllMaecenates}
+                    icon={<SearchIcon />}
+                  />
                 </div>
               }
           </Col>
