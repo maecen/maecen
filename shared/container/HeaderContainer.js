@@ -41,6 +41,7 @@ class HeaderContainer extends Component {
   getAccess () {
     if (isBrowser) {
       window.localStorage.setItem('LetMeSee', 'true')
+      browserHistory.push('/')
     }
   }
 

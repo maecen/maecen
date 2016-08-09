@@ -131,7 +131,7 @@ function renderTemplate (html, initialState, i18n) {
       margin: 0;
       padding: 0;`,
     body: `
-      background-image: url('img/bg.svg');
+      background-image: url('/assets/img/bg.svg');
       min-height: 100%;
       margin: 0;
       padding: 0;
@@ -152,12 +152,14 @@ function renderTemplate (html, initialState, i18n) {
         <!-- TODO we need to translate this -->
         <title>Mæcen</title>
         <link rel="stylesheet" href=${cssPath} />
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700'
+        <link
+          href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700'
           rel='stylesheet' type='text/css'>
-        <link rel="apple-touch-icon" href="/app-icon.png">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#262626">
-        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+        <link rel="apple-touch-icon" href="/assets/favicon/app-icon.png">
+        <link rel="icon" type="image/png"
+          href="/assets/favicon/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png"
+          href="/assets/favicon/favicon-16x16.png" sizes="16x16">
       </head>
       <body style="${style.body}">
         <!-- Extra div to fix isomorphic rendering -->
