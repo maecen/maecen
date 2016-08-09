@@ -122,7 +122,7 @@ class HomeView extends Component {
                   <div style={{position: 'absolute', left: '-5000px'}} aria-hidden='true'>
                     <input type='text'
                       name='b_1e4624f4f555b78ee9644d7c9_a04ee31e14'
-                      tabindex='-1'
+                      tabIndex='-1'
                       value=''/>
                   </div>
                   <div id='mce-responses'>

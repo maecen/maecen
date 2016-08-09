@@ -148,7 +148,7 @@ class AuthDialogContainer extends React.Component {
             left: '-10000000px',
             width: '1px',
             height: '1px'
-          }} tabindex='-1' />
+          }} tabIndex='-1' />
 
         </Form>
       </Dialog>
