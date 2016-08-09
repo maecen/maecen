@@ -9,3 +9,4 @@ static/dist
 static/css/app.min.css
 .env
 development.sqlite
+notes.md
