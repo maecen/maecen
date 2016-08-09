@@ -6,7 +6,7 @@ import styleVariables from '../styleVariables'
 const style = {
   padding: styleVariables.spacer.base,
   fontSize: styleVariables.font.size.body,
-  lineHeight: '1.7',
+  lineHeight: styleVariables.font.lineHeight.body,
   '@media (min-width: 70rem)': {
     fontSize: styleVariables.font.size.bodyLarge
   }
@@ -15,12 +15,16 @@ const style = {
 function CardText (props) {
   props = Immutable(props)
 
-  let styling = {...props.style, ...style}
+  let styling = {...style, ...props.style}
 
   if (props.noTopPadding === true) {
+    delete styling.padding
     styling = {
       ...styling,
-      paddingTop: '0px'
+      paddingTop: '0px',
+      paddingRight: styleVariables.spacer.base,
+      paddingBottom: styleVariables.spacer.base,
+      paddingLeft: styleVariables.spacer.base
     }
   }
   return (

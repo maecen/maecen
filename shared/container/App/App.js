@@ -41,7 +41,8 @@ const style = {
     paddingBottom: '0px'
   },
   content: {
-    flexGrow: '1'
+    flexGrow: '1',
+    maxWidth: '100%'
   }
 }
 

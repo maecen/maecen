@@ -105,7 +105,7 @@ class HomeView extends Component {
                     id='mc-embedded-subscribe'
                     style={{
                       backgroundColor: styleVariables.color.primary,
-                      borderWidth: '0',
+                      borderWidth: '0px',
                       borderRadius: '0px',
                       color: 'white',
                       display: 'inline-block',

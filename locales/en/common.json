@@ -49,6 +49,7 @@
     "linkToPresentation": "Link to your presentation: ",
     "ownersCannotSupport": "You are the owner of this Maecenate, so you can not become a Maecen for it",
     "seeAll": "See all Maecenates",
+    "seeWithContent": "See posts from {{title}}",
     "subscriptionPrice": "Monthly subscription costs in DKK",
     "subscriptionPricePlaceholder": "e.g. 10",
     "teaser": "Teaser",

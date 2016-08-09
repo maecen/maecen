@@ -27,7 +27,7 @@ Button.defaultProps = {
     height: 'auto',
     letterSpacing: '0.1rem',
     lineHeight: styleVariables.font.lineHeight.body,
-    display: 'block',
+    display: 'inline-block',
     padding: `${styleVariables.spacer.half} 0`,
     margin: '0 12px'
   }

@@ -11,15 +11,33 @@ function MaecenateCard (props, context) {
     title, logo, cover, teaser
   }, onClick } = props
 
+  const descriptionLineCount = 3
+  const descriptionHeight =
+    styleVariables.font.lineHeight.body * descriptionLineCount - 0.2 + 'em'
   const style = {
     avatar: {
-      marginLeft: styleVariables.spacer.base,
-      marginBottom: '-12px',
-      marginTop: styleVariables.spacer.base
+      margin: styleVariables.spacer.base,
+      marginRight: '0px'
     },
     card: {
       marginBottom: styleVariables.spacer.base,
+      paddingBottom: styleVariables.spacer.base,
       cursor: 'pointer'
+    },
+    description: {
+      height: descriptionHeight,
+      display: 'block',
+      overflow: 'hidden',
+      padding: '0px',
+      margin: styleVariables.spacer.base,
+      marginBottom: '0px'
+    },
+    header: {
+      display: 'flex',
+      alignItems: 'center'
+    },
+    headerSubtitle: {
+      display: 'none'
     }
   }
 
@@ -27,14 +45,18 @@ function MaecenateCard (props, context) {
 
   return (
     <Card onClick={onClick} style={style.card}>
-      <Avatar
-        src={cropCloudy(logo.url, 'logo-tiny')}
-        size={60}
-        style={style.avatar}
-      />
-      <CardTitle title={title} />
+      <div style={style.header}>
+        <Avatar
+          src={cropCloudy(logo.url, 'logo-tiny')}
+          size={60}
+          style={style.avatar}
+        />
+        <CardTitle title={title} subtitleStyle={style.headerSubtitle} />
+      </div>
       <Media type={cover.type} url={cover.url} fixedRatio={true} />
-      <CardContent>{teaser}</CardContent>
+      <CardContent style={style.description}>
+        {teaser}
+      </CardContent>
     </Card>
   )
 }
