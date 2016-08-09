@@ -13,6 +13,7 @@ import { isAuthUserMaecenateSupporter } from '../selectors/support'
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
 import { Row, Col } from 'react-flexbox-grid/lib'
+import HappyIcon from 'material-ui/svg-icons/social/mood'
 
 class MaecenateSupportView extends React.Component {
   constructor (props) {
@@ -185,8 +186,10 @@ class MaecenateSupportView extends React.Component {
         <CardContent>
           <Button
             primary={true}
-            label={t('post.see')}
-            onClick={this.gotoContent} />
+            label={t('maecenate.seeWithContent', { title: maecenate.title })}
+            onClick={this.gotoContent}
+            icon={<HappyIcon />}
+          />
         </CardContent>
       </Card>
     )
