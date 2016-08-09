@@ -4,6 +4,7 @@ import { knex } from '../database'
 import { joiValidation } from '../util/ctrlHelpers'
 import { claimMedia, deleteUnusedMedia } from './media'
 import { fetchMaecenates } from './maecenates'
+import { fetchActiveUserSubPeriods } from './subscriptions'
 
 // Schema validation of the data
 // =============================
@@ -73,10 +74,9 @@ export function updatePost (id, data) {
 }
 
 export function fetchSupportedMaecenatePosts (userId) {
-  let supports = null
-  return knex('supporters').where('user', userId).then((result) => {
-    supports = result
+  return fetchActiveUserSubPeriods(knex, userId).then((supports) => {
     const maecenateIds = supports.map(o => o.maecenate)
+
     return Promise.all([
       fetchMaecenates(function () {
         this.where('id', 'in', maecenateIds)
@@ -86,13 +86,13 @@ export function fetchSupportedMaecenatePosts (userId) {
         .orderBy('created_at', 'desc')
         .limit(10)
         .then(populateMedia)
-    ])
-  }).then((result) => {
-    const [maecenates, posts] = result
-    return {
-      maecenates,
-      posts,
-      supports
-    }
+    ]).then((result) => {
+      const [maecenates, posts] = result
+      return {
+        maecenates,
+        posts,
+        supports
+      }
+    })
   })
 }

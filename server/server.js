@@ -47,6 +47,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 
+app.locals.knex = require('./database').knex
+
 // Authentication
 // ==============
 app.use(expressJwt({

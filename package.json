@@ -68,6 +68,7 @@
     "knex": "^0.10.0",
     "lodash": "^4.11.2",
     "material-ui": "^0.15.0",
+    "moment": "^2.14.1",
     "morgan": "^1.7.0",
     "multiparty": "^4.1.2",
     "node-uuid": "^1.4.7",

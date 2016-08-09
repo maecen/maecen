@@ -1,5 +1,4 @@
 import uuid from 'node-uuid'
-import { knex } from '../database'
 
 // Constants
 // =========
@@ -10,18 +9,13 @@ export const SUPPORT_MAECENATE = {
 
 // Database Calls
 // ==============
-export function fetchTransactionById (id) {
-  return knex('transactions').where({ id }).limit(1)
-    .then((result) => result[0])
-}
-
-export function fetchTransactionByOrder (orderId) {
+export function fetchTransactionByOrder (knex, orderId) {
   return knex('transactions').where({ order_id: orderId }).limit(1)
     .then((result) => result[0])
 }
 
 export function createPayment (
-  type, userId, maecenateId, amount, status
+  knex, type, userId, maecenateId, amount, status
 ) {
   status = status || 'started'
 
@@ -42,8 +36,8 @@ export function createPayment (
   })
 }
 
-export function verifyPayment (orderId, amount) {
-  return fetchTransactionByOrder(orderId).then((transaction) => {
+export function verifyPayment (knex, orderId, amount) {
+  return fetchTransactionByOrder(knex, orderId).then((transaction) => {
     if (transaction.amount !== amount) {
       const error = { amount: 'wrongAmount' }
       throw error
@@ -52,7 +46,7 @@ export function verifyPayment (orderId, amount) {
   })
 }
 
-export function paymentSuccess (orderId, epayId) {
+export function paymentSuccess (knex, orderId, epayId) {
   return knex('transactions').where({ order_id: orderId }).limit(1).update({
     status: 'success',
     epay_id: Number(epayId)

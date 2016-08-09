@@ -67,6 +67,17 @@ test('Support maecenates', async t => {
   t.is(Object.keys(entities.maecenates).length, 1)
   t.is(Object.keys(entities.supports).length, 1)
 
+  const resMaecenate = await request(app)
+    .get(`/api/getMaecenate/${otherMaecenate.get('slug')}`)
+    .set(base)
+    .send()
+
+  t.is(resMaecenate.status, 200)
+  const { result: mcResult, entities: mcEntities } = resMaecenate.body
+  t.is(mcResult.length, 1)
+  t.is(Object.keys(mcEntities.maecenates).length, 1)
+  t.is(Object.keys(mcEntities.supports).length, 1)
+
   const resMaecens = await request(app)
     .get('/api/getMaecenateSupporters/' + otherMaecenate.get('slug'))
     .set(customBase(otherUser.id))
