@@ -63,15 +63,33 @@ export function createSubscription (
 ) {
   const { user, maecenate, amount, currency } = transaction
   const subscription = {
-    id: uuid.v4(),
     user,
     maecenate,
     amount,
     currency
   }
 
-  return knex('subscriptions').insert(subscription).then(() => {
-    return createSubPeriod(knex, subscription.id, transaction)
+  // Don't recreate the subscription if it already exists just update it
+  // with the amount and currency
+  return knex('subscriptions')
+  .select('id')
+  .where({ user, maecenate })
+  .limit(1)
+  .then((res) => res[0])
+  .then((sub) => {
+    if (sub) {
+      return knex('subscriptions')
+      .where({ id: sub.id })
+      .update(subscription)
+      .then(() => sub.id)
+    } else {
+      const id = uuid.v4()
+      return knex('subscriptions')
+      .insert({ ...subscription, id })
+      .then(() => id)
+    }
+  }).then((subscriptionId) => {
+    return createSubPeriod(knex, subscriptionId, transaction)
   })
 }
 

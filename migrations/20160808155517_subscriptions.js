@@ -8,6 +8,8 @@ exports.up = function (knex, Promise) {
       table.uuid('transaction').references('transactions.id')
       table.date('start')
       table.date('end')
+    }).then(() => {
+      return knex('subscriptions').truncate()
     })
 }
 
