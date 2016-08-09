@@ -46,11 +46,6 @@ function MaecenateContent (props) {
       <Row>
         <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
           <Card>
-            <CardHeader
-              style={style.header}
-              actAsExpander={true}
-              showExpandableButton={true}
-            />
             <div style={style.titleWrap}>
               <Avatar
                 src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
@@ -62,6 +57,11 @@ function MaecenateContent (props) {
                 subtitleStyle={style.titleSubtitle}
               />
             </div>
+            <CardHeader
+              style={style.header}
+              actAsExpander={true}
+              showExpandableButton={true}
+            />
             <CardContent expandable={true}>
               { maecenate.cover &&
                 <Media type={maecenate.cover.type} url={maecenate.cover.url} fixedRatio={true} />
