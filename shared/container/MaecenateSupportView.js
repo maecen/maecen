@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
+import styleVariables from '../components/styleVariables'
+
 import { isBrowser, isSmallDevice } from '../config'
 import * as Actions from '../actions'
 import { isAuthorized, getAuthUser } from '../selectors/user'
@@ -120,15 +122,9 @@ class MaecenateSupportView extends React.Component {
   render () {
     const { isSupporter } = this.props
 
-    return (
-      <Row>
-        <Col smOffset={3} sm={6} xs={12}>
-          {isSupporter
-            ? this.renderSuccess()
-            : this.renderPayment()
-          }
-        </Col>
-      </Row>
+    return (isSupporter
+      ? this.renderSuccess()
+      : this.renderPayment()
     )
   }
 
@@ -139,39 +135,43 @@ class MaecenateSupportView extends React.Component {
       : t('action.continue')
 
     return (
-      <Card>
-        <CardTitle
-          title={t('support.joinMaecenate', { title: maecenate.title })}
-          subtitle={t('support.howMuch')}
-        />
-        {Object.keys(this.state.errors).length > 0 &&
-          <CardError>
-            {this.state.errors._}
-          </CardError>
-        }
-        <CardContent>
-          <form
-            onSubmit={this.handleSubmit}>
-            <TextField
-              value={this.state.amount}
-              name='amount'
-              onChange={this.handleChange}
-              label={t('support.minimumAmount', {
-                context: 'DKK',
-                count: maecenate.monthly_minimum
-              })}
-              error={this.state.amountError}
-              style={{marginTop: '-16px'}}
+      <Row>
+        <Col smOffset={3} sm={6} xs={12}>
+          <Card>
+            <CardTitle
+              title={t('support.joinMaecenate', { title: maecenate.title })}
+              subtitle={t('support.howMuch')}
             />
+            {Object.keys(this.state.errors).length > 0 &&
+              <CardError>
+                {this.state.errors._}
+              </CardError>
+            }
+            <CardContent>
+              <form
+                onSubmit={this.handleSubmit}>
+                <TextField
+                  value={this.state.amount}
+                  name='amount'
+                  onChange={this.handleChange}
+                  label={t('support.minimumAmount', {
+                    context: 'DKK',
+                    count: maecenate.monthly_minimum
+                  })}
+                  error={this.state.amountError}
+                  style={{marginTop: '-16px'}}
+                />
 
-            <Button label={continueLabel}
-              type='submit'
-              secondary={true}
-              disabled={!this.state.epayScriptLoaded} />
-          </form>
-          <div id='payment-holder' />
-        </CardContent>
-      </Card>
+                <Button label={continueLabel}
+                  type='submit'
+                  secondary={true}
+                  disabled={!this.state.epayScriptLoaded} />
+              </form>
+              <div id='payment-holder' />
+            </CardContent>
+          </Card>
+        </Col>
+      </Row>
     )
   }
 
@@ -179,20 +179,43 @@ class MaecenateSupportView extends React.Component {
     const { maecenate, t } = this.props
 
     return (
-      <Card>
+      <Card style={style.card}>
+        <div>
+          <HappyIcon
+            style={style.smiley}
+            color={styleVariables.color.gray}
+          />
+        </div>
         <CardTitle
-          title={t('support.success', { title: maecenate.title })}
+          title='Congratulations!'
+          subtitle={t('support.success', { title: maecenate.title })}
         />
-        <CardContent>
+        <CardContent style={style.content}>
           <Button
             primary={true}
             label={t('maecenate.seeWithContent', { title: maecenate.title })}
             onClick={this.gotoContent}
-            icon={<HappyIcon />}
           />
         </CardContent>
       </Card>
     )
+  }
+}
+
+const spacer = styleVariables.spacer.base
+const style = {
+  card: {
+    textAlign: 'center',
+    margin: '0 auto',
+    width: '25rem'
+  },
+  smiley: {
+    width: '100px',
+    height: '100px',
+    paddingTop: spacer
+  },
+  content: {
+    padding: `0 ${spacer} ${spacer}`
   }
 }
 
