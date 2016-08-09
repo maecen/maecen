@@ -34,7 +34,6 @@ const style = {
     margin: '0 auto'
   },
   contentWrap: {
-    alignItems: 'center',
     display: 'flex',
     flex: '1',
     justifyContent: 'center',
