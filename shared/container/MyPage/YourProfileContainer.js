@@ -77,7 +77,7 @@ class ProfileContainer extends Component {
             { isEdit === false &&
               <IconButton
                 style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
-                onClick={this.toggleEdit.bind(this)}>
+                onTouchTap={this.toggleEdit.bind(this)}>
                 <EditIcon />
               </IconButton>
             }
