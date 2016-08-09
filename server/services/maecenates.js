@@ -126,7 +126,7 @@ export function supportMaecenate (maecenateId, userId, amount) {
         .update(support).then(() => support)
     } else {
       const support = {
-        id: uuid.v1(),
+        id: uuid.v4(),
         user: userId,
         maecenate: maecenateId,
         amount

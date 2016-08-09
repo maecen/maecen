@@ -30,7 +30,7 @@ const Maecenate = bookshelf.Model.extend({
 
   generateId () {
     if (!this.has('id')) {
-      this.set('id', uuid.v1())
+      this.set('id', uuid.v4())
     }
   },
 
