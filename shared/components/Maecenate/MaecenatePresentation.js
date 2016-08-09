@@ -42,11 +42,6 @@ function MaecenatePresentation (props) {
     wrap: {
       padding: styleVariables.layout.wrap
     },
-    button: {
-      position: 'absolute',
-      right: styleVariables.spacer.base,
-      bottom: styleVariables.spacer.base
-    },
     link: {
       color: styleVariables.color.primary,
       textDecoration: 'none'
@@ -60,6 +55,11 @@ function MaecenatePresentation (props) {
     },
     titleSubtitle: {
       display: 'none'
+    },
+    flexMe: {
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between'
     }
   }
 
@@ -101,28 +101,29 @@ function MaecenatePresentation (props) {
             </CardContent>
           </Card>
           <Card>
-            <CardContent>
-              {t('support.minimumAmount',
-                { context: 'DKK', count: monthlyMinimum })}
-              <br />
-              {url &&
-                <span>
-                  {t('website')}:
-                  <a
-                    href={`http://${url}`}
-                    target='_blank'
-                    style={style.link}>
-                    &nbsp;{url}
-                  </a>
-                </span>
-              }
+            <CardContent style={style.flexMe}>
+              <div>
+                {t('support.minimumAmount',
+                  { context: 'DKK', count: monthlyMinimum })}
+                {url &&
+                  <span>
+                    <br />
+                    {t('website')}:
+                    <a
+                      href={`http://${url}`}
+                      target='_blank'
+                      style={style.link}>
+                      &nbsp;{url}
+                    </a>
+                  </span>
+                }
+              </div>
               {!isAuthUserOwner &&
                 <Button
                   primary={true}
                   last={true}
                   label={t('support.join')}
                   onClick={supportMaecenate}
-                  style={style.button}
                 />
               }
             </CardContent>
