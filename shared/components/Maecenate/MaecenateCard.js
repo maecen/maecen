@@ -14,14 +14,17 @@ function MaecenateCard (props, context) {
   const descriptionLineCount = 3
   const descriptionHeight =
     styleVariables.font.lineHeight.body * descriptionLineCount - 0.2 + 'em'
+  const spacer = styleVariables.spacer.base
   const style = {
     avatar: {
-      margin: styleVariables.spacer.base,
+      marginTop: spacer,
+      marginBottom: spacer,
+      marginLeft: spacer,
       marginRight: '0px'
     },
     card: {
-      marginBottom: styleVariables.spacer.base,
-      paddingBottom: styleVariables.spacer.base,
+      marginBottom: spacer,
+      paddingBottom: spacer,
       cursor: 'pointer'
     },
     description: {
@@ -29,7 +32,9 @@ function MaecenateCard (props, context) {
       display: 'block',
       overflow: 'hidden',
       padding: '0px',
-      margin: styleVariables.spacer.base,
+      marginTop: spacer,
+      marginRight: spacer,
+      marginLeft: spacer,
       marginBottom: '0px'
     },
     header: {
