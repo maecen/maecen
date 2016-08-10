@@ -179,35 +179,41 @@ class MaecenateSupportView extends React.Component {
     const { maecenate, t } = this.props
 
     return (
-      <Card style={style.card}>
-        <div>
-          <HappyIcon
-            style={style.smiley}
-            color={styleVariables.color.gray}
+      <div style={style.cardWrap}>
+        <Card style={style.card}>
+          <div>
+            <HappyIcon
+              style={style.smiley}
+              color={styleVariables.color.gray}
+            />
+          </div>
+          <CardTitle
+            title={t('support.congratulations')}
+            subtitle={t('support.success', { title: maecenate.title })}
           />
-        </div>
-        <CardTitle
-          title='Congratulations!'
-          subtitle={t('support.success', { title: maecenate.title })}
-        />
-        <CardContent style={style.content}>
-          <Button
-            primary={true}
-            label={t('maecenate.seeWithContent', { title: maecenate.title })}
-            onClick={this.gotoContent}
-          />
-        </CardContent>
-      </Card>
+          <CardContent style={style.content}>
+            <Button
+              primary={true}
+              label={t('maecenate.seeWithContent', { title: maecenate.title })}
+              onClick={this.gotoContent}
+            />
+          </CardContent>
+        </Card>
+      </div>
     )
   }
 }
 
 const spacer = styleVariables.spacer.base
+const spacerDouble = styleVariables.spacer.double
 const style = {
+  cardWrap: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
   card: {
     textAlign: 'center',
-    margin: '0 auto',
-    width: '25rem'
+    display: 'inline-block'
   },
   smiley: {
     width: '100px',
@@ -215,7 +221,7 @@ const style = {
     paddingTop: spacer
   },
   content: {
-    padding: `0 ${spacer} ${spacer}`
+    padding: `0 ${spacerDouble} ${spacer}`
   }
 }
 

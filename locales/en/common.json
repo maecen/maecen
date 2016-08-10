@@ -66,6 +66,7 @@
   },
   "support": {
     "belowMin": "The amount is below the monthly mininum",
+    "congratulations": "Congratulations",
     "continueToPayment": "Continue to payment",
     "howMuch": "Enter your monthly support in DKK",
     "join": "Support",
