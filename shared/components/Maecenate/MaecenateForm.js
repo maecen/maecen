@@ -1,6 +1,7 @@
 import React from 'react'
 import { translate } from 'react-i18next'
 
+import { Row, Col } from 'react-flexbox-grid/lib'
 import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
@@ -39,84 +40,88 @@ function MaecenateForm (props) {
     : t('maecenate.uploadCoverLabel')
 
   return (
-    <Card>
-      <CardTitle
-        title={titleStr}
-        style={{paddingBottom: '0px'}}
-      />
-      <CardContent>
-        <Form
-          onSubmit={handleSubmit}
-          model={maecenate}
-          updateModel={updateModel}
-          errors={errors}>
+    <Row>
+      <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+      <Card>
+        <CardTitle
+          title={titleStr}
+          style={{paddingBottom: '0px'}}
+        />
+        <CardContent>
+          <Form
+            onSubmit={handleSubmit}
+            model={maecenate}
+            updateModel={updateModel}
+            errors={errors}>
 
-          <TextField
-            path={['title']}
-            label={t('title')} />
-          <br />
+            <TextField
+              path={['title']}
+              label={t('title')} />
+            <br />
 
-          <FileDropzone
-            multiple={false}
-            label={uploadLogoStr}
-            accept='image/*'
-            onChange={logoChange}
-            error={errors && errors.logo_media}
-          />
+            <FileDropzone
+              multiple={false}
+              label={uploadLogoStr}
+              accept='image/*'
+              onChange={logoChange}
+              error={errors && errors.logo_media}
+            />
 
-          <LinearProgressDeterminate
-            value={logoUploadProgress}
-          />
+            <LinearProgressDeterminate
+              value={logoUploadProgress}
+            />
 
-          <FileDropzone
-            multiple={false}
-            label={uploadCoverStr}
-            accept='video/*,image/*'
-            onChange={coverChange}
-            error={errors && errors.cover_media}
-          />
+            <FileDropzone
+              multiple={false}
+              label={uploadCoverStr}
+              accept='video/*,image/*'
+              onChange={coverChange}
+              error={errors && errors.cover_media}
+            />
 
-          <LinearProgressDeterminate
-            value={coverUploadProgress}
-          />
+            <LinearProgressDeterminate
+              value={coverUploadProgress}
+            />
 
-          <TextField
-            path={['teaser']}
-            label={t('maecenate.teaser')}
-            placeholder={t('maecenate.teaserPlaceholder')}
-            maxLength='140' />
-          <br />
+            <TextField
+              path={['teaser']}
+              label={t('maecenate.teaser')}
+              placeholder={t('maecenate.teaserPlaceholder')}
+              maxLength='140' />
+            <br />
 
-          <TextField
-            path={['description']}
-            label={t('maecenate.description')}
-            placeholder={t('maecenate.descriptionPlaceholder')}
-            multiLine={true} />
-          <br />
+            <TextField
+              path={['description']}
+              label={t('maecenate.description')}
+              placeholder={t('maecenate.descriptionPlaceholder')}
+              multiLine={true} />
+            <br />
 
-          <TextField
-            path={['url']}
-            label={t('maecenate.website')}
-            placeholder={t('maecenate.websitePlaceholder')} />
-          <br />
+            <TextField
+              path={['url']}
+              label={t('maecenate.website')}
+              placeholder={t('maecenate.websitePlaceholder')} />
+            <br />
 
-          <TextField
-            path={['monthly_minimum']}
-            label={t('maecenate.subscriptionPrice')}
-            placeholder={t('maecenate.subscriptionPricePlaceholder')} />
-          <br />
+            <TextField
+              path={['monthly_minimum']}
+              label={t('maecenate.subscriptionPrice')}
+              placeholder={t('maecenate.subscriptionPricePlaceholder')} />
+            <br />
 
-          <div style={{textAlign: 'right'}}>
-            <Button type='submit'
-              style={{marginTop: '16px'}}
-              primary={true}
-              last={true}
-              label={submitStr}
-              disabled={isSubmitting} />
-          </div>
-        </Form>
-      </CardContent>
-    </Card>
+            <div style={{textAlign: 'right'}}>
+              <Button type='submit'
+                style={{marginTop: '16px'}}
+                primary={true}
+                last={true}
+                label={submitStr}
+                disabled={isSubmitting} />
+            </div>
+          </Form>
+        </CardContent>
+      </Card>
+      </Col>
+    </Row>
   )
 }
 

@@ -4,13 +4,16 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import sumBy from 'lodash/sumBy'
 
+import { isBrowser } from '../../config'
 import * as Actions from '../../actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
 
-import * as constants from '../../container/App/App'
+import styleVariables from '../../components/styleVariables'
+import Link from '../../components/Link/Link'
 import { Card, CardHeader, CardContent } from '../../components/Card'
-import { List, ListItem } from 'material-ui/List'
+import { List } from 'material-ui/List'
+import ListItem from '../../components/List/ListItem'
 import Button from '../../components/Form/Button'
 import Subheader from 'material-ui/Subheader'
 import Divider from 'material-ui/Divider'
@@ -31,11 +34,7 @@ class MaecenateDashboardView extends Component {
 
   linkToPresentation (slug) {
     // Have to check - otherwise it fails when refreshing the page
-    let canUseDOM = !!(
-      (typeof window !== 'undefined' &&
-      window.document && window.document.createElement)
-    )
-    if (canUseDOM) {
+    if (isBrowser) {
       let rootDir = window.location.hostname
       return `${rootDir}/maecenate/${slug}/presentation`
     }
@@ -44,7 +43,7 @@ class MaecenateDashboardView extends Component {
   render () {
     const { users, maecenate, t } = this.props
 
-    const totalAmount = sumBy(users, o => o.support.amount)
+    const totalAmount = Math.round(sumBy(users, o => o.support.amount) / 100)
     const totalString = t('maecenate.totalAmount', { total: totalAmount })
 
     return (
@@ -64,11 +63,11 @@ class MaecenateDashboardView extends Component {
           <br />
           <p>
             {t('maecenate.linkToPresentation')}
-            <a
-              style={{color: constants.themeColor}}
-              href={`https://${this.linkToPresentation(maecenate.slug)}`}>
+            <Link
+              style={{color: styleVariables.color.primary}}
+              to={`https://${this.linkToPresentation(maecenate.slug)}`}>
               {this.linkToPresentation(maecenate.slug)}
-            </a>
+            </Link>
           </p>
         </CardContent>
         <Divider />
@@ -77,7 +76,7 @@ class MaecenateDashboardView extends Component {
           {
             users.map(user => (
               <ListItem key={user.id}>
-                {user.first_name} {user.support.amount}
+                {user.first_name} {Math.round(user.support.amount / 100)}
               </ListItem>
             ))
           }

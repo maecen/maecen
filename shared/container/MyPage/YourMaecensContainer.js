@@ -10,7 +10,8 @@ import { getSupportedMaecenates } from '../../selectors/maecenate'
 import cropCloudy from '../../lib/cropCloudy'
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
-import { List, ListItem } from 'material-ui/List'
+import { List } from 'material-ui/List'
+import ListItem from '../../components/List/ListItem'
 import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 
@@ -56,13 +57,15 @@ class YourMaecensContainer extends Component {
             ))}
           </List>
         }
-        {maecenates.length === 0 &&
-          <CardContent>
-            <Link to='/maecenates'>
-              <Button primary={true} label={t('maecenate.seeAll')} />
-            </Link>
-          </CardContent>
-        }
+        <CardContent style={{textAlign: 'right'}}>
+          <Link to='/maecenates'>
+            <Button
+              primary={true}
+              label={t('maecenate.seeAll')}
+              last={true}
+            />
+          </Link>
+        </CardContent>
       </Card>
     )
   }

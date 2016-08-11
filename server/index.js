@@ -122,9 +122,27 @@ function getAuthenticatedUser (userId, clearCookie) {
 
 function renderTemplate (html, initialState, i18n) {
   const cssPath = '/dist/app.css'
+  const style = {
+    html: `
+      overflow-x: hidden;
+      font-family: Roboto, sans-serif;
+      font-size: 16px;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;`,
+    body: `
+      background-image: url('/assets/img/bg.svg');
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #202020;
+      background-position: 50%;
+      background-size: cover;
+      background-attachment: fixed;`
+  }
   return `
     <!DOCTYPE html>
-    <html>
+    <html style="${style.html}">
       <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -134,15 +152,18 @@ function renderTemplate (html, initialState, i18n) {
         <!-- TODO we need to translate this -->
         <title>Mæcen</title>
         <link rel="stylesheet" href=${cssPath} />
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700'
+        <link
+          href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700'
           rel='stylesheet' type='text/css'>
-        <link rel="apple-touch-icon" href="/app-icon.png">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#262626">
-        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+        <link rel="apple-touch-icon" href="/assets/favicon/app-icon.png">
+        <link rel="icon" type="image/png"
+          href="/assets/favicon/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png"
+          href="/assets/favicon/favicon-16x16.png" sizes="16x16">
       </head>
-      <body>
-        <div id="root">${html}</div>
+      <body style="${style.body}">
+        <!-- Extra div to fix isomorphic rendering -->
+        <div id="root"><div>${html}</div></div>
         <script>
           window.__INITIAL_STATE__ = ${serialize(initialState)}
           window.__i18n = ${serialize(i18n)}

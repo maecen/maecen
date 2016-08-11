@@ -10,19 +10,23 @@ import Media from '../Media/Media'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 
 function Post (props, context) {
-  const { post, maecenate, editPost, t } = props
+  const { post, maecenate, editPost, t, noTitleOnPosts } = props
   const media = post.media && post.media[0]
   const writtenByAlias = t('post.writtenByAlias', { alias: post.author_alias })
   const maecenateUrl = '/maecenate/' + maecenate.slug
 
   return (
     <Card key={post.id}>
-      <Link to={maecenateUrl}>
-        <CardHeader
-          title={maecenate.title}
-          avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-        />
-      </Link>
+      {noTitleOnPosts ||
+        <Link to={maecenateUrl}>
+          <CardHeader
+            title={maecenate.title}
+            avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+          />
+        </Link>
+      }
+      <CardTitle title={post.title}
+        style={{paddingBottom: '0px'}} />
       {editPost &&
         <IconButton
           style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
@@ -30,10 +34,9 @@ function Post (props, context) {
           <EditIcon />
         </IconButton>
       }
-      <CardTitle title={post.title}
-        style={{paddingBottom: '0px', paddingTop: '6px'}} />
       <CardContent
-        style={{paddingTop: '0px', opacity: '0.6'}}>
+        noTopPadding={true}
+        style={{opacity: '0.6'}}>
         {writtenByAlias}
         <Time style={{float: 'right'}} value={post.created_at} format='DD/MM/YYYY' />
       </CardContent>

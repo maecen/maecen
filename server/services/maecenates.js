@@ -5,6 +5,11 @@ import { slugify } from 'strman'
 import { joiValidation } from '../util/ctrlHelpers'
 import { knex } from '../database'
 import { claimMedia, deleteUnusedMedia } from './media'
+import {
+  fetchActiveUserSubPeriods,
+  fetchActiveUserSubPeriodForMaecenate,
+  fetchActiveSubPeriodsForMaecenate
+} from './subscriptions'
 
 // Schema validation of the data
 // =============================
@@ -51,9 +56,10 @@ export function fetchMaecenate (where, userId) {
     return Promise.all([
       knex('media').where({ id: maecenate.logo_media }).limit(1),
       knex('media').where({ id: maecenate.cover_media }).limit(1),
-      getMaecenateUserSupports(maecenate.id, userId)
+      fetchActiveUserSubPeriodForMaecenate(knex, userId, maecenate.id)
     ])
   }).then(([[logoMedia], [coverMedia], supports]) => {
+    console.log(supports)
     return {
       maecenate: {
         ...maecenate,
@@ -85,17 +91,30 @@ export function fetchMaecenates (where) {
 }
 
 export function fetchSupportedMaecenates (userId) {
-  let supports = null
-  return knex('supporters').where('user', userId).then(result => {
-    supports = result
-    const maecenateIds = supports.map(support => support.maecenate)
+  let subPeriods = null
+  return fetchActiveUserSubPeriods(knex, userId).then(result => {
+    subPeriods = result
     return fetchMaecenates(function () {
-      this.where('id', 'in', maecenateIds)
+      this.where('id', 'in', subPeriods.map(o => o.maecenate))
     })
   }).then((maecenates) => ({
     maecenates,
-    supports
+    supports: subPeriods
   }))
+}
+
+export function fetchMaecenateSupporters (maecenateId) {
+  return fetchActiveSubPeriodsForMaecenate(knex, maecenateId)
+  .orderBy('subscriptions.created_at', 'desc')
+  .then((supports) => {
+    const userIds = supports.map(support => support.user)
+    return knex('users').where('id', 'in', userIds)
+      .select('first_name', 'country', 'id')
+      .then((users) => ({
+        users,
+        supports
+      }))
+  })
 }
 
 export function userHasContentAccess (maecenateId, userId) {
@@ -112,14 +131,6 @@ export function userIsAdmin (maecenateId, userId) {
 
 // Helper methods
 // ==============
-function getMaecenateUserSupports (maecenateId, userId) {
-  if (userId) {
-    return knex('supporters')
-      .where('user', userId)
-      .andWhere('maecenate', maecenateId)
-  }
-}
-
 function validateMaecenate (data) {
   return joiValidation(data, schema, true).then(() => {
     return knex('maecenates')

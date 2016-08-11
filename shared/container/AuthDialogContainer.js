@@ -95,6 +95,7 @@ class AuthDialogContainer extends React.Component {
       (isCreating === false &&
         <Button label={t('user.createUser')}
           flat={true}
+          primary={true}
           onClick={this.setActionCreate} />),
       <Button type='submit'
         label={actionLabel}
@@ -110,7 +111,8 @@ class AuthDialogContainer extends React.Component {
         actions={actions}
         onRequestClose={this.cancel}
         title={actionLabel}>
-        <IconButton style={{position: 'absolute', right: '0px', top: '0px'}} onClick={this.cancel}>
+        <IconButton style={{position: 'absolute', right: '0px', top: '0px'}}
+          onTouchTap={this.cancel}>
           <NavigationClose />
         </IconButton>
         <Form onSubmit={this.handleSubmit} model={user}
@@ -147,7 +149,7 @@ class AuthDialogContainer extends React.Component {
             left: '-10000000px',
             width: '1px',
             height: '1px'
-          }} tabindex='-1' />
+          }} tabIndex='-1' />
 
         </Form>
       </Dialog>

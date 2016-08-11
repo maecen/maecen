@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 import find from 'lodash/find'
 
+import { isBrowser } from '../../config'
 import * as Actions from '../../actions'
 import { mediaUpload } from '../../lib/fileHandler'
 import { getUserMaecenates } from '../../selectors/maecenate'
@@ -160,7 +161,7 @@ function getDefaultAlias (props, maecenateId) {
 }
 
 function setDefaultAlias (props, alias, maecenateId) {
-  if (window && window.localStorage) {
+  if (isBrowser) {
     window.localStorage.setItem(`alias-for-${maecenateId}`, alias)
   }
 }
@@ -169,7 +170,7 @@ function getLastMaecenate (options) {
   options = options || []
   const defaultMaecenateId = options[0] && options[0].id
   let maecenateId = null
-  if (window && window.localStorage) {
+  if (isBrowser) {
     maecenateId = window.localStorage.getItem('default-maecenate') ||
       defaultMaecenateId
 
@@ -182,7 +183,7 @@ function getLastMaecenate (options) {
 }
 
 function setLastMaecenate (maecenateId) {
-  if (window && window.localStorage) {
+  if (isBrowser) {
     window.localStorage.setItem('default-maecenate', maecenateId)
   }
 }

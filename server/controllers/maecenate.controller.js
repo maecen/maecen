@@ -1,4 +1,3 @@
-import uuid from 'node-uuid'
 import { normalizeResponse } from '../util/ctrlHelpers'
 import * as service from '../services/maecenates'
 import { knex } from '../database'
@@ -74,44 +73,6 @@ export function editMaecenate (req, res, next) {
   }).catch(next)
 }
 
-export function supportMaecenate (req, res, next) {
-  const { userId } = req.user
-  const { maecenateId, amount } = req.body
-
-  if (amount < 0) {
-    const error = {
-      amount: { message: 'validationError.numberMin' }, options: { limit: 0 }
-    }
-    throw error
-  }
-
-  return Promise.all([
-    isUserSupportingMaecenate(maecenateId, userId),
-    Maecenate.isUserOwner(maecenateId, userId)
-  ]).then(([ isSupporting, isOwner ]) => {
-    if (isSupporting === true) {
-      const error = { _: 'maecenate.alreadySupported' }
-      throw error
-    }
-
-    if (isOwner === true) {
-      const error = { _: 'maecenate.ownersCannotSupport' }
-      throw error
-    }
-
-    const support = {
-      id: uuid.v1(),
-      user: userId,
-      maecenate: maecenateId,
-      amount
-    }
-
-    return knex('supporters').insert(support).then(() => support)
-  }).then(support => {
-    return res.json(normalizeResponse({ supports: support }))
-  }).catch(next)
-}
-
 export function getSupportedMaecenates (req, res, next) {
   const userId = req.params.user
 
@@ -126,27 +87,18 @@ export function getSupportedMaecenates (req, res, next) {
 
 export function getMaecenateSupporters (req, res, next) {
   const { slug } = req.params
-
   const maecenateIdQuery = knex('maecenates').where({ slug }).select('id').limit(1)
-  let supports = null
 
-  return knex('supporters').where('maecenate', maecenateIdQuery)
-  .orderBy('created_at', 'desc')
-  .then(result => {
-    supports = result
-    const userIds = supports.map(support => support.user)
-    return knex('users').where('id', 'in', userIds)
-      .select('first_name', 'country', 'id')
-  }).then(users => {
-    return res.json(normalizeResponse({
-      users, supports
-    }, 'users'))
+  return service.fetchMaecenateSupporters(maecenateIdQuery)
+  .then((result) => {
+    return res.json(normalizeResponse(result, 'users'))
   }).catch(next)
 }
 
+/*
 function isUserSupportingMaecenate (maecenateId, userId) {
   return knex('supporters')
     .where('user', userId).andWhere('maecenate', maecenateId).count('* as count')
     .then(res => Number(res[0].count) >= 1)
 }
-
+*/

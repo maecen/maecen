@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { StyleRoot } from 'radium'
+import styleVariables from '../../components/styleVariables'
 
 import HeaderContainer from '../HeaderContainer'
 import FooterContainer from '../FooterContainer'
 import AuthDialogContainer from '../AuthDialogContainer'
-import s from './App.scss'
 
-export const themeColor = 'hsl(190, 100%, 30%)'
-// const themeColor = '#967049'
-
+const themeColor = styleVariables.color.primary
 const muiTheme = getMuiTheme({
   userAgent: 'all',
   fontFamily: 'Roboto, sans-serif',
@@ -24,32 +24,57 @@ const muiTheme = getMuiTheme({
   }
 })
 
+const style = {
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+    padding: '0 .5rem',
+    maxWidth: '70rem',
+    margin: '0 auto'
+  },
+  contentWrap: {
+    display: 'flex',
+    flex: '1',
+    justifyContent: 'center',
+    paddingBottom: '0px'
+  },
+  content: {
+    flexGrow: '1',
+    maxWidth: '100%'
+  }
+}
+
 function App (props) {
   const { showAuthModal, navToUrl } = props
 
   return (
-    <MuiThemeProvider muiTheme={muiTheme}>
-      <div>
+    <StyleRoot>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div>
 
-        <div className={s.main}>
-          <HeaderContainer>
-            { props.children }
-          </HeaderContainer>
-          <div className={s.contentWrap}>
-            <div className={s.content}>
+          <div style={style.main}>
+            <HeaderContainer>
               { props.children }
+            </HeaderContainer>
+            <div style={style.contentWrap}>
+              <div style={style.content}>
+                { props.children }
+              </div>
             </div>
+            <FooterContainer>
+              { props.children }
+            </FooterContainer>
           </div>
-          <FooterContainer />
+
+          <AuthDialogContainer
+            open={showAuthModal}
+            navToUrl={navToUrl}
+          />
+
         </div>
-
-        <AuthDialogContainer
-          open={showAuthModal}
-          navToUrl={navToUrl}
-        />
-
-      </div>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
+    </StyleRoot>
   )
 }
 

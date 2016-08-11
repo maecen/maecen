@@ -54,6 +54,7 @@ const getRoutes = (store) => {
       <IndexRoute component={HomeView} />
       <Route path='profile'
         component={MyPageView}
+        showLangSwitch={true}
         onEnter={requiresAuth} />
 
       <Route path='post/create'
@@ -71,7 +72,9 @@ const getRoutes = (store) => {
       <Route path='maecenates'
         component={MaecenateOverviewView} />
       <Route path='maecenate/:slug'
-        component={MaecenateView} />
+        component={MaecenateView}
+        noTitleOnPosts={true}
+        />
       <Route path='maecenate/:slug/edit'
         component={EditMaecenateView}
         hideFab={true}

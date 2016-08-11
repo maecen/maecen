@@ -49,6 +49,7 @@
     "linkToPresentation": "Link til din præsentation: ",
     "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke blive Mæcen for det",
     "seeAll": "Se alle Mæcenater",
+    "seeWithContent": "Se indlæg fra {{title}}",
     "subscriptionPrice": "Min. beløb som Mæcener skal betale pr md.",
     "subscriptionPricePlaceholder": "f.eks. 10",
     "teaser": "Teaser",
@@ -76,6 +77,7 @@
   },
   "support": {
     "belowMin": "Beløbet er mindre end det månedlige minimum",
+    "congratulations": "Tillykke",
     "continueToPayment": "Forsæt til betaling",
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
     "join": "Bliv mæcen",

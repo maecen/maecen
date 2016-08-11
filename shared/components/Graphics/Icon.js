@@ -39,7 +39,7 @@ let Icons = React.createClass({
     }
     return (
       <svg viewBox={this.props.viewBox}
-        preserveAspectRatio='xMidYMid meet' fit
+        preserveAspectRatio='xMidYMid meet'
         style={this._mergeStyles(
           styles,
           this.props.style // This lets the parent pass custom styles

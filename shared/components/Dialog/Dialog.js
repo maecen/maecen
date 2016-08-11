@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import MaterialDialog from 'material-ui/Dialog'
+import styleVariables from '../styleVariables'
 
 export default class Dialog extends Component {
   render () {
@@ -25,7 +26,7 @@ Dialog.defaultProps = {
     overflowY: 'auto'
   },
   contentStyle: {
-    marginBottom: '32px',
+    marginBottom: styleVariables.spacer.double,
     width: '90%',
     maxWidth: '550px'
   },

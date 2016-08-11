@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { Row, Col } from 'react-flexbox-grid/lib'
@@ -7,7 +7,9 @@ import { Row, Col } from 'react-flexbox-grid/lib'
 import { getPosts } from '../selectors/post'
 import * as Actions from '../actions'
 
+import Button from '../components/Form/Button'
 import Post from '../components/Post/Post'
+import styleVariables from '../components/styleVariables'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 
 class UserFeedView extends Component {
@@ -16,61 +18,64 @@ class UserFeedView extends Component {
     dispatch(Actions.fetchUserFeed())
   }
 
+  gotoAllMaecenates () {
+    browserHistory.push('/maecenates')
+  }
+
   render () {
     const { posts, t } = this.props
 
-    const feedStyle = {
-      padding: '0 0 6vw'
-    }
-
-    const h1Style = {
-      fontSize: '30px',
-      color: 'white',
-      lineHeight: '1.2',
-      fontWeight: '300',
-      marginTop: '0px'
-    }
-
-    const getStartedStyle = {
-      color: 'white',
-      lineHeight: '1.6',
-      verticalAlign: 'middle'
-    }
-
-    const findMaecenateStyle = {
-      color: 'white',
-      lineHeight: '1.6',
-      verticalAlign: 'top',
-      marginTop: '15px',
-      display: 'inline-block'
+    const style = {
+      h1: {
+        fontSize: styleVariables.font.size.h1,
+        color: styleVariables.color.bodyText,
+        lineHeight: '1.2',
+        fontWeight: '300',
+        marginTop: '0px'
+      },
+      getStarted: {
+        color: styleVariables.color.bodyText,
+        lineHeight: styleVariables.font.lineHeight.body,
+        marginBottom: styleVariables.spacer.base,
+        verticalAlign: 'middle'
+      },
+      findMaecenate: {
+        color: styleVariables.color.bodyText,
+        lineHeight: styleVariables.font.lineHeight.body,
+        verticalAlign: 'top',
+        marginTop: styleVariables.spacer.base,
+        display: 'inline-block'
+      },
+      icon: {
+        width: styleVariables.icon.size.xl,
+        height: styleVariables.icon.size.xl
+      }
     }
 
     return (
-      <div style={feedStyle}>
-        <Row>
-          <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
-            <h1 style={h1Style}>{t('feed.yourNews')}</h1>
-            { posts.length !== 0
-              ? posts.map(post =>
-                  <Post
-                    key={post.id}
-                    post={post}
-                    maecenate={post.maecenate}
-                  />
-                )
-              : <div>
-                  <div style={getStartedStyle}>{t('feed.getStarted')}</div>
-                  <div>
-                    <Link to='/maecenates' style={{marginRight: '5px'}}>
-                      <SearchIcon color={'white'} style={{width: '60px', height: '60px', opacity: '0.6'}}/>
-                    </Link>
-                    <span style={findMaecenateStyle}>{t('feed.findMaecenate')}</span>
-                  </div>
-                </div>
-              }
-          </Col>
-        </Row>
-      </div>
+      <Row>
+        <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+          <h1 style={style.h1}>{t('feed.yourNews')}</h1>
+          { posts.length !== 0
+            ? posts.map(post =>
+                <Post
+                  key={post.id}
+                  post={post}
+                  maecenate={post.maecenate}
+                />
+              )
+            : <div>
+                <div style={style.getStarted}>{t('feed.getStarted')}</div>
+                <Button
+                  label={t('feed.findMaecenate')}
+                  primary={true}
+                  onTouchTap={this.gotoAllMaecenates}
+                  icon={<SearchIcon />}
+                />
+              </div>
+            }
+        </Col>
+      </Row>
     )
   }
 }

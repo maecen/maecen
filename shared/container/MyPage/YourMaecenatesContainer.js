@@ -9,7 +9,8 @@ import { getUserMaecenates } from '../../selectors/maecenate'
 
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
-import { List, ListItem } from 'material-ui/List'
+import { List } from 'material-ui/List'
+import ListItem from '../../components/List/ListItem'
 import Divider from 'material-ui/Divider'
 import cropCloudy from '../../lib/cropCloudy'
 import Avatar from 'material-ui/Avatar'
@@ -62,7 +63,7 @@ class YourMaecenatesContainer extends Component {
                   innerDivStyle={{wordWrap: 'break-word'}}
                   rightIcon={
                     <ActionInfo
-                      style={{width: '30px', height: '30px'}}
+                      style={{width: '30px', height: '30px', margin: '9px'}}
                       onClick={
                         this.gotoMaecenateDashboard.bind(this, maecenate.slug)
                       }

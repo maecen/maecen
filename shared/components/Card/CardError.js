@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CardText from './CardContent'
+import styleVariables from '../styleVariables'
 
 export default class CardError extends Component {
   render () {
@@ -11,7 +12,7 @@ export default class CardError extends Component {
 
 CardError.defaultProps = {
   style: {
-    lineHeight: '1.6',
-    color: 'red'
+    lineHeight: styleVariables.font.lineHeight.body,
+    color: styleVariables.color.alert
   }
 }

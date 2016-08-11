@@ -35,18 +35,25 @@ test.beforeEach(async t => {
 })
 test.afterEach.always(t => knex.migrate.rollback())
 
-test('POST /api/supportMaecenate', async t => {
+test('Support maecenates', async t => {
   const otherMaecenate = t.context.otherMaecenate
   const otherUser = t.context.otherUser
+  const amount = 1000
   const res = await request(app)
-    .post('/api/supportMaecenate')
+    .post('/api/maecenates/initiate-payment')
     .set(base)
-    .send({ maecenateId: otherMaecenate.id, amount: 10 })
+    .send({ maecenateId: otherMaecenate.id, amount })
 
   t.is(res.status, 200)
+  t.is(res.body.amount, String(amount))
+  const orderId = res.body.orderid
 
-  const entityId = res.body.result[0]
-  t.is(res.body.entities.supports[entityId].amount, 10)
+  const txnid = '123456789'
+  const cbRes = await request(app)
+    .get(`/api/transactions/payment-callback?txnid=${txnid}&orderid=${orderId}` +
+         `&amount=${amount}`)
+
+  t.is(cbRes.status, 200)
 
   // Check if we can watch the newly supported maecenates again
   const resSupported = await request(app)
@@ -59,6 +66,17 @@ test('POST /api/supportMaecenate', async t => {
   t.is(result.length, 1)
   t.is(Object.keys(entities.maecenates).length, 1)
   t.is(Object.keys(entities.supports).length, 1)
+
+  const resMaecenate = await request(app)
+    .get(`/api/getMaecenate/${otherMaecenate.get('slug')}`)
+    .set(base)
+    .send()
+
+  t.is(resMaecenate.status, 200)
+  const { result: mcResult, entities: mcEntities } = resMaecenate.body
+  t.is(mcResult.length, 1)
+  t.is(Object.keys(mcEntities.maecenates).length, 1)
+  t.is(Object.keys(mcEntities.supports).length, 1)
 
   const resMaecens = await request(app)
     .get('/api/getMaecenateSupporters/' + otherMaecenate.get('slug'))

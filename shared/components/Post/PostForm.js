@@ -34,7 +34,7 @@ function PostForm (props) {
 
   return (
     <Row>
-      <Col smOffset={3} sm={6} xs={12}>
+      <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
         <Card>
           <CardTitle title={titleStr} />
           <Form onSubmit={handleSubmit} model={post}

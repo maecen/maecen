@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
-import s from './Footer.scss'
+import styleVariables from '../styleVariables'
 
 const languageNames = {
   da: 'Dansk',
@@ -8,16 +8,34 @@ const languageNames = {
 }
 
 function Footer (props, context) {
-  const { lang, langOptions, changeLang, t } = props
+  const { hasAuth, lang, langOptions, changeLang, showLangSwitch, t } = props
+
+  const style = {
+    footer: {
+      padding: `${styleVariables.spacer.base} 0`,
+      color: styleVariables.color.bodyText
+    },
+    select: {
+      marginLeft: styleVariables.spacer.base
+    }
+  }
 
   return (
-    <footer className={s.footer}>
-      <span className={s.langSelectText}>{t('changeLanguage')}</span>
-      <select onChange={changeLang} defaultValue={lang}>
-        {langOptions.map((option) =>
-          <option value={option} key={option}>{languageNames[option]}</option>
-        )}
-      </select>
+    <footer style={style.footer}>
+      { (hasAuth && !showLangSwitch) ||
+        <div>
+          <span>{t('changeLanguage')}</span>
+          <select
+            onChange={changeLang}
+            defaultValue={lang}
+            style={style.select}
+          >
+            {langOptions.map((option) =>
+              <option value={option} key={option}>{languageNames[option]}</option>
+            )}
+          </select>
+        </div>
+      }
     </footer>
   )
 }
