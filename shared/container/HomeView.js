@@ -116,7 +116,9 @@ class HomeView extends Component {
                       fontWeight: '500',
                       flexShrink: '0',
                       letterSpacing: '0.1em',
-                      textTransform: 'uppercase'
+                      textTransform: 'uppercase',
+                      margin: '0px',
+                      cursor: 'pointer'
                     }}
                   />
                   <div style={{position: 'absolute', left: '-5000px'}} aria-hidden='true'>
