@@ -34,6 +34,7 @@ export default {
   },
   icon: {
     size: {
+      sm: '20px',
       md: '30px',
       lg: '40px',
       xl: '60px'

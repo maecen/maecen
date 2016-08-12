@@ -1,40 +1,58 @@
 import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
 import styleVariables from '../styleVariables'
+import * as Flags from '../Graphics/Flags'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 
-const languageNames = {
-  da: 'Dansk',
-  en: 'English'
+const languages = {
+  da: {
+    name: 'Dansk',
+    flag: <Flags.DanishFlag />
+  },
+  en: {
+    name: 'English',
+    flag: <Flags.EnglishFlag />
+  }
 }
 
-function Footer (props, context) {
-  const { hasAuth, lang, langOptions, changeLang, showLangSwitch, t } = props
-
+function Footer (props) {
+  const { hasAuth, lang, langOptions, changeLang, showLangSwitch } = props
+  const { spacer, icon } = styleVariables
   const style = {
     footer: {
-      padding: `${styleVariables.spacer.base} 0`,
+      padding: `${spacer.base} 0px ${spacer.quart}`,
       color: styleVariables.color.bodyText
     },
-    select: {
-      marginLeft: styleVariables.spacer.base
+    selectLabel: {
+      width: icon.size.sm,
+      height: icon.size.sm,
+      top: spacer.base,
+      borderRadius: styleVariables.border.radius,
+      overflow: 'hidden',
+      paddingRight: '0px',
+      lineHeight: '0px'
     }
   }
 
   return (
     <footer style={style.footer}>
       { (hasAuth && !showLangSwitch) ||
-        <div>
-          <span>{t('changeLanguage')}</span>
-          <select
-            onChange={changeLang}
-            defaultValue={lang}
-            style={style.select}
-          >
-            {langOptions.map((option) =>
-              <option value={option} key={option}>{languageNames[option]}</option>
-            )}
-          </select>
-        </div>
+        <SelectField
+          value={lang}
+          onChange={changeLang}
+          style={{width: '50px'}}
+          labelStyle={style.selectLabel}
+          underlineStyle={{display: 'none'}}
+          // iconStyle={{display: 'none'}}
+        >
+          {langOptions.map((option) =>
+            <MenuItem
+              value={option} key={option}
+              label={languages[option].flag}
+              primaryText={languages[option].name} />
+          )}
+        </SelectField>
       }
     </footer>
   )
