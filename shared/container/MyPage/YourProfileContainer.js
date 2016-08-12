@@ -89,19 +89,19 @@ class ProfileContainer extends Component {
                 <Col xs={12} sm={3}>
                   <TextField
                     path={['first_name']}
-                    placeholder={t('user.firstName')}
+                    floatingLabelText={t('user.firstName')}
                     disabled={!isEdit} />
                 </Col>
                 <Col xs={12} sm={3}>
                   <TextField
                     path={['last_name']}
-                    placeholder={t('user.lastName')}
+                    floatingLabelText={t('user.lastName')}
                     disabled={!isEdit} />
                 </Col>
                 <Col xs={12} sm={6}>
                   <TextField
                     path={['email']}
-                    placeholder={t('user.email')}
+                    floatingLabelText={t('user.email')}
                     disabled={!isEdit} />
                 </Col>
               </Row>
@@ -110,25 +110,25 @@ class ProfileContainer extends Component {
                 <Col xs={12} sm={3}>
                   <TextField
                     path={['alias']}
-                    placeholder={t('user.alias')}
+                    floatingLabelText={t('user.alias')}
                     disabled={!isEdit} />
                 </Col>
                 <Col xs={12} sm={3}>
                   <TextField
                     path={['phone_number']}
-                    placeholder={t('user.phoneNumber')}
+                    floatingLabelText={t('user.phoneNumber')}
                     disabled={!isEdit} />
                 </Col>
                 <Col xs={12} sm={3}>
                   <TextField
                     path={['country']}
-                    placeholder={t('user.country')}
+                    floatingLabelText={t('user.country')}
                     disabled={!isEdit} />
                 </Col>
                 <Col xs={12} sm={3}>
                   <TextField
                     path={['zip_code']}
-                    placeholder={t('user.zip')}
+                    floatingLabelText={t('user.zip')}
                     disabled={!isEdit} />
                 </Col>
               </Row>
