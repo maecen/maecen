@@ -23,5 +23,8 @@ export default function (url, type) {
       glue = 'upload'
   }
 
-  return urlSplitted[0] + glue + urlSplitted[1]
+  // Change the file ending to jpg
+  const path = urlSplitted[1].replace(/\.\w{2,5}$/i, '.jpg')
+
+  return urlSplitted[0] + glue + path
 }
