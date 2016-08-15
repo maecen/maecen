@@ -8,7 +8,7 @@
     "test": "",
     "test:server": "node_modules/.bin/cross-env NODE_ENV=testing PORT=3040 node_modules/.bin/ava ./server/tests/*.spec.js --serial",
     "test:server:watch": "node_modules/.bin/cross-env NODE_ENV=testing PORT=3040 node_modules/.bin/ava ./server/tests/*.spec.js --watch --serial",
-    "start": "node_modules/.bin/cross-env NODE_ENV=development nodemon index.js",
+    "start": "node_modules/.bin/cross-env NODE_ENV=development npm run migrate:latest && nodemon index.js",
     "start:prod": "node_modules/.bin/cross-env NODE_ENV=production node index.js",
     "bs": "npm run migrate:latest && npm run start:prod",
     "build": "node_modules/.bin/cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
