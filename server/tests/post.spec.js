@@ -77,7 +77,7 @@ test('POST /api/createPost', async t => {
 test.failing('POST /api/createPost with image', async t => {
   const maecenate = await createDummyMaecenate()
 
-  const mediaId = uuid.v4()
+  const mediaId = uuid.v1()
   await knex('media').insert({
     id: mediaId,
     type: 'image/jpg',

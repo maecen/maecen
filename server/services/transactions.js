@@ -20,7 +20,7 @@ export function createPayment (
   status = status || 'started'
 
   const transaction = {
-    id: uuid.v4(),
+    id: uuid.v1(),
     order_id: type.shortId + generateUnique(8),
     epay_id: 0,
     type: type.id,

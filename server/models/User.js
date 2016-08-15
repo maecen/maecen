@@ -33,7 +33,7 @@ const User = bookshelf.Model.extend({
 
   generateId () {
     if (!this.has('id')) {
-      this.set('id', uuid.v4())
+      this.set('id', uuid.v1())
     }
   },
 

@@ -83,7 +83,7 @@ export function createSubscription (
       .update(subscription)
       .then(() => sub.id)
     } else {
-      const id = uuid.v4()
+      const id = uuid.v1()
       return knex('subscriptions')
       .insert({ ...subscription, id })
       .then(() => id)
@@ -99,7 +99,7 @@ export function createSubPeriod (knex, subscriptionId, transaction) {
   const { user, maecenate } = transaction
 
   const period = {
-    id: uuid.v4(),
+    id: uuid.v1(),
     subscription: subscriptionId,
     transaction: transaction.id,
     start,

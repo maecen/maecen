@@ -18,7 +18,7 @@ test.beforeEach(async t => {
   })
 
   let otherUser = new User({
-    id: uuid.v4(),
+    id: uuid.v1(),
     first_name: 'Eva',
     last_name: 'Doe',
     email: 'eva@doe.com',
