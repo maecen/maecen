@@ -96,13 +96,13 @@ class AuthDialogContainer extends React.Component {
         <Button label={t('user.createUser')}
           flat={true}
           primary={true}
-          onClick={this.setActionCreate} />),
+          onTouchTap={this.setActionCreate} />),
       <Button type='submit'
         label={actionLabel}
         primary={true}
         last={true}
         disabled={this.state.isSubmitting === true}
-        onClick={this.handleSubmit} />
+        onTouchTap={this.handleSubmit} />
     ]
 
     return (

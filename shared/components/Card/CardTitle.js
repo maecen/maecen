@@ -35,7 +35,8 @@ CardTitle.defaultProps = {
   },
   style: {
     display: 'inline-block',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    maxWidth: '100%'
   },
   big: false
 }

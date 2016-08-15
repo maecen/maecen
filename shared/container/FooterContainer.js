@@ -8,10 +8,10 @@ import Footer from '../components/Footer/Footer'
 import { isAuthorized, getAuthUser } from '../selectors/user'
 
 class FooterContainer extends Component {
-  changeLang (e) {
-    e.preventDefault()
+  changeLang (event, index, value) {
+    console.log(value)
     const { dispatch } = this.props
-    const lang = e.target.value
+    const lang = value
     dispatch(Actions.changeLanguage(lang))
   }
 
