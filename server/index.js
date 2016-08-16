@@ -129,7 +129,19 @@ function getAuthenticatedUser (userId, clearCookie) {
 }
 
 function renderTemplate (html, initialState, i18n) {
-  const cssPath = '/dist/app.css'
+  const globalStyle = `
+    [type=reset],
+    [type=submit],
+    button,
+    html [type=button] {
+      -webkit-appearance: initial;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  `
   const style = {
     html: `
       overflow-x: hidden;
@@ -159,7 +171,7 @@ function renderTemplate (html, initialState, i18n) {
         <meta name="theme-color" content="#262626">
         <!-- TODO we need to translate this -->
         <title>Mæcen</title>
-        <link rel="stylesheet" href=${cssPath} />
+        <style>${globalStyle}</style>
         <link
           href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700'
           rel='stylesheet' type='text/css'>

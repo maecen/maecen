@@ -23,18 +23,6 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.(scss|css)$/,
-        loaders: [
-          'style-loader',
-          `css-loader?${JSON.stringify({
-            sourceMap: DEBUG,
-            modules: true,
-            localIdentName: '[name]_[local]_[hash:base64:3]',
-          })}`,
-          'postcss-loader?parser=postcss-scss',
-        ],
-      },
-      {
         test: /\.jsx?$/,
         exclude: [/node_modules/, /.+\.config.js/, /\.s?css$/],
         loader: 'babel',
