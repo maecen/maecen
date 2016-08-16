@@ -158,6 +158,7 @@ class MaecenateSupportView extends React.Component {
                     context: 'DKK',
                     count: maecenate.monthly_minimum
                   })}
+                  autoComplete='off'
                   error={this.state.amountError}
                   style={{marginTop: '-16px'}}
                 />
