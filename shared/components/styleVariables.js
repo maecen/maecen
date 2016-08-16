@@ -1,5 +1,10 @@
 
 const defaultUnit = 16
+const mediaSizes = {
+  lg: '70em',
+  md: '45em',
+  sm: '20em'
+}
 
 export default {
   animation: {
@@ -47,7 +52,9 @@ export default {
     }
   },
   media: {
-    lg: '70rem'
+    lg: mediaSizes.lg,
+    md: mediaSizes.md,
+    sm: mediaSizes.sm
   },
   spacer: {
     base: `${defaultUnit}px`,
@@ -57,9 +64,9 @@ export default {
     quart: `${defaultUnit / 4}px`
   },
   breakpoint: {
-    lg: '@media screen and (min-width: 70em)',
-    md: '@media screen and (min-width: 45em)',
-    sm: '@media screen and (min-width: 20em)'
+    lg: `@media screen and (min-width: ${mediaSizes.lg})`,
+    md: `@media screen and (min-width: ${mediaSizes.md})`,
+    sm: `@media screen and (min-width: ${mediaSizes.sm})`
   }
 }
 

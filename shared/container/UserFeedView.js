@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import { Row, Col } from 'react-flexbox-grid/lib'
+import { Row, Cell } from '../components/Grid'
 
 import { getPosts } from '../selectors/post'
 import * as Actions from '../actions'
@@ -54,7 +54,7 @@ class UserFeedView extends Component {
 
     return (
       <Row>
-        <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+        <Cell narrowLayout={true}>
           <h1 style={style.h1}>{t('feed.yourNews')}</h1>
           { posts.length !== 0
             ? posts.map(post =>
@@ -74,7 +74,7 @@ class UserFeedView extends Component {
                 />
               </div>
             }
-        </Col>
+        </Cell>
       </Row>
     )
   }

@@ -3,14 +3,16 @@ import Immutable from 'seamless-immutable'
 import styleVariables from '../styleVariables'
 
 const style = {
-  margin: `0px -${styleVariables.grid.gutter.half}`,
-  display: 'flex',
-  flexWrap: 'wrap'
+  base: {
+    margin: `0px -${styleVariables.grid.gutter.half}`,
+    display: 'flex',
+    flexWrap: 'wrap'
+  }
 }
 
 function Row (props) {
   props = Immutable(props)
-  let styling = {...style, ...props.style}
+  let styling = {...props.style, ...style.base}
 
   return (
     <div style={styling}>

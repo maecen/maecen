@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
-import { Row, Col } from 'react-flexbox-grid/lib'
 import { translate } from 'react-i18next'
 
 import styleVariables from '../styleVariables'
 import { Card, CardHeader, CardTitle, CardContent } from '../Card'
+import { Row, Cell } from '../Grid'
 import Post from '../Post/Post'
 import Avatar from 'material-ui/Avatar'
 import Media from '../Media/Media'
@@ -40,7 +40,7 @@ function MaecenateContent (props) {
 
   return (
     <Row>
-      <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+      <Cell narrowLayout={true}>
         <Card>
           <div style={style.titleWrap}>
             <Avatar
@@ -94,7 +94,7 @@ function MaecenateContent (props) {
             key={post.id}
             noTitleOnPosts={noTitleOnPosts} />
         ))}
-      </Col>
+      </Cell>
     </Row>
   )
 }

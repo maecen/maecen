@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import map from 'lodash/map'
-import { Row, Cell } from '../components/Grid'
 import * as Actions from '../actions'
 import { getMaecenates } from '../selectors/maecenate'
 
+import { Row, Cell } from '../components/Grid'
 import { MaecenateCard } from '../components/Maecenate'
 
 class MaecenateOverviewView extends Component {

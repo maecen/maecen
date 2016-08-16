@@ -7,7 +7,7 @@ const style = {
   padding: styleVariables.spacer.base,
   fontSize: styleVariables.font.size.body,
   lineHeight: styleVariables.font.lineHeight.body,
-  [styleVariables.breakpoint.lg]: {
+  [styleVariables.breakpoint.md]: {
     fontSize: styleVariables.font.size.bodyLarge
   }
 }

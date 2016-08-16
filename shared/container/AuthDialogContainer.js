@@ -4,9 +4,9 @@ import { browserHistory } from 'react-router'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
-import { Row, Col } from 'react-flexbox-grid/lib'
 import * as Actions from '../actions'
 
+import { Row, Cell } from '../components/Grid'
 import Dialog from '../components/Dialog/Dialog'
 import Form, { TextField, Button } from '../components/Form'
 import IconButton from 'material-ui/IconButton'
@@ -121,16 +121,16 @@ class AuthDialogContainer extends React.Component {
 
           {isCreating &&
             <Row>
-              <Col xs={12} sm={6}>
+              <Cell sm='1/2'>
                 <TextField
                   path={['first_name']}
                   label={t('user.firstName')} />
-              </Col>
-              <Col xs={12} sm={6}>
+              </Cell>
+              <Cell sm='1/2'>
                 <TextField
                   path={['last_name']}
                   label={t('user.lastName')} />
-              </Col>
+              </Cell>
             </Row>
           }
 

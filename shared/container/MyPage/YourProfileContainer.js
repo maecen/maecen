@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { translate } from 'react-i18next'
-import { Row, Col } from 'react-flexbox-grid/lib'
+import { Row, Cell } from '../../components/Grid'
 import * as Actions from '../../actions'
 
 import { getAuthUser } from '../../selectors/user'
@@ -86,55 +86,55 @@ class ProfileContainer extends Component {
               errors={this.state.errors}
             >
               <Row>
-                <Col xs={12} sm={3}>
+                <Cell sm='1/2' md='1/4'>
                   <TextField
                     path={['first_name']}
                     floatingLabelText={t('user.firstName')}
                     disabled={!isEdit} />
-                </Col>
-                <Col xs={12} sm={3}>
+                </Cell>
+                <Cell sm='1/2' md='1/4'>
                   <TextField
                     path={['last_name']}
                     floatingLabelText={t('user.lastName')}
                     disabled={!isEdit} />
-                </Col>
-                <Col xs={12} sm={6}>
+                </Cell>
+                <Cell md='1/2'>
                   <TextField
                     path={['email']}
                     floatingLabelText={t('user.email')}
                     disabled={!isEdit} />
-                </Col>
+                </Cell>
               </Row>
 
               <Row>
-                <Col xs={12} sm={3}>
+                <Cell md='1/4'>
                   <TextField
                     path={['alias']}
                     floatingLabelText={t('user.alias')}
                     disabled={!isEdit} />
-                </Col>
-                <Col xs={12} sm={3}>
+                </Cell>
+                <Cell md='1/4'>
                   <TextField
                     path={['phone_number']}
                     floatingLabelText={t('user.phoneNumber')}
                     disabled={!isEdit} />
-                </Col>
-                <Col xs={12} sm={3}>
+                </Cell>
+                <Cell md='1/4'>
                   <TextField
                     path={['country']}
                     floatingLabelText={t('user.country')}
                     disabled={!isEdit} />
-                </Col>
-                <Col xs={12} sm={3}>
+                </Cell>
+                <Cell md='1/4'>
                   <TextField
                     path={['zip_code']}
                     floatingLabelText={t('user.zip')}
                     disabled={!isEdit} />
-                </Col>
+                </Cell>
               </Row>
 
               <Row style={{marginTop: '16px', textAlign: 'right'}}>
-                <Col xs={12}>
+                <Cell xs={12}>
                   { isEdit === true &&
                     <span>
                       <Button
@@ -150,7 +150,7 @@ class ProfileContainer extends Component {
                         disabled={this.state.isSubmitting === true} />
                     </span>
                   }
-                </Col>
+                </Cell>
               </Row>
             </Form>
           </CardContent>

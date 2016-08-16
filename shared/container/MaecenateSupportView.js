@@ -14,7 +14,7 @@ import { isAuthUserMaecenateSupporter } from '../selectors/support'
 
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
-import { Row, Col } from 'react-flexbox-grid/lib'
+import { Row, Cell } from '../components/Grid'
 import HappyIcon from 'material-ui/svg-icons/social/mood'
 
 class MaecenateSupportView extends React.Component {
@@ -136,7 +136,7 @@ class MaecenateSupportView extends React.Component {
 
     return (
       <Row>
-        <Col smOffset={3} sm={6} xs={12}>
+        <Cell narrowLayout={true}>
           <Card>
             <CardTitle
               title={t('support.joinMaecenate', { title: maecenate.title })}
@@ -170,7 +170,7 @@ class MaecenateSupportView extends React.Component {
               <div id='payment-holder' />
             </CardContent>
           </Card>
-        </Col>
+        </Cell>
       </Row>
     )
   }
