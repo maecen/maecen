@@ -32,6 +32,12 @@ export default {
       heading: '1.2'
     }
   },
+  grid: {
+    gutter: {
+      base: `${defaultUnit}px`,
+      half: `${defaultUnit / 2}px`
+    }
+  },
   icon: {
     size: {
       sm: '20px',
@@ -49,6 +55,11 @@ export default {
     double: `${defaultUnit * 2}px`,
     half: `${defaultUnit / 2}px`,
     quart: `${defaultUnit / 4}px`
+  },
+  breakpoint: {
+    lg: '@media screen and (min-width: 70em)',
+    md: '@media screen and (min-width: 45em)',
+    sm: '@media screen and (min-width: 20em)'
   }
 }
 

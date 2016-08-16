@@ -51,12 +51,20 @@ export default function initialRender (req, res, next) {
         const { params, components } = renderProps
 
         return fetchComponentData(store, components, params).then(() => {
+          // Needed for radium to do proper SSR with e.g. Media Queries
+          const createElement = (Component, props) => (
+            <Component
+              {...props}
+              radiumConfig={{ userAgent: req.headers['user-agent'] }}
+            />
+          )
+
           // Initial Render
           // ==============
           const html = renderToString(
             <I18nextProvider i18n={i18nServer}>
               <Provider store={store}>
-                <RouterContext {...renderProps} />
+                <RouterContext {...renderProps} createElement={createElement} />
               </Provider>
             </I18nextProvider>
           )
