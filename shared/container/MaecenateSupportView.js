@@ -8,7 +8,11 @@ import styleVariables from '../components/styleVariables'
 
 import { isBrowser, isSmallDevice } from '../config'
 import * as Actions from '../actions'
-import { isAuthorized, getAuthUser } from '../selectors/user'
+import {
+  isAuthorized,
+  getAuthUser,
+  hasSavedPaymentCard
+} from '../selectors/user'
 import { getMaecenateBySlug } from '../selectors/maecenate'
 import { isAuthUserMaecenateSupporter } from '../selectors/support'
 
@@ -23,13 +27,16 @@ class MaecenateSupportView extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.gotoContent = this.gotoContent.bind(this)
+    this.paymentComplete = this.paymentComplete.bind(this)
 
     this.state = {
       amount: '',
       amountError: null,
       errors: {},
       success: false,
-      epayScriptLoaded: false
+      display: 'amount', // amount | confirm
+      epayScriptLoaded: false,
+      isSubmitting: false
     }
   }
 
@@ -62,8 +69,6 @@ class MaecenateSupportView extends React.Component {
   }
 
   openEpayPayment (options) {
-    const { dispatch } = this.props
-
     if (isSmallDevice) {
       options = {
         ...options,
@@ -76,11 +81,14 @@ class MaecenateSupportView extends React.Component {
     // We fetch the maecenate again when the payment window has been closed to
     // check if the payment has gone through (a support object will be included
     // from the server)
-    paymentWindow.on('close', () => {
-      dispatch(Actions.fetchMaecenate(this.props.params.slug))
-    })
+    paymentWindow.on('close', this.paymentComplete)
 
     paymentWindow.open()
+  }
+
+  paymentComplete () {
+    const { dispatch } = this.props
+    return dispatch(Actions.fetchMaecenate(this.props.params.slug))
   }
 
   gotoContent () {
@@ -96,7 +104,13 @@ class MaecenateSupportView extends React.Component {
 
   handleSubmit (e) {
     e.preventDefault()
-    const { dispatch, maecenate, hasAuth, t } = this.props
+    const { dispatch, maecenate, hasAuth, hasSavedPaymentCard, t } = this.props
+    const { display } = this.state
+
+    if (hasSavedPaymentCard && display === 'amount') {
+      this.setState({display: 'confirm'})
+      return
+    }
 
     if (this.state.amount < maecenate.monthly_minimum) {
       this.setState({
@@ -106,13 +120,25 @@ class MaecenateSupportView extends React.Component {
     }
 
     if (hasAuth === true) {
+      this.setState({isSubmitting: true})
       axios.post('/api/maecenates/initiate-payment', {
         maecenateId: maecenate.id,
         amount: Math.round(Number(this.state.amount)) * 100
       }).then(res => {
+        this.setState({ errors: {} })
         return res.data
-      }).then((params) => {
-        this.openEpayPayment(params)
+      }).then((data) => {
+        if (data.paymentComplete === true) {
+          return this.paymentComplete()
+        } else {
+          this.openEpayPayment(data.epayPaymentParams)
+        }
+      }).catch(err => {
+        if (err.data && err.data.errors) {
+          this.setState({ errors: err.data.errors })
+        }
+      }).then(() => {
+        this.setState({isSubmitting: false})
       })
     } else {
       dispatch(Actions.requireAuth())
@@ -130,9 +156,12 @@ class MaecenateSupportView extends React.Component {
 
   renderPayment () {
     const { maecenate, hasAuth, t } = this.props
+    const { amount } = this.state
     const continueLabel = hasAuth
       ? t('support.continueToPayment')
       : t('action.continue')
+
+    const disableSubmit = !this.state.epayScriptLoaded || this.state.isSubmitting
 
     return (
       <Row>
@@ -140,36 +169,53 @@ class MaecenateSupportView extends React.Component {
           <Card>
             <CardTitle
               title={t('support.joinMaecenate', { title: maecenate.title })}
-              subtitle={t('support.howMuch')}
             />
             {Object.keys(this.state.errors).length > 0 &&
               <CardError>
                 {this.state.errors._}
               </CardError>
             }
-            <CardContent>
-              <form
-                onSubmit={this.handleSubmit}>
-                <TextField
-                  value={this.state.amount}
-                  name='amount'
-                  onChange={this.handleChange}
-                  label={t('support.minimumAmount', {
-                    context: 'DKK',
-                    count: maecenate.monthly_minimum
-                  })}
-                  autoComplete='off'
-                  error={this.state.amountError}
-                  style={{marginTop: '-16px'}}
-                />
 
-                <Button label={continueLabel}
+            {this.state.display === 'amount' &&
+              <CardContent>
+                <form
+                  onSubmit={this.handleSubmit}>
+                  <TextField
+                    value={this.state.amount}
+                    name='amount'
+                    onChange={this.handleChange}
+                    label={t('support.howMuch')}
+                    placeholder={t('support.minimumAmount', {
+                      context: 'DKK',
+                      count: maecenate.monthly_minimum
+                    })}
+                    floatingLabelFixed={true}
+                    autoComplete='off'
+                    error={this.state.amountError}
+                    style={{marginTop: '-16px'}}
+                  />
+
+                  <Button label={continueLabel}
+                    type='submit'
+                    secondary={true}
+                    disabled={disableSubmit} />
+                </form>
+                <div id='payment-holder' />
+              </CardContent>
+            }
+
+            {this.state.display === 'confirm' &&
+              <CardContent>
+                <div>
+                  Total: {t('currency.amount', {count: amount, context: 'DKK'})}
+                </div>
+                <Button label='Confirm Payment' // Need i18n
                   type='submit'
                   secondary={true}
-                  disabled={!this.state.epayScriptLoaded} />
-              </form>
-              <div id='payment-holder' />
-            </CardContent>
+                  onClick={this.handleSubmit}
+                  disabled={disableSubmit} />
+              </CardContent>
+            }
           </Card>
         </Col>
       </Row>
@@ -232,12 +278,14 @@ MaecenateSupportView.need = [(params) => {
 
 function mapStateToProps (state, props) {
   const isSupporter = isAuthUserMaecenateSupporter(getMaecenateBySlug)
+  const userHasSavedPaymentCard = hasSavedPaymentCard(getAuthUser)
 
   return {
     hasAuth: isAuthorized(state),
     user: getAuthUser(state),
     maecenate: getMaecenateBySlug(state, props),
-    isSupporter: isSupporter(state, props)
+    isSupporter: isSupporter(state, props),
+    hasSavedPaymentCard: userHasSavedPaymentCard(state, props)
   }
 }
 

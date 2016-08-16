@@ -29,6 +29,12 @@ export const getCurrentUsers = createSelector(
   (users, ids) => ids.map(id => users[id])
 )
 
+export const hasSavedPaymentCard = (userSelector) =>
+  createSelector(
+    [ userSelector ],
+    (user) => Boolean(user.epay_subscription_id)
+  )
+
 export const getSupportingUsers = (maecenateSelector) =>
   createSelector(
     [ maecenateSelector, getUsers, getSupports ],

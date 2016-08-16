@@ -45,15 +45,17 @@ test('Support maecenates', async t => {
     .send({ maecenateId: otherMaecenate.id, amount })
 
   t.is(res.status, 200)
-  t.is(res.body.amount, String(amount))
-  const orderId = res.body.orderid
+  t.truthy(res.body.epayPaymentParams.orderid)
+  t.is(res.body.epayPaymentParams.amount, String(amount))
+  const orderId = res.body.epayPaymentParams.orderid
 
   const txnid = '123456789'
   const cbRes = await request(app)
     .get(`/api/transactions/payment-callback?txnid=${txnid}&orderid=${orderId}` +
-         `&amount=${amount}`)
+         `&amount=${amount}&subscriptionid=1234567&cardno=444444XXXXXX4000`)
 
   t.is(cbRes.status, 200)
+  t.is(cbRes.body.success, true)
 
   // Check if we can watch the newly supported maecenates again
   const resSupported = await request(app)

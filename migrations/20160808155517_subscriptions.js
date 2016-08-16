@@ -15,5 +15,7 @@ exports.up = function (knex, Promise) {
 
 exports.down = function (knex, Promise) {
   return knex.schema.renameTable('subscriptions', 'supporters')
-    .dropTable('sub_periods')
+    .table('supporters', (table) => {
+      table.dropColumn('currency')
+    }).dropTable('sub_periods')
 }
