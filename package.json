@@ -15,7 +15,8 @@
     "clean": "rimraf static/dist",
     "slate": "rimraf node_modules && npm install",
     "lint": "node_modules/.bin/eslint client server shared migrations tests",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "cron-job": "./node_modules/.bin/babel-node ./tasks/cronJob.js"
   },
   "pre-commit": [
     "lint",
