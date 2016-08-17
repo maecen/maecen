@@ -58,9 +58,7 @@ export function fetchActiveUserSubPeriodForMaecenate (
     .then(result => result[0])
 }
 
-export function createSubscription (
-  knex, transaction,
-) {
+export function createSubscription (knex, transaction) {
   const { user, maecenate, amount, currency } = transaction
   const subscription = {
     user,
@@ -122,4 +120,3 @@ export function getActiveUserSubPeriodForMaecenate (
     .where('subscriptions.maecenate', maecenateId)
     .limit(1)
 }
-

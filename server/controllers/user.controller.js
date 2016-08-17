@@ -63,6 +63,8 @@ export function clearAuth (req, res, next) {
 }
 
 export function setUserLanguage (req, res, next) {
+  // const userId = req.user && req.user.userId || null
+
   const {lng} = req.body
   const expire = 365 * 24 * 60 * 60 // in 1 year
   res.cookie('i18n', lng, { maxAge: 1000 * expire, httpOnly: true })
