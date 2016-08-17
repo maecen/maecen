@@ -37,7 +37,7 @@ const style = {
     display: 'flex',
     flex: '1',
     justifyContent: 'center',
-    paddingBottom: '0px'
+    paddingBottom: styleVariables.spacer.double
   },
   content: {
     flexGrow: '1',

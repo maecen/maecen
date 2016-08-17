@@ -1,5 +1,10 @@
 
 const defaultUnit = 16
+const mediaSizes = {
+  lg: '70em',
+  md: '45em',
+  sm: '20em'
+}
 
 export default {
   animation: {
@@ -32,6 +37,12 @@ export default {
       heading: '1.2'
     }
   },
+  grid: {
+    gutter: {
+      base: `${defaultUnit}px`,
+      half: `${defaultUnit / 2}px`
+    }
+  },
   icon: {
     size: {
       sm: '20px',
@@ -41,7 +52,9 @@ export default {
     }
   },
   media: {
-    lg: '70rem'
+    lg: mediaSizes.lg,
+    md: mediaSizes.md,
+    sm: mediaSizes.sm
   },
   spacer: {
     base: `${defaultUnit}px`,
@@ -49,6 +62,11 @@ export default {
     double: `${defaultUnit * 2}px`,
     half: `${defaultUnit / 2}px`,
     quart: `${defaultUnit / 4}px`
+  },
+  breakpoint: {
+    lg: `@media screen and (min-width: ${mediaSizes.lg})`,
+    md: `@media screen and (min-width: ${mediaSizes.md})`,
+    sm: `@media screen and (min-width: ${mediaSizes.sm})`
   }
 }
 

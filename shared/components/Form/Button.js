@@ -18,7 +18,6 @@ export default function Button (props, context) {
 Button.defaultProps = {
   type: 'button',
   flat: false,
-  last: false,
   style: {
     backgroundColor: 'transparent',
     height: 'auto'

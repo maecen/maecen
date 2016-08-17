@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import map from 'lodash/map'
-import { Row, Col } from 'react-flexbox-grid/lib'
 import * as Actions from '../actions'
 import { getMaecenates } from '../selectors/maecenate'
 
+import { Row, Cell } from '../components/Grid'
 import { MaecenateCard } from '../components/Maecenate'
 
 class MaecenateOverviewView extends Component {
@@ -22,25 +22,24 @@ class MaecenateOverviewView extends Component {
   render () {
     const { maecenates } = this.props
     const aboutMaecenateId = '78892b00-33a3-11e6-bb94-c586d1c98fee'
-
     return (
       <Row>
         {/* TODO this could prolly be done smarter ¯\_(ツ)_/¯, sort()? */}
         {map(maecenates, maecenate =>
           maecenate.id === aboutMaecenateId &&
-            <Col sm={6} xs={12} key={maecenate.id}>
+            <Cell md='1/2' key={maecenate.id}>
               <MaecenateCard
                 maecenate={maecenate}
                 onClick={this.gotoMaecenate.bind(this, maecenate)} />
-            </Col>
+            </Cell>
         )}
         {map(maecenates, maecenate =>
           maecenate.id !== aboutMaecenateId &&
-            <Col sm={6} xs={12} key={maecenate.id}>
+            <Cell md='1/2' key={maecenate.id}>
               <MaecenateCard
                 maecenate={maecenate}
                 onClick={this.gotoMaecenate.bind(this, maecenate)} />
-            </Col>
+            </Cell>
         )}
       </Row>
     )

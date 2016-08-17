@@ -2,18 +2,18 @@ import React from 'react'
 import YourProfileContainer from './YourProfileContainer'
 import YourMaecenatesContainer from './YourMaecenatesContainer'
 import YourMaecensContainer from './YourMaecensContainer'
-import { Row, Col } from 'react-flexbox-grid/lib'
+import { Row, Cell } from '../../components/Grid'
 
 export default function MyPageView () {
   return (
     <Row>
-      <Col md={6} sm={12} xs={12}>
+      <Cell lg='1/2'>
         <YourMaecenatesContainer />
         <YourMaecensContainer />
-      </Col>
-      <Col md={6} sm={12} xs={12}>
+      </Cell>
+      <Cell lg='1/2'>
         <YourProfileContainer />
-      </Col>
+      </Cell>
     </Row>
   )
 }

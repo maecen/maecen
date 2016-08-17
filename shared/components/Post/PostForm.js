@@ -1,7 +1,7 @@
 import React from 'react'
 import { translate } from 'react-i18next'
 
-import { Row, Col } from 'react-flexbox-grid/lib'
+import { Row, Cell } from '../../components/Grid'
 import { Card, CardContent, CardTitle, CardActions } from '../../components/Card'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
@@ -34,7 +34,7 @@ function PostForm (props) {
 
   return (
     <Row>
-      <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+      <Cell narrowLayout={true}>
         <Card>
           <CardTitle title={titleStr} />
           <Form onSubmit={handleSubmit} model={post}
@@ -88,7 +88,7 @@ function PostForm (props) {
             </CardActions>
           </Form>
         </Card>
-      </Col>
+      </Cell>
     </Row>
   )
 }

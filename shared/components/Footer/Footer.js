@@ -17,8 +17,12 @@ const languages = {
 }
 
 function Footer (props) {
-  const { hasAuth, lang, langOptions, changeLang, showLangSwitch } = props
+  const { hasAuth, lang, langOptions, changeLang, showLangSwitch, user } = props
   const { spacer, icon } = styleVariables
+  const userLang = user.language
+
+  console.log(userLang)
+
   const style = {
     footer: {
       padding: `${spacer.base} 0px ${spacer.quart}`,
@@ -30,8 +34,14 @@ function Footer (props) {
       top: spacer.base,
       borderRadius: styleVariables.border.radius,
       overflow: 'hidden',
-      paddingRight: '0px',
-      lineHeight: '0px'
+      paddingRight: 0,
+      lineHeight: 0
+    },
+    selectField: {
+      width: '50px'
+    },
+    selectUnderline: {
+      display: 'none'
     }
   }
 
@@ -41,10 +51,9 @@ function Footer (props) {
         <SelectField
           value={lang}
           onChange={changeLang}
-          style={{width: '50px'}}
+          style={style.selectField}
           labelStyle={style.selectLabel}
-          underlineStyle={{display: 'none'}}
-          // iconStyle={{display: 'none'}}
+          underlineStyle={style.selectUnderline}
         >
           {langOptions.map((option) =>
             <MenuItem

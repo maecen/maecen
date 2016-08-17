@@ -51,12 +51,20 @@ export default function initialRender (req, res, next) {
         const { params, components } = renderProps
 
         return fetchComponentData(store, components, params).then(() => {
+          // Needed for radium to do proper SSR with e.g. Media Queries
+          const createElement = (Component, props) => (
+            <Component
+              {...props}
+              radiumConfig={{ userAgent: req.headers['user-agent'] }}
+            />
+          )
+
           // Initial Render
           // ==============
           const html = renderToString(
             <I18nextProvider i18n={i18nServer}>
               <Provider store={store}>
-                <RouterContext {...renderProps} />
+                <RouterContext {...renderProps} createElement={createElement} />
               </Provider>
             </I18nextProvider>
           )
@@ -121,7 +129,19 @@ function getAuthenticatedUser (userId, clearCookie) {
 }
 
 function renderTemplate (html, initialState, i18n) {
-  const cssPath = '/dist/app.css'
+  const globalStyle = `
+    [type=reset],
+    [type=submit],
+    button,
+    html [type=button] {
+      -webkit-appearance: initial;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  `
   const style = {
     html: `
       overflow-x: hidden;
@@ -151,7 +171,7 @@ function renderTemplate (html, initialState, i18n) {
         <meta name="theme-color" content="#262626">
         <!-- TODO we need to translate this -->
         <title>Mæcen</title>
-        <link rel="stylesheet" href=${cssPath} />
+        <style>${globalStyle}</style>
         <link
           href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700'
           rel='stylesheet' type='text/css'>

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 import styleVariables from '../styleVariables'
-import { Row, Col } from 'react-flexbox-grid/lib'
+import { Row, Cell } from '../Grid'
 import { Card, CardContent, CardTitle } from '../../components/Card'
 import { translate } from 'react-i18next'
 import cropCloudy from '../../lib/cropCloudy'
@@ -62,7 +62,7 @@ function MaecenatePresentation (props) {
 
   return (
     <Row>
-      <Col mdOffset={2} md={8} smOffset={1} sm={10} xs={12}>
+      <Cell narrowLayout={true}>
         <Card>
           <div style={style.titleWrap}>
             <Avatar
@@ -124,7 +124,7 @@ function MaecenatePresentation (props) {
             }
           </CardContent>
         </Card>
-      </Col>
+      </Cell>
     </Row>
   )
 }

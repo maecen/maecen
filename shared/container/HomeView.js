@@ -10,7 +10,6 @@ import styleVariables from '../components/styleVariables'
 import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
 import Button from '../components/Form/Button'
-import s from './HomeView.scss'
 
 class HomeView extends Component {
   constructor (props) {
@@ -40,33 +39,34 @@ class HomeView extends Component {
     }
 
     return (
-      <div className={s.home}>
+      <div style={style.home}>
         <Icon size='calc(12vh + 12vw)'
           viewBox='0 0 832 997'
           icon='maecen-detail'
         />
         {letMeSee
           ? <div>
-              <div className={s.tagline}>{t('tagline')}</div>
+              <div style={style.tagline}>{t('tagline')}</div>
               <div>
-                <Link to='/maecenates' className={s.marginBottom}>
+                <Link to='/maecenates' style={style.marginBottom}>
                   <Button primary={true} label={t('maecenate.seeAll')} />
                 </Link>
-                <Button
-                  className={s.marginBottom}
-                  label={t('maecenate.create')}
-                  primary={true}
-                  onClick={this.handleCreateMaecenate}
-                />
+                <div style={style.marginBottom}>
+                  <Button
+                    label={t('maecenate.create')}
+                    primary={true}
+                    onClick={this.handleCreateMaecenate}
+                  />
+                </div>
                 <Link to='/about'>
                   <Button primary={true} label={t('aboutMaecen')} />
                 </Link>
               </div>
             </div>
           : <div id='mc_embed_signup'>
-              <div className={s.tagline}>{t('curiousEmail')}</div>
+              <div style={style.tagline}>{t('curiousEmail')}</div>
               <form
-                action='//maecen.us9.list-manage.com/subscribe/post?u=1e4624f4f555b78ee9644d7c9&amp;id=a04ee31e14'
+                action='//maecen.us9.list-manage.com/subscribe/post?u=1e4624f4f555b78ee9644d7c9&amp,id=a04ee31e14'
                 method='post'
                 id='mc-embedded-subscribe-form'
                 name='mc-embedded-subscribe-form'
@@ -156,6 +156,30 @@ class HomeView extends Component {
     } else {
       return <UserFeedView />
     }
+  }
+}
+
+const style = {
+  home: {
+    color: 'white',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100%',
+    textAlign: 'center'
+  },
+  tagline: {
+    fontSize: 'calc(.8rem + .5vw + .5vh)',
+    fontStyle: 'italic',
+    fontweight: 300,
+    letterSpacing: '.02rem',
+    marginBottom: '3rem',
+    marginTop: '3rem'
+  },
+  marginBottom: {
+    display: 'inline-block',
+    marginBottom: styleVariables.spacer.half
   }
 }
 
