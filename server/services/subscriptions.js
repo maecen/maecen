@@ -9,7 +9,7 @@
  **/
 import uuid from 'node-uuid'
 import moment from 'moment'
-import transactionService from './transactions'
+import * as transactionService from './transactions'
 
 // Database Calls
 // ==============
@@ -121,8 +121,105 @@ export function createSubPeriod (
   })
 }
 
+// This will initiate a payment from the users card
+export function refreshMaecenateSubscription (knex, subscriptionId) {
+  const paymentType = transactionService.REFRESH_MAECENATE
+  const tomorrow = moment(new Date()).set({
+    millisecond: 0, second: 0, minute: 0, hour: 0
+  }).add(1, 'days').toDate()
+
+  return fetchSubInfoWhichEndsAt(knex, subscriptionId, tomorrow)
+  .then((subInfo) => {
+    // If we can't find any data about a subscription which ends tomorrow
+    if (!subInfo) {
+      const error = { _: 'subscription.notValidForRefresh' }
+      throw error
+    }
+
+    // Now check if we already have a subscription that starts tomorrow
+    return existsSubPeriodAt(knex, subscriptionId, tomorrow).then(result => {
+      if (result === true) {
+        const error = {
+          _: 'subscription.alreadyActiveSubscriptionInPeriod' }
+        throw error
+      }
+
+      return knex.transaction(trx => {
+        return transactionService.authorizePayment(trx, {
+          paymentType,
+          userId: subInfo.user,
+          epaySubscriptionId: subInfo.epay_subscription_id,
+          maecenateId: subInfo.maecenate,
+          amount: subInfo.amount,
+          currency: subInfo.currency
+        }).then((transaction) => {
+          if (transaction) {
+            return createSubPeriod(
+              trx, subscriptionId, transaction, tomorrow, 1
+            )
+          }
+        })
+      })
+    })
+  })
+}
+
+export function refreshExpiringSubscriptions (knex) {
+  const tomorrow = moment(new Date()).set({
+    millisecond: 0, second: 0, minute: 0, hour: 0
+  }).add(1, 'days')
+  return knex('subscriptions')
+  .select('subscriptions.id')
+  .innerJoin('sub_periods', 'subscription', 'subscriptions.id')
+  .where('sub_periods.end', '=', tomorrow.toDate())
+  .then(subscriptions => {
+    let lastPromise = null
+    for (let { id } of subscriptions) {
+      if (lastPromise === null) {
+        lastPromise = refreshMaecenateSubscription(knex, id)
+      } else {
+        lastPromise.then(function (id) {
+          return refreshMaecenateSubscription(knex, id)
+        }.bind(null, id))
+      }
+      lastPromise.catch((err) => {
+        console.log(`[ERROR PAYMENT] Could not refresh ${id}`, err)
+      })
+    }
+    return lastPromise
+  })
+}
+
 // Helper methods
 // ==============
+function fetchSubInfoWhichEndsAt (knex, subscriptionId, date) {
+  return knex('subscriptions')
+  .select(
+    'subscriptions.id',
+    'subscriptions.amount',
+    'subscriptions.currency',
+    'subscriptions.started_at',
+    'user',
+    'maecenate',
+    'sub_periods.start',
+    'sub_periods.end',
+    'users.epay_subscription_id'
+  ).innerJoin('sub_periods', 'subscription', 'subscriptions.id')
+  .innerJoin('users', 'user', 'users.id')
+  .where('subscriptions.id', subscriptionId)
+  .where('sub_periods.end', '=', date)
+  .then(result => result[0])
+}
+
+function existsSubPeriodAt (knex, subscriptionId, date) {
+  return knex('sub_periods')
+  .select('id')
+  .where('subscription', subscriptionId)
+  .where('start', '<=', date)
+  .where('end', '>', date)
+  .then(result => result[0] && Boolean(result[0].id))
+}
+
 function getNextEndDate (nextStart, startedAt, durationMonths) {
   startedAt = moment(startedAt)
   nextStart = moment(nextStart)
@@ -133,7 +230,10 @@ function getNextEndDate (nextStart, startedAt, durationMonths) {
     nextStart.diff(startedAt, 'months', true)
   )
   const deltaMonths = monthsSinceStartedAt + durationMonths
-  const nextEnd = startedAt.clone().add(deltaMonths, 'months').toDate()
+  // We add an extra day, so it doesn't expire a month after, but the day
+  // after the month has ended, as end end date is not included
+  const nextEnd = startedAt.clone()
+    .add(deltaMonths, 'months').add(1, 'days').toDate()
   return nextEnd
 }
 

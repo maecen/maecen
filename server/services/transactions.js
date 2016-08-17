@@ -1,7 +1,7 @@
 import uuid from 'node-uuid'
 import soap from 'soap'
 
-const epaySoapUrl = 'https://ssl.ditonlinebetalingssystem.dk/remote/subscription.asmx?WSDL'
+export const epaySoapUrl = 'https://ssl.ditonlinebetalingssystem.dk/remote/subscription.asmx?WSDL'
 
 // Constants
 // =========
@@ -129,6 +129,7 @@ export function authorizePayment (knex, {
         return paymentSuccess(knex, epayOptions.orderid, transactionid)
       } else {
         return paymentFailed(knex, epayOptions.orderid)
+        .then(() => false)
       }
     })
   })

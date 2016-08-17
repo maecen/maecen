@@ -75,9 +75,11 @@ function authorizeMaecenateSubscription (
     amount,
     currency: 'DKK'
   }).then(transaction => {
-    return subscriptionService.startSubscription(knex, transaction)
-  }).then((support) => {
-    return true
+    if (transaction) {
+      return subscriptionService.startSubscription(knex, transaction)
+      .then(() => true)
+    }
+    return false
   })
 }
 
@@ -113,3 +115,14 @@ export function paymentCallback (req, res, next) {
     }
   }).catch(next)
 }
+
+export function cronRefreshSubscriptions (req, res, next) {
+  const { knex } = req.app.locals
+
+  // We should not wait with responding until we're finished, as refreshing
+  // all expiring subscriptions potentially could take a loooong time as we need
+  // a response from epay every time we refresh a subscription
+  subscriptionService.refreshExpiringSubscriptions(knex)
+  return res.json({ success: true })
+}
+
