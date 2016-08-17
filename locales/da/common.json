@@ -78,11 +78,13 @@
   "support": {
     "belowMin": "Beløbet er mindre end det månedlige minimum",
     "congratulations": "Tillykke",
+    "confirmPayment": "Bekræft betaling",
     "continueToPayment": "Forsæt til betaling",
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
     "join": "Bliv mæcen",
     "joinMaecenate": "Bliv mæcen for {{title}}",
-    "minimumAmount": "Minimum betaling $t(currency.amount) pr. måned",
+    "minimumAmount": "Minimum $t(currency.amount)",
+    "subscriptionExplanation": "Beløbet bliver automatisk trukket fra dit kort hver måned. Du kan til enhver tid afbryde din støtte.",
     "success": "Du er nu mæcen for {{title}}"
   },
   "user": {

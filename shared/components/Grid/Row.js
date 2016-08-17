@@ -6,7 +6,9 @@ const style = {
   base: {
     margin: `0px -${styleVariables.grid.gutter.half}`,
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    alignSelf: 'flex-start',
+    maxWidth: `calc(100% + ${styleVariables.grid.gutter.base}`
   }
 }
 

@@ -16,6 +16,7 @@ export default {
   color: {
     alert: 'rgb(244, 67, 54)',
     bodyText: 'white',
+    cardText: 'hsl(0, 0%, 13%)',
     icon: 'rgba(255,255,255,0.6)',
     gray: 'rgb(200,200,200)',
     primary: 'hsl(190, 100%, 30%)'

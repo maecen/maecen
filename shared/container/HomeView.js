@@ -47,21 +47,19 @@ class HomeView extends Component {
         {letMeSee
           ? <div>
               <div style={style.tagline}>{t('tagline')}</div>
-              <div>
-                <Link to='/maecenates' style={style.marginBottom}>
-                  <Button primary={true} label={t('maecenate.seeAll')} />
-                </Link>
-                <div style={style.marginBottom}>
-                  <Button
-                    label={t('maecenate.create')}
-                    primary={true}
-                    onClick={this.handleCreateMaecenate}
-                  />
-                </div>
-                <Link to='/about'>
-                  <Button primary={true} label={t('aboutMaecen')} />
-                </Link>
+              <Link to='/maecenates' style={style.marginBottom}>
+                <Button primary={true} label={t('maecenate.seeAll')} />
+              </Link>
+              <div style={style.marginBottom}>
+                <Button
+                  label={t('maecenate.create')}
+                  primary={true}
+                  onClick={this.handleCreateMaecenate}
+                />
               </div>
+              <Link to='/about'>
+                <Button primary={true} label={t('aboutMaecen')} />
+              </Link>
             </div>
           : <div id='mc_embed_signup'>
               <div style={style.tagline}>{t('curiousEmail')}</div>
@@ -140,7 +138,7 @@ class HomeView extends Component {
                 </div>
               </form>
               <Link to='/about'>
-                <Button primary={true} label={t('aboutMaecen')} />
+                <Button primary={true} last={true} label={t('aboutMaecen')} />
               </Link>
             </div>
         }
@@ -162,10 +160,11 @@ class HomeView extends Component {
 const style = {
   home: {
     color: 'white',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    minHeight: '100%',
     width: '100%',
     textAlign: 'center'
   },

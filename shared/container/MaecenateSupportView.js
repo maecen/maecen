@@ -178,6 +178,7 @@ class MaecenateSupportView extends React.Component {
 
             {this.state.display === 'amount' &&
               <CardContent>
+                {t('support.subscriptionExplanation')}
                 <form
                   onSubmit={this.handleSubmit}>
                   <TextField
@@ -189,16 +190,20 @@ class MaecenateSupportView extends React.Component {
                       context: 'DKK',
                       count: maecenate.monthly_minimum
                     })}
+                    type='number'
+                    min={maecenate.monthly_minimum}
                     floatingLabelFixed={true}
+                    floatingLabelStyle={style.fixedLabel}
                     autoComplete='off'
                     error={this.state.amountError}
-                    style={{marginTop: '-16px'}}
                   />
-
-                  <Button label={continueLabel}
-                    type='submit'
-                    secondary={true}
-                    disabled={disableSubmit} />
+                  <div style={style.amountButton}>
+                    <Button label={continueLabel}
+                      type='submit'
+                      secondary={true}
+                      last={true}
+                      disabled={disableSubmit} />
+                  </div>
                 </form>
                 <div id='payment-holder' />
               </CardContent>
@@ -209,7 +214,7 @@ class MaecenateSupportView extends React.Component {
                 <div>
                   Total: {t('currency.amount', {count: amount, context: 'DKK'})}
                 </div>
-                <Button label='Confirm Payment' // Need i18n
+                <Button label={t('support.confirmPayment')}
                   type='submit'
                   secondary={true}
                   onClick={this.handleSubmit}
@@ -226,49 +231,53 @@ class MaecenateSupportView extends React.Component {
     const { maecenate, t } = this.props
 
     return (
-      <div style={style.cardWrap}>
-        <Card style={style.card}>
-          <div>
-            <HappyIcon
-              style={style.smiley}
-              color={styleVariables.color.gray}
-            />
-          </div>
-          <CardTitle
-            title={t('support.congratulations')}
-            subtitle={t('support.success', { title: maecenate.title })}
+      <Card style={style.card}>
+        <div>
+          <HappyIcon
+            style={style.smiley}
+            color={styleVariables.color.gray}
           />
-          <CardContent style={style.content}>
-            <Button
-              primary={true}
-              label={t('maecenate.seeWithContent', { title: maecenate.title })}
-              onClick={this.gotoContent}
-            />
-          </CardContent>
-        </Card>
-      </div>
+        </div>
+        <CardTitle
+          title={t('support.congratulations')}
+          subtitle={t('support.success', { title: maecenate.title })}
+        />
+        <CardContent style={style.content}>
+          <Button
+            primary={true}
+            label={t('maecenate.seeWithContent', { title: maecenate.title })}
+            onClick={this.gotoContent}
+          />
+        </CardContent>
+      </Card>
     )
   }
 }
 
-const spacer = styleVariables.spacer.base
-const spacerDouble = styleVariables.spacer.double
+const spacer = styleVariables.spacer
 const style = {
-  cardWrap: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
   card: {
     textAlign: 'center',
-    display: 'inline-block'
+    display: 'inline-block',
+    margin: '0 auto'
   },
   smiley: {
     width: '100px',
     height: '100px',
-    paddingTop: spacer
+    paddingTop: spacer.base
   },
   content: {
-    padding: `0 ${spacerDouble} ${spacer}`
+    padding: `0 ${spacer.double} ${spacer.base}`
+  },
+  amountButton: {
+    marginTop: spacer.half,
+    textAlign: 'right'
+  },
+  amountTextField: {
+    marginTop: `-${spacer.base}`
+  },
+  fixedLabel: {
+    color: styleVariables.color.cardText
   }
 }
 

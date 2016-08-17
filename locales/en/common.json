@@ -67,11 +67,13 @@
   "support": {
     "belowMin": "The amount is below the monthly mininum",
     "congratulations": "Congratulations",
+    "confirmPayment": "Confirm payment",
     "continueToPayment": "Continue to payment",
     "howMuch": "Enter your monthly support in DKK",
     "join": "Support",
     "joinMaecenate": "Become Maecen for {{title}}",
     "minimumAmount": "Minimum $t(currency.amount)",
+    "subscriptionExplanation": "The amount will be withdrawn from your card each month until you choose to cancel your support.",
     "success": "You are now Maecen for {{title}}"
   },
   "post": {
