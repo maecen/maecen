@@ -55,15 +55,17 @@ export function updateEntities (entities) {
   }
 }
 
-export function changeLanguage (lang) {
-  return (dispatch, state) => {
-    return apiRequest(state, '/setUserLanguage', {
-      method: 'PUT',
-      data: { lng: lang }
-    }).then(res => {
-      if (res.success === true) {
-        window.location.reload()
-      }
-    })
+export function changeLanguage (lang, currLang) {
+  if (lang !== currLang) {
+    return (dispatch, state) => {
+      return apiRequest(state, '/setUserLanguage', {
+        method: 'PUT',
+        data: { lng: lang }
+      }).then(res => {
+        if (res.success === true) {
+          window.location.reload()
+        }
+      })
+    }
   }
 }

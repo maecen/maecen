@@ -9,10 +9,11 @@ import { isAuthorized, getAuthUser } from '../selectors/user'
 
 class FooterContainer extends Component {
   changeLang (event, index, value) {
-    console.log(value)
-    const { dispatch } = this.props
+    const { i18n } = this.context
+    const currLang = i18n.language
     const lang = value
-    dispatch(Actions.changeLanguage(lang))
+    const { dispatch } = this.props
+    dispatch(Actions.changeLanguage(lang, currLang))
   }
 
   render () {
@@ -23,6 +24,7 @@ class FooterContainer extends Component {
     return (
       <Footer
         hasAuth={this.props.hasAuth}
+        user={this.props.user}
         showLangSwitch={showLangSwitch}
         lang={currLang}
         langOptions={langOptions}
