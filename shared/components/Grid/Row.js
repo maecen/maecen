@@ -8,7 +8,7 @@ const style = {
     display: 'flex',
     flexWrap: 'wrap',
     alignSelf: 'flex-start',
-    maxWidth: `calc(100% + ${styleVariables.grid.gutter.base}`
+    width: `calc(100% + ${styleVariables.grid.gutter.base})`
   }
 }
 

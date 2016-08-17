@@ -259,7 +259,8 @@ const style = {
   card: {
     textAlign: 'center',
     display: 'inline-block',
-    margin: '0 auto'
+    margin: '0 auto',
+    alignSelf: 'flex-start'
   },
   smiley: {
     width: '100px',
