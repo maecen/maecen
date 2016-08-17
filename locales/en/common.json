@@ -66,6 +66,7 @@
   },
   "support": {
     "belowMin": "The amount is below the monthly mininum",
+    "cardInfo": " will be withdrawn each month from your credit card: ",
     "congratulations": "Congratulations",
     "confirmPayment": "Confirm payment",
     "continueToPayment": "Continue to payment",

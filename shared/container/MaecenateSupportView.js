@@ -155,7 +155,7 @@ class MaecenateSupportView extends React.Component {
   }
 
   renderPayment () {
-    const { maecenate, hasAuth, t } = this.props
+    const { maecenate, hasAuth, t, user } = this.props
     const { amount } = this.state
     const continueLabel = hasAuth
       ? t('support.continueToPayment')
@@ -211,14 +211,17 @@ class MaecenateSupportView extends React.Component {
 
             {this.state.display === 'confirm' &&
               <CardContent>
-                <div>
-                  Total: {t('currency.amount', {count: amount, context: 'DKK'})}
+                {t('currency.amount', {count: amount, context: 'DKK'})}
+                {t('support.cardInfo')}
+                {user.payment_card}
+                <div style={style.amountButton}>
+                  <Button label={t('support.confirmPayment')}
+                    type='submit'
+                    secondary={true}
+                    last={true}
+                    onClick={this.handleSubmit}
+                    disabled={disableSubmit} />
                 </div>
-                <Button label={t('support.confirmPayment')}
-                  type='submit'
-                  secondary={true}
-                  onClick={this.handleSubmit}
-                  disabled={disableSubmit} />
               </CardContent>
             }
           </Card>
