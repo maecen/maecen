@@ -41,9 +41,6 @@ class YourMaecensContainer extends Component {
           <List>
             {maecenates.map((maecenate, i) => (
               <div key={i}>
-                {i > 0 &&
-                  <Divider />
-                }
                 <ListItem
                   leftAvatar={
                     <Avatar
@@ -53,6 +50,7 @@ class YourMaecensContainer extends Component {
                   primaryText={maecenate.title}
                   onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
                 />
+                <Divider />
               </div>
             ))}
           </List>
