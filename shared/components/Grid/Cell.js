@@ -27,6 +27,10 @@ const style = {
     maxWidth: styleVariables.media.md,
     margin: '0 auto'
   },
+  narrower: {
+    maxWidth: styleVariables.media.sm,
+    margin: '0 auto'
+  },
   lg: {
     base: {
       [styleVariables.breakpoint.lg]: flex.base
@@ -101,6 +105,9 @@ function Cell (props) {
   }
   if (props.narrowLayout === true) {
     styling = {...styling, ...style.narrow}
+  }
+  if (props.narrowerLayout === true) {
+    styling = {...styling, ...style.narrower}
   }
 
   return (

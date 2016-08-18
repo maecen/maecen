@@ -16,6 +16,7 @@ import {
 import { getMaecenateBySlug } from '../selectors/maecenate'
 import { isAuthUserMaecenateSupporter } from '../selectors/support'
 
+import { Table, TableBody, TableRow, TableRowColumn } from '../components/Table'
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
 import { Row, Cell } from '../components/Grid'
@@ -160,15 +161,18 @@ class MaecenateSupportView extends React.Component {
     const continueLabel = hasAuth
       ? t('support.continueToPayment')
       : t('action.continue')
+    const cardTitle = this.state.display === 'amount'
+      ? t('support.joinMaecenate', { title: maecenate.title })
+      : t('support.confirmSupport')
 
     const disableSubmit = !this.state.epayScriptLoaded || this.state.isSubmitting
 
     return (
       <Row>
-        <Cell narrowLayout={true}>
+        <Cell narrowerLayout={true}>
           <Card>
             <CardTitle
-              title={t('support.joinMaecenate', { title: maecenate.title })}
+              title={cardTitle}
             />
             {Object.keys(this.state.errors).length > 0 &&
               <CardError>
@@ -211,11 +215,36 @@ class MaecenateSupportView extends React.Component {
 
             {this.state.display === 'confirm' &&
               <CardContent>
-                {t('currency.amount', {count: amount, context: 'DKK'})}
-                {t('support.cardInfo')}
-                {user.payment_card}
+                <Table selectable={false}>
+                  <TableBody displayRowCheckbox={false}>
+                    <TableRow>
+                      <TableRowColumn>
+                        {t('maecenateName')}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {maecenate.title}
+                      </TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                      <TableRowColumn>
+                        {t('support.monthlyAmount')}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {t('currency.amount', {count: amount, context: 'DKK'})}
+                      </TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                      <TableRowColumn>
+                        {t('creditCard')}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {user.payment_card}
+                      </TableRowColumn>
+                    </TableRow>
+                  </TableBody>
+                </Table>
                 <div style={style.amountButton}>
-                  <Button label={t('support.confirmPayment')}
+                  <Button label={t('support.confirmSubscription')}
                     type='submit'
                     secondary={true}
                     last={true}

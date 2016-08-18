@@ -37,7 +37,7 @@ const style = {
     display: 'flex',
     flex: '1',
     justifyContent: 'center',
-    paddingBottom: styleVariables.spacer.double
+    paddingBottom: styleVariables.spacer.quadrouple
   }
 }
 
