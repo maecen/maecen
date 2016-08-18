@@ -4,32 +4,37 @@ import Radium from 'radium'
 import styleVariables from '../styleVariables'
 const flex = {
   base: {
-    flex: '0 0 100%'
+    flex: '0 0 100%',
+    maxWidth: '100%'
   },
   half: {
-    flex: '0 0 50%'
+    flex: '0 0 50%',
+    maxWidth: '50%'
   },
   third: {
-    flex: '0 0 33.3333%'
+    flex: '0 0 33.3333%',
+    maxWidth: '33.3333%'
   },
   quater: {
-    flex: '0 0 25%'
+    flex: '0 0 25%',
+    maxWidth: '25%'
   }
 }
 const style = {
   base: {
     padding: `0px ${styleVariables.grid.gutter.half}`,
     ...flex.base,
-    boxSizing: 'border-box',
-    maxWidth: '100%'
+    boxSizing: 'border-box'
   },
   narrow: {
-    maxWidth: styleVariables.media.md,
-    margin: '0 auto'
+    flex: '0 0 auto',
+    margin: '0 auto',
+    width: styleVariables.media.md
   },
   narrower: {
-    maxWidth: styleVariables.media.sm,
-    margin: '0 auto'
+    flex: '0 0 auto',
+    margin: '0 auto',
+    width: styleVariables.media.sm
   },
   lg: {
     base: {

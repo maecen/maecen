@@ -26,11 +26,12 @@ export default {
       bodySmall: '12px',
       body: `${defaultUnit}px`,
       bodyLarge: '18px',
-      h1: '30px',
+      h1: '24px',
       h1Big: '40px'
     },
     weight: {
       heading: '300',
+      body: '400',
       subtitle: '500'
     },
     lineHeight: {

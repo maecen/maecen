@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 
 import styleVariables from '../styleVariables'
 import { Row, Cell } from '../Grid'
-import { Card, CardContent, CardTitle } from '../../components/Card'
+import { Card, CardContent, CardBigTitle } from '../../components/Card'
 import { translate } from 'react-i18next'
 import cropCloudy from '../../lib/cropCloudy'
 import Avatar from 'material-ui/Avatar'
@@ -27,39 +27,6 @@ function MaecenatePresentation (props) {
     monthly_minimum: monthlyMinimum
   } = maecenate
 
-  const style = {
-    avatar: {
-      margin: styleVariables.spacer.base,
-      marginRight: '0px',
-      marginTop: styleVariables.spacer.base,
-      flexShrink: '0'
-    },
-    header: {
-      position: 'absolute',
-      right: '0px',
-      top: styleVariables.spacer.double
-    },
-    link: {
-      color: styleVariables.color.primary,
-      textDecoration: 'none'
-    },
-    subtitle: {
-      fontWeight: styleVariables.font.weight.subtitle
-    },
-    titleWrap: {
-      display: 'flex',
-      alignItems: 'center'
-    },
-    titleSubtitle: {
-      display: 'none'
-    },
-    flexMe: {
-      display: 'flex',
-      alignItems: 'flex-end',
-      justifyContent: 'space-between'
-    }
-  }
-
   return (
     <Row>
       <Cell narrowLayout={true}>
@@ -70,10 +37,9 @@ function MaecenatePresentation (props) {
               size={60}
               style={style.avatar}
             />
-            <CardTitle big={true}
-              title={maecenate.title}
-              subtitleStyle={style.titleSubtitle}
-            />
+            <CardBigTitle>
+              {maecenate.title}
+            </CardBigTitle>
           </div>
           {isAuthUserOwner &&
             <IconButton
@@ -127,6 +93,39 @@ function MaecenatePresentation (props) {
       </Cell>
     </Row>
   )
+}
+
+const { spacer, font, color } = styleVariables
+
+const style = {
+  avatar: {
+    marginTop: spacer.base,
+    marginRight: 0,
+    marginBottom: spacer.base,
+    marginLeft: spacer.base,
+    flexShrink: '0'
+  },
+  header: {
+    position: 'absolute',
+    right: '0px',
+    top: spacer.double
+  },
+  link: {
+    color: color.primary,
+    textDecoration: 'none'
+  },
+  subtitle: {
+    fontWeight: font.weight.subtitle
+  },
+  titleWrap: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  flexMe: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between'
+  }
 }
 
 MaecenatePresentation.propTypes = {
