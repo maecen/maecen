@@ -114,7 +114,7 @@ export function authorizePayment (knex, {
             const { authorizeResult, transactionid } = result
 
             if (authorizeResult === false) {
-              const error = { _: 'payment.authorizePaymentFailed' }
+              const error = { _: 'payment.authorizePaymentFailed', result }
               return reject(error)
             }
             return resolve({ success: true, transactionid })

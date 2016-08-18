@@ -5,11 +5,17 @@
 export function savePaymentInfo (
   knex, userId, epaySubscriptionId, cardNumber
 ) {
+  // Get and replace all but the last four characters with * and then
+  // get the last four characters
+  const cardStart = cardNumber.substr(0,
+    cardNumber.length - 4).replace(/(.)/g, '*')
+  const cardEnd = cardNumber.slice(-4)
+
   return knex('users')
   .where({ id: userId })
   .update({
     epay_subscription_id: epaySubscriptionId,
-    payment_card: cardNumber
+    payment_card: cardStart + cardEnd
   })
 }
 
