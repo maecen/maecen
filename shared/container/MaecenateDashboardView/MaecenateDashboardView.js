@@ -11,6 +11,7 @@ import { getSupportingUsers } from '../../selectors/user'
 
 import styleVariables from '../../components/styleVariables'
 import Link from '../../components/Link/Link'
+import { Row, Cell } from '../../components/Grid'
 import { Card, CardHeader, CardContent } from '../../components/Card'
 import { List } from 'material-ui/List'
 import ListItem from '../../components/List/ListItem'
@@ -47,48 +48,52 @@ class MaecenateDashboardView extends Component {
     const totalString = t('maecenate.totalAmount', { total: totalAmount })
 
     return (
-      <Card>
-        <CardHeader
-          title={maecenate.title}
-          subtitle={t('maecenate.dashboard')}
-          avatar={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}
-        />
+      <Row>
+        <Cell>
+          <Card>
+            <CardHeader
+              title={maecenate.title}
+              subtitle={t('maecenate.dashboard')}
+              avatar={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}
+            />
 
-        <CardContent>
-          <Button
-            label={t('maecenate.viewPresentation')}
-            primary={true}
-            onClick={this.gotoMaecenatePresentation.bind(this, maecenate.slug)}
-          />
-          <br />
-          <p>
-            {t('maecenate.linkToPresentation')}
-            <Link
-              style={{color: styleVariables.color.primary}}
-              to={`https://${this.linkToPresentation(maecenate.slug)}`}>
-              {this.linkToPresentation(maecenate.slug)}
-            </Link>
-          </p>
-        </CardContent>
-        <Divider />
-        <List>
-          <Subheader>{t('user.yourMaecenes')}</Subheader>
-          {
-            users.map(user => (
-              <ListItem key={user.id}>
-                {user.first_name} {Math.round(user.support.amount / 100)}
-              </ListItem>
-            ))
-          }
-          { users.length > 0
-            ? <ListItem
-                key='total'
-                primaryText={totalString} />
-            : <ListItem
-              primaryText={t('user.yourNoMaecenes')} />
-          }
-        </List>
-      </Card>
+            <CardContent>
+              <Button
+                label={t('maecenate.viewPresentation')}
+                primary={true}
+                onClick={this.gotoMaecenatePresentation.bind(this, maecenate.slug)}
+              />
+              <br />
+              <p>
+                {t('maecenate.linkToPresentation')}
+                <Link
+                  style={{color: styleVariables.color.primary}}
+                  to={`https://${this.linkToPresentation(maecenate.slug)}`}>
+                  {this.linkToPresentation(maecenate.slug)}
+                </Link>
+              </p>
+            </CardContent>
+            <Divider />
+            <List>
+              <Subheader>{t('user.yourMaecenes')}</Subheader>
+              {
+                users.map(user => (
+                  <ListItem key={user.id}>
+                    {user.first_name} {Math.round(user.support.amount / 100)}
+                  </ListItem>
+                ))
+              }
+              { users.length > 0
+                ? <ListItem
+                    key='total'
+                    primaryText={totalString} />
+                : <ListItem
+                  primaryText={t('user.yourNoMaecenes')} />
+              }
+            </List>
+          </Card>
+        </Cell>
+      </Row>
     )
   }
 }
