@@ -32,7 +32,7 @@ export const getCurrentUsers = createSelector(
 export const hasSavedPaymentCard = (userSelector) =>
   createSelector(
     [ userSelector ],
-    (user) => Boolean(user.epay_subscription_id)
+    (user) => Boolean(user && user.epay_subscription_id)
   )
 
 export const getSupportingUsers = (maecenateSelector) =>
