@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
 
 import styleVariables from '../styleVariables'
-import { Card, CardHeader, CardTitle, CardContent } from '../Card'
+import { Card, CardHeader, CardBigTitle, CardContent } from '../Card'
 import { Row, Cell } from '../Grid'
 import Post from '../Post/Post'
 import Avatar from 'material-ui/Avatar'
@@ -32,9 +32,6 @@ function MaecenateContent (props) {
     titleWrap: {
       display: 'flex',
       alignItems: 'center'
-    },
-    titleSubtitle: {
-      display: 'none'
     }
   }
 
@@ -48,10 +45,9 @@ function MaecenateContent (props) {
               size={60}
               style={style.avatar}
             />
-            <CardTitle big={true}
-              title={maecenate.title}
-              subtitleStyle={style.titleSubtitle}
-            />
+            <CardBigTitle>
+              {maecenate.title}
+            </CardBigTitle>
           </div>
           <CardHeader
             style={style.header}

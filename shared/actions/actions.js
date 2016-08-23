@@ -33,6 +33,13 @@ export function clearAuth () {
   }
 }
 
+export function fetchAuthUser () {
+  return (dispatch, state) => {
+    return apiRequest(state, '/getAuthUser')
+      .then(data => dispatch(updateEntities(data.entities)))
+  }
+}
+
 export function requireAuth (url) {
   url = url || null
 

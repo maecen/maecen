@@ -56,7 +56,8 @@ function MaecenateCard (props, context) {
           size={60}
           style={style.avatar}
         />
-        <CardTitle title={title} subtitleStyle={style.headerSubtitle} />
+        <CardTitle title={title} oneLine={true}
+          subtitleStyle={style.headerSubtitle} />
       </div>
       <Media type={cover.type} url={cover.url} fixedRatio={true} />
       <CardContent style={style.description}>

@@ -1,34 +1,35 @@
 import React, { PropTypes } from 'react'
 import Immutable from 'seamless-immutable'
+import Radium from 'radium'
 
 import styleVariables from '../styleVariables'
 import { CardTitle as MaterialCardTitle } from 'material-ui/Card'
 
-export default function CardTitle (props) {
+function CardTitle (props) {
   props = Immutable(props)
 
   let titleStyle = props.titleStyle
   if (props.big === true) {
     titleStyle = {
-      ...titleStyle,
-      fontSize: styleVariables.font.size.h1Big,
-      fontWeight: styleVariables.font.weight.heading,
-      padding: 0
+      ...titleStyle, ...style.big
+    }
+  }
+  if (props.oneLine === true) {
+    titleStyle = {
+      ...titleStyle, ...style.oneLine
     }
   }
   return (
     <MaterialCardTitle
       titleStyle={titleStyle}
-      {...props.without('titleStyle', 'big')} />
+      {...props.without('titleStyle', 'big', 'oneLine')} />
   )
 }
 
 CardTitle.defaultProps = {
   titleStyle: {
-    lineHeight: styleVariables.font.lineHeight.heading,
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden'
+    fontSize: styleVariables.font.size.h1,
+    lineHeight: styleVariables.font.lineHeight.heading
   },
   subtitleStyle: {
     marginTop: styleVariables.spacer.quart
@@ -44,3 +45,20 @@ CardTitle.defaultProps = {
 CardTitle.propTypes = {
   big: PropTypes.bool
 }
+
+const style = {
+  big: {
+    fontWeight: styleVariables.font.weight.heading,
+    padding: 0,
+    fontSize: styleVariables.font.size.h1Big
+  },
+  oneLine: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden'
+  }
+}
+
+export default Radium(
+  CardTitle
+)

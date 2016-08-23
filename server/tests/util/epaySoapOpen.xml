@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://ssl.ditonlinebetalingssystem.dk/remote/subscription" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="https://ssl.ditonlinebetalingssystem.dk/remote/subscription" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://ssl.ditonlinebetalingssystem.dk/remote/subscription">
+      <s:element name="deletesubscription">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantnumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="subscriptionid" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="deletesubscriptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="deletesubscriptionResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="authorize">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantnumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="subscriptionid" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="orderid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="currency" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="instantcapture" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="group" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sms" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ipaddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="textonstatement" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fraud" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="transactionid" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="pbsresponse" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="authorizeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="authorizeResult" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="fraud" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="transactionid" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="pbsresponse" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getsubscriptions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantnumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="subscriptionid" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscriptionAry" type="tns:ArrayOfSubscriptionInformationType" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSubscriptionInformationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SubscriptionInformationType" nillable="true" type="tns:SubscriptionInformationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SubscriptionInformationType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="subscriptionid" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="created" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="expmonth" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="expyear" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="cardtypeid" type="tns:CardType" />
+          <s:element minOccurs="0" maxOccurs="1" name="transactionList" type="tns:ArrayOfTransactionInformationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CardType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ALL" />
+          <s:enumeration value="DANKORT" />
+          <s:enumeration value="VISA_DANKORT" />
+          <s:enumeration value="VISA_ELECTRON_FOREIGN" />
+          <s:enumeration value="MASTERCARD" />
+          <s:enumeration value="MASTERCARD_FOREIGN" />
+          <s:enumeration value="VISA_ELECTRON" />
+          <s:enumeration value="JCB" />
+          <s:enumeration value="DINERS" />
+          <s:enumeration value="MAESTRO" />
+          <s:enumeration value="AMERICAN_EXPRESS" />
+          <s:enumeration value="UNKNOWN" />
+          <s:enumeration value="EDK" />
+          <s:enumeration value="DINERS_FOREIGN" />
+          <s:enumeration value="AMERICAN_EXPRESS_FOREIGN" />
+          <s:enumeration value="MAESTRO_FOREIGN" />
+          <s:enumeration value="FORBRUGSFORENINGEN" />
+          <s:enumeration value="EWIRE" />
+          <s:enumeration value="VISA" />
+          <s:enumeration value="IKANO" />
+          <s:enumeration value="OTHERS" />
+          <s:enumeration value="NORDEA_SOLO" />
+          <s:enumeration value="DANSKE_BANK" />
+          <s:enumeration value="BG_BANK" />
+          <s:enumeration value="LIC_MASTERCARD" />
+          <s:enumeration value="LIC_MASTERCARD_FOREIGN" />
+          <s:enumeration value="PAYPAL" />
+          <s:enumeration value="MOBILPENGE" />
+          <s:enumeration value="KLARNA" />
+          <s:enumeration value="SVEA" />
+          <s:enumeration value="SEB_DIREKTBETALNINGAR" />
+          <s:enumeration value="NORDEA_SE_DIREKTBETALNING" />
+          <s:enumeration value="HANDELSBANKEN_SE_DIREKTBETALNINGAR" />
+          <s:enumeration value="SWEDBANK_DIREKTBETALNINGAR" />
+          <s:enumeration value="IBILL" />
+          <s:enumeration value="NEMPAY" />
+          <s:enumeration value="IDEAL" />
+          <s:enumeration value="CLEARHAUS" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfTransactionInformationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransactionInformationType" nillable="true" type="tns:TransactionInformationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransactionInformationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="group" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="authamount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="currency" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="cardtypeid" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="capturedamount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="creditedamount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="orderid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="authdate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="captureddate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="deleteddate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="crediteddate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="status" type="tns:TransactionStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="history" type="tns:ArrayOfTransactionHistoryInfo" />
+          <s:element minOccurs="1" maxOccurs="1" name="transactionid" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="cardholder" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="mode" type="tns:PayMode" />
+          <s:element minOccurs="1" maxOccurs="1" name="msc" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="fraudStatus" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FraudMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="payerCountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="issuedCountryCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fee" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="splitpayment" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="acquirer" type="tns:AcquirerType" />
+          <s:element minOccurs="0" maxOccurs="1" name="tcardno" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="expmonth" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="expyear" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TransactionStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="PAYMENT_UNDEFINED" />
+          <s:enumeration value="PAYMENT_NEW" />
+          <s:enumeration value="PAYMENT_CAPTURED" />
+          <s:enumeration value="PAYMENT_DELETED" />
+          <s:enumeration value="PAYMENT_INSTANT_CAPTURE_FAILED" />
+          <s:enumeration value="PAYMENT_SUBSCRIPTION_INI" />
+          <s:enumeration value="PAYMENT_RENEW" />
+          <s:enumeration value="PAYMENT_EUROLINE_WAIT_CAPTURE" />
+          <s:enumeration value="PAYMENT_EUROLINE_WAIT_CREDIT" />
+          <s:enumeration value="PARTLY_TRANSACTION_HIDDEN" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfTransactionHistoryInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransactionHistoryInfo" nillable="true" type="tns:TransactionHistoryInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransactionHistoryInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="transactionHistoryID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="logonID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="eventMsg" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="created" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PayMode">
+        <s:restriction base="s:string">
+          <s:enumeration value="MODE_PRODUCTION" />
+          <s:enumeration value="MODE_TEST" />
+          <s:enumeration value="MODE_EPAY" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="AcquirerType">
+        <s:restriction base="s:string">
+          <s:enumeration value="UNKNOWN" />
+          <s:enumeration value="PBS" />
+          <s:enumeration value="EUROLINE" />
+          <s:enumeration value="DANSKE_BANK" />
+          <s:enumeration value="NORDEA" />
+          <s:enumeration value="EWIRE" />
+          <s:enumeration value="SWEDBANK" />
+          <s:enumeration value="PAYPAL" />
+          <s:enumeration value="BABS_SWEDBANK" />
+          <s:enumeration value="MOBILPENGE" />
+          <s:enumeration value="KLARNA" />
+          <s:enumeration value="SVEA" />
+          <s:enumeration value="HANDELSBANKEN" />
+          <s:enumeration value="SEB_DIREKT" />
+          <s:enumeration value="NORDEA_SE_DIREKT" />
+          <s:enumeration value="HANDELSBANKEN_DIREKT" />
+          <s:enumeration value="SWEDBANK_DIREKT" />
+          <s:enumeration value="IBILL" />
+          <s:enumeration value="NEMPAY" />
+          <s:enumeration value="IDEAL" />
+          <s:enumeration value="OBETUR" />
+          <s:enumeration value="EVRY_NORDEA_SE" />
+          <s:enumeration value="EVRY_NORDEA_DK" />
+          <s:enumeration value="EVRY_NORDEA_NO" />
+          <s:enumeration value="EVRY_NORDEA_FI" />
+          <s:enumeration value="MERCHANT4T" />
+          <s:enumeration value="EVRY_HANDELSBANKEN_SE" />
+          <s:enumeration value="EVRY_HANDELSBANKEN_DK" />
+          <s:enumeration value="EVRY_HANDELSBANKEN_NO" />
+          <s:enumeration value="EVRY_HANDELSBANKEN_FI" />
+          <s:enumeration value="EVRY_ELAVON" />
+          <s:enumeration value="EVRY_SWEDBANK" />
+          <s:enumeration value="EVRY_EUROLINE" />
+          <s:enumeration value="EVRY_TELLER" />
+          <s:enumeration value="VALITOR" />
+          <s:enumeration value="CLEARHAUS" />
+          <s:enumeration value="RESURS_BANK" />
+          <s:enumeration value="EKSPRES_BANK" />
+          <s:enumeration value="EPAY" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="getsubscriptionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getsubscriptionsResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscriptionAry" type="tns:ArrayOfSubscriptionInformationType" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getsubscription_byids">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantnumber" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscription_ids" type="tns:ArrayOfLong" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfLong">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="long" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getsubscription_byidsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getsubscription_byidsResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="subscription_ids" type="tns:ArrayOfLong" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPbsError">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantnumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="language" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pbsResponseCode" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pbsResponseString" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getPbsErrorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getPbsErrorResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="pbsResponseString" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEpayError">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="merchantnumber" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="language" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponsecode" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="epayResponseString" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEpayErrorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="getEpayErrorResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="epayResponseString" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="epayresponse" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="deletesubscriptionSoapIn">
+    <wsdl:part name="parameters" element="tns:deletesubscription" />
+  </wsdl:message>
+  <wsdl:message name="deletesubscriptionSoapOut">
+    <wsdl:part name="parameters" element="tns:deletesubscriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="authorizeSoapIn">
+    <wsdl:part name="parameters" element="tns:authorize" />
+  </wsdl:message>
+  <wsdl:message name="authorizeSoapOut">
+    <wsdl:part name="parameters" element="tns:authorizeResponse" />
+  </wsdl:message>
+  <wsdl:message name="getsubscriptionsSoapIn">
+    <wsdl:part name="parameters" element="tns:getsubscriptions" />
+  </wsdl:message>
+  <wsdl:message name="getsubscriptionsSoapOut">
+    <wsdl:part name="parameters" element="tns:getsubscriptionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getsubscription_byidsSoapIn">
+    <wsdl:part name="parameters" element="tns:getsubscription_byids" />
+  </wsdl:message>
+  <wsdl:message name="getsubscription_byidsSoapOut">
+    <wsdl:part name="parameters" element="tns:getsubscription_byidsResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPbsErrorSoapIn">
+    <wsdl:part name="parameters" element="tns:getPbsError" />
+  </wsdl:message>
+  <wsdl:message name="getPbsErrorSoapOut">
+    <wsdl:part name="parameters" element="tns:getPbsErrorResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEpayErrorSoapIn">
+    <wsdl:part name="parameters" element="tns:getEpayError" />
+  </wsdl:message>
+  <wsdl:message name="getEpayErrorSoapOut">
+    <wsdl:part name="parameters" element="tns:getEpayErrorResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SubscriptionSoap">
+    <wsdl:operation name="deletesubscription">
+      <wsdl:input message="tns:deletesubscriptionSoapIn" />
+      <wsdl:output message="tns:deletesubscriptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="authorize">
+      <wsdl:input message="tns:authorizeSoapIn" />
+      <wsdl:output message="tns:authorizeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getsubscriptions">
+      <wsdl:input message="tns:getsubscriptionsSoapIn" />
+      <wsdl:output message="tns:getsubscriptionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getsubscription_byids">
+      <wsdl:input message="tns:getsubscription_byidsSoapIn" />
+      <wsdl:output message="tns:getsubscription_byidsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPbsError">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Converts an error from PBS to a string description. If the returning value is false check for error codes in the pbsresponse and epayresponse reference attributes for information about errors from ePay or PBS.</wsdl:documentation>
+      <wsdl:input message="tns:getPbsErrorSoapIn" />
+      <wsdl:output message="tns:getPbsErrorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getEpayError">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Converts an errorcode from ePay to a string. If the returning value is false check for error codes in the pbsresponse and epayresponse reference attributes for information about errors from ePay or PBS.</wsdl:documentation>
+      <wsdl:input message="tns:getEpayErrorSoapIn" />
+      <wsdl:output message="tns:getEpayErrorSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SubscriptionSoap" type="tns:SubscriptionSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="deletesubscription">
+      <soap:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/deletesubscription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authorize">
+      <soap:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/authorize" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getsubscriptions">
+      <soap:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/getsubscriptions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getsubscription_byids">
+      <soap:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/getsubscription_byids" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPbsError">
+      <soap:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/getPbsError" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEpayError">
+      <soap:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/getEpayError" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SubscriptionSoap12" type="tns:SubscriptionSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="deletesubscription">
+      <soap12:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/deletesubscription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authorize">
+      <soap12:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/authorize" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getsubscriptions">
+      <soap12:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/getsubscriptions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getsubscription_byids">
+      <soap12:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/getsubscription_byids" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPbsError">
+      <soap12:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/getPbsError" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEpayError">
+      <soap12:operation soapAction="https://ssl.ditonlinebetalingssystem.dk/remote/subscription/getEpayError" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Subscription">
+    <wsdl:port name="SubscriptionSoap" binding="tns:SubscriptionSoap">
+      <soap:address location="https://ssl.ditonlinebetalingssystem.dk/remote/subscription.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SubscriptionSoap12" binding="tns:SubscriptionSoap12">
+      <soap12:address location="https://ssl.ditonlinebetalingssystem.dk/remote/subscription.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

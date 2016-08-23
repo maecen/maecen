@@ -3,7 +3,7 @@ const defaultUnit = 16
 const mediaSizes = {
   lg: '70em',
   md: '45em',
-  sm: '20em'
+  sm: '30em'
 }
 
 export default {
@@ -16,6 +16,7 @@ export default {
   color: {
     alert: 'rgb(244, 67, 54)',
     bodyText: 'white',
+    cardText: 'hsl(0, 0%, 13%)',
     icon: 'rgba(255,255,255,0.6)',
     gray: 'rgb(200,200,200)',
     primary: 'hsl(190, 100%, 30%)'
@@ -25,11 +26,12 @@ export default {
       bodySmall: '12px',
       body: `${defaultUnit}px`,
       bodyLarge: '18px',
-      h1: '30px',
+      h1: '24px',
       h1Big: '40px'
     },
     weight: {
       heading: '300',
+      body: '400',
       subtitle: '500'
     },
     lineHeight: {
@@ -60,6 +62,7 @@ export default {
     base: `${defaultUnit}px`,
     onePointFive: `${defaultUnit * 1.5}px`,
     double: `${defaultUnit * 2}px`,
+    quadrouple: `${defaultUnit * 4}px`,
     half: `${defaultUnit / 2}px`,
     quart: `${defaultUnit / 4}px`
   },

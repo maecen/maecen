@@ -37,11 +37,7 @@ const style = {
     display: 'flex',
     flex: '1',
     justifyContent: 'center',
-    paddingBottom: styleVariables.spacer.double
-  },
-  content: {
-    flexGrow: '1',
-    maxWidth: '100%'
+    paddingBottom: styleVariables.spacer.quadrouple
   }
 }
 
@@ -58,9 +54,7 @@ function App (props) {
               { props.children }
             </HeaderContainer>
             <div style={style.contentWrap}>
-              <div style={style.content}>
-                { props.children }
-              </div>
+              { props.children }
             </div>
             <FooterContainer>
               { props.children }

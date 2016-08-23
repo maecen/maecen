@@ -6,4 +6,5 @@ export { default as CardContent } from './CardContent'
 export { default as CardHeader } from './CardHeader'
 export { default as CardError } from './CardError'
 export { default as CardTitle } from './CardTitle'
+export { default as CardBigTitle } from './CardBigTitle'
 export { CardActions }

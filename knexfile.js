@@ -1,19 +1,25 @@
 'use strict'
+// Load all environment variables from `.env` file
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').load()
+}
 
 let path = require('path')
 
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: path.join(__dirname, './development.sqlite'),
+    client: 'postgresql',
+    connection: process.env.DATABASE_URL,
+    pool: {
+      min: 2,
+      max: 10
     },
-    useNullAsDefault: true,
     migrations: {
       directory: path.join(__dirname, '/migrations/'),
       tableName: 'knex_migrations'
     },
+    useNullAsDefault: true,
     debug: true
   },
 

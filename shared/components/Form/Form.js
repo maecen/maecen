@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react'
+import styleVariables from '../styleVariables'
 
 export default class Form extends Component {
 
@@ -26,7 +27,7 @@ export default class Form extends Component {
     return (
       <form onSubmit={this.props.onSubmit}>
         {error &&
-          <div style={{color: '#f73c3b', padding: '0 16px'}}>{error}</div>
+          <div style={style.error}>{error}</div>
         }
         {this.props.children}
       </form>
@@ -34,6 +35,12 @@ export default class Form extends Component {
   }
 }
 
+const style = {
+  error: {
+    color: styleVariables.color.alert,
+    padding: `0px ${styleVariables.spacer.base}`
+  }
+}
 Form.propTypes = {
   children: PropTypes.node.isRequired,
   onSubmit: PropTypes.func.isRequired,

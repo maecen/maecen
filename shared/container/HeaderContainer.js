@@ -29,8 +29,10 @@ class HeaderContainer extends Component {
   }
 
   fetchAdminMaecenates (userId) {
-    const { dispatch } = this.props
-    dispatch(Actions.fetchAdminMaecenates(userId))
+    const { dispatch, hasAuth } = this.props
+    if (hasAuth) {
+      dispatch(Actions.fetchAdminMaecenates(userId))
+    }
   }
 
   handleLogin () {

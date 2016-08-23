@@ -21,7 +21,7 @@ function CardText (props) {
     delete styling.padding
     styling = {
       ...styling,
-      paddingTop: '0px',
+      paddingTop: 0,
       paddingRight: styleVariables.spacer.base,
       paddingBottom: styleVariables.spacer.base,
       paddingLeft: styleVariables.spacer.base

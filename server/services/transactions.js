@@ -1,10 +1,28 @@
 import uuid from 'node-uuid'
+import soap from 'soap'
+import request from 'request'
+
+const requestWithProxy = request.defaults({
+  proxy: `${process.env.PROXIMO_URL}:80`,
+  timeout: 5000,
+  connection: 'keep-alive'
+})
+const soapClientOptions = {
+  request: requestWithProxy
+}
+
+export const epaySoapUrl = 'https://ssl.ditonlinebetalingssystem.dk/remote/subscription.asmx?WSDL'
 
 // Constants
 // =========
 export const SUPPORT_MAECENATE = {
   id: 'SUPPORT_MAECENATE',
   shortId: 'S'
+}
+
+export const REFRESH_MAECENATE = {
+  id: 'REFRESH_MAECENATE',
+  shortId: 'R'
 }
 
 // Database Calls
@@ -14,33 +32,43 @@ export function fetchTransactionByOrder (knex, orderId) {
     .then((result) => result[0])
 }
 
-export function createPayment (
-  knex, type, userId, maecenateId, amount, status
-) {
+export function createPayment (knex, {
+  paymentType,
+  userId,
+  maecenateId,
+  amount,
+  currency,
+  status
+}) {
   status = status || 'started'
 
   const transaction = {
-    id: uuid.v4(),
-    order_id: type.shortId + generateUnique(8),
+    id: uuid.v1(),
+    order_id: paymentType.shortId + generateUnique(7),
     epay_id: 0,
-    type: type.id,
+    type: paymentType.id,
     amount: amount,
-    currency: 'DKK',
+    currency,
     user: userId,
     maecenate: maecenateId,
     status: 'started'
   }
 
   return knex('transactions').insert(transaction).then(() => {
-    return transaction
+    return {
+      merchantnumber: process.env.EPAY_MERCANT_NUMBER,
+      amount: String(amount),
+      currency,
+      group: 'Maecen',
+      orderid: transaction.order_id
+    }
   })
 }
 
 export function verifyPayment (knex, orderId, amount) {
   return fetchTransactionByOrder(knex, orderId).then((transaction) => {
-    if (transaction.amount !== amount) {
-      const error = { amount: 'wrongAmount' }
-      throw error
+    if (!transaction || transaction.amount !== amount) {
+      return false
     }
     return true
   })
@@ -55,6 +83,68 @@ export function paymentSuccess (knex, orderId, epayId) {
   }).then(result => result[0])
 }
 
+export function paymentFailed (knex, orderId) {
+  return knex('transactions').where({ order_id: orderId }).limit(1).update({
+    status: 'error'
+  })
+}
+
+export function authorizePayment (knex, {
+  paymentType,
+  userId,
+  epaySubscriptionId,
+  maecenateId,
+  amount,
+  currency
+}) {
+  return createPayment(knex, {
+    paymentType,
+    userId,
+    maecenateId,
+    amount,
+    currency
+  }).then(epayOptions => {
+    const epayPaymentParams = {
+      ...epayOptions,
+      subscriptionid: epaySubscriptionId,
+      instantcapture: '1',
+      currency: epayCurrencyToShittyNumber(epayOptions.currency),
+      pwd: process.env.EPAY_PASSWORD
+    }
+
+    return new Promise((resolve, reject) => {
+      soap.createClient(epaySoapUrl, soapClientOptions, (err, client) => {
+        if (err) {
+          return reject(err)
+        } else {
+          client.authorize(epayPaymentParams, (err, result, raw) => {
+            if (err) {
+              return reject(err)
+            }
+            const { authorizeResult, transactionid } = result
+
+            if (authorizeResult === false) {
+              const error = { _: 'payment.authorizePaymentFailed', result }
+              return reject(error)
+            }
+            return resolve({ success: true, transactionid })
+          })
+        }
+      })
+    }).catch((err) => {
+      console.log('[ERROR in authorizePayment]', err)
+      return { success: false }
+    }).then(({ success, transactionid }) => {
+      if (success) {
+        return paymentSuccess(knex, epayOptions.orderid, transactionid)
+      } else {
+        return paymentFailed(knex, epayOptions.orderid)
+        .then(() => false)
+      }
+    })
+  })
+}
+
 // Helper methods
 // ==============
 function generateUnique (length) {
@@ -66,4 +156,13 @@ function generateUnique (length) {
     out += charset[(Math.random() * charset.length) << 0]
   }
   return out
+}
+
+function epayCurrencyToShittyNumber (currencyCode) {
+  const mappings = {
+    'DKK': '208',
+    'EUR': '978',
+    'USD': '840'
+  }
+  return mappings[currencyCode]
 }

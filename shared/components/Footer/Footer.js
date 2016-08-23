@@ -19,7 +19,7 @@ const languages = {
 function Footer (props) {
   const { hasAuth, lang, langOptions, changeLang, showLangSwitch, user } = props
   const { spacer, icon } = styleVariables
-  const userLang = user.language
+  const userLang = user ? user.language : ''
 
   console.log(userLang)
 

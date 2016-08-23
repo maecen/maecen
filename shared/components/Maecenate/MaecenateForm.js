@@ -106,6 +106,8 @@ function MaecenateForm (props) {
               <TextField
                 path={['monthly_minimum']}
                 label={t('maecenate.subscriptionPrice')}
+                type='number'
+                min={1}
                 placeholder={t('maecenate.subscriptionPricePlaceholder')} />
               <br />
 
