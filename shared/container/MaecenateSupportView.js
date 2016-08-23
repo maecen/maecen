@@ -44,6 +44,7 @@ class MaecenateSupportView extends React.Component {
   componentDidMount () {
     const { dispatch, params } = this.props
     dispatch(this.constructor.need[0](params))
+    dispatch(this.constructor.need[1](params))
     this.loadExternalEpayScript()
   }
 
@@ -316,6 +317,8 @@ const style = {
 
 MaecenateSupportView.need = [(params) => {
   return Actions.fetchMaecenate(params.slug)
+}, (params) => {
+  return Actions.fetchAuthUser()
 }]
 
 function mapStateToProps (state, props) {

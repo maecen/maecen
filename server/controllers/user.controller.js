@@ -1,4 +1,5 @@
 import { normalizeResponse } from '../util/ctrlHelpers'
+import * as service from '../services/users'
 import User from '../models/User'
 import Maecenate from '../models/Maecenate'
 
@@ -36,9 +37,10 @@ export function updateAuthUser (req, res, next) {
 }
 
 export function getAuthUser (req, res, next) {
+  const { knex } = req.app.locals
   const { userId } = req.user
 
-  return User.where('id', userId).then(user => {
+  return service.fetchUser(knex, userId).then(user => {
     return res.json(normalizeResponse({ users: user }))
   }).catch(next)
 }

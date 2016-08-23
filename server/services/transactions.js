@@ -1,5 +1,15 @@
 import uuid from 'node-uuid'
 import soap from 'soap'
+import request from 'request'
+
+const requestWithProxy = request.defaults({
+  proxy: `${process.env.PROXIMO_URL}:80`,
+  timeout: 5000,
+  connection: 'keep-alive'
+})
+const soapClientOptions = {
+  request: requestWithProxy
+}
 
 export const epaySoapUrl = 'https://ssl.ditonlinebetalingssystem.dk/remote/subscription.asmx?WSDL'
 
@@ -103,7 +113,7 @@ export function authorizePayment (knex, {
     }
 
     return new Promise((resolve, reject) => {
-      soap.createClient(epaySoapUrl, (err, client) => {
+      soap.createClient(epaySoapUrl, soapClientOptions, (err, client) => {
         if (err) {
           return reject(err)
         } else {

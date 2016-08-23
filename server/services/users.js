@@ -1,6 +1,10 @@
 
 // Database Calls
 // ==============
+export function fetchUser (knex, id) {
+  return knex('users').where({ id })
+  .then(results => results[0])
+}
 
 export function savePaymentInfo (
   knex, userId, epaySubscriptionId, cardNumber
