@@ -8,6 +8,7 @@ export function createUser (req, res, next) {
   if (data.email) {
     data.email = data.email.toLowerCase()
   }
+  data.language = req.language
 
   let user = new User(data)
   user.generateId()
@@ -53,8 +54,13 @@ export function authUser (req, res, next) {
   User.authenticate(email, password).then(user => {
     const token = createUserAuthTokenInRes(user, res)
     const response = normalizeResponse({ users: user })
+    let languageChanged = false
+    if (user.get('language') !== req.language) {
+      setUserLanguageCookie(user.get('language'), res)
+      languageChanged = true
+    }
     return res.json({
-      ...response, token
+      ...response, token, languageChanged
     })
   }).catch(next)
 }
@@ -65,11 +71,13 @@ export function clearAuth (req, res, next) {
 }
 
 export function setUserLanguage (req, res, next) {
-  // const userId = req.user && req.user.userId || null
-
-  const {lng} = req.body
-  const expire = 365 * 24 * 60 * 60 // in 1 year
-  res.cookie('i18n', lng, { maxAge: 1000 * expire, httpOnly: true })
+  const { knex } = req.app.locals
+  const userId = req.user && req.user.userId || null
+  const {lng: language} = req.body
+  if (userId) {
+    service.saveUserLangueage(knex, userId, language).then(() => {})
+  }
+  setUserLanguageCookie(language, res)
   return res.json({success: true})
 }
 
@@ -94,9 +102,16 @@ export function hasPermission (req, res, next) {
   }).catch(next)
 }
 
+// Helper functions (not exported)
+// ===============================
 function createUserAuthTokenInRes (user, res) {
   const expiresIn = 60 * 60 * 24 * 30 // 30 days
   const token = User.createToken(user.id, expiresIn)
   res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true })
   return token
+}
+
+function setUserLanguageCookie (language, res) {
+  const expire = 365 * 24 * 60 * 60 // in 1 year
+  res.cookie('i18n', language, { maxAge: 1000 * expire, httpOnly: true })
 }

@@ -29,3 +29,11 @@ export function fetchPaymentInfo (knex, userId) {
   .where({ id: userId })
   .then(res => res[0])
 }
+
+export function saveUserLangueage (knex, userId, language) {
+  return knex('users')
+  .where({ id: userId })
+  .update({
+    language: language
+  })
+}
