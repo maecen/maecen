@@ -10,7 +10,7 @@ export default i18n
     fallbackLng: 'en',
 
     // have a common namespace used around the full app
-    ns: ['common'],
+    ns: ['email', 'common'],
     defaultNS: 'common',
 
     debug: false,
@@ -20,7 +20,7 @@ export default i18n
     },
 
     backend: {
-      loadPath: 'locales/{{lng}}/{{ns}}.json',
+      loadPath: 'locales/{{lng}}/{{ns}}.json5',
       jsonIndent: 2
     },
 
