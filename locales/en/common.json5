@@ -113,6 +113,7 @@
     passwordForgot: "Forgot password?",
     passwordForgotExplained: "Input your email in the field below. You will then recieve an email with a link that lets you reset your password.",
     passwordGetEmail: "Send me an email",
+    passwordNew: "New password",
     passwordPlaceholder: "Choose a password",
     phoneNumber: "Phone number",
     yourProfile: "Your profile",

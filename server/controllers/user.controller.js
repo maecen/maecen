@@ -27,11 +27,16 @@ export function updateAuthUser (req, res, next) {
 
   const { userId } = req.user
   let data = req.body.user
-  delete data.password // User can't update password here
 
   return User.where('id', userId).fetch().then(user => {
     user.set(data)
-    return user.save()
+    if (data.password) {
+      user.hashPassword().then(() => {
+        return user.save()
+      })
+    } else {
+      return user.save()
+    }
   }).then(user => {
     return res.json(normalizeResponse({ users: user }))
   }).catch(next)

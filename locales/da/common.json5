@@ -112,6 +112,7 @@
     passwordForgot: "Glemt kodeord?",
     passwordForgotExplained: "Indtast din email i feltet nedenunder. Du vil derefter modtage en email med et link til at nulstille dit password",
     passwordGetEmail: "Send mig en email",
+    passwordNew: "Nyt kodeord",
     passwordPlaceholder: "Vælg et kodeord",
     phoneNumber: "Telefonnummer",
     yourProfile: "Din profil",
