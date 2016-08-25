@@ -3,7 +3,8 @@ const defaultUnit = 16
 const mediaSizes = {
   lg: '70em',
   md: '45em',
-  sm: '30em'
+  sm: '30em',
+  xs: '20em'
 }
 
 export default {
@@ -56,12 +57,14 @@ export default {
   media: {
     lg: mediaSizes.lg,
     md: mediaSizes.md,
-    sm: mediaSizes.sm
+    sm: mediaSizes.sm,
+    xs: mediaSizes.xs
   },
   spacer: {
     base: `${defaultUnit}px`,
     onePointFive: `${defaultUnit * 1.5}px`,
     double: `${defaultUnit * 2}px`,
+    tripple: `${defaultUnit * 3}px`,
     quadrouple: `${defaultUnit * 4}px`,
     half: `${defaultUnit / 2}px`,
     quart: `${defaultUnit / 4}px`

@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 
-import { Row, Cell } from '../components/Grid'
+import styleVariables from '../components/styleVariables'
 import Dialog from '../components/Dialog/Dialog'
 import Form, { TextField, Button } from '../components/Form'
 import IconButton from 'material-ui/IconButton'
@@ -26,6 +26,7 @@ class AuthDialogContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.cancel = this.cancel.bind(this)
     this.setActionCreate = this.setAction.bind(this, 'create')
+    this.setActionForgot = this.setAction.bind(this, 'forgot')
     this.setActionLogin = this.setAction.bind(this, 'login')
   }
 
@@ -64,6 +65,8 @@ class AuthDialogContainer extends React.Component {
     if (this.state.action === 'create') {
       data = { user }
       requestUrl = '/api/createUser'
+    } else if (this.state.action === 'create') {
+      console.log('dorphMagic')
     } else {
       data = { credentials: user }
       requestUrl = '/api/authUser'
@@ -91,29 +94,17 @@ class AuthDialogContainer extends React.Component {
     const { t, open } = this.props
 
     const isCreating = this.state.action === 'create'
-    const actionLabel = t(isCreating === true ? 'user.createUser' : 'login')
-
-    const actions = [
-      (isCreating === false &&
-        <Button label={t('user.createUser')}
-          flat={true}
-          primary={true}
-          onTouchTap={this.setActionCreate} />),
-      <Button type='submit'
-        label={actionLabel}
-        primary={true}
-        last={true}
-        disabled={this.state.isSubmitting === true}
-        onTouchTap={this.handleSubmit} />
-    ]
+    const hasForgotten = this.state.action === 'forgot'
+    let actionLabel = t(isCreating === true ? 'user.createUser' : 'login')
+    if (hasForgotten === true) {
+      actionLabel = t('user.passwordGetEmail')
+    }
 
     return (
       <Dialog
         open={open}
-        actions={actions}
-        onRequestClose={this.cancel}
-        title={actionLabel}>
-        <IconButton style={{position: 'absolute', right: '0px', top: '0px'}}
+        onRequestClose={this.cancel}>
+        <IconButton iconStyle={style.closeIcon} style={style.close}
           onTouchTap={this.cancel}>
           <NavigationClose />
         </IconButton>
@@ -122,28 +113,34 @@ class AuthDialogContainer extends React.Component {
           errors={this.state.errors}>
 
           {isCreating &&
-            <Row>
-              <Cell sm='1/2'>
-                <TextField
-                  path={['first_name']}
-                  label={t('user.firstName')} />
-              </Cell>
-              <Cell sm='1/2'>
-                <TextField
-                  path={['last_name']}
-                  label={t('user.lastName')} />
-              </Cell>
-            </Row>
+            <div>
+              <TextField
+                path={['first_name']}
+                label={t('user.firstName')}
+              />
+              <TextField
+                path={['last_name']}
+                label={t('user.lastName')}
+              />
+            </div>
+          }
+
+          {hasForgotten &&
+            t('user.passwordForgotExplained')
           }
 
           <TextField
             path={['email']}
-            label={t('user.email')} />
+            label={t('user.email')}
+          />
 
-          <TextField
-            type='password'
-            path={['password']}
-            label={t('user.loginPassword')} />
+          { hasForgotten === false &&
+            <TextField
+              type='password'
+              path={['password']}
+              label={t('user.loginPassword')}
+            />
+          }
 
           {/* Browser hack to allow users to submit by clicking `enter`-key */}
           <button style={{
@@ -152,10 +149,69 @@ class AuthDialogContainer extends React.Component {
             width: '1px',
             height: '1px'
           }} tabIndex='-1' />
+          <div style={style.buttonWrap}>
+            <Button type='submit'
+              label={actionLabel}
+              primary={true}
+              last={true}
+              style={style.loginButton}
+              disabled={this.state.isSubmitting === true}
+              onTouchTap={this.handleSubmit} />
 
+              { isCreating === false && hasForgotten === false
+                ? <div>
+                    <Button label={t('user.createUser')}
+                      flat={true}
+                      primary={true}
+                      last={true}
+                      labelStyle={style.buttonSmall}
+                      onTouchTap={this.setActionCreate}
+                    />
+                    <Button label={t('user.passwordForgot')}
+                      flat={true}
+                      primary={true}
+                      last={true}
+                      labelStyle={style.buttonSmall}
+                      style={style.button}
+                      onTouchTap={this.setActionForgot}
+                    />
+                  </div>
+                : <Button label={t('action.cancel')}
+                    flat={true}
+                    primary={true}
+                    last={true}
+                    labelStyle={style.buttonSmall}
+                    style={style.button}
+                    onTouchTap={this.setActionLogin}
+                  />
+              }
+          </div>
         </Form>
       </Dialog>
     )
+  }
+}
+
+const style = {
+  close: {
+    position: 'absolute',
+    right: '0px',
+    top: '-' + styleVariables.spacer.tripple
+  },
+  closeIcon: {
+    color: 'white'
+  },
+  buttonWrap: {
+    marginTop: styleVariables.spacer.base,
+    marginBottom: '-' + styleVariables.spacer.base,
+    textAlign: 'center'
+  },
+  loginButton: {
+    width: '100%',
+    marginBottom: styleVariables.spacer.half
+  },
+  buttonSmall: {
+    fontSize: '11px'
   }
 }
 

@@ -27,8 +27,8 @@ Dialog.defaultProps = {
   },
   contentStyle: {
     marginBottom: styleVariables.spacer.double,
-    width: '90%',
-    maxWidth: '550px'
+    maxWidth: styleVariables.media.xs,
+    width: '90%'
   },
   titleStyle: {
     paddingBottom: '0px'
