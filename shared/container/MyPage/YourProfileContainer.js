@@ -7,6 +7,7 @@ import * as Actions from '../../actions'
 
 import { getAuthUser } from '../../selectors/user'
 
+import styleVariables from '../../components/styleVariables'
 import { Card, CardContent, CardTitle } from '../../components/Card'
 import Form from '../../components/Form/Form'
 import TextField from '../../components/Form/TextField'
@@ -71,12 +72,12 @@ class ProfileContainer extends Component {
         <Card>
           <CardTitle
             title={t('user.yourProfile')}
-            style={{paddingBottom: '0px'}}
+            style={style.cardTitle}
           />
           <CardContent>
             { isEdit === false &&
               <IconButton
-                style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
+                style={style.iconButton}
                 onTouchTap={this.toggleEdit.bind(this)}>
                 <EditIcon />
               </IconButton>
@@ -133,10 +134,10 @@ class ProfileContainer extends Component {
                 </Cell>
               </Row>
 
-              <Row style={{marginTop: '16px', textAlign: 'right'}}>
+              <Row>
                 <Cell xs={12}>
                   { isEdit === true &&
-                    <span>
+                    <div style={style.buttons}>
                       <Button
                         flat={true}
                         primary={true}
@@ -148,7 +149,7 @@ class ProfileContainer extends Component {
                         type='submit'
                         primary={true}
                         disabled={this.state.isSubmitting === true} />
-                    </span>
+                    </div>
                   }
                 </Cell>
               </Row>
@@ -166,6 +167,22 @@ class ProfileContainer extends Component {
         </Card>
       </div>
     )
+  }
+}
+
+const style = {
+  iconButton: {
+    marginRight: '0px',
+    position: 'absolute',
+    top: '0px',
+    right: '0px'
+  },
+  cardTitle: {
+    paddingBottom: '0px'
+  },
+  buttons: {
+    marginTop: styleVariables.spacer.base,
+    textAlign: 'right'
   }
 }
 
