@@ -10,6 +10,7 @@
 import uuid from 'node-uuid'
 import moment from 'moment'
 import * as transactionService from './transactions'
+import { emailSupportReceipt } from './emailSender'
 
 // Database Calls
 // ==============
@@ -144,21 +145,21 @@ export function refreshMaecenateSubscription (knex, subscriptionId) {
         throw error
       }
 
-      return knex.transaction(trx => {
-        return transactionService.authorizePayment(trx, {
-          paymentType,
-          userId: subInfo.user,
-          epaySubscriptionId: subInfo.epay_subscription_id,
-          maecenateId: subInfo.maecenate,
-          amount: subInfo.amount,
-          currency: subInfo.currency
-        }).then((transaction) => {
-          if (transaction) {
-            return createSubPeriod(
-              trx, subscriptionId, transaction, tomorrow, 1
-            )
-          }
-        })
+      return transactionService.authorizePayment(knex, {
+        paymentType,
+        userId: subInfo.user,
+        epaySubscriptionId: subInfo.epay_subscription_id,
+        maecenateId: subInfo.maecenate,
+        amount: subInfo.amount,
+        currency: subInfo.currency
+      }).then((transaction) => {
+        if (transaction) {
+          return createSubPeriod(
+            knex, subscriptionId, transaction, tomorrow, 1
+          ).then(() => {
+            return emailSupportReceipt(knex, transaction.id)
+          })
+        }
       })
     })
   })
@@ -183,7 +184,7 @@ export function refreshExpiringSubscriptions (knex) {
         }.bind(null, id))
       }
       lastPromise.catch((err) => {
-        console.log(`[ERROR PAYMENT] Could not refresh ${id}`, err)
+        console.log(`[ERROR PAYMENT] Could not refresh ${id}`, err, err.stack)
       })
     }
     return lastPromise

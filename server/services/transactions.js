@@ -145,6 +145,32 @@ export function authorizePayment (knex, {
   })
 }
 
+export function fetchReceiptInfoFromTransaction (knex, transactionId) {
+  return knex('transactions')
+  .select(
+    'users.first_name as firstName',
+    'users.email',
+    'maecenates.title as maecenateTitle',
+    'maecenates.slug as maecenateSlug',
+    'sub_periods.end',
+    'transactions.user',
+    'transactions.amount',
+    'transactions.currency',
+    'transactions.order_id as orderId'
+  )
+  .innerJoin(
+    'sub_periods', 'sub_periods.transaction', 'transactions.id'
+  )
+  .innerJoin(
+    'maecenates', 'maecenates.id', 'transactions.maecenate'
+  )
+  .innerJoin(
+    'users', 'users.id', 'transactions.user'
+  )
+  .where('transactions.id', transactionId)
+  .then(res => res[0])
+}
+
 // Helper methods
 // ==============
 function generateUnique (length) {

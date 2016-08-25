@@ -55,6 +55,20 @@ test('Support maecenates', async t => {
   t.is(res.body.epayPaymentParams.amount, String(amount))
   const orderId = res.body.epayPaymentParams.orderid
 
+  nock('https://mandrillapp.com:443')
+    .post('/api/1.0/messages/send.json')
+    .reply(200, [{
+      'email': 'kristofferdo@gmail.com',
+      'status': 'sent',
+      '_id': 'daf5569a13c54fb799266523c610f48d',
+      'reject_reason': null
+    }], {
+      server: 'nginx/1.8.0',
+      'content-type': 'application/json; charset=utf-8',
+      'transfer-encoding': 'chunked',
+      vary: 'Accept-Encoding'
+    })
+
   const txnid = '123456789'
   const cbRes = await request(app)
     .get(`/api/transactions/payment-callback?txnid=${txnid}&orderid=${orderId}` +
@@ -155,6 +169,20 @@ test('GET cronRefreshSubscriptions', async t => {
       'e>0</pbsresponse><epayresponse>-1</epayresponse></authorizeResponse></' +
       'soap:Body></soap:Envelope>',
       { 'content-type': 'text/xml; charset=utf-8' })
+
+  nock('https://mandrillapp.com:443')
+    .post('/api/1.0/messages/send.json')
+    .reply(200, [{
+      'email': 'kristofferdo@gmail.com',
+      'status': 'sent',
+      '_id': 'daf5569a13c54fb799266523c610f48d',
+      'reject_reason': null
+    }], {
+      server: 'nginx/1.8.0',
+      'content-type': 'application/json; charset=utf-8',
+      'transfer-encoding': 'chunked',
+      vary: 'Accept-Encoding'
+    })
 
   await subscriptionService.refreshExpiringSubscriptions(knex)
   const subPeriods = await knex('sub_periods')

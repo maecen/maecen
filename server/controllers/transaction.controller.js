@@ -2,6 +2,7 @@ import { apiURL } from '../../shared/config'
 import * as service from '../services/transactions'
 import * as subscriptionService from '../services/subscriptions'
 import * as userService from '../services/users'
+import { emailSupportReceipt } from '../services/emailSender'
 
 export function maecenateInitiatePayment (req, res, next) {
   const { knex } = req.app.locals
@@ -77,6 +78,7 @@ function authorizeMaecenateSubscription (
   }).then(transaction => {
     if (transaction) {
       return subscriptionService.startSubscription(knex, transaction)
+      .then(() => emailSupportReceipt(knex, transaction.id))
       .then(() => true)
     }
     return false
@@ -96,17 +98,17 @@ export function paymentCallback (req, res, next) {
 
   return service.verifyPayment(knex, orderid, amount).then((valid) => {
     if (valid === true) {
-      return knex.transaction(trx => {
-        return service.paymentSuccess(trx, orderid, txnid)
-        .then((transaction) => {
-          const { user } = transaction
-          return userService.savePaymentInfo(trx, user, subscriptionid, cardno)
-          .then(() => {
-            return subscriptionService.startSubscription(trx, transaction)
-          })
-        }).then((support) => {
-          return res.json({ success: true })
+      return service.paymentSuccess(knex, orderid, txnid)
+      .then((transaction) => {
+        const { user } = transaction
+        return userService.savePaymentInfo(knex, user, subscriptionid, cardno)
+        .then(() => {
+          return subscriptionService.startSubscription(knex, transaction)
+        }).then(() => {
+          return emailSupportReceipt(knex, transaction.id)
         })
+      }).then(() => {
+        return res.json({ success: true })
       })
     } else {
       return service.paymentFailed(knex, orderid).then((support) => {

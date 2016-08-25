@@ -28,6 +28,7 @@
   "license": "",
   "dependencies": {
     "axios": "^0.11.0",
+    "babel-cli": "^6.14.0",
     "babel-core": "^6.4.5",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.1",
@@ -64,7 +65,8 @@
     "jsonwebtoken": "^6.2.0",
     "knex": "^0.10.0",
     "lodash": "^4.11.2",
-    "material-ui": "^0.15.0",
+    "mandrill-api": "^1.0.45",
+    "material-ui": "^0.15.4",
     "moment": "^2.14.1",
     "morgan": "^1.7.0",
     "multiparty": "^4.1.2",
