@@ -11,7 +11,8 @@ test('POST /api/createUser', async t => {
     first_name: 'John',
     last_name: 'Doe',
     email: 'JOHNdoe@gmail.com',
-    password: 'somepasswordforjohndoe'
+    password: 'somepasswordforjohndoe',
+    language: 'en'
   }
 
   const res = await request(app)

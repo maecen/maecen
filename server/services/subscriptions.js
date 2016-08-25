@@ -245,4 +245,3 @@ export function getActiveUserSubPeriodForMaecenate (
     .where('subscriptions.maecenate', maecenateId)
     .limit(1)
 }
-

@@ -17,11 +17,8 @@ const languages = {
 }
 
 function Footer (props) {
-  const { hasAuth, lang, langOptions, changeLang, showLangSwitch, user } = props
+  const { hasAuth, lang, langOptions, changeLang, showLangSwitch } = props
   const { spacer, icon } = styleVariables
-  const userLang = user ? user.language : ''
-
-  console.log(userLang)
 
   const style = {
     footer: {

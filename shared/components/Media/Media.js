@@ -21,9 +21,13 @@ const style = {
   coverVideo: {
     backgroundColor: 'black'
   },
-  noFixedAspect: {
+  mediaDefault: {
     width: '100%',
     marginBottom: styleVariables.spacer.base
+  },
+  video: {
+    backgroundColor: 'black',
+    maxHeight: '720px'
   }
 }
 
@@ -34,7 +38,7 @@ export default function Media (props, context) {
         {props.url && startsWith(props.type, 'video')
           ? <video
               style={{...style.coverMedia, ...style.coverVideo}}
-              src={props.url}
+              src={cropCloudy(props.url, 'video')}
             controls />
           : <img
               style={style.coverMedia}
@@ -47,10 +51,10 @@ export default function Media (props, context) {
     return (
       <div>
         { startsWith(props.type, 'video')
-          ? <video src={props.url} controls
-            style={style.noFixedAspect}/>
+          ? <video src={cropCloudy(props.url, 'video')} controls
+            style={{...style.video, ...style.mediaDefault}}/>
           : <img src={cropCloudy(props.url, 'post')}
-            style={style.noFixedAspect} />
+            style={style.mediaDefault} />
         }
       </div>
     )
