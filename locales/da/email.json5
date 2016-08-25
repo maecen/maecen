@@ -1,0 +1,24 @@
+{
+  supportReceiptSubject: 'Tak for din support!',
+  supportReceipt: ' \
+    Tak {{firstName}}! \
+    <br /><br /> \
+    Du har lige gennemført en donation på \
+    <strong>{{fixedAmount}} {{currency}}</strong> \
+    til mæcenatet \
+    <a href="{{maecenateUrl}}"> \
+      {{maecenateTitle}} \
+    </a>. \
+    <br /><br /> \
+    Næste gang vi trækker penge fra dig vil være \
+    {{nextDonation}}, hvis du vil afmelde skal du, \
+    gøre det senest dagen inden. \
+    <br /><br /> \
+    Vi er helt fantastisk glade for din support! <br /> \
+    Mæcen Teamet <br /> \
+    <small> \
+      Maecen.net/DiGiDi ­ Digital Distribution a..m.b.a. <br /> \
+      Hallelevvej 15, 4200 Slagelse. <br /> \
+      Ordrer Nr.: {{orderId}} \
+    </small>'
+}

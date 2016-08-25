@@ -150,6 +150,7 @@ export function fetchReceiptInfoFromTransaction (knex, transactionId) {
   .select(
     'users.first_name as firstName',
     'users.email',
+    'users.language',
     'maecenates.title as maecenateTitle',
     'maecenates.slug as maecenateSlug',
     'sub_periods.end',

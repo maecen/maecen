@@ -2,6 +2,7 @@ import { Mandrill } from 'mandrill-api/mandrill'
 import moment from 'moment'
 import { host } from '../../shared/config'
 import * as transactionService from './transactions'
+import i18n from '../i18n-server'
 
 const mandrillClient = new Mandrill(process.env.MANDRILL_API)
 const SENDER_EMAIL = 'hello@maecen.net'
@@ -31,6 +32,7 @@ export function emailSupportReceipt (knex, transactionId) {
     const {
       firstName,
       email,
+      language: lng,
       maecenateTitle,
       maecenateSlug,
       end,
@@ -38,35 +40,36 @@ export function emailSupportReceipt (knex, transactionId) {
       currency,
       orderId
     } = info
-    const fixedAmount = (amount / 100).toFixed(2)
+    const language = lng || 'en'
 
-    const nextDonation = moment(end)
-      .subtract(1, 'days')
-      .format('dddd Do of MMMM, YYYY')
+    return new Promise((resolve, reject) => {
+      i18n.loadLanguages(language, (err) => {
+        if (err) return reject(err)
+        const nextDonation = moment(end)
+          .locale(language)
+          .subtract(1, 'days')
+          .format('dddd, Do MMMM, YYYY')
 
-    const message = `
-      Thank you ${firstName}!
-      <br /><br />
-      You have just completed a donation of
-      <strong>${fixedAmount} ${currency}</strong>
-      to the maecenate
-      <a href="${host}/maecenate/${maecenateSlug}">
-        ${maecenateTitle}
-      </a>.
-      <br /><br />
-      We will bill you next time on the ${nextDonation}, if you want to cancel,
-      you have to do it the latest the day before.
-      <br /><br />
-      We are ever grateful for your support! <br />
-      The Maecen Team <br />
-      <small>
-        Maecen.net/DiGiDi ­ Digital Distribution a..m.b.a. <br />
-        Hallelevvej 15, 4200 Slagelse. <br />
-        Order Nr.: ${orderId}
-      </small>
-    `
+        const message = i18n.t('supportReceipt', {
+          ns: 'email',
+          lng: 'da',
+          firstName,
+          fixedAmount: (amount / 100).toFixed(2),
+          currency,
+          maecenateUrl: `${host}/maecenate/${maecenateSlug}`,
+          maecenateTitle,
+          nextDonation,
+          orderId
+        })
 
-    const subject = 'Thanks for your support!'
-    return sendEmail(email, subject, message)
+        const subject = i18n.t('supportReceiptSubject', {
+          ns: 'email',
+          lng: language
+        })
+
+        return sendEmail(email, subject, message)
+        .then(resolve).catch(reject)
+      })
+    })
   })
 }
