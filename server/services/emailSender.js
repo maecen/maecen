@@ -52,7 +52,7 @@ export function emailSupportReceipt (knex, transactionId) {
 
         const message = i18n.t('supportReceipt', {
           ns: 'email',
-          lng: 'da',
+          lng: language,
           firstName,
           fixedAmount: (amount / 100).toFixed(2),
           currency,
