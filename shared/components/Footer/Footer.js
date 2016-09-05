@@ -4,6 +4,7 @@ import styleVariables from '../styleVariables'
 import * as Flags from '../Graphics/Flags'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import { browserHistory } from 'react-router'
 
 const languages = {
   da: {
@@ -16,52 +17,64 @@ const languages = {
   }
 }
 
-function Footer (props) {
-  const { hasAuth, lang, langOptions, changeLang, showLangSwitch } = props
-  const { spacer, icon } = styleVariables
+function gotoTerms () {
+  browserHistory.push('/terms')
+}
 
-  const style = {
-    footer: {
-      padding: `${spacer.base} 0px ${spacer.quart}`,
-      color: styleVariables.color.bodyText
-    },
-    selectLabel: {
-      width: icon.size.sm,
-      height: icon.size.sm,
-      top: spacer.base,
-      borderRadius: styleVariables.border.radius,
-      overflow: 'hidden',
-      paddingRight: 0,
-      lineHeight: 0
-    },
-    selectField: {
-      width: '50px'
-    },
-    selectUnderline: {
-      display: 'none'
-    }
-  }
+function Footer (props) {
+  const { hasAuth, lang, langOptions, changeLang, showLangSwitch, t } = props
 
   return (
     <footer style={style.footer}>
       { (hasAuth && !showLangSwitch) ||
-        <SelectField
-          value={lang}
-          onChange={changeLang}
-          style={style.selectField}
-          labelStyle={style.selectLabel}
-          underlineStyle={style.selectUnderline}
-        >
-          {langOptions.map((option) =>
-            <MenuItem
-              value={option} key={option}
-              label={languages[option].flag}
-              primaryText={languages[option].name} />
-          )}
-        </SelectField>
+        <div style={style.footerContent}>
+          <SelectField
+            value={lang}
+            onChange={changeLang}
+            style={style.selectField}
+            labelStyle={style.selectLabel}
+            underlineStyle={style.selectUnderline}
+          >
+            {langOptions.map((option) =>
+              <MenuItem
+                value={option} key={option}
+                label={languages[option].flag}
+                primaryText={languages[option].name} />
+            )}
+          </SelectField>
+          <div onClick={gotoTerms}>{t('terms')}</div>
+        </div>
       }
     </footer>
   )
+}
+
+const { spacer, icon } = styleVariables
+const style = {
+  footer: {
+    padding: `${spacer.base} 0px ${spacer.quart}`,
+    color: styleVariables.color.bodyText
+  },
+  footerContent: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  selectLabel: {
+    width: icon.size.sm,
+    height: icon.size.sm,
+    top: spacer.base,
+    borderRadius: styleVariables.border.radius,
+    overflow: 'hidden',
+    paddingRight: 0,
+    lineHeight: 0
+  },
+  selectField: {
+    width: '50px'
+  },
+  selectUnderline: {
+    display: 'none'
+  }
 }
 
 Footer.propTypes = {

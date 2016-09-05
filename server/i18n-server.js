@@ -10,7 +10,7 @@ export default i18n
     fallbackLng: 'en',
 
     // have a common namespace used around the full app
-    ns: ['email', 'common'],
+    ns: ['email', 'common', 'terms'],
     defaultNS: 'common',
 
     debug: false,
@@ -29,4 +29,3 @@ export default i18n
       lookupCookie: 'i18n'
     }
   })
-

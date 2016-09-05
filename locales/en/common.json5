@@ -16,6 +16,7 @@
   signUp: "Sign Up",
   tagline: "\"A person who supports art and science financially\"",
   title: "Title",
+  terms: "Terms",
   website: "Website",
   currency: {
     amount_DKK: "{{count}} DKK"

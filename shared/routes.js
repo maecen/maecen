@@ -8,6 +8,7 @@ import EditMaecenateView from './container/Maecenate/EditMaecenateView'
 import MaecenateOverviewView from './container/MaecenateOverviewView'
 import MaecenateView from './container/MaecenateView'
 import MaecenateSupportView from './container/MaecenateSupportView'
+import TermsView from './container/TermsView'
 
 import CreatePostView from './container/Post/CreatePostView'
 import EditPostView from './container/Post/EditPostView'
@@ -56,6 +57,8 @@ const getRoutes = (store) => {
         component={MyPageView}
         showLangSwitch={true}
         onEnter={requiresAuth} />
+      <Route path='terms'
+        component={TermsView} />
 
       <Route path='post/create'
         component={CreatePostView}

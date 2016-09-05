@@ -16,6 +16,7 @@
   signUp: "Tilmeld",
   tagline: "\"En person som støtter kunst og videnskab økonomisk\"",
   title: "Titel",
+  terms: "Vilkår",
   website: "Yderligere information",
   action: {
     cancel: "Annuller",
