@@ -20,7 +20,8 @@ class AuthDialogContainer extends React.Component {
       errors: null,
       user: Immutable({ }),
       isSubmitting: false,
-      action: 'login'
+      action: 'login',
+      success: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -47,34 +48,43 @@ class AuthDialogContainer extends React.Component {
       errors: null,
       isSubmitting: false,
       action: 'login',
-      user: Immutable({ })
+      user: Immutable({ }),
+      success: false
     })
   }
 
   setAction (action) {
-    this.setState({ action })
+    this.setState({ action, success: false })
   }
 
   handleSubmit (e) {
     e.preventDefault()
     const { dispatch, navToUrl } = this.props
-    const { user } = this.state
+    const { user, action } = this.state
     let data = {}
     let requestUrl = null
 
-    if (this.state.action === 'create') {
+    if (action === 'create') {
       data = { user }
       requestUrl = '/api/createUser'
-    } else if (this.state.action === 'create') {
-      console.log('dorphMagic')
+    } else if (action === 'forgot') {
+      data = { email: user.email }
+      requestUrl = '/api/forgotPassword'
     } else {
       data = { credentials: user }
       requestUrl = '/api/authUser'
     }
 
+    this.setState({ errors: {}, isSubmitting: true })
+
     axios.post(requestUrl, data).then((res) => {
       return res.data
     }).then((data) => {
+      if (action === 'forgot') {
+        this.setState({ success: true })
+        return
+      }
+
       if (data.languageChanged) {
         return window.location.reload()
       }
@@ -84,13 +94,15 @@ class AuthDialogContainer extends React.Component {
         browserHistory.push(navToUrl)
       }
       this.reset()
-    }, (res) => {
-      this.setState({ errors: res.data.errors, isSubmitting: false })
+    }).catch((res) => {
+      this.setState({ errors: res.data.errors })
+    }).then(() => {
+      this.setState({ isSubmitting: false })
     })
   }
 
   render () {
-    const { user } = this.state
+    const { user, success } = this.state
     const { t, open } = this.props
 
     const isCreating = this.state.action === 'create'
@@ -129,6 +141,12 @@ class AuthDialogContainer extends React.Component {
             t('user.passwordForgotExplained')
           }
 
+          {hasForgotten && success &&
+            <div style={style.successMessage}>
+              {t('user.passwordForgotSuccess', { email: user.email })}
+            </div>
+          }
+
           <TextField
             path={['email']}
             label={t('user.email')}
@@ -143,12 +161,7 @@ class AuthDialogContainer extends React.Component {
           }
 
           {/* Browser hack to allow users to submit by clicking `enter`-key */}
-          <button style={{
-            position: 'absolute',
-            left: '-10000000px',
-            width: '1px',
-            height: '1px'
-          }} tabIndex='-1' />
+          <button style={style.hiddenSubmit} tabIndex='-1' />
           <div style={style.buttonWrap}>
             <Button type='submit'
               label={actionLabel}
@@ -201,6 +214,12 @@ const style = {
   closeIcon: {
     color: 'white'
   },
+  hiddenSubmit: {
+    position: 'absolute',
+    left: '-10000000px',
+    width: '1px',
+    height: '1px'
+  },
   buttonWrap: {
     marginTop: styleVariables.spacer.base,
     marginBottom: '-' + styleVariables.spacer.base,
@@ -212,6 +231,11 @@ const style = {
   },
   buttonSmall: {
     fontSize: '11px'
+  },
+  successMessage: {
+    color: styleVariables.color.primary,
+    textAlign: 'center',
+    padding: '0.5rem 0 0'
   }
 }
 
