@@ -52,10 +52,14 @@ class ProfileContainer extends Component {
     const { dispatch } = this.props
     const { user } = this.state
 
-    axios.post('/api/updateAuthUser', { user }).then((res) => {
+    this.setState({ errors: {} })
+
+    axios.post('/api/updateAuthUser', {
+      user: user.without(['epay_subscription_id', 'payment_card'])
+    }).then((res) => {
       return res.data
     }).then((data) => {
-      this.setState({ errors: null, isSubmitting: false })
+      this.setState({ isSubmitting: false })
       this.toggleEdit(false)
       dispatch(Actions.updateEntities(data.entities))
     }, (res) => {
@@ -87,13 +91,13 @@ class ProfileContainer extends Component {
               errors={this.state.errors}
             >
               <Row>
-                <Cell sm='1/2' md='1/4'>
+                <Cell md='1/2'>
                   <TextField
                     path={['first_name']}
                     floatingLabelText={t('user.firstName')}
                     disabled={!isEdit} />
                 </Cell>
-                <Cell sm='1/2' md='1/4'>
+                <Cell md='1/2'>
                   <TextField
                     path={['last_name']}
                     floatingLabelText={t('user.lastName')}
@@ -104,6 +108,14 @@ class ProfileContainer extends Component {
                     path={['email']}
                     floatingLabelText={t('user.email')}
                     disabled={!isEdit} />
+                </Cell>
+                <Cell md='1/2'>
+                  <TextField
+                    type='password'
+                    path={['password']}
+                    autoComplete='new-password'
+                    floatingLabelText={t('user.passwordNew')}
+                  disabled={!isEdit} />
                 </Cell>
               </Row>
 

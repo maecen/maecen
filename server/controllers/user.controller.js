@@ -2,6 +2,7 @@ import { normalizeResponse } from '../util/ctrlHelpers'
 import * as service from '../services/users'
 import User from '../models/User'
 import Maecenate from '../models/Maecenate'
+import { emailForgotPassword } from '../services/emailSender'
 
 export function createUser (req, res, next) {
   let { user: data } = req.body
@@ -27,11 +28,17 @@ export function updateAuthUser (req, res, next) {
 
   const { userId } = req.user
   let data = req.body.user
-  delete data.password // User can't update password here
+  if (!data.password) delete data.password
 
   return User.where('id', userId).fetch().then(user => {
     user.set(data)
-    return user.save()
+    if (data.password) {
+      user.hashPassword().then(() => {
+        return user.save()
+      })
+    } else {
+      return user.save()
+    }
   }).then(user => {
     return res.json(normalizeResponse({ users: user }))
   }).catch(next)
@@ -65,6 +72,21 @@ export function authUser (req, res, next) {
   }).catch(next)
 }
 
+export function authWithAccessToken (req, res, next) {
+  const { token } = req.query
+  const { knex } = req.app.locals
+
+  service.fetchUserByValidAccessToken(knex, token)
+  .then((user) => {
+    createUserAuthTokenInRes(user, res)
+    if (user.language !== req.language) {
+      setUserLanguageCookie(user.language, res)
+    }
+    res.redirect('/profile')
+    return service.expireAccessToken(knex, token)
+  }).catch(next)
+}
+
 export function clearAuth (req, res, next) {
   res.clearCookie('id_token', { httpOnly: true })
   return res.json({success: true})
@@ -79,6 +101,23 @@ export function setUserLanguage (req, res, next) {
   }
   setUserLanguageCookie(language, res)
   return res.json({success: true})
+}
+
+export function forgotPassword (req, res, next) {
+  const { knex } = req.app.locals
+  const { email } = req.body
+
+  return service.createAccessToken(knex, email)
+  .then(({token, userId}) => {
+    console.log(token, userId)
+
+    return emailForgotPassword(knex, token, userId)
+    .then(() => {
+      return res.json({
+        success: true
+      })
+    })
+  }).catch(next)
 }
 
 export function hasPermission (req, res, next) {
