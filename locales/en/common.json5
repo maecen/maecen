@@ -112,6 +112,7 @@
     password: "Password",
     passwordForgot: "Forgot password?",
     passwordForgotExplained: "Input your email in the field below. You will then recieve an email with a link that lets you reset your password.",
+    passwordForgotSuccess: 'We\'ve sent you an email to {{email}}.',
     passwordGetEmail: "Send me an email",
     passwordNew: "New password",
     passwordPlaceholder: "Choose a password",
@@ -140,5 +141,8 @@
     stringMin: "You need to fill in at least {{limit}} characters",
     stringMax: "You can fill in no more than {{limit}} characters",
     stringRegexBase_url: "This is not a valid url"
+  },
+  accessToken: {
+    doesNotExist: 'This access token has expired, or is already used.'
   }
 }

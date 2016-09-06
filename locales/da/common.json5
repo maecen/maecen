@@ -1,17 +1,16 @@
 {
-  aboutMaecen: "Om Mæcen Projektet",
+  aboutMaecen:"Om Mæcen Projektet",
   backTo: "Tilbage til: ",
   changeLanguage: "Skift sprog",
   creditCard: "Kreditkort",
   curiousEmail: "Nysgerrig? Skriv dig på listen, så fortæller vi dig mere!",
   home: "Hjem",
-  loading: "Henter...",
+  loading: "Henter..",
   login: "Login",
   logo: "Logo",
   logout: "Log ud",
   maecen: "Mæcen",
-  maecenateName: "Mæcenate",
-  maecens: "Mæcener",
+  maecenateName: "Mæcenate",  maecens: "Mæcener",
   profile: "Profil",
   signUp: "Tilmeld",
   tagline: "\"En person som støtter kunst og videnskab økonomisk\"",
@@ -111,6 +110,7 @@
     password: "Kodeord",
     passwordForgot: "Glemt kodeord?",
     passwordForgotExplained: "Indtast din email i feltet nedenunder. Du vil derefter modtage en email med et link til at nulstille dit password",
+    passwordForgotSuccess: 'We\'ve sent you an email to {{email}}.',
     passwordGetEmail: "Send mig en email",
     passwordNew: "Nyt kodeord",
     passwordPlaceholder: "Vælg et kodeord",
@@ -139,5 +139,8 @@
     stringMax: "Du må ikke skrive mere end {{limit}} tegn",
     stringMin: "Du skal skrive mindst {{limit}} tegn",
     stringRegexBase_url: "Du skal skrive en rigtig web-adresse"
+  },
+  accessToken: {
+    doesNotExist: 'Denne token er udløbet, eller er allerede brugt.'
   }
 }

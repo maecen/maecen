@@ -8,6 +8,9 @@ router.post('/createUser', UserController.createUser)
 // Authenticate user credentials
 router.post('/authUser', UserController.authUser)
 
+// User forgot password
+router.post('/forgotPassword', UserController.forgotPassword)
+
 // Clear the user authentication
 router.post('/clearAuth', UserController.clearAuth)
 

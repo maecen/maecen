@@ -70,7 +70,7 @@ class HomeView extends Component {
                 name='mc-embedded-subscribe-form'
                 target='_blank'
                 style={{marginBottom: '1rem'}}
-                novalidate>
+                noValidate>
                 <div id='mc_embed_signup_scroll'
                   style={{
                     maxWidth: '20rem',
