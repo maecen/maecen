@@ -28,6 +28,7 @@ export function updateAuthUser (req, res, next) {
 
   const { userId } = req.user
   let data = req.body.user
+  if (!data.password) delete data.password
 
   return User.where('id', userId).fetch().then(user => {
     user.set(data)

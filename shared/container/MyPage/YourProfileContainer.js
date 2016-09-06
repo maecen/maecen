@@ -52,12 +52,14 @@ class ProfileContainer extends Component {
     const { dispatch } = this.props
     const { user } = this.state
 
+    this.setState({ errors: {} })
+
     axios.post('/api/updateAuthUser', {
       user: user.without(['epay_subscription_id', 'payment_card'])
     }).then((res) => {
       return res.data
     }).then((data) => {
-      this.setState({ errors: null, isSubmitting: false })
+      this.setState({ isSubmitting: false })
       this.toggleEdit(false)
       dispatch(Actions.updateEntities(data.entities))
     }, (res) => {
@@ -109,7 +111,9 @@ class ProfileContainer extends Component {
                 </Cell>
                 <Cell md='1/2'>
                   <TextField
+                    type='password'
                     path={['password']}
+                    autoComplete='new-password'
                     floatingLabelText={t('user.passwordNew')}
                   disabled={!isEdit} />
                 </Cell>
