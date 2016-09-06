@@ -41,6 +41,7 @@ app.use(i18nMiddleware.handle(i18n))
 app.use(cookieParser())
 app.use(bodyParser.json({ limit: '20mb' }))
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }))
+app.use('/locales', Express.static(path.resolve(__dirname, '../locales')))
 app.use(Express.static(path.resolve(__dirname, '../static')))
 
 if (process.env.NODE_ENV === 'development') {

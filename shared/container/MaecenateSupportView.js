@@ -1,13 +1,17 @@
+// Imports
 import React from 'react'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
+import { isBrowser, isSmallDevice } from '../config'
 import styleVariables from '../components/styleVariables'
 
-import { isBrowser, isSmallDevice } from '../config'
+// Actions
 import * as Actions from '../actions'
+
+// Selectors
 import {
   isAuthorized,
   getAuthUser,
@@ -16,6 +20,9 @@ import {
 import { getMaecenateBySlug } from '../selectors/maecenate'
 import { isAuthUserMaecenateSupporter } from '../selectors/support'
 
+// Components
+import Checkbox from 'material-ui/Checkbox'
+import Link from '../components/Link/Link'
 import { Table, TableBody, TableRow, TableRowColumn } from '../components/Table'
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
@@ -25,10 +32,6 @@ import HappyIcon from 'material-ui/svg-icons/social/mood'
 class MaecenateSupportView extends React.Component {
   constructor (props) {
     super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.gotoContent = this.gotoContent.bind(this)
-    this.paymentComplete = this.paymentComplete.bind(this)
 
     this.state = {
       amount: '',
@@ -37,8 +40,15 @@ class MaecenateSupportView extends React.Component {
       success: false,
       display: 'amount', // amount | confirm
       epayScriptLoaded: false,
-      isSubmitting: false
+      isSubmitting: false,
+      acceptedTerms: false
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.gotoContent = this.gotoContent.bind(this)
+    this.paymentComplete = this.paymentComplete.bind(this)
+    this.triggerAcceptTerms = this.triggerAcceptTerms.bind(this)
   }
 
   componentDidMount () {
@@ -52,6 +62,10 @@ class MaecenateSupportView extends React.Component {
     if (this.props.hasAuth !== nextProps.hasAuth) {
       this.setState({ amountError: null })
     }
+  }
+
+  triggerAcceptTerms (e, isChecked) {
+    this.setState({ acceptedTerms: isChecked })
   }
 
   loadExternalEpayScript () {
@@ -166,7 +180,8 @@ class MaecenateSupportView extends React.Component {
       ? t('support.joinMaecenate', { title: maecenate.title })
       : t('support.confirmSupport')
 
-    const disableSubmit = !this.state.epayScriptLoaded || this.state.isSubmitting
+    const disableSubmit = !this.state.epayScriptLoaded ||
+      this.state.isSubmitting || !this.state.acceptedTerms
 
     return (
       <Row>
@@ -202,12 +217,23 @@ class MaecenateSupportView extends React.Component {
                     autoComplete='off'
                     error={this.state.amountError}
                   />
+                  <Row style={style.acceptTermsCheck}>
+                    <Cell sm={1}>
+                      <Checkbox onCheck={this.triggerAcceptTerms} />
+                    </Cell>
+                    <Cell sm={9} style={style.acceptTermsLabel}>
+                      <Link to='/terms' target='_blank' style={style.termsLink}>
+                        {t('support.acceptTerms')}
+                      </Link>
+                    </Cell>
+                  </Row>
                   <div style={style.amountButton}>
                     <Button label={continueLabel}
                       type='submit'
                       secondary={true}
                       last={true}
-                      disabled={disableSubmit} />
+                      disabled={disableSubmit}
+                    />
                   </div>
                 </form>
                 <div id='payment-holder' />
@@ -304,14 +330,23 @@ const style = {
     padding: `0 ${spacer.double} ${spacer.base}`
   },
   amountButton: {
-    marginTop: spacer.half,
-    textAlign: 'right'
+    textAlign: 'right',
+    marginTop: spacer.base
   },
   amountTextField: {
     marginTop: `-${spacer.base}`
   },
   fixedLabel: {
     color: styleVariables.color.cardText
+  },
+  acceptTermsCheck: {
+    marginTop: '12px'
+  },
+  acceptTermsLabel: {
+    marginTop: '-2px'
+  },
+  termsLink: {
+    textDecoration: 'underline'
   }
 }
 

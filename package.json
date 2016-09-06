@@ -67,6 +67,7 @@
     "knex": "^0.10.0",
     "lodash": "^4.11.2",
     "mandrill-api": "^1.0.45",
+    "marked": "^0.3.6",
     "material-ui": "^0.15.4",
     "moment": "^2.14.1",
     "morgan": "^1.7.0",

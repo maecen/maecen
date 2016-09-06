@@ -9,7 +9,6 @@ import * as Actions from '../../actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
 
-import styleVariables from '../../components/styleVariables'
 import Link from '../../components/Link/Link'
 import { Row, Cell } from '../../components/Grid'
 import { Card, CardHeader, CardContent } from '../../components/Card'
@@ -67,7 +66,6 @@ class MaecenateDashboardView extends Component {
               <p>
                 {t('maecenate.linkToPresentation')}
                 <Link
-                  style={{color: styleVariables.color.primary}}
                   to={`https://${this.linkToPresentation(maecenate.slug)}`}>
                   {this.linkToPresentation(maecenate.slug)}
                 </Link>

@@ -79,7 +79,8 @@
     monthlyAmount: "Monthly amount",
     minimumAmount: "Minimum $t(currency.amount)",
     subscriptionExplanation: "The amount will be withdrawn from your card each month until you choose to cancel your support.",
-    success: "You are now Maecen for {{title}}"
+    success: "You are now Maecen for {{title}}",
+    acceptTerms: "Accept subscription conditions"
   },
   post: {
     content: "Content",

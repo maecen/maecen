@@ -1,20 +1,36 @@
-import React, { Component } from 'react'
+// Imports
+import React, { Component, PropTypes } from 'react'
 import { translate } from 'react-i18next'
+
+// Components
 import { Row, Cell } from '../components/Grid'
 import { Card, CardContent } from '../components/Card'
 
+// Services
+import fetchStaticContent from '../lib/staticContent'
+
 class TermsView extends Component {
 
-  render () {
-    const { t } = this.props
+  constructor (props) {
+    super(props)
+    this.state = { content: null }
+  }
 
+  componentDidMount () {
+    const lang = this.context.i18n.language
+    fetchStaticContent(lang, 'termsAndConditions')
+    .then((content) => {
+      this.setState({ content })
+    })
+  }
+
+  render () {
     return (
       <Row>
         <Cell narrowLayout={true}>
           <Card>
             <CardContent>
-              {t('termsAndConditions.title')}
-              {t('termsAndConditions.content')}
+              <div dangerouslySetInnerHTML={{__html: this.state.content}} />
             </CardContent>
           </Card>
         </Cell>
@@ -23,6 +39,10 @@ class TermsView extends Component {
   }
 }
 
-export default translate(['common'])(
+TermsView.contextTypes = {
+  i18n: PropTypes.object.isRequired
+}
+
+export default translate()(
   TermsView
 )

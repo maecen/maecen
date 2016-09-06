@@ -89,7 +89,8 @@
     minimumAmount: "Minimum $t(currency.amount)",
     monthlyAmount: "Månedligt beløb",
     subscriptionExplanation: "Beløbet bliver automatisk trukket fra dit kort hver måned. Du kan til enhver tid afbryde din støtte.",
-    success: "Du er nu mæcen for {{title}}"
+    success: "Du er nu mæcen for {{title}}",
+    acceptTerms: "Accepter abonnementsbetingelserne"
   },
   user: {
     alias: "Alias",
