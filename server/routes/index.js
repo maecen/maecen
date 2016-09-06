@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import initialRender from '../index'
+import initialRender from '../initialRender'
 import UserRoutes from '../routes/user.routes'
 import MaecenateRoutes from '../routes/maecenate.routes'
 import PostRoutes from '../routes/post.routes'
