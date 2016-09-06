@@ -27,7 +27,7 @@ class MaecenateOverviewView extends Component {
         {/* TODO this could prolly be done smarter ¯\_(ツ)_/¯, sort()? */}
         {map(maecenates, maecenate =>
           maecenate.id === aboutMaecenateId &&
-            <Cell md='1/2' key={maecenate.id}>
+            <Cell md={6} key={maecenate.id}>
               <MaecenateCard
                 maecenate={maecenate}
                 onClick={this.gotoMaecenate.bind(this, maecenate)} />
@@ -35,7 +35,7 @@ class MaecenateOverviewView extends Component {
         )}
         {map(maecenates, maecenate =>
           maecenate.id !== aboutMaecenateId &&
-            <Cell md='1/2' key={maecenate.id}>
+            <Cell md={6} key={maecenate.id}>
               <MaecenateCard
                 maecenate={maecenate}
                 onClick={this.gotoMaecenate.bind(this, maecenate)} />

@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import Immutable from 'seamless-immutable'
 import styleVariables from '../styleVariables'
 
 const style = {
@@ -13,8 +12,7 @@ const style = {
 }
 
 function Row (props) {
-  props = Immutable(props)
-  let styling = {...props.style, ...style.base}
+  let styling = {...style.base, ...props.style}
 
   return (
     <div style={styling}>

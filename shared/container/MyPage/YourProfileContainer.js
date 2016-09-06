@@ -91,25 +91,25 @@ class ProfileContainer extends Component {
               errors={this.state.errors}
             >
               <Row>
-                <Cell md='1/2'>
+                <Cell md={6}>
                   <TextField
                     path={['first_name']}
                     floatingLabelText={t('user.firstName')}
                     disabled={!isEdit} />
                 </Cell>
-                <Cell md='1/2'>
+                <Cell md={6}>
                   <TextField
                     path={['last_name']}
                     floatingLabelText={t('user.lastName')}
                     disabled={!isEdit} />
                 </Cell>
-                <Cell md='1/2'>
+                <Cell md={6}>
                   <TextField
                     path={['email']}
                     floatingLabelText={t('user.email')}
                     disabled={!isEdit} />
                 </Cell>
-                <Cell md='1/2'>
+                <Cell md={6}>
                   <TextField
                     type='password'
                     path={['password']}
@@ -120,25 +120,25 @@ class ProfileContainer extends Component {
               </Row>
 
               <Row>
-                <Cell md='1/4'>
+                <Cell md={3}>
                   <TextField
                     path={['alias']}
                     floatingLabelText={t('user.alias')}
                     disabled={!isEdit} />
                 </Cell>
-                <Cell md='1/4'>
+                <Cell md={3}>
                   <TextField
                     path={['phone_number']}
                     floatingLabelText={t('user.phoneNumber')}
                     disabled={!isEdit} />
                 </Cell>
-                <Cell md='1/4'>
+                <Cell md={3}>
                   <TextField
                     path={['country']}
                     floatingLabelText={t('user.country')}
                     disabled={!isEdit} />
                 </Cell>
-                <Cell md='1/4'>
+                <Cell md={3}>
                   <TextField
                     path={['zip_code']}
                     floatingLabelText={t('user.zip')}
