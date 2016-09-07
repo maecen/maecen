@@ -1,9 +1,11 @@
+// Imports
 import React from 'react'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
 import serialize from 'serialize-javascript'
+import { StyleRoot } from 'radium'
 
 import User from './models/User'
 import i18n from './i18n-server'
@@ -51,20 +53,16 @@ export default function initialRender (req, res, next) {
         const { params, components } = renderProps
 
         return fetchComponentData(store, components, params).then(() => {
-          // Needed for radium to do proper SSR with e.g. Media Queries
-          const createElement = (Component, props) => (
-            <Component
-              {...props}
-              radiumConfig={{ userAgent: req.headers['user-agent'] }}
-            />
-          )
+          const userAgent = req.headers['user-agent']
 
           // Initial Render
           // ==============
           const html = renderToString(
             <I18nextProvider i18n={i18nServer}>
               <Provider store={store}>
-                <RouterContext {...renderProps} createElement={createElement} />
+                <StyleRoot radiumConfig={{ userAgent }}>
+                  <RouterContext {...renderProps} />
+                </StyleRoot>
               </Provider>
             </I18nextProvider>
           )

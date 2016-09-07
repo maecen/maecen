@@ -1,13 +1,16 @@
+// Imports
 import React from 'react'
 import getRoutes from '../shared/routes'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { Router, browserHistory } from 'react-router'
-import { configureStore } from '../shared/store/configureStore'
-import mapInitialState from '../shared/lib/mapInitialState'
+import { StyleRoot } from 'radium'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import { I18nextProvider } from 'react-i18next'
+
+import { configureStore } from '../shared/store/configureStore'
+import mapInitialState from '../shared/lib/mapInitialState'
 import i18n from './i18n-client'
 
 // Needed for onTouchTap
@@ -28,7 +31,9 @@ const routes = getRoutes(store)
 const App = () => (
   <I18nextProvider i18n={i18n}>
     <Provider store={store}>
-      <Router history={history} routes={routes} />
+      <StyleRoot>
+        <Router history={history} routes={routes} />
+      </StyleRoot>
     </Provider>
   </I18nextProvider>
 )
