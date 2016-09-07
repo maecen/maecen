@@ -67,10 +67,10 @@ export function createPayment (knex, {
 
 export function verifyPayment (knex, orderId, amount) {
   return fetchTransactionByOrder(knex, orderId).then((transaction) => {
-    if (!transaction || transaction.amount !== amount) {
-      return false
+    return {
+      valid: transaction && transaction.amount === amount,
+      verified: ['success', 'error'].indexOf(transaction.status) !== -1
     }
-    return true
   })
 }
 

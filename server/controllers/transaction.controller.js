@@ -96,7 +96,14 @@ export function paymentCallback (req, res, next) {
 
   const amount = Number(req.query.amount)
 
-  return service.verifyPayment(knex, orderid, amount).then((valid) => {
+  return service.verifyPayment(knex, orderid, amount)
+  .then(({valid, verified}) => {
+    // The payment is already verified
+    if (verified === true) {
+      return res.json({ success: true })
+    }
+
+    // The payment is valid
     if (valid === true) {
       return service.paymentSuccess(knex, orderid, txnid)
       .then((transaction) => {
@@ -110,6 +117,8 @@ export function paymentCallback (req, res, next) {
       }).then(() => {
         return res.json({ success: true })
       })
+
+    // The payment is __not__ valid
     } else {
       return service.paymentFailed(knex, orderid).then((support) => {
         return res.json({ success: false })
@@ -127,4 +136,3 @@ export function cronRefreshSubscriptions (req, res, next) {
   subscriptionService.refreshExpiringSubscriptions(knex)
   return res.json({ success: true })
 }
-
