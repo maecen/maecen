@@ -112,7 +112,7 @@ class ProfileContainer extends Component {
                 <Cell md={6}>
                   <TextField
                     type='password'
-                    path={['password']}
+                    path={['new_password']}
                     autoComplete='new-password'
                     floatingLabelText={t('user.passwordNew')}
                   disabled={!isEdit} />
