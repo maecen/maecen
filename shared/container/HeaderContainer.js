@@ -1,14 +1,19 @@
+// Imports
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions'
-import Header from '../components/Header/Header'
-import { browserHistory } from 'react-router'
-import { getUserMaecenates } from '../selectors/maecenate'
+
 import { isBrowser } from '../config'
 
+// Actions & Selectors
+import * as Actions from '../actions'
+import { getUserMaecenates } from '../selectors/maecenate'
 import {
   isAuthorized, getAuthUser, getAuthUserId
 } from '../selectors/user'
+
+// Components
+import Header from '../components/Header/Header'
+import { browserHistory } from 'react-router'
 
 class HeaderContainer extends Component {
   constructor (props) {
@@ -47,22 +52,6 @@ class HeaderContainer extends Component {
     }
   }
 
-  gotoCreatePost () {
-    browserHistory.push('/post/create')
-  }
-
-  gotoAllMaecenates () {
-    browserHistory.push('/maecenates')
-  }
-
-  gotoMyPage () {
-    browserHistory.push('/profile')
-  }
-
-  gotoHome () {
-    browserHistory.push('/')
-  }
-
   render () {
     const hideFab = Boolean(this.props.children.props.route.hideFab)
 
@@ -74,10 +63,10 @@ class HeaderContainer extends Component {
     return <Header
       hasAuth={this.props.hasAuth}
       loginAction={this.handleLogin}
-      createPost={this.gotoCreatePost}
-      gotoAllMaecenates={this.gotoAllMaecenates}
-      gotoMyPage={this.gotoMyPage}
-      gotoHome={this.gotoHome}
+      createPostUrl='/post/create'
+      allMaecenatesUrl='/maecenates'
+      myPageUrl='/profile'
+      homeUrl='/'
       adminMaecenates={this.props.adminMaecenates}
       hideFab={hideFab}
       getAccessAction={this.getAccess}

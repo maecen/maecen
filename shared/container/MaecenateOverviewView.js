@@ -1,18 +1,18 @@
+// Imports
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
 import map from 'lodash/map'
+
+// Actions & Selectors
 import * as Actions from '../actions'
 import { getMaecenates } from '../selectors/maecenate'
 
+// Components
+import Link from '../components/Link'
 import { Row, Cell } from '../components/Grid'
 import { MaecenateCard } from '../components/Maecenate'
 
 class MaecenateOverviewView extends Component {
-
-  gotoMaecenate (maecenate) {
-    browserHistory.push(`/maecenate/${maecenate.slug}`)
-  }
 
   componentDidMount () {
     const {dispatch, params} = this.props
@@ -28,17 +28,17 @@ class MaecenateOverviewView extends Component {
         {map(maecenates, maecenate =>
           maecenate.id === aboutMaecenateId &&
             <Cell md={6} key={maecenate.id}>
-              <MaecenateCard
-                maecenate={maecenate}
-                onClick={this.gotoMaecenate.bind(this, maecenate)} />
+              <Link to={`/maecenate/${maecenate.slug}`}>
+                <MaecenateCard maecenate={maecenate} />
+              </Link>
             </Cell>
         )}
         {map(maecenates, maecenate =>
           maecenate.id !== aboutMaecenateId &&
             <Cell md={6} key={maecenate.id}>
-              <MaecenateCard
-                maecenate={maecenate}
-                onClick={this.gotoMaecenate.bind(this, maecenate)} />
+              <Link to={`/maecenate/${maecenate.slug}`}>
+                <MaecenateCard maecenate={maecenate} />
+              </Link>
             </Cell>
         )}
       </Row>

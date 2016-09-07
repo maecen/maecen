@@ -1,11 +1,12 @@
+// Imports
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { StyleRoot } from 'radium'
+
 import styleVariables from '../../components/styleVariables'
 
+// Components
 import HeaderContainer from '../HeaderContainer'
 import FooterContainer from '../FooterContainer'
 import AuthDialogContainer from '../AuthDialogContainer'
@@ -24,6 +25,35 @@ const muiTheme = getMuiTheme({
   }
 })
 
+function App (props) {
+  const { showAuthModal, navToUrl } = props
+
+  return (
+    <MuiThemeProvider muiTheme={muiTheme}>
+      <div>
+
+        <div style={style.main}>
+          <HeaderContainer>
+            { props.children }
+          </HeaderContainer>
+          <div style={style.contentWrap}>
+            { props.children }
+          </div>
+          <FooterContainer>
+            { props.children }
+          </FooterContainer>
+        </div>
+
+        <AuthDialogContainer
+          open={showAuthModal}
+          navToUrl={navToUrl}
+        />
+
+      </div>
+    </MuiThemeProvider>
+  )
+}
+
 const style = {
   main: {
     display: 'flex',
@@ -39,37 +69,6 @@ const style = {
     justifyContent: 'center',
     paddingBottom: styleVariables.spacer.quadrouple
   }
-}
-
-function App (props) {
-  const { showAuthModal, navToUrl } = props
-
-  return (
-    <StyleRoot>
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div>
-
-          <div style={style.main}>
-            <HeaderContainer>
-              { props.children }
-            </HeaderContainer>
-            <div style={style.contentWrap}>
-              { props.children }
-            </div>
-            <FooterContainer>
-              { props.children }
-            </FooterContainer>
-          </div>
-
-          <AuthDialogContainer
-            open={showAuthModal}
-            navToUrl={navToUrl}
-          />
-
-        </div>
-      </MuiThemeProvider>
-    </StyleRoot>
-  )
 }
 
 App.propTypes = {

@@ -22,7 +22,7 @@ import { isAuthUserMaecenateSupporter } from '../selectors/support'
 
 // Components
 import Checkbox from 'material-ui/Checkbox'
-import Link from '../components/Link/Link'
+import { TextLink } from '../components/Link'
 import { Table, TableBody, TableRow, TableRowColumn } from '../components/Table'
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
@@ -222,9 +222,9 @@ class MaecenateSupportView extends React.Component {
                       <Checkbox onCheck={this.triggerAcceptTerms} />
                     </Cell>
                     <Cell sm={9} style={style.acceptTermsLabel}>
-                      <Link to='/terms' target='_blank' style={style.termsLink}>
+                      <TextLink to='/terms' target='_blank' style={style.termsLink}>
                         {t('support.acceptTerms')}
-                      </Link>
+                      </TextLink>
                     </Cell>
                   </Row>
                   <div style={style.amountButton}>

@@ -9,7 +9,7 @@ import * as Actions from '../../actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
 
-import Link from '../../components/Link/Link'
+import { TextLink } from '../../components/Link'
 import { Row, Cell } from '../../components/Grid'
 import { Card, CardHeader, CardContent } from '../../components/Card'
 import { List } from 'material-ui/List'
@@ -65,10 +65,10 @@ class MaecenateDashboardView extends Component {
               <br />
               <p>
                 {t('maecenate.linkToPresentation')}
-                <Link
+                <TextLink
                   to={`https://${this.linkToPresentation(maecenate.slug)}`}>
                   {this.linkToPresentation(maecenate.slug)}
-                </Link>
+                </TextLink>
               </p>
             </CardContent>
             <Divider />
