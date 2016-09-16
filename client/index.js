@@ -8,6 +8,7 @@ import { Router, browserHistory } from 'react-router'
 import { StyleRoot } from 'radium'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import { I18nextProvider } from 'react-i18next'
+import moment from 'moment'
 
 import { configureStore } from '../shared/store/configureStore'
 import mapInitialState from '../shared/lib/mapInitialState'
@@ -27,6 +28,9 @@ const initialState = mapInitialState(window.__INITIAL_STATE__)
 const store = configureStore(initialState)
 const history = syncHistoryWithStore(browserHistory, store)
 const routes = getRoutes(store)
+
+// Set the correct locale for moment
+moment.locale(i18n.language)
 
 const App = () => (
   <I18nextProvider i18n={i18n}>

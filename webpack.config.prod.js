@@ -8,6 +8,7 @@ module.exports = {
   output: {
     path: __dirname + '/static/dist/',
     filename: 'bundle.js',
+    chunkFilename: '[id].chunk.js',
   },
 
   resolve: {
@@ -35,6 +36,7 @@ module.exports = {
       compressor: {
         warnings: false,
       }
-    })
+    }),
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|da)$/)
   ],
 };
