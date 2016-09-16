@@ -9,7 +9,7 @@ import styleVariables from '../../components/styleVariables'
 // Components
 import HeaderContainer from '../HeaderContainer'
 import FooterContainer from '../FooterContainer'
-import AuthDialogContainer from '../AuthDialogContainer'
+import AuthDialogContainer from '../Dialogs/AuthDialogContainer'
 
 const themeColor = styleVariables.color.primary
 const muiTheme = getMuiTheme({

@@ -1,21 +1,32 @@
+// Imports
 import React, { Component } from 'react'
 import { browserHistory, Link } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
+// Actions & Selectors
 import * as Actions from '../../actions'
 import { getAuthUserId } from '../../selectors/user'
 import { getSupportedMaecenates } from '../../selectors/maecenate'
 
-import cropCloudy from '../../lib/cropCloudy'
+// Components
+import { List } from 'material-ui/List'
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
-import { List } from 'material-ui/List'
-import ListItem from '../../components/List/ListItem'
-import Avatar from 'material-ui/Avatar'
-import Divider from 'material-ui/Divider'
+import MaecenateListItem from '../../components/Maecenate/MaecenateListItem'
+import UserSupportDialog from '../Dialogs/UserSupportDialog'
 
 class YourMaecensContainer extends Component {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      supportMaecenateId: null
+    }
+
+    this.showSupportInfo = this.showSupportInfo.bind(this)
+    this.hideSupportInfo = this.hideSupportInfo.bind(this)
+  }
 
   componentDidMount () {
     const { dispatch, userId } = this.props
@@ -26,32 +37,36 @@ class YourMaecensContainer extends Component {
     browserHistory.push(`/maecenate/${slug}`)
   }
 
+  showSupportInfo (maecenateId, event) {
+    event.stopPropagation() // So the parent elements click method isn't fired
+    this.setState({ supportMaecenateId: maecenateId })
+  }
+
+  hideSupportInfo () {
+    this.setState({ supportMaecenateId: null })
+  }
+
   render () {
     const { t, maecenates } = this.props
-    let title = t('user.maecenatesSupported')
-    if (maecenates.length === 0) {
-      title = t('user.noMaecenatesSupported')
-    }
+    let title = maecenates.length === 0
+      ? t('user.noMaecenatesSupported')
+      : t('user.maecenatesSupported')
+
+    const { supportMaecenateId } = this.state
+
     return (
       <Card>
-        <CardTitle
-          title={title}
-        />
+        <CardTitle title={title} />
         {maecenates.length > 0 &&
           <List>
-            {maecenates.map((maecenate, i) => (
-              <div key={i}>
-                <ListItem
-                  leftAvatar={
-                    <Avatar
-                      src={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}
-                    />
-                  }
-                  primaryText={maecenate.title}
-                  onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
+            {maecenates.map((o, i) => (
+              <MaecenateListItem
+                key={i}
+                maecenate={o}
+                onClick={this.gotoMaecenate.bind(this, o.slug)}
+                onInfoClick={this.showSupportInfo.bind(this, o.id)}
+                support={o.support}
                 />
-                <Divider />
-              </div>
             ))}
           </List>
         }
@@ -64,6 +79,11 @@ class YourMaecensContainer extends Component {
             />
           </Link>
         </CardContent>
+
+        <UserSupportDialog
+          maecenateId={supportMaecenateId}
+          close={this.hideSupportInfo}
+        />
       </Card>
     )
   }

@@ -1,20 +1,23 @@
+// Imports
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import * as Actions from '../../actions'
 
+// Actions & Selectors
+import * as Actions from '../../actions'
 import { getAuthUserId } from '../../selectors/user'
 import { getUserMaecenates } from '../../selectors/maecenate'
 
-import { Card, CardTitle, CardContent } from '../../components/Card'
-import Button from '../../components/Form/Button'
+// Components
 import { List } from 'material-ui/List'
-import ListItem from '../../components/List/ListItem'
 import Divider from 'material-ui/Divider'
-import cropCloudy from '../../lib/cropCloudy'
 import Avatar from 'material-ui/Avatar'
 import ActionInfo from 'material-ui/svg-icons/action/info-outline'
+import { Card, CardTitle, CardContent } from '../../components/Card'
+import Button from '../../components/Form/Button'
+import ListItem from '../../components/List/ListItem'
+import cropCloudy from '../../lib/cropCloudy'
 
 class YourMaecenatesContainer extends Component {
 

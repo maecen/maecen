@@ -4,13 +4,11 @@ import { browserHistory } from 'react-router'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
-import * as Actions from '../actions'
+import * as Actions from '../../actions'
 
-import styleVariables from '../components/styleVariables'
-import Dialog from '../components/Dialog/Dialog'
-import Form, { TextField, Button } from '../components/Form'
-import IconButton from 'material-ui/IconButton'
-import NavigationClose from 'material-ui/svg-icons/navigation/close'
+import styleVariables from '../../components/styleVariables'
+import Dialog from '../../components/Dialog/Dialog'
+import Form, { TextField, Button } from '../../components/Form'
 
 class AuthDialogContainer extends React.Component {
 
@@ -114,12 +112,9 @@ class AuthDialogContainer extends React.Component {
 
     return (
       <Dialog
+        contentStyle={style.dialogContent}
         open={open}
         onRequestClose={this.cancel}>
-        <IconButton iconStyle={style.closeIcon} style={style.close}
-          onTouchTap={this.cancel}>
-          <NavigationClose />
-        </IconButton>
         <Form onSubmit={this.handleSubmit} model={user}
           updateModel={this.updateModel.bind(this)}
           errors={this.state.errors}>
@@ -206,13 +201,8 @@ class AuthDialogContainer extends React.Component {
 }
 
 const style = {
-  close: {
-    position: 'absolute',
-    right: '0px',
-    top: '-' + styleVariables.spacer.tripple
-  },
-  closeIcon: {
-    color: 'white'
+  dialogContent: {
+    maxWidth: styleVariables.media.xs
   },
   hiddenSubmit: {
     position: 'absolute',

@@ -1,5 +1,6 @@
 import { normalizeResponse } from '../util/ctrlHelpers'
 import * as service from '../services/maecenates'
+import * as subscriptionService from '../services/subscriptions'
 import { knex } from '../database'
 import Maecenate from '../models/Maecenate'
 
@@ -95,10 +96,19 @@ export function getMaecenateSupporters (req, res, next) {
   }).catch(next)
 }
 
-/*
-function isUserSupportingMaecenate (maecenateId, userId) {
-  return knex('supporters')
-    .where('user', userId).andWhere('maecenate', maecenateId).count('* as count')
-    .then(res => Number(res[0].count) >= 1)
+export function cancelSubscription (req, res, next) {
+  const { knex } = req.app.locals
+  const { userId } = req.user
+  const { id } = req.params
+  return subscriptionService.stopSubscription(knex, userId, id)
+  .then((success) => {
+    return subscriptionService.fetchActiveUserSubPeriodForMaecenate(knex, userId, id)
+    .then((result) => {
+      return res.json({
+        ...normalizeResponse({ supports: result }),
+        success: true
+      })
+    })
+  }).catch(next)
 }
-*/
+

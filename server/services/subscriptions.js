@@ -20,6 +20,7 @@ function fetchActiveSubPeriods (knex, date) {
       'sub_periods.id as id',
       'subscriptions.maecenate',
       'subscriptions.user',
+      'subscriptions.renew as renew',
       'transactions.amount',
       'transactions.currency',
       'sub_periods.start',
@@ -39,6 +40,11 @@ export function fetchSubscription (knex, subscriptionId) {
     .where({ id: subscriptionId })
     .limit(1)
     .then(result => result[0])
+}
+
+export function fetchSubPeriodById (knex, subscriptionId, date) {
+  return fetchActiveSubPeriods(knex, date)
+    .where('subscriptions.id', subscriptionId)
 }
 
 export function fetchActiveUserSubPeriods (knex, userId, date) {
@@ -137,6 +143,11 @@ export function refreshMaecenateSubscription (knex, subscriptionId) {
       throw error
     }
 
+    if (subInfo.renew === false) {
+      const error = { _: 'subscription.shouldNotBeRenewed' }
+      throw error
+    }
+
     // Now check if we already have a subscription that starts tomorrow
     return existsSubPeriodAt(knex, subscriptionId, tomorrow).then(result => {
       if (result === true) {
@@ -173,6 +184,7 @@ export function refreshExpiringSubscriptions (knex) {
   .select('subscriptions.id')
   .innerJoin('sub_periods', 'subscription', 'subscriptions.id')
   .where('sub_periods.end', '=', tomorrow.toDate())
+  .where('subscriptions.renew', true)
   .then(subscriptions => {
     let lastPromise = null
     for (let { id } of subscriptions) {
@@ -191,6 +203,21 @@ export function refreshExpiringSubscriptions (knex) {
   })
 }
 
+export function stopSubscription (knex, userId, maecenateId) {
+  return knex('subscriptions')
+  .where({
+    maecenate: maecenateId,
+    user: userId,
+    renew: true
+  })
+  .update({
+    renew: false
+  })
+  .then((res) => {
+    console.log(res)
+  })
+}
+
 // Helper methods
 // ==============
 function fetchSubInfoWhichEndsAt (knex, subscriptionId, date) {
@@ -200,6 +227,7 @@ function fetchSubInfoWhichEndsAt (knex, subscriptionId, date) {
     'subscriptions.amount',
     'subscriptions.currency',
     'subscriptions.started_at',
+    'subscriptions.renew',
     'user',
     'maecenate',
     'sub_periods.start',

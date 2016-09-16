@@ -13,6 +13,9 @@ const getMaecenateId = (state, props) =>
 const getMaecenateIds = (state, props) =>
   state.app.maecenates
 
+const getMaecenatePropId = (state, props) =>
+  props.maecenateId
+
 const getSlugFromPath = (state, props) =>
   props.params.slug
 
@@ -20,6 +23,11 @@ export const getMaecenateBySlug = createSelector(
   [ getSlugFromPath, getMaecenateEntities ],
   (slug, maecenates) =>
     find(maecenates, maecenate => maecenate.slug === slug)
+)
+
+export const getMaecenateById = createSelector(
+  [ getMaecenatePropId, getMaecenateEntities ],
+  (id, maecenates) => find(maecenates, maecenate => maecenate.id === id)
 )
 
 export const getMaecenateByPost = (postSelector) =>
@@ -52,7 +60,10 @@ export const getSupportedMaecenates = (userIdSelector) =>
     [ userIdSelector, getMaecenateEntities, getSupports ],
     (userId, maecenates, supports) =>
       filter(supports, support => support.user === userId)
-        .map(support => maecenates[support.maecenate])
+        .map(support => ({
+          ...maecenates[support.maecenate],
+          support
+        }))
   )
 
 // Factory selectors, which depends upon a maecenate selector method

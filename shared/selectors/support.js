@@ -14,3 +14,12 @@ export const isAuthUserMaecenateSupporter = (maecenateSelector) => {
   )
 }
 
+export const getAuthUserSupportForMaecenate = (maecenateSelector) =>
+  createSelector(
+    [ maecenateSelector, getAuthUserId, getSupports ],
+    (maecenate, userId, supports) =>
+      find(supports, support =>
+        maecenate &&
+        support.user === userId &&
+        support.maecenate === maecenate.id)
+  )
