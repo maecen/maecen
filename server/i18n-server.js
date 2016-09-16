@@ -20,7 +20,7 @@ export default i18n
     },
 
     backend: {
-      loadPath: 'locales/{{lng}}/{{ns}}.json5',
+      loadPath: 'locales/{{lng}}/{{ns}}.json',
       jsonIndent: 2
     },
 
