@@ -104,7 +104,9 @@ class UserSupportDialog extends Component {
     const renewDate = moment(end).subtract(1, 'days')
     const expireDate = moment(end)
     const amount = Math.round(this.props.support.amount / 100)
-    const title = t('support.editTitle', { title: maecenate.title })
+    const title = renew
+      ? t('support.editTitle', { title: maecenate.title })
+      : maecenate.title
 
     return (
       <div>
@@ -126,15 +128,6 @@ class UserSupportDialog extends Component {
           : t('support.willExpireOn', { date: expireDate })
         }
 
-      </div>
-    )
-  }
-
-  renderCancelSuccess () {
-    return (
-      <div>
-        <DialogTitle title='walla' />
-        Success!
       </div>
     )
   }
