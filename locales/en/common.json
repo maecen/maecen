@@ -83,6 +83,7 @@
     "acceptTerms": "Accept subscription conditions",
     "willBeRenewedOn": "Your support will be renewed {{date, LL}}",
     "willExpireOn": "Your support will end {{date, LL}}",
+    "wasRenewedToday": "Your support was renewed today, will be renewed again {{date, LL}}",
     "editTitle": "Edit your {{title}} support",
     "cancelSupport": "Cancel Support",
     "currentAmount": "You're supporting with {{amount}} {{currency}} per month",

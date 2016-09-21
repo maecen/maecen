@@ -7,6 +7,8 @@ import moment from 'moment'
 
 import styleVariables from '../../components/styleVariables'
 
+import { getNextEndDate } from '../../lib/subscription'
+
 // Actions & Selectors
 import * as actions from '../../actions/actions'
 import { getMaecenateById } from '../../selectors/maecenate'
@@ -102,18 +104,27 @@ class UserSupportDialog extends Component {
     const { t, maecenate, support } = this.props
     const { renew, currency, end } = support
     const renewDate = moment(end).subtract(1, 'days')
-    const expireDate = moment(end)
     const amount = Math.round(this.props.support.amount / 100)
     const title = renew
       ? t('support.editTitle', { title: maecenate.title })
       : maecenate.title
+
+    const isRenewedToday = renewDate.isSame(new Date(), 'day')
+    const expireDate = isRenewedToday
+      ? moment(getNextEndDate(end, support.sub_start, 1))
+      : moment(end)
+
+    const nextRenewDate = expireDate.clone().subtract(1, 'days')
 
     return (
       <div>
         <DialogTitle title={title} />
         { renew
           ? <div>
-              {t('support.willBeRenewedOn', { date: renewDate })}
+              {isRenewedToday
+                ? t('support.wasRenewedToday', { date: nextRenewDate })
+                : t('support.willBeRenewedOn', { date: renewDate })
+              }
               <br />
               {t('support.currentAmount', { amount, currency })}
               <br /><br />
@@ -122,7 +133,9 @@ class UserSupportDialog extends Component {
                 onCheck={this.triggerCancel}
               />
               { this.state.cancelSubscription &&
-                `Click update to stop supporting, you will still have access to the maecenate until ${expireDate.format('LL')}. This can not be undone!`
+                `Click update to stop supporting, you will still have access
+                to the maecenate until ${expireDate.format('LL')}.
+                This can not be undone!`
               }
             </div>
           : t('support.willExpireOn', { date: expireDate })

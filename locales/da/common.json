@@ -93,6 +93,7 @@
     "success": "Du er nu mæcen for {{title}}",
     "acceptTerms": "Accepter abonnementsbetingelserne",
     "willBeRenewedOn": "Din støtte fornys den {{date, LL}}",
+    "wasRenewedToday": "Din støtte er blevet fornyet idag, bliver fornyet igen den {{date, LL}}",
     "willExpireOn": "Din støtte stopper den {{date, LL}}",
     "editTitle": "Rediger din {{title}} støtte",
     "cancelSupport": "Stop støtte",

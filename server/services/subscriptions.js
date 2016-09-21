@@ -11,6 +11,7 @@ import uuid from 'node-uuid'
 import moment from 'moment'
 import * as transactionService from './transactions'
 import { emailSupportReceipt } from './emailSender'
+import { getNextEndDate } from '../../shared/lib/subscription'
 
 // Database Calls
 // ==============
@@ -21,6 +22,7 @@ function fetchActiveSubPeriods (knex, date) {
       'subscriptions.maecenate',
       'subscriptions.user',
       'subscriptions.renew as renew',
+      'subscriptions.started_at as sub_start',
       'transactions.amount',
       'transactions.currency',
       'sub_periods.start',
@@ -247,23 +249,6 @@ function existsSubPeriodAt (knex, subscriptionId, date) {
   .where('start', '<=', date)
   .where('end', '>', date)
   .then(result => result[0] && Boolean(result[0].id))
-}
-
-function getNextEndDate (nextStart, startedAt, durationMonths) {
-  startedAt = moment(startedAt)
-  nextStart = moment(nextStart)
-  // Round to nearest month, as the months between jan 31th and feb 28th isn't a
-  // complete month in days which will result in a lower than whole number, but
-  // it should be treated as a whole month
-  const monthsSinceStartedAt = Math.round(
-    nextStart.diff(startedAt, 'months', true)
-  )
-  const deltaMonths = monthsSinceStartedAt + durationMonths
-  // We add an extra day, so it doesn't expire a month after, but the day
-  // after the month has ended, as end end date is not included
-  const nextEnd = startedAt.clone()
-    .add(deltaMonths, 'months').add(1, 'days').toDate()
-  return nextEnd
 }
 
 export function getActiveUserSubPeriodForMaecenate (
