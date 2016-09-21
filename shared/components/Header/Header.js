@@ -93,31 +93,37 @@ function Header (props, context) {
   )
 }
 
+const { color, spacer, icon } = styleVariables
 const style = {
   icon: {
-    width: styleVariables.icon.size.lg,
-    height: styleVariables.icon.size.lg
+    width: icon.size.lg,
+    height: icon.size.lg
   },
   logo: {
-    color: styleVariables.color.bodyText
+    color: color.bodyText
   },
-  iconColor: styleVariables.color.icon,
-  homeIconColor: styleVariables.color.bodyText,
+  iconColor: color.icon,
+  homeIconColor: color.bodyText,
   main: {
-    marginBottom: styleVariables.spacer.base,
+    marginBottom: spacer.base,
     padding: '1vw 0'
   },
   rightmenu: {
     float: 'right',
-    marginLeft: styleVariables.spacer.base,
-    marginTop: styleVariables.spacer.half
+    marginLeft: spacer.base,
+    marginTop: spacer.half
   },
   fabWrap: {
-    bottom: styleVariables.spacer.base,
+    padding: spacer.half,
     maxWidth: styleVariables.media.lg,
     pointerEvents: 'none',
     position: 'fixed',
-    width: `calc(100% - ${styleVariables.spacer.base})`,
+    bottom: '0',
+    boxSizing: 'border-box',
+    margin: '0 auto',
+    left: '0',
+    right: '0',
+    width: '100%',
     zIndex: '1300'
   },
   fab: {

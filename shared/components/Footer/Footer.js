@@ -42,7 +42,9 @@ function Footer (props) {
                 primaryText={languages[option].name} />
             )}
           </SelectField>
-          <div onClick={gotoTerms}>{t('terms')}</div>
+          <div
+            style={style.terms}
+            onClick={gotoTerms}>{t('terms')}</div>
         </div>
       }
     </footer>
@@ -57,8 +59,7 @@ const style = {
   },
   footerContent: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    alignItems: 'center'
   },
   selectLabel: {
     width: icon.size.sm,
@@ -74,6 +75,10 @@ const style = {
   },
   selectUnderline: {
     display: 'none'
+  },
+  terms: {
+    paddingLeft: spacer.base,
+    paddingTop: spacer.quart
   }
 }
 
