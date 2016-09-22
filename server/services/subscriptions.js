@@ -220,6 +220,17 @@ export function stopSubscription (knex, userId, maecenateId) {
   })
 }
 
+export function stopAllSupporterSubscriptions (knex, maecenateId) {
+  return knex('subscriptions')
+  .where({
+    maecenate: maecenateId,
+    renew: true
+  })
+  .update({
+    renew: false
+  })
+}
+
 // Helper methods
 // ==============
 function fetchSubInfoWhichEndsAt (knex, subscriptionId, date) {

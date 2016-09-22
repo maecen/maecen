@@ -3,6 +3,8 @@ import * as service from '../services/maecenates'
 import * as subscriptionService from '../services/subscriptions'
 import { knex } from '../database'
 import Maecenate from '../models/Maecenate'
+import { emailMaecenateDeactivated } from '../services/emailSender'
+import * as emailService from '../services/email'
 
 export function getMaecenate (req, res, next) {
   const { slug } = req.params
@@ -109,6 +111,37 @@ export function cancelSubscription (req, res, next) {
         success: true
       })
     })
+  }).catch(next)
+}
+
+export function deactivateMaecenate (req, res, next) {
+  const { knex } = req.app.locals
+  const { userId } = req.user
+  const { id } = req.params
+  const { message } = req.body
+
+  return service.userIsAdmin(knex, id, userId)
+  .then((isUserAdmin) => {
+    if (isUserAdmin === false) {
+      const error = { _: 'error.notOwnerOfMaecenate' }
+      throw error
+    } else {
+      return service.deactivateMaecenate(knex, id)
+    }
+  }).then(() => {
+    return emailService.fetchMaecenateDeactivatedData(knex, id)
+  }).then(emailData => {
+    return subscriptionService.stopAllSupporterSubscriptions(knex, id)
+    .then(() => {
+      return emailMaecenateDeactivated(knex, emailData, message)
+    })
+  }).then(() => {
+    return service.fetchMaecenate({ id }, userId)
+  }).then(({ maecenate, supports }) => {
+    return res.json(normalizeResponse({
+      maecenates: maecenate,
+      supports
+    }, 'maecenates'))
   }).catch(next)
 }
 

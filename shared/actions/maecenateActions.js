@@ -81,3 +81,13 @@ export function fetchMaecenateSupporter (slug) {
       .then(data => dispatch(Actions.updateEntities(data.entities)))
   }
 }
+
+export function deactivateMaecenate (id, message) {
+  return (dispatch, state) => {
+    return apiRequest(state, `/maecenates/${id}/deactivate`, {
+      method: 'PUT',
+      data: { message }
+    })
+    .then(data => dispatch(Actions.updateEntities(data.entities)))
+  }
+}

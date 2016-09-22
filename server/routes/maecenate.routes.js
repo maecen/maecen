@@ -30,5 +30,7 @@ router.post('/maecenates/initiate-payment', transactions.maecenateInitiatePaymen
 
 router.put('/cancelSubscription/:id', maecenates.cancelSubscription)
 
+router.put('/maecenates/:id/deactivate', maecenates.deactivateMaecenate)
+
 export default router
 
