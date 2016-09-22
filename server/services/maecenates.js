@@ -133,7 +133,13 @@ export function userHasContentAccess (maecenateId, userId) {
 
 export function userIsAdmin (knex, maecenateId, userId) {
   return knex('maecenates').where({ id: maecenateId, creator: userId })
-  .count()
+  .count('* as count')
+  .then(res => Number(res[0].count) > 0)
+}
+
+export const activeExists = (knex, maecenateId) => {
+  return knex('maecenates').where({ id: maecenateId, active: true })
+  .count('* as count')
   .then(res => Number(res[0].count) > 0)
 }
 

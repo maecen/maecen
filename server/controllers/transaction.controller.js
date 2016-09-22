@@ -1,5 +1,6 @@
 import { apiURL } from '../../shared/config'
 import * as service from '../services/transactions'
+import * as maecenateService from '../services/maecenates'
 import * as subscriptionService from '../services/subscriptions'
 import * as userService from '../services/users'
 import { emailSupportReceipt } from '../services/emailSender'
@@ -9,12 +10,22 @@ export function maecenateInitiatePayment (req, res, next) {
   const { userId } = req.user
   const { amount, maecenateId } = req.body
 
-  return subscriptionService.fetchActiveUserSubPeriodForMaecenate(
+  const activeSubPeriod = subscriptionService.fetchActiveUserSubPeriodForMaecenate(
     knex, userId, maecenateId
-  ).then((period) => {
+  )
+
+  return Promise.all([
+    activeSubPeriod,
+    maecenateService.activeExists(knex, maecenateId)
+  ]).then(([period, activeMaecenateExists]) => {
     // The user already has an active period stop payment
     if (period) {
       const error = { _: 'maecenate.alreadySupported' }
+      throw error
+    }
+
+    if (activeMaecenateExists === false) {
+      const error = { _: 'maecenate.doesNotExist' }
       throw error
     }
 

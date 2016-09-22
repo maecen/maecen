@@ -14,7 +14,8 @@ export const customBase = (userId) => ({
 export function createDummyMaecenate (creator, title) {
   let maecenate = new Maecenate({
     title: title || 'dummy maecenate',
-    creator: creator || userId
+    creator: creator || userId,
+    active: true
   })
   maecenate.generateId()
   return maecenate.save(null, { method: 'insert', force: true })
