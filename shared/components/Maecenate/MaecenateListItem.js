@@ -24,6 +24,7 @@ export default function MaecenateListItem ({ maecenate, onClick, onInfoClick }) 
         rightIcon={onInfoClick &&
           <ActionInfo style={style.rightIcon} onClick={onInfoClick} />
         }
+        innerDivStyle={style.listItem}
       />
       <Divider />
     </div>
@@ -42,6 +43,9 @@ MaecenateListItem.propTypes = {
 }
 
 const style = {
+  listItem: {
+    wordWrap: 'break-word'
+  },
   rightIcon: {
     width: '30px',
     height: '30px',
