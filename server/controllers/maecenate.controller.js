@@ -20,7 +20,7 @@ export function getMaecenate (req, res, next) {
 }
 
 export function getMaecenates (req, res, next) {
-  service.fetchMaecenates().then((maecenates) => {
+  service.fetchMaecenates({ active: true }).then((maecenates) => {
     return res.json(normalizeResponse({
       maecenates
     }))
