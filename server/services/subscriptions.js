@@ -25,6 +25,7 @@ function fetchActiveSubPeriods (knex, date) {
       'subscriptions.started_at as sub_start',
       'transactions.amount',
       'transactions.currency',
+      'subscriptions.amount as subscription_amount',
       'sub_periods.start',
       'sub_periods.end',
       // We use the transactions created_at as it should be valid from when
@@ -218,6 +219,16 @@ export function stopSubscription (knex, userId, maecenateId) {
   .then((res) => {
     console.log(res)
   })
+}
+
+export function updateSubscription (knex, userId, maecenateId, amount) {
+  return knex('subscriptions')
+  .where({
+    maecenate: maecenateId,
+    user: userId,
+    renew: true
+  })
+  .update({ amount })
 }
 
 // Helper methods

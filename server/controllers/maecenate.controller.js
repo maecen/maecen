@@ -112,3 +112,31 @@ export function cancelSubscription (req, res, next) {
   }).catch(next)
 }
 
+export function updateSubscription (req, res, next) {
+  const { knex } = req.app.locals
+  const { userId } = req.user
+  const { id } = req.params
+  const amount = Number(req.body.amount)
+
+  return knex('maecenates')
+  .where({ id, active: true })
+  .then(([maecenate]) => {
+    console.log(amount, maecenate.monthly_minimum)
+    if (maecenate.monthly_minimum * 100 > amount) {
+      const error = { 'amount': 'validationError.numberMin' }
+      throw error
+    }
+
+    return subscriptionService.updateSubscription(knex, userId, id, amount)
+    .then((success) => {
+      return subscriptionService.fetchActiveUserSubPeriodForMaecenate(knex, userId, id)
+      .then((result) => {
+        return res.json({
+          ...normalizeResponse({ supports: result }),
+          success: true
+        })
+      })
+    })
+  }).catch(next)
+}
+

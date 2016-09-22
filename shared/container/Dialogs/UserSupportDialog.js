@@ -26,21 +26,20 @@ class UserSupportDialog extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      cancelSubscription: false,
-      changeSubscription: false,
-      submitting: false
+      change: null,
+      submitting: false,
+      amount: null
     }
     this.saveChanges = this.saveChanges.bind(this)
     this.cancelChanges = this.cancelChanges.bind(this)
-    this.triggerCancel = this.triggerCancel.bind(this)
-    this.triggerAmmountCheck = this.triggerAmmountCheck.bind(this)
+    this.toggleCancel = this.toggleCancel.bind(this)
+    this.onAmountChange = this.onAmountChange.bind(this)
   }
 
   componentWillUpdate (nextProps) {
     if (this.props.maecenateId !== nextProps.maecenateId) {
       this.setState({
-        cancelSubscription: false,
-        changeSubscription: false,
+        change: null,
         submitting: false
       })
     }
@@ -48,51 +47,57 @@ class UserSupportDialog extends Component {
 
   saveChanges () {
     const { updateEntities } = this.props
-    const { cancelSubscription, changeSubscription } = this.state
+    const { change } = this.state
     this.setState({ submitting: true })
-    if (cancelSubscription) {
-      axios.put(`/api/cancelSubscription/${this.props.maecenateId}`)
-      .then(res => res.data)
-      .then(({ entities, success }) => {
-        updateEntities(entities)
-        this.setState({ submitting: false })
-        this.props.close()
+
+    let axiosReq = null
+    if (change === 'cancel') {
+      axiosReq = axios.put(`/api/cancelSubscription/${this.props.maecenateId}`)
+    } else if (change === 'update') {
+      axiosReq = axios.put(`/api/updateSubscription/${this.props.maecenateId}`, {
+        amount: this.state.amount * 100
       })
-    } else if (changeSubscription) {
-      console.log('I want to change!!')
-      this.setState({ submitting: false })
-      this.props.close()
     }
+
+    axiosReq
+    .then(res => res.data)
+    .then(({ entities, success }) => {
+      updateEntities(entities)
+      this.props.close()
+    })
+    .catch(() => {})
+    .then(() => {
+      this.setState({ submitting: false })
+    })
   }
 
   cancelChanges () {
     this.props.close()
   }
 
-  triggerCancel (event, state) {
-    this.setState({ cancelSubscription: state })
+  toggleCancel (event, state) {
+    this.setState({ change: state ? 'cancel' : null })
   }
 
-  triggerAmmountCheck (event, value) {
-    const minValue = event.target.min
+  onAmountChange (event, value) {
+    value = Number(value)
     const orignalValue = Math.round(this.props.support.amount / 100)
-    const currentValue = parseInt(value)
-    const isValidAmmount = currentValue >= minValue
-    const isNewAmmount = currentValue !== orignalValue
-    const isValidNewAmmount = isValidAmmount && isNewAmmount
-    this.setState({ changeSubscription: isValidNewAmmount })
+    const isValidNewAmount = value >= event.target.min && value !== orignalValue
+    this.setState({
+      change: isValidNewAmount ? 'update' : null,
+      amount: value
+    })
   }
 
   render () {
     const { t, maecenate, support } = this.props
-    const { cancelSubscription, changeSubscription, submitting } = this.state
-    const isValidSubmit = cancelSubscription === true ||
-      changeSubscription === true
+    const { change, submitting } = this.state
+    const isValidSubmit = change !== null
     const confirmDisabled = !isValidSubmit || submitting
     let buttonTitle = t('ok')
-    if (cancelSubscription) {
+    if (change === 'cancel') {
       buttonTitle = t('support.cancelSupport')
-    } else if (changeSubscription) {
+    } else if (change === 'update') {
       buttonTitle = t('support.changeSupport')
     }
 
@@ -130,20 +135,24 @@ class UserSupportDialog extends Component {
   }
 
   renderContent () {
-    const { t, maecenate, support } = this.props
-    const { renew, currency, end } = support
+    const {
+      t,
+      maecenate,
+      support: { sub_start, renew, currency, end }
+    } = this.props
+    const { change } = this.state
+
     const renewDate = moment(end).subtract(1, 'days')
-    const amount = Math.round(support.amount / 100)
+    const amount = Math.round(this.props.support.subscription_amount / 100)
     const minAmount = Math.round(maecenate.monthly_minimum)
     const title = renew
       ? t('support.editTitle', { title: maecenate.title })
       : maecenate.title
 
-    const disabledInput = this.state.cancelSubscription === true ||
-      this.state.submitting
+    const disabledInput = change === 'cancel' || this.state.submitting
     const isRenewedToday = renewDate.isSame(new Date(), 'day')
     const expireDate = isRenewedToday
-      ? moment(getNextEndDate(end, support.sub_start, 1))
+      ? moment(getNextEndDate(end, sub_start, 1))
       : moment(end)
 
     const nextRenewDate = expireDate.clone().subtract(1, 'days')
@@ -161,25 +170,25 @@ class UserSupportDialog extends Component {
 
               <TextField
                 floatingLabelText={t('support.changeAmount',
-                { minAmount, currency })}
+                  { minAmount, currency })}
                 defaultValue={amount}
                 type='number'
                 min={minAmount}
                 floatingLabelFixed={true}
                 autoComplete='off'
-                onChange={this.triggerAmmountCheck}
+                onChange={this.onAmountChange}
                 disabled={disabledInput}
               />
 
               <Checkbox
                 label={t('support.cancelSupport')}
                 labelPosition='left'
-                onCheck={this.triggerCancel}
+                onCheck={this.toggleCancel}
                 style={style.checkbox}
                 inputStyle={style.checkboxInput}
               />
 
-              { this.state.cancelSubscription &&
+              { change === 'cancel' &&
                 t('support.cancelSupportHelpText', { date: expireDate })
               }
             </div>
@@ -214,6 +223,7 @@ UserSupportDialog.propTypes = {
   }),
   support: PropTypes.shape({
     amount: PropTypes.number.isRequired,
+    subscription_amount: PropTypes.number.isRequired,
     currency: PropTypes.string.isRequired,
     end: PropTypes.string.isRequired,
     renew: PropTypes.bool.isRequired

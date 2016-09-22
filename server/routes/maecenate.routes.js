@@ -29,6 +29,7 @@ router.get('/getMaecenateSupporters/:slug', verifyMaecenateAdmin,
 router.post('/maecenates/initiate-payment', transactions.maecenateInitiatePayment)
 
 router.put('/cancelSubscription/:id', maecenates.cancelSubscription)
+router.put('/updateSubscription/:id', maecenates.updateSubscription)
 
 export default router
 
