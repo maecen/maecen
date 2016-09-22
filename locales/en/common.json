@@ -12,6 +12,7 @@
   "maecen": "Maecen",
   "maecenateName": "Maecenate",
   "maecens": "Maecens",
+  "ok": "OK",
   "profile": "Profile",
   "signUp": "Sign Up",
   "tagline": "\"A person who supports art and science financially\"",
@@ -81,13 +82,15 @@
     "subscriptionExplanation": "The amount will be withdrawn from your card each month until you choose to cancel your support.",
     "success": "You are now Maecen for {{title}}",
     "acceptTerms": "Accept subscription conditions",
-    "willBeRenewedOn": "Your support will be renewed {{date, LL}}",
+    "willBeRenewedOn": "Your support of {{amount}} {{currency}} per month will be renewed {{date, LL}}",
     "willExpireOn": "Your support will end {{date, LL}}",
     "wasRenewedToday": "Your support was renewed today, will be renewed again {{date, LL}}",
     "editTitle": "Edit your {{title}} support",
+    "changeSupport": "Update Support",
     "cancelSupport": "Cancel Support",
-    "currentAmount": "You're supporting with {{amount}} {{currency}} per month",
-    "stopSupportConfirm": "Stop supporting"
+    "cancelSupportHelpText": "Confirm by clicking the button. You will have access to the maecenate until {{date, LL}}. You can resubscribe after that date.",
+    "changeAmount": "Change your support (minimum {{minAmount}} {{currency}} per month)",
+    "currentAmount": "You're supporting with {{amount}} {{currency}} per month"
   },
   "post": {
     "content": "Content",

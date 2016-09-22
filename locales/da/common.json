@@ -12,6 +12,7 @@
   "maecen": "Mæcen",
   "maecenateName": "Mæcenate",
   "maecens": "Mæcener",
+  "ok": "OK",
   "profile": "Profil",
   "signUp": "Tilmeld",
   "tagline": "\"En person som støtter kunst og videnskab økonomisk\"",
@@ -92,13 +93,15 @@
     "subscriptionExplanation": "Beløbet bliver automatisk trukket fra dit kort hver måned. Du kan til enhver tid afbryde din støtte.",
     "success": "Du er nu mæcen for {{title}}",
     "acceptTerms": "Accepter abonnementsbetingelserne",
-    "willBeRenewedOn": "Din støtte fornys den {{date, LL}}",
+    "willBeRenewedOn": "Din støtte på {{amount}} {{currency}} pr måned fornys den {{date, LL}}",
     "wasRenewedToday": "Din støtte er blevet fornyet idag, bliver fornyet igen den {{date, LL}}",
     "willExpireOn": "Din støtte stopper den {{date, LL}}",
     "editTitle": "Rediger din {{title}} støtte",
+    "changeSupport": "Ændr støtte",
     "cancelSupport": "Stop støtte",
-    "currentAmount": "Du støtter med {{amount}} {{currency}} om måneden",
-    "stopSupportConfirm": "Stop støtte"
+    "cancelSupportHelpText": "Bekræft ved at klikke på knappen. Du har adgang til Mæcenatet indtil {{date, LL}}, hvorefter du kan tilmelde dig igen.",
+    "changeAmount": "Ændr din støtte (minimum {{minAmount}} {{currency}} om måneden)",
+    "currentAmount": "Du støtter med {{amount}} {{currency}} om måneden"
   },
   "user": {
     "alias": "Alias",
