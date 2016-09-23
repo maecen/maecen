@@ -90,7 +90,7 @@ class UserSupportDialog extends Component {
   }
 
   render () {
-    console.log(moment.months())
+    console.log(moment.locale('fr'))
     const { t, maecenate, support } = this.props
     const { change, submitting } = this.state
     const isValidSubmit = change !== null
