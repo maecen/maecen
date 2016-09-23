@@ -41,6 +41,7 @@ module.exports = {
       'process.env': {
         CLIENT: JSON.stringify(true)
       }
-    })
+    }),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|da)/)
   ],
 };
