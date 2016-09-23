@@ -32,7 +32,7 @@ module.exports = {
     migrations: {
       directory: path.join(__dirname, '/migrations/'),
       tableName: 'knex_migrations'
-    },
+    }
   },
 
   production: {
