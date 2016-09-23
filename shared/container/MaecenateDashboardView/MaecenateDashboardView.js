@@ -23,6 +23,7 @@ import { Row, Cell } from '../../components/Grid'
 import { Card, CardHeader, CardContent } from '../../components/Card'
 import ListItem from '../../components/List/ListItem'
 import Button from '../../components/Form/Button'
+import styleVariables from '../../components/styleVariables'
 
 import DeactivateMaecenateDialog from '../Dialogs/DeactivateMaecenateDialog'
 
@@ -66,7 +67,6 @@ class MaecenateDashboardView extends Component {
 
   render () {
     const { users, maecenate, t } = this.props
-
     const totalAmount = Math.round(sumBy(users, o => o.support.amount) / 100)
     const totalString = t('maecenate.totalAmount', { total: totalAmount })
 
@@ -93,10 +93,15 @@ class MaecenateDashboardView extends Component {
                 onClick={this.gotoMaecenatePresentation.bind(this, maecenate.slug)}
               />
 
-              <Button
-                label='close maecenate'
-                onClick={this.openDeactivateDialog}
-              />
+              { maecenate.active
+                ? <Button
+                    label={t('maecenate.close')}
+                    onClick={this.openDeactivateDialog}
+                  />
+                : <div style={style.closedMessage}>
+                    {t('maecenate.closedMessage')}
+                  </div>
+              }
 
               <br />
               <p>
@@ -129,6 +134,13 @@ class MaecenateDashboardView extends Component {
         </Cell>
       </Row>
     )
+  }
+}
+
+const style = {
+  closedMessage: {
+    color: styleVariables.color.alert,
+    paddingTop: styleVariables.spacer.base
   }
 }
 
