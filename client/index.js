@@ -30,7 +30,8 @@ const history = syncHistoryWithStore(browserHistory, store)
 const routes = getRoutes(store)
 
 // Set the correct locale for moment
-moment.locale(i18n.language)
+moment.locale(window.__i18n.locale)
+console.log('setting language', i18n.language, window.__i18n.locale, moment.locale())
 
 const App = () => (
   <I18nextProvider i18n={i18n}>
