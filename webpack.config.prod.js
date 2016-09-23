@@ -36,7 +36,6 @@ module.exports = {
       compressor: {
         warnings: false,
       }
-    }),
-    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en|da)$/)
+    })
   ],
 };
