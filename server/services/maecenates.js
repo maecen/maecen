@@ -113,7 +113,7 @@ export function fetchMaecenateSupporters (maecenateId) {
   .then((supports) => {
     const userIds = supports.map(support => support.user)
     return knex('users').where('id', 'in', userIds)
-      .select('first_name', 'country', 'id')
+      .select('first_name', 'last_name', 'email', 'country', 'zip_code', 'id')
       .then((users) => ({
         users,
         supports

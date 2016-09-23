@@ -4,10 +4,12 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import sumBy from 'lodash/sumBy'
+import moment from 'moment'
 
 // Utils
 import { isBrowser } from '../../config'
 import cropCloudy from '../../lib/cropCloudy'
+import styleVariables from '../../components/styleVariables'
 
 // Actions & Selectors
 import * as Actions from '../../actions'
@@ -15,16 +17,19 @@ import { getMaecenateBySlug } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
 
 // Components
-import Subheader from 'material-ui/Subheader'
 import Divider from 'material-ui/Divider'
-import { List } from 'material-ui/List'
 import { TextLink } from '../../components/Link'
 import { Row, Cell } from '../../components/Grid'
 import { Card, CardHeader, CardContent } from '../../components/Card'
-import ListItem from '../../components/List/ListItem'
 import Button from '../../components/Form/Button'
-import styleVariables from '../../components/styleVariables'
-
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from '../../components/Table/'
 import DeactivateMaecenateDialog from '../Dialogs/DeactivateMaecenateDialog'
 
 class MaecenateDashboardView extends Component {
@@ -68,7 +73,6 @@ class MaecenateDashboardView extends Component {
   render () {
     const { users, maecenate, t } = this.props
     const totalAmount = Math.round(sumBy(users, o => o.support.amount) / 100)
-    const totalString = t('maecenate.totalAmount', { total: totalAmount })
 
     return (
       <Row>
@@ -113,23 +117,73 @@ class MaecenateDashboardView extends Component {
               </p>
             </CardContent>
             <Divider />
-            <List>
-              <Subheader>{t('user.yourMaecenes')}</Subheader>
-              {
-                users.map(user => (
-                  <ListItem key={user.id}>
-                    {user.first_name} {Math.round(user.support.amount / 100)}
-                  </ListItem>
-                ))
+            { users.length > 0
+              ? <div>
+                  <CardContent>
+                    {t('maecenate.totalAmount', { amount: totalAmount })}
+                  </CardContent>
+                  <Table
+                    fixedHeader={false}
+                    selectable={false}
+                    multiSelectable={false}
+                  >
+                    <TableHeader
+                      displaySelectAll={false}
+                      adjustForCheckbox={false}
+                      enableSelectAll={false}
+                    >
+                      <TableRow>
+                        <TableHeaderColumn style={style.column}>
+                          {t('name')}
+                        </TableHeaderColumn>
+                        <TableHeaderColumn style={style.column}>
+                          {t('email')}
+                        </TableHeaderColumn>
+                        <TableHeaderColumn style={style.column}>
+                          {t('zipCode')}
+                        </TableHeaderColumn>
+                        <TableHeaderColumn style={style.column}>
+                          {t('amount')}
+                        </TableHeaderColumn>
+                        <TableHeaderColumn style={style.column}>
+                          {t('startDate')}
+                        </TableHeaderColumn>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody
+                      displayRowCheckbox={false}
+                      showRowHover={false}
+                    >
+                      {
+                        users.map(user => (
+                          <TableRow key={user.id}>
+                            <TableRowColumn style={style.column}>
+                              {user.first_name}&nbsp;{user.last_name}
+                            </TableRowColumn>
+                            <TableRowColumn style={style.column}>
+                              {user.email}
+                            </TableRowColumn>
+                            <TableRowColumn style={style.column}>
+                              {user.zip_code}
+                            </TableRowColumn>
+                            <TableRowColumn style={style.column}>
+                              {Math.round(user.support.amount / 100)}
+                              &nbsp;
+                              {user.support.currency}
+                            </TableRowColumn>
+                            <TableRowColumn style={style.column}>
+                              { moment(user.support.sub_start).format('LL') }
+                            </TableRowColumn>
+                          </TableRow>
+                        ))
+                      }
+                    </TableBody>
+                  </Table>
+                </div>
+              : <CardContent>
+                  {t('user.yourNoMaecenes')}
+                </CardContent>
               }
-              { users.length > 0
-                ? <ListItem
-                    key='total'
-                    primaryText={totalString} />
-                : <ListItem
-                  primaryText={t('user.yourNoMaecenes')} />
-              }
-            </List>
           </Card>
         </Cell>
       </Row>
@@ -141,6 +195,10 @@ const style = {
   closedMessage: {
     color: styleVariables.color.alert,
     paddingTop: styleVariables.spacer.base
+  },
+  column: {
+    paddingLeft: styleVariables.spacer.base,
+    paddingRight: styleVariables.spacer.base
   }
 }
 
