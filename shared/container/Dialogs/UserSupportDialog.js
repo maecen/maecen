@@ -90,6 +90,7 @@ class UserSupportDialog extends Component {
   }
 
   render () {
+    console.log(moment.months())
     const { t, maecenate, support } = this.props
     const { change, submitting } = this.state
     const isValidSubmit = change !== null
