@@ -1,25 +1,43 @@
+// Imports
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import sumBy from 'lodash/sumBy'
 
+// Utils
 import { isBrowser } from '../../config'
+import cropCloudy from '../../lib/cropCloudy'
+
+// Actions & Selectors
 import * as Actions from '../../actions'
 import { getMaecenateBySlug } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
 
+// Components
+import Subheader from 'material-ui/Subheader'
+import Divider from 'material-ui/Divider'
+import { List } from 'material-ui/List'
 import { TextLink } from '../../components/Link'
 import { Row, Cell } from '../../components/Grid'
 import { Card, CardHeader, CardContent } from '../../components/Card'
-import { List } from 'material-ui/List'
 import ListItem from '../../components/List/ListItem'
 import Button from '../../components/Form/Button'
-import Subheader from 'material-ui/Subheader'
-import Divider from 'material-ui/Divider'
-import cropCloudy from '../../lib/cropCloudy'
+import styleVariables from '../../components/styleVariables'
+
+import DeactivateMaecenateDialog from '../Dialogs/DeactivateMaecenateDialog'
 
 class MaecenateDashboardView extends Component {
+
+  constructor (props) {
+    super(props)
+    this.state = {
+      isDeactivateDialogOpen: false
+    }
+
+    this.closeDeactivateDialog = this.closeDeactivateDialog.bind(this)
+    this.openDeactivateDialog = this.openDeactivateDialog.bind(this)
+  }
 
   componentDidMount () {
     const { dispatch, params } = this.props
@@ -29,7 +47,6 @@ class MaecenateDashboardView extends Component {
 
   gotoMaecenatePresentation (slug, e) {
     browserHistory.push(`/maecenate/${slug}/presentation`)
-    event.stop
   }
 
   linkToPresentation (slug) {
@@ -40,14 +57,27 @@ class MaecenateDashboardView extends Component {
     }
   }
 
+  openDeactivateDialog () {
+    this.setState({ isDeactivateDialogOpen: true })
+  }
+
+  closeDeactivateDialog () {
+    this.setState({ isDeactivateDialogOpen: false })
+  }
+
   render () {
     const { users, maecenate, t } = this.props
-
     const totalAmount = Math.round(sumBy(users, o => o.support.amount) / 100)
     const totalString = t('maecenate.totalAmount', { total: totalAmount })
 
     return (
       <Row>
+        <DeactivateMaecenateDialog
+          maecenate={maecenate}
+          open={this.state.isDeactivateDialogOpen}
+          close={this.closeDeactivateDialog}
+        />
+
         <Cell>
           <Card>
             <CardHeader
@@ -62,6 +92,17 @@ class MaecenateDashboardView extends Component {
                 primary={true}
                 onClick={this.gotoMaecenatePresentation.bind(this, maecenate.slug)}
               />
+
+              { maecenate.active
+                ? <Button
+                    label={t('maecenate.close')}
+                    onClick={this.openDeactivateDialog}
+                  />
+                : <div style={style.closedMessage}>
+                    {t('maecenate.closedMessage')}
+                  </div>
+              }
+
               <br />
               <p>
                 {t('maecenate.linkToPresentation')}
@@ -93,6 +134,13 @@ class MaecenateDashboardView extends Component {
         </Cell>
       </Row>
     )
+  }
+}
+
+const style = {
+  closedMessage: {
+    color: styleVariables.color.alert,
+    paddingTop: styleVariables.spacer.base
   }
 }
 

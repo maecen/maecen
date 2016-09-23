@@ -231,6 +231,17 @@ export function updateSubscription (knex, userId, maecenateId, amount) {
   .update({ amount })
 }
 
+export function stopAllSupporterSubscriptions (knex, maecenateId) {
+  return knex('subscriptions')
+  .where({
+    maecenate: maecenateId,
+    renew: true
+  })
+  .update({
+    renew: false
+  })
+}
+
 // Helper methods
 // ==============
 function fetchSubInfoWhichEndsAt (knex, subscriptionId, date) {

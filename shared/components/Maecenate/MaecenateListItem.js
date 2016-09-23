@@ -1,5 +1,6 @@
 // Imports
 import React, { PropTypes } from 'react'
+import { translate } from 'react-i18next'
 
 // Utils
 import cropCloudy from '../../lib/cropCloudy'
@@ -10,7 +11,7 @@ import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 import ListItem from '../List/ListItem'
 
-export default function MaecenateListItem ({ maecenate, onClick, onInfoClick }) {
+function MaecenateListItem ({ t, maecenate, onClick, onInfoClick }) {
   return (
     <div>
       <ListItem
@@ -20,10 +21,14 @@ export default function MaecenateListItem ({ maecenate, onClick, onInfoClick }) 
           />
         }
         primaryText={maecenate.title}
+        secondaryText={!maecenate.active &&
+          t('maecenate.closedSupporterMessage')
+        }
         onClick={onClick}
         rightIcon={onInfoClick &&
           <ActionInfo style={style.rightIcon} onClick={onInfoClick} />
         }
+        innerDivStyle={style.listItem}
       />
       <Divider />
     </div>
@@ -42,9 +47,16 @@ MaecenateListItem.propTypes = {
 }
 
 const style = {
+  listItem: {
+    wordWrap: 'break-word'
+  },
   rightIcon: {
     width: '30px',
     height: '30px',
     margin: '9px'
   }
 }
+
+export default translate(['common'])(
+  MaecenateListItem
+)

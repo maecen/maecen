@@ -76,6 +76,7 @@
     "node-uuid": "^1.4.7",
     "object-path": "^0.9.2",
     "pg": "^4.5.5",
+    "promise-limit": "^2.3.0",
     "radium": "^0.18.1",
     "react": "^15.3.1",
     "react-dom": "^15.0.1",

@@ -49,6 +49,13 @@ function MaecenatePresentation (props) {
             </IconButton>
           }
         </Card>
+        {maecenate.active ||
+          <Card>
+            <CardContent style={style.closedMessage}>
+              { t('maecenate.closedSupporterMessage') }
+            </CardContent>
+          </Card>
+        }
         <Card>
           <CardContent>
             {cover &&
@@ -62,34 +69,36 @@ function MaecenatePresentation (props) {
             {maecenate.description}
           </CardContent>
         </Card>
-        <Card>
-          <CardContent style={style.flexMe}>
-            <div>
-              {t('support.minimumAmount',
-                { context: 'DKK', count: monthlyMinimum })}
-              {url &&
-                <span>
-                  <br />
-                  {t('website')}:
-                  <a
-                    href={`http://${url}`}
-                    target='_blank'
-                    style={style.link}>
-                    &nbsp;{url}
-                  </a>
-                </span>
+        { maecenate.active &&
+          <Card>
+            <CardContent style={style.flexMe}>
+              <div>
+                {t('support.minimumAmount',
+                  { context: 'DKK', count: monthlyMinimum })}
+                {url &&
+                  <span>
+                    <br />
+                    {t('website')}:
+                    <a
+                      href={`http://${url}`}
+                      target='_blank'
+                      style={style.link}>
+                      &nbsp;{url}
+                    </a>
+                  </span>
+                }
+              </div>
+              {!isAuthUserOwner &&
+                <Button
+                  primary={true}
+                  last={true}
+                  label={t('support.join')}
+                  onClick={supportMaecenate}
+                />
               }
-            </div>
-            {!isAuthUserOwner &&
-              <Button
-                primary={true}
-                last={true}
-                label={t('support.join')}
-                onClick={supportMaecenate}
-              />
-            }
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        }
       </Cell>
     </Row>
   )
@@ -125,6 +134,10 @@ const style = {
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between'
+  },
+  closedMessage: {
+    fontWeight: font.weight.subtitle,
+    textAlign: 'center'
   }
 }
 

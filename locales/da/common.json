@@ -43,8 +43,12 @@
   },
   "maecenate": {
     "alreadySupported": "Du støtter allerede dette Mæcenat",
+    "doesNotExist": "Mæcenatet er lukket eller eksisterer ikke",
     "backTo": "Tilbage til: {{title}}",
     "coverImage": "Coverbillede",
+    "close": "Luk Mæcenatet",
+    "closedMessage": "Du har lukket dette Mæcenat—kontakt Digidi, hvis du ønsker at genåbne det.",
+    "closedSupporterMessage": "Lukket af kreatøren.",
     "create": "Opret nyt Mæcenat",
     "dashboard": "Dashboard",
     "description": "Beskrivelse",

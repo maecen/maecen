@@ -32,6 +32,10 @@ function MaecenateContent (props) {
     titleWrap: {
       display: 'flex',
       alignItems: 'center'
+    },
+    closedMessage: {
+      fontWeight: styleVariables.font.weight.subtitle,
+      textAlign: 'center'
     }
   }
 
@@ -54,6 +58,12 @@ function MaecenateContent (props) {
             actAsExpander={true}
             showExpandableButton={true}
           />
+          {maecenate.active ||
+            <CardContent style={style.closedMessage}>
+              { t('maecenate.closedSupporterMessage') }
+            </CardContent>
+          }
+
           <CardContent expandable={true}>
             { maecenate.cover &&
               <Media type={maecenate.cover.type} url={maecenate.cover.url} fixedRatio={true} />
@@ -65,22 +75,24 @@ function MaecenateContent (props) {
           <CardContent expandable={true}>
             { maecenate.description }
           </CardContent>
-          <CardContent expandable={true}>
-            {t('support.minimumAmount',
-              { context: 'DKK', count: maecenate.monthly_minimum })}
-            <br />
-            {maecenate.url &&
-              <span>
-                {t('website')}:
-                <a
-                  href={`http://${maecenate.url}`}
-                  target='_blank'
-                  style={style.link}>
-                  &nbsp;{maecenate.url}
-                </a>
-              </span>
-            }
-          </CardContent>
+          {maecenate.active &&
+            <CardContent expandable={true}>
+              {t('support.minimumAmount',
+                { context: 'DKK', count: maecenate.monthly_minimum })}
+              <br />
+              {maecenate.url &&
+                <span>
+                  {t('website')}:
+                  <a
+                    href={`http://${maecenate.url}`}
+                    target='_blank'
+                    style={style.link}>
+                    &nbsp;{maecenate.url}
+                  </a>
+                </span>
+              }
+            </CardContent>
+          }
         </Card>
         {posts.map(post => (
           <Post

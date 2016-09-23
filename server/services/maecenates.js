@@ -71,6 +71,10 @@ export function fetchMaecenate (where, userId) {
   })
 }
 
+export function fetchMaecenateWithoutMedia (where) {
+  return knex('maecenates').where(where).limit(1).then(result => result[0])
+}
+
 export function fetchMaecenates (where) {
   where = where || {}
   let maecenates = null
@@ -117,16 +121,26 @@ export function fetchMaecenateSupporters (maecenateId) {
   })
 }
 
+export const deactivateMaecenate = (knex, maecenateId) => {
+  return knex('maecenates').where('id', maecenateId)
+  .update({ active: false })
+  .limit(1)
+}
+
 export function userHasContentAccess (maecenateId, userId) {
   return userIsAdmin()
 }
 
-export function userIsAdmin (maecenateId, userId) {
+export function userIsAdmin (knex, maecenateId, userId) {
   return knex('maecenates').where({ id: maecenateId, creator: userId })
-  .count('1')
-  .then(res => {
-    console.log(res)
-  })
+  .count('* as count')
+  .then(res => Number(res[0].count) > 0)
+}
+
+export const activeExists = (knex, maecenateId) => {
+  return knex('maecenates').where({ id: maecenateId, active: true })
+  .count('* as count')
+  .then(res => Number(res[0].count) > 0)
 }
 
 // Helper methods

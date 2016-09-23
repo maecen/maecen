@@ -1,4 +1,5 @@
 import { Mandrill } from 'mandrill-api/mandrill'
+import promiseLimit from 'promise-limit'
 import moment from 'moment'
 import fs from 'fs'
 import path from 'path'
@@ -11,7 +12,8 @@ const mandrillClient = new Mandrill(process.env.MANDRILL_API)
 const SENDER_EMAIL = 'hello@maecen.net'
 const SENDER_NAME = 'Maecen'
 
-function sendEmail (receiver, subject, message) {
+function sendEmail (receiver, subject, message, async) {
+  async = async || false
   return new Promise((resolve, reject) => {
     mandrillClient.messages.send({
       message: {
@@ -23,7 +25,7 @@ function sendEmail (receiver, subject, message) {
           email: receiver
         }]
       },
-      async: false
+      async
     }, resolve, reject)
   })
 }
@@ -82,25 +84,54 @@ export function emailForgotPassword (knex, token, userId) {
   })
 }
 
+export function emailMaecenateDeactivated (knex, data, message) {
+  const limit = promiseLimit(10)
+  const { maecenate, users } = data
+
+  return Promise.all(users.map(user =>
+    limit(() =>
+      loadTemplate('maecenateDeactivated', user.language)
+      .then((template) => {
+        const { subject, body } = template({
+          maecenate: maecenate.title,
+          firstName: user.first_name,
+          endDate: moment(user.end).format('LL'),
+          message
+        })
+        console.log(subject, body)
+
+        return sendEmail(user.email, subject, body, true)
+      })
+    )
+  ))
+}
+
 // Helper functions
 // ================
-
-function loadTemplate (email, language) {
+const cachedTemplates = {}
+function loadTemplate (name, language) {
   return new Promise((resolve, reject) => {
+    const slug = name + ':' + language
+    if (slug in cachedTemplates) {
+      return resolve(cachedTemplates[slug])
+    }
+
     const filePath = path.join(
       __dirname,
       '../../locales',
       language || 'en', // Fallback language is english
       'emails',
-      `${email}.hbs`
+      `${name}.hbs`
     )
     fs.readFile(filePath, (err, source) => {
       if (err) return reject(err)
       const template = Handlebars.compile(source.toString())
-      resolve((data) => {
+      const fn = (data) => {
         const [subject, body] = template(data).split(/\n==+\n([\s\S]+)?/)
         return { subject, body }
-      })
+      }
+      cachedTemplates[slug] = fn
+      resolve(fn)
     })
   })
 }

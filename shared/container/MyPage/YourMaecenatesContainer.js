@@ -11,13 +11,9 @@ import { getUserMaecenates } from '../../selectors/maecenate'
 
 // Components
 import { List } from 'material-ui/List'
-import Divider from 'material-ui/Divider'
-import Avatar from 'material-ui/Avatar'
-import ActionInfo from 'material-ui/svg-icons/action/info-outline'
 import { Card, CardTitle, CardContent } from '../../components/Card'
 import Button from '../../components/Form/Button'
-import ListItem from '../../components/List/ListItem'
-import cropCloudy from '../../lib/cropCloudy'
+import MaecenateListItem from '../../components/Maecenate/MaecenateListItem'
 
 class YourMaecenatesContainer extends Component {
 
@@ -33,7 +29,6 @@ class YourMaecenatesContainer extends Component {
   gotoMaecenateDashboard (slug, e) {
     e.stopPropagation()
     browserHistory.push(`/maecenate/${slug}/dashboard`)
-    event.stop
   }
 
   createMaecenate (slug) {
@@ -52,30 +47,14 @@ class YourMaecenatesContainer extends Component {
         <CardTitle title={title} />
         {maecenates.length > 0 &&
           <List>
-            {maecenates.map((maecenate, i) => (
-              <div key={i}>
-                <ListItem
-                  leftAvatar={
-                    <Avatar
-                      src={maecenate.logo && cropCloudy(maecenate.logo.url, 'logo-tiny')}
-                    />
-                  }
-                  primaryText={maecenate.title}
-                  onClick={this.gotoMaecenate.bind(this, maecenate.slug)}
-                  /* TODO this should probably be default for all list items */
-                  innerDivStyle={{wordWrap: 'break-word'}}
-                  rightIcon={
-                    <ActionInfo
-                      style={{width: '30px', height: '30px', margin: '9px'}}
-                      onClick={
-                        this.gotoMaecenateDashboard.bind(this, maecenate.slug)
-                      }
-                    />
-                  }
-                />
-                <Divider />
-              </div>
-            ))}
+            {maecenates.map((m, i) =>
+              <MaecenateListItem
+                key={i}
+                maecenate={m}
+                onClick={this.gotoMaecenate.bind(this, m.slug)}
+                onInfoClick={this.gotoMaecenateDashboard.bind(this, m.slug)}
+              />
+            )}
           </List>
         }
         <CardContent style={{textAlign: 'right'}}>

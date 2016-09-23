@@ -13,6 +13,8 @@ export function apiRequest (state, url, options) {
   const token = getAuthToken(state())
   return createRequest(apiURL + url, { token, ...options })
     .then(res => res.data)
-    .catch(err => console.log(err.stack))
+    .catch(err => {
+      console.log('[ERROR]', err.stack || err)
+      throw err
+    })
 }
-
