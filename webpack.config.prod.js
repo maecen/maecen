@@ -37,6 +37,6 @@ module.exports = {
         warnings: false,
       }
     }),
-    //new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|da)/)
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|da)/)
   ],
 };

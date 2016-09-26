@@ -9,6 +9,7 @@ import { StyleRoot } from 'radium'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import { I18nextProvider } from 'react-i18next'
 import moment from 'moment'
+require('moment/locale/da.js')
 
 import { configureStore } from '../shared/store/configureStore'
 import mapInitialState from '../shared/lib/mapInitialState'
