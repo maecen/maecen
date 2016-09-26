@@ -23,7 +23,7 @@
   "title": "Title",
   "terms": "Terms",
   "website": "Website",
-  "zipCode": "Postnummer",
+  "zipCode": "Zip code",
   "currency": {
     "amount_DKK": "{{count}} DKK"
   },
