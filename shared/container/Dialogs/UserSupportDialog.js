@@ -28,12 +28,14 @@ class UserSupportDialog extends Component {
     this.state = {
       change: null,
       submitting: false,
-      amount: null
+      amount: null,
+      isValidAmount: null
     }
     this.saveChanges = this.saveChanges.bind(this)
     this.cancelChanges = this.cancelChanges.bind(this)
     this.toggleCancel = this.toggleCancel.bind(this)
     this.onAmountChange = this.onAmountChange.bind(this)
+    this.onAmountBlur = this.onAmountBlur.bind(this)
   }
 
   componentWillUpdate (nextProps) {
@@ -81,11 +83,21 @@ class UserSupportDialog extends Component {
 
   onAmountChange (event, value) {
     value = Number(value)
-    const orignalValue = Math.round(this.props.support.amount / 100)
-    const isValidNewAmount = value >= event.target.min && value !== orignalValue
+    const orignalValue = Math.round(this.props.support.subscription_amount / 100)
+    const isChanged = value !== orignalValue
+    const isValidAmount = value >= event.target.min
     this.setState({
-      change: isValidNewAmount ? 'update' : null,
+      change: isChanged && isValidAmount ? 'update' : null,
+      isValidAmount: this.state.isValidAmount || isValidAmount,
       amount: value
+    })
+  }
+
+  onAmountBlur (event) {
+    const { amount } = this.state
+    const isValidAmount = amount >= event.target.min
+    this.setState({
+      isValidAmount: isValidAmount
     })
   }
 
@@ -177,7 +189,12 @@ class UserSupportDialog extends Component {
                 floatingLabelFixed={true}
                 autoComplete='off'
                 onChange={this.onAmountChange}
+                onBlur={this.onAmountBlur}
                 disabled={disabledInput}
+                error={ this.state.isValidAmount === false && change !== 'cancel'
+                  ? t('validationError.numberMin')
+                  : null
+                }
               />
 
               <Checkbox
@@ -186,6 +203,7 @@ class UserSupportDialog extends Component {
                 onCheck={this.toggleCancel}
                 style={style.checkbox}
                 inputStyle={style.checkboxInput}
+                disabled={change === 'update'}
               />
 
               { change === 'cancel' &&
