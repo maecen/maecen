@@ -1,7 +1,7 @@
 // Imports
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-// import { translate } from 'react-i18next'
+import { translate } from 'react-i18next'
 // import moment from 'moment'
 
 import styleVariables from '../../components/styleVariables'
@@ -60,12 +60,12 @@ class DeactivateMaecenateDialog extends Component {
   }
 
   render () {
-    const { maecenate } = this.props
+    const { t, maecenate } = this.props
     const isValid = this.isValid()
 
     const actions = [
       <Button
-        label='Deactivate'
+        label={t('maecenate.close')}
         onClick={this.deactivateMaecenate}
         primary={true}
         disabled={!isValid || this.state.isSubmitting}
@@ -78,20 +78,20 @@ class DeactivateMaecenateDialog extends Component {
         onRequestClose={this.props.close}
         contentStyle={style.dialogContent}
         actions={actions}
-        title={`Close ${maecenate.title}`}
+        title={t('maecenate.closeTitle', { title: maecenate.title })}
       >
         <ErrorMessage message={this.state.errors && this.state.errors._} />
 
         <TextField
-          label='Text to your maecens'
-          placeholder='This is a text which will be send to your maecens'
+          label={t('maecenate.closeMaecenMessageLabel')}
+          placeholder={t('maecenate.closeMaecenMessagePlaceholder')}
+          rows={2}
           multiLine={true}
           onChange={this.changeMessage}
         />
 
         <Checkbox
-          label={`I understand that I will deactivate this maecenate, and that
-            this can only be undone by writing an email to Maecen.`}
+          label={t('maecenate.closeAcceptance')}
           onCheck={this.checkConfirm}
         />
       </Dialog>
@@ -114,6 +114,6 @@ DeactivateMaecenateDialog.propTypes = {
   open: PropTypes.bool.isRequired
 }
 
-export default connect(null, { deactivateMaecenate })(
-  DeactivateMaecenateDialog
+export default translate(['common'])(
+  connect(null, { deactivateMaecenate })(DeactivateMaecenateDialog)
 )
