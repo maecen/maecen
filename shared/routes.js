@@ -32,7 +32,7 @@ const requiresAuthFn = (store, nextState, replaceState, cb) => {
 const requiresMaecenateAdminFn = (store, nextState, replaceState, cb) => {
   const token = getAuthToken(store.getState())
   const slug = nextState.params.slug
-  request(`${apiURL}/hasPermission/maecenateAdmin/${slug}`, { token })
+  request(`${apiURL}/users/me/has-permission/maecenateAdmin/${slug}`, { token })
   .then(res => {
     cb()
   }).catch((err) => {

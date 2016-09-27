@@ -6,32 +6,21 @@ import * as transactions from '../controllers/transaction.controller'
 const router = new Router()
 
 // Get Maecenate by slug
-router.get('/getMaecenate/:slug', maecenates.getMaecenate)
+router.get('/', maecenates.getMaecenates)
+router.post('/create', verifyAuth, maecenates.createMaecenate)
+router.post('/initiate-payment', transactions.maecenateInitiatePayment)
+router.get('/:slug', maecenates.getMaecenate)
+router.get('/:slug/feed', maecenates.getFeed)
 
-// Get all Maecenates
-router.get('/getMaecenates', maecenates.getMaecenates)
+// Admin Routes
+const adminRouter = new Router({ mergeParams: true })
+adminRouter.use('/', verifyMaecenateAdmin)
+adminRouter.put('/edit', maecenates.editMaecenate)
+adminRouter.put('/deactivate', maecenates.deactivateMaecenate)
+adminRouter.get('/details', maecenates.getAdminDetails)
+adminRouter.get('/supporters', maecenates.getMaecenateSupporters)
 
-// Get all Maecenates by user
-router.get('/getUserMaecenates/:user', maecenates.getUserMaecenates)
-
-// Create Maecenate
-router.post('/createMaecenate', verifyAuth, maecenates.createMaecenate)
-
-router.put('/editMaecenate/:slug', verifyMaecenateAdmin,
-  maecenates.editMaecenate)
-
-// Get all the maecenates a user supports
-router.get('/getSupportedMaecenates/:user', maecenates.getSupportedMaecenates)
-
-router.get('/getMaecenateSupporters/:slug', verifyMaecenateAdmin,
-  maecenates.getMaecenateSupporters)
-
-router.post('/maecenates/initiate-payment', transactions.maecenateInitiatePayment)
-
-router.put('/cancelSubscription/:id', maecenates.cancelSubscription)
-router.put('/updateSubscription/:id', maecenates.updateSubscription)
-
-router.put('/maecenates/:id/deactivate', maecenates.deactivateMaecenate)
+router.use('/:slug/admin', adminRouter)
 
 export default router
 

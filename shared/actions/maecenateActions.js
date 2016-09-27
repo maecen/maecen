@@ -42,7 +42,7 @@ export function editMaecenateSuccess (data) {
 
 export function fetchMaecenate (slug) {
   return (dispatch, state) => {
-    return apiRequest(state, `/getMaecenate/${slug}`)
+    return apiRequest(state, `/maecenates/${slug}`)
       .then(data => dispatch(fetchMaecenateSuccess(data)))
       .catch(res => {
         if (res.status === 404) {
@@ -57,42 +57,42 @@ export function fetchMaecenate (slug) {
 
 export function fetchMaecenateList () {
   return (dispatch, state) => {
-    return apiRequest(state, '/getMaecenates')
+    return apiRequest(state, '/maecenates')
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
   }
 }
 
 export function fetchAdminMaecenateList (userId) {
   return (dispatch, state) => {
-    return apiRequest(state, `/getUserMaecenates/${userId}`)
+    return apiRequest(state, `/users/${userId}/admin-maecenates`)
       .then(data => dispatch(fetchMaecenateListSuccess(data)))
   }
 }
 
 export function fetchAdminMaecenates (userId) {
   return (dispatch, state) => {
-    return apiRequest(state, `/getUserMaecenates/${userId}`)
+    return apiRequest(state, `/users/${userId}/admin-maecenates`)
       .then(data => dispatch(Actions.updateEntities(data.entities)))
   }
 }
 
 export function fetchSupportedMaecenates (userId) {
   return (dispatch, state) => {
-    return apiRequest(state, `/getSupportedMaecenates/${userId}`)
+    return apiRequest(state, `/users/${userId}/supported-maecenates`)
       .then(data => dispatch(Actions.updateEntities(data.entities)))
   }
 }
 
 export function fetchMaecenateSupporter (slug) {
   return (dispatch, state) => {
-    return apiRequest(state, `/getMaecenateSupporters/${slug}`)
+    return apiRequest(state, `/maecenates/${slug}/admin/supporters`)
       .then(data => dispatch(Actions.updateEntities(data.entities)))
   }
 }
 
-export function deactivateMaecenate (id, message) {
+export function deactivateMaecenate (slug, message) {
   return (dispatch, state) => {
-    return apiRequest(state, `/maecenates/${id}/deactivate`, {
+    return apiRequest(state, `/maecenates/${slug}/admin/deactivate`, {
       method: 'PUT',
       data: { message }
     })

@@ -52,7 +52,7 @@ function createDummyPost (nr, maecenate) {
   return post.save(null, { method: 'insert', force: true })
 }
 
-test('POST /api/createPost', async t => {
+test('POST /api/posts/create', async t => {
   const maecenate = await createDummyMaecenate()
 
   const data = {
@@ -62,7 +62,7 @@ test('POST /api/createPost', async t => {
   }
 
   const res = await request(app)
-    .post('/api/createPost')
+    .post('/api/posts/create')
     .set(base)
     .send({ post: data })
 
@@ -74,7 +74,7 @@ test('POST /api/createPost', async t => {
 
 // TODO: It fails because knex and the database is treated as a singleton
 // (problem) should be handed to the api through the req, in routes
-test.failing('POST /api/createPost with image', async t => {
+test.failing('POST /api/posts/create with image', async t => {
   const maecenate = await createDummyMaecenate()
 
   const mediaId = uuid.v1()
@@ -95,14 +95,14 @@ test.failing('POST /api/createPost with image', async t => {
   }
 
   const errRes = await request(app)
-    .post('/api/createPost')
+    .post('/api/posts/create')
     .set(base)
     .send({ post: errData })
 
   t.truthy(errRes.body.errors)
 
   const res = await request(app)
-    .post('/api/createPost')
+    .post('/api/posts/create')
     .set(base)
     .send({ post: data })
 
@@ -119,7 +119,7 @@ test.failing('POST /api/createPost with image', async t => {
   t.is(media.obj_type, 'post')
 })
 
-test('POST /api/createPost for non owners', async t => {
+test('POST /api/posts/create for non owners', async t => {
   const maecenate = await createDummyMaecenate('userid')
 
   const data = {
@@ -129,7 +129,7 @@ test('POST /api/createPost for non owners', async t => {
   }
 
   const res = await request(app)
-    .post('/api/createPost')
+    .post('/api/posts/create')
     .set(base)
     .send({ post: data })
 
@@ -137,14 +137,14 @@ test('POST /api/createPost for non owners', async t => {
   t.is(res.status, 401)
 })
 
-test('GET /api/getMaecenatePosts', async t => {
+test('GET /api/maecenates/:slug/feed', async t => {
   const maecenate = await createDummyMaecenate()
 
   const post1 = await createDummyPost(1, maecenate.id)
   const post2 = await createDummyPost(2, maecenate.id)
 
   const res = await request(app)
-    .get(`/api/getMaecenatePosts/${maecenate.get('slug')}`)
+    .get(`/api/maecenates/${maecenate.get('slug')}/feed`)
     .expect(200)
 
   t.is(res.body.result.length, 2)

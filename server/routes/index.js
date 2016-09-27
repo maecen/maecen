@@ -12,10 +12,10 @@ import { authWithAccessToken } from '../controllers/user.controller'
 export default function configRoutes (app) {
   const router = Router()
 
-  router.use('/api', UserRoutes)
-  router.use('/api', MaecenateRoutes)
-  router.use('/api', PostRoutes)
-  router.use('/api', MediaRoutes)
+  router.use('/api/users', UserRoutes)
+  router.use('/api/maecenates', MaecenateRoutes)
+  router.use('/api/posts', PostRoutes)
+  router.use('/api/media', MediaRoutes)
   router.use('/api/transactions', TransactionRoutes)
 
   router.get('/authToken', authWithAccessToken)

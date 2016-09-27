@@ -163,14 +163,16 @@ export const deactivateMaecenate = (knex, maecenateId) => {
   .limit(1)
 }
 
-export function userHasContentAccess (maecenateId, userId) {
-  return userIsAdmin()
-}
-
 export function userIsAdmin (knex, maecenateId, userId) {
   return knex('maecenates').where({ id: maecenateId, creator: userId })
-  .count('* as count')
-  .then(res => Number(res[0].count) > 0)
+  .select('id')
+  .then(res => res[0] ? res[0].id : false)
+}
+
+export function userIsAdminBySlug (knex, slug, userId) {
+  return knex('maecenates').where({ slug, creator: userId })
+  .select('id')
+  .then(res => res[0] ? res[0].id : false)
 }
 
 export const activeExists = (knex, maecenateId) => {
@@ -182,7 +184,7 @@ export const activeExists = (knex, maecenateId) => {
 // Helper methods
 // ==============
 const createSlug = (name) =>
-  slugify(name.replace(/\//g, '-'))
+  name && slugify(name.replace(/\//g, '-'))
 
 const validateMaecenate = (prev, next) => {
   return joiValidation(next, schema, true).then(() => {

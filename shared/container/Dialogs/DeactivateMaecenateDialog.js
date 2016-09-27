@@ -45,7 +45,7 @@ class DeactivateMaecenateDialog extends Component {
     if (this.isValid()) {
       this.setState({ isSubmitting: true, errors: null })
       const message = this.state.message
-      this.props.deactivateMaecenate(this.props.maecenate.id, message)
+      this.props.deactivateMaecenate(this.props.maecenate.slug, message)
       .then(() => {
         this.props.close()
       })

@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import * as MediaController from '../controllers/media.controller'
+import * as media from '../controllers/media.controller'
 const router = new Router()
 
 // Upload media
-router.post('/uploadMedia', MediaController.uploadMedia)
+router.post('/upload', media.uploadMedia)
 
 export default router

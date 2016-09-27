@@ -1,7 +1,8 @@
 import { normalizeResponse } from '../util/ctrlHelpers'
 import * as service from '../services/users'
+import * as postService from '../services/posts'
+import * as maecenateService from '../services/maecenates'
 import User from '../models/User'
-import Maecenate from '../models/Maecenate'
 import { emailForgotPassword } from '../services/emailSender'
 
 export function createUser (req, res, next) {
@@ -131,7 +132,8 @@ export function hasPermission (req, res, next) {
 
   switch (area) {
     case 'maecenateAdmin':
-      permissionPromise = Maecenate.isUserAdminBySlug(id, userId)
+      permissionPromise = maecenateService.userIsAdminBySlug(id, userId)
+      .then(res => Boolean(res))
       break
   }
 
@@ -142,6 +144,43 @@ export function hasPermission (req, res, next) {
       return res.status(401).json({ hasPermission })
     }
   }).catch(next)
+}
+
+export function getAdminMaecenates (req, res, next) {
+  const { userId } = req.params
+  return maecenateService.fetchMaecenates({ creator: userId })
+  .then((maecenates) => {
+    return res.json(normalizeResponse({
+      maecenates
+    }))
+  })
+  .catch(next)
+}
+
+export function getSupportedMaecenates (req, res, next) {
+  const { userId } = req.user
+
+  return maecenateService.fetchSupportedMaecenates(userId)
+  .then(result => {
+    const { maecenates, supports } = result
+    return res.json(normalizeResponse({
+      maecenates,
+      supports
+    }, 'maecenates'))
+  })
+  .catch(next)
+}
+
+export function getFeed (req, res, next) {
+  const { userId } = req.user
+  postService.fetchSupportedMaecenatePosts(userId).then((result) => {
+    const { maecenates, posts, supports } = result
+    res.json(normalizeResponse({
+      maecenates,
+      posts,
+      supports
+    }, 'posts'))
+  })
 }
 
 // Helper functions (not exported)

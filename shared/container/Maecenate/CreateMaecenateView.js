@@ -64,7 +64,7 @@ class CreateMaecenateView extends Component {
 
     const maecenate = data.set('url', (data.url || '').replace(/https?:\/\//i, ''))
 
-    axios.post('/api/createMaecenate', { maecenate })
+    axios.post('/api/maecenates/create', { maecenate })
       .then(res => res.data)
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })

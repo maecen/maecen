@@ -6,7 +6,7 @@ import test from 'ava'
 test.beforeEach(t => knex.migrate.latest())
 test.afterEach.always(t => knex.migrate.rollback())
 
-test('POST /api/createUser', async t => {
+test('POST /api/users/create', async t => {
   const data = {
     first_name: 'John',
     last_name: 'Doe',
@@ -16,7 +16,7 @@ test('POST /api/createUser', async t => {
   }
 
   const res = await request(app)
-    .post('/api/createUser')
+    .post('/api/users/create')
     .send({ user: data })
 
   t.is(res.status, 200)

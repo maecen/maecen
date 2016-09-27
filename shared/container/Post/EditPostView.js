@@ -65,7 +65,7 @@ class EditPostView extends Component {
     const { post } = this.state
 
     this.setState({ isSubmitting: true })
-    axios.put('/api/editPost', { post })
+    axios.put(`/api/posts/${post.id}/edit`, { post })
       .then(res => res.data)
       .then(data => {
         this.setState({ errors: null, isSubmitting: false })

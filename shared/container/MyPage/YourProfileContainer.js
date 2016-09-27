@@ -57,7 +57,7 @@ class ProfileContainer extends Component {
 
     this.setState({ errors: {} })
 
-    axios.post('/api/updateAuthUser', {
+    axios.put('/api/users/me/edit', {
       user: user.without(['epay_subscription_id', 'payment_card'])
     }).then((res) => {
       return res.data

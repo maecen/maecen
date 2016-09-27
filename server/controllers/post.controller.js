@@ -51,37 +51,3 @@ export function editPost (req, res, next) {
   }).catch(next)
 }
 
-export function getUserFeed (req, res, next) {
-  const { userId } = req.user
-  service.fetchSupportedMaecenatePosts(userId).then((result) => {
-    const { maecenates, posts, supports } = result
-    res.json(normalizeResponse({
-      maecenates,
-      posts,
-      supports
-    }, 'posts'))
-  })
-}
-
-export function getMaecenatePosts (req, res, next) {
-  const { slug } = req.params
-  let posts = null
-
-  const maecenateQuery = knex('maecenates').where('slug', slug).select('id')
-  return knex('posts')
-    .where('maecenate', 'in', maecenateQuery)
-    .orderBy('created_at', 'desc')
-    .then((res) => {
-      posts = res
-      const postIds = posts.map(post => post.id)
-      return knex('media').where('obj_id', 'in', postIds)
-        .andWhere('obj_type', 'post')
-    }).then(media => {
-      posts = posts.map(post => ({
-        ...post,
-        media: media.filter(m => m.obj_id === post.id)
-      }))
-
-      res.json(normalizeResponse({ posts }))
-    }).catch(next)
-}

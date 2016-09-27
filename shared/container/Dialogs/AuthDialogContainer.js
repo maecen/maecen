@@ -64,13 +64,13 @@ class AuthDialogContainer extends React.Component {
 
     if (action === 'create') {
       data = { user }
-      requestUrl = '/api/createUser'
+      requestUrl = '/api/users/create'
     } else if (action === 'forgot') {
       data = { email: user.email }
-      requestUrl = '/api/forgotPassword'
+      requestUrl = '/api/users/forgot-password'
     } else {
       data = { credentials: user }
-      requestUrl = '/api/authUser'
+      requestUrl = '/api/users/auth'
     }
 
     this.setState({ errors: {}, isSubmitting: true })

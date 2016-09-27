@@ -53,7 +53,7 @@ export function editPostSuccess (data) {
 
 export function fetchPost (id) {
   return (dispatch, state) => {
-    return apiRequest(state, `/getPost/${id}`)
+    return apiRequest(state, `/posts/${id}`)
       .then(data => dispatch(Actions.updateEntities(data.entities)))
   }
 }
@@ -61,7 +61,7 @@ export function fetchPost (id) {
 export function fetchMaecenatePosts (slug) {
   return (dispatch, state) => {
     dispatch(setPosts([], null))
-    return apiRequest(state, `/getMaecenatePosts/${slug}`)
+    return apiRequest(state, `/maecenates/${slug}/feed`)
       .then(data => dispatch(fetchMaecenatePostsSuccess(data)))
   }
 }
@@ -71,7 +71,7 @@ export function fetchMaecenatePosts (slug) {
 export function fetchUserFeed () {
   return (dispatch, state) => {
     dispatch(fetchUserFeedRequest())
-    return apiRequest(state, '/getUserFeed')
+    return apiRequest(state, '/users/me/feed')
     .then(data =>
       dispatch(fetchUserFeedSuccess(data.result, data.entities))
     )

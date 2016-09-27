@@ -1,4 +1,4 @@
-import Maecenate from '../models/Maecenate'
+import { userIsAdminBySlug } from '../services/maecenates'
 import { formatResponseError } from './ctrlHelpers'
 
 export function verifyAuth (req, res, next) {
@@ -11,14 +11,19 @@ export function verifyAuth (req, res, next) {
 }
 
 export function verifyMaecenateAdmin (req, res, next) {
+  const { knex } = req.app.locals
   const { userId } = req.user
   const { slug } = req.params
-  return Maecenate.isUserAdminBySlug(slug, userId).then(result => {
-    if (result === true) {
+
+  return userIsAdminBySlug(knex, slug, userId)
+  .then(result => {
+    if (result !== false) {
+      req.maecenateId = result
       next()
     } else {
-      const errors = { user: 'error.notOwnerOfMaecenate' }
+      const errors = { _: 'error.notOwnerOfMaecenate' }
       res.status(401).json({ errors })
     }
-  }).catch(next)
+  })
+  .catch(next)
 }

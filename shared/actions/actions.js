@@ -27,7 +27,7 @@ function clearAuthUser () {
 
 export function clearAuth () {
   return (dispatch, state) => {
-    apiRequest(state, '/clearAuth', { method: 'POST' })
+    apiRequest(state, '/users/clear-auth', { method: 'POST' })
       .then(data => {
         dispatch(clearAuthUser())
         browserHistory.push('/')
@@ -37,7 +37,7 @@ export function clearAuth () {
 
 export function fetchAuthUser () {
   return (dispatch, state) => {
-    return apiRequest(state, '/getAuthUser')
+    return apiRequest(state, '/users/me')
       .then(data => dispatch(updateEntities(data.entities)))
   }
 }
@@ -67,7 +67,7 @@ export function updateEntities (entities) {
 export function changeLanguage (lang, currLang) {
   if (lang !== currLang) {
     return (dispatch, state) => {
-      return apiRequest(state, '/setUserLanguage', {
+      return apiRequest(state, '/users/me/set-language', {
         method: 'PUT',
         data: { lng: lang }
       }).then(res => {

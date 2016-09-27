@@ -83,7 +83,7 @@ class EditMaecenateView extends Component {
 
     const maecenate = data.set('url', (data.url || '').replace(/https?:\/\//i, ''))
 
-    axios.put(`/api/editMaecenate/${maecenate.slug}`, { maecenate })
+    axios.put(`/api/maecenates/${maecenate.slug}/admin/edit`, { maecenate })
       .then(res => res.data)
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })

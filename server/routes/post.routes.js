@@ -1,13 +1,15 @@
 import { Router } from 'express'
-import * as PostController from '../controllers/post.controller'
-import Maecenate from '../models/Maecenate'
+import { userIsAdmin } from '../services/maecenates'
+import * as posts from '../controllers/post.controller'
 const router = new Router()
 
 function verifyMaecenateAdmin (req, res, next) {
+  const { knex } = req.app.locals
   const { userId } = req.user
   const { post: { maecenate } } = req.body
-  return Maecenate.isUserAdmin(maecenate, userId).then(result => {
-    if (result === true) {
+
+  return userIsAdmin(knex, maecenate, userId).then(result => {
+    if (result !== false) {
       next()
     } else {
       const errors = { user: 'error.notOwnerOfMaecenate' }
@@ -16,17 +18,8 @@ function verifyMaecenateAdmin (req, res, next) {
   }).catch(next)
 }
 
-router.get('/getPost/:postId', PostController.getPost)
-
-// Create a post
-router.post('/createPost', verifyMaecenateAdmin, PostController.createPost)
-
-router.put('/editPost', verifyMaecenateAdmin, PostController.editPost)
-
-// Get all posts by maecenate slug
-router.get('/getMaecenatePosts/:slug', PostController.getMaecenatePosts)
-
-router.get('/getUserFeed', PostController.getUserFeed)
+router.post('/create', verifyMaecenateAdmin, posts.createPost)
+router.get('/:postId', posts.getPost)
+router.put('/:postId/edit', verifyMaecenateAdmin, posts.editPost)
 
 export default router
-

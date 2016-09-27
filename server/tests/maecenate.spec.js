@@ -23,7 +23,7 @@ test.beforeEach(async t => {
 })
 test.afterEach.always(t => knex.migrate.rollback())
 
-test('POST /api/createMaecenate', async t => {
+test('POST /api/maecenates/create', async t => {
   const logoId = uuid.v1()
   await knex('media').insert({
     id: logoId, type: 'image/jpg', url: 'https://fakeurl.com' })
@@ -47,7 +47,7 @@ test('POST /api/createMaecenate', async t => {
     .reply(404, 'No Page')
 
   const res = await request(app)
-    .post('/api/createMaecenate')
+    .post('/api/maecenates/create')
     .set(base)
     .send({ maecenate: maecenateData })
 

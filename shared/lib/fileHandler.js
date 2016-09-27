@@ -20,7 +20,7 @@ export function mediaUpload (files, opts) {
       }
     }
 
-    axios.post('/api/uploadMedia', formData, config)
+    axios.post('/api/media/upload', formData, config)
       .then(res => res.data)
       .then(data => {
         setState({

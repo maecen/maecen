@@ -1,30 +1,24 @@
 import { Router } from 'express'
-import * as UserController from '../controllers/user.controller'
+import * as users from '../controllers/user.controller'
 const router = new Router()
 
 // Create a user
-router.post('/createUser', UserController.createUser)
+router.post('/create', users.createUser)
+router.post('/auth', users.authUser)
+router.post('/clear-auth', users.clearAuth)
+router.post('/forgot-password', users.forgotPassword)
 
-// Authenticate user credentials
-router.post('/authUser', UserController.authUser)
+router.get('/me', users.getAuthUser)
 
-// User forgot password
-router.post('/forgotPassword', UserController.forgotPassword)
+const userRouter = new Router({ mergeParams: true })
+userRouter.put('/edit', users.updateAuthUser)
+userRouter.put('/set-language', users.setUserLanguage)
+userRouter.get('/has-permission/:area', users.hasPermission)
+userRouter.get('/has-permission/:area/:id', users.hasPermission)
+userRouter.get('/admin-maecenates', users.getAdminMaecenates)
+userRouter.get('/supported-maecenates', users.getSupportedMaecenates)
+userRouter.get('/feed', users.getFeed)
 
-// Clear the user authentication
-router.post('/clearAuth', UserController.clearAuth)
-
-// update the authenticated user
-router.post('/updateAuthUser', UserController.updateAuthUser)
-
-// Get the authenticated user
-router.get('/getAuthUser', UserController.getAuthUser)
-
-// Set user language
-router.put('/setUserLanguage', UserController.setUserLanguage)
-
-// Check if the user has permission to the requested thing
-router.get('/hasPermission/:area', UserController.hasPermission)
-router.get('/hasPermission/:area/:id', UserController.hasPermission)
+router.use('/:userId', userRouter)
 
 export default router

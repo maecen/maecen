@@ -91,7 +91,7 @@ class CreatePostView extends Component {
     const maecenate = find(maecenates, obj => obj.id === post.maecenate)
 
     this.setState({ isSubmitting: true })
-    axios.post('/api/createPost', { post })
+    axios.post('/api/posts/create', { post })
       .then(res => res.data)
       .then(data => {
         this.setState({ errors: null, isSubmitting: false })
