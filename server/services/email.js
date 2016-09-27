@@ -8,6 +8,7 @@ export const fetchMaecenateDeactivatedData = (knex, maecenateId) => {
   .select(
     'users.email',
     'users.first_name',
+    'users.language',
     'sub_query.end',
     'sub_query.subscription'
   )
