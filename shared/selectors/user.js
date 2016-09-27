@@ -6,13 +6,13 @@ const getUsers = (state, props) =>
   state.entities.users
 
 const getUserIds = (state, props) =>
-  state.user.ids
+  state.users.ids
 
 export const getAuthToken = (state, props) =>
-  state.user.authToken
+  state.users.authToken
 
 export const getAuthUserId = (state, props) =>
-  state.user.authUser
+  state.users.authUser
 
 export const isAuthorized = createSelector(
   [ getAuthUserId ],

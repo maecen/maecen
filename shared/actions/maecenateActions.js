@@ -1,4 +1,4 @@
-import * as ActionTypes from '../constants/constants'
+import { actionTypes as appActionTypes } from '../ducks/app'
 import * as Actions from './actions'
 import { apiRequest } from '../lib/request'
 
@@ -8,7 +8,7 @@ function fetchMaecenateSuccess (data) {
   const id = data.result[0]
 
   return {
-    type: ActionTypes.SET_MAECENATE,
+    type: appActionTypes.SET_MAECENATE,
     id,
     entities: data.entities
   }
@@ -20,7 +20,7 @@ function fetchMaecenateListSuccess (data) {
   const ids = data.result
 
   return {
-    type: ActionTypes.SET_MAECENATE_LIST,
+    type: appActionTypes.SET_MAECENATE_LIST,
     ids,
     entities: data.entities
   }
@@ -44,6 +44,14 @@ export function fetchMaecenate (slug) {
   return (dispatch, state) => {
     return apiRequest(state, `/getMaecenate/${slug}`)
       .then(data => dispatch(fetchMaecenateSuccess(data)))
+      .catch(res => {
+        if (res.status === 404) {
+          dispatch({
+            type: appActionTypes.FETCH_MAECENATE_FAILURE,
+            status: res.status
+          })
+        }
+      })
   }
 }
 

@@ -1,6 +1,7 @@
 import test from 'ava'
 import request from 'supertest-as-promised'
 import uuid from 'node-uuid'
+import nock from 'nock'
 import app from '../../index'
 import { knex } from '../database'
 import { base, userId } from './util'
@@ -40,6 +41,10 @@ test('POST /api/createMaecenate', async t => {
     description: 'Cras luctus velit non dignissim magna amet.',
     monthly_minimum: 20
   }
+
+  nock(`http://localhost:${app.get('port')}`)
+    .intercept('some-maecenate', 'HEAD')
+    .reply(404, 'No Page')
 
   const res = await request(app)
     .post('/api/createMaecenate')

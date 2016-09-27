@@ -1,16 +1,14 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux'
+// Imports
+import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { routerMiddleware, routerReducer } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux'
 import { browserHistory } from 'react-router'
 import createLogger from 'redux-logger'
-import * as reducers from '../reducers/reducer'
 
-export function configureStore (initialState = {}) {
-  const reducer = combineReducers({
-    ...reducers,
-    routing: routerReducer
-  })
+// Root reducer
+import reducer from './ducks'
 
+const configureStore = (initialState = {}) => {
   let store
 
   // Client for development
@@ -30,11 +28,13 @@ export function configureStore (initialState = {}) {
   // Hot module reload for development
   if (module.hot && process.env.NODE_ENV === 'development') {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers/reducer', () => {
-      const nextReducer = require('../reducers/reducer').default
+    module.hot.accept('./ducks', () => {
+      const nextReducer = require('./ducks').default
       store.replaceReducer(nextReducer)
     })
   }
 
   return store
 }
+
+export default configureStore

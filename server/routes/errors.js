@@ -6,9 +6,16 @@ export function catchError (err, req, res, next) {
     console.log(err.stack)
   }
 
+  if (err._responseStatus === 404) {
+    console.log('response status')
+    res.status(404).send('No Page Found')
+    return
+  }
+
   let errors = formatResponseError(err)
 
   errors = mapValues(errors, (error, key) => {
+    console.log('[CAUGHT ERROR]', key, error)
     if (error && error.message) {
       return localizeMessage(req.t, error.message, error.options)
     } else {

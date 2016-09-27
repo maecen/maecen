@@ -11,7 +11,7 @@ import User from './models/User'
 import i18n from './i18n-server'
 import getRoutes from '../shared/routes'
 import { fetchComponentData, getToken } from './util/fetchData'
-import { configureStore } from '../shared/store/configureStore'
+import configureStore from '../shared/configureStore'
 import mapInitialState from '../shared/lib/mapInitialState'
 
 export default function initialRender (req, res, next) {
@@ -67,6 +67,11 @@ export default function initialRender (req, res, next) {
             </I18nextProvider>
           )
           const finalState = store.getState()
+
+          if (finalState.app.pageStatus === 404) {
+            return res.status(404).send('Not Found')
+          }
+
           const renderedTemplate = renderTemplate(html, finalState, i18nClient)
 
           res.status(200).end(renderedTemplate)
@@ -82,16 +87,10 @@ function initializeStore (data) {
   const authUser = data.authUserEntity || null
 
   return configureStore(mapInitialState({
-    user: {
+    users: {
       ids: [],
       authToken: data.authToken || null,
       authUser: authUser && authUser.id
-    },
-    app: {
-      maecenate: null,
-      maecenates: [],
-      posts: [],
-      requireAuthorization: false
     },
     entities: {
       users: data.authToken

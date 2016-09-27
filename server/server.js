@@ -48,6 +48,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 
+app.set('port', config.port)
 app.locals.knex = require('./database').knex
 
 // Authentication

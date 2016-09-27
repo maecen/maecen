@@ -1,4 +1,4 @@
-import * as ActionTypes from '../constants/constants'
+import { actionTypes } from '../ducks/posts'
 import * as Actions from './actions'
 import { apiRequest } from '../lib/request'
 
@@ -6,7 +6,7 @@ import { apiRequest } from '../lib/request'
 // ===============
 function setPosts (ids, entities) {
   return {
-    type: ActionTypes.SET_POSTS,
+    type: actionTypes.SET,
     ids,
     entities
   }
@@ -21,13 +21,13 @@ function fetchMaecenatePostsSuccess (data) {
 // ---------------
 function fetchUserFeedRequest () {
   return {
-    type: ActionTypes.FETCH_USER_FEED_REQUEST
+    type: actionTypes.FETCH_FEED_REQUEST
   }
 }
 
 function fetchUserFeedSuccess (ids, entities) {
   return {
-    type: ActionTypes.FETCH_USER_FEED_SUCCESS,
+    type: actionTypes.FETCH_FEED_SUCCESS,
     ids,
     entities
   }
@@ -35,7 +35,7 @@ function fetchUserFeedSuccess (ids, entities) {
 
 function fetchUserFeedFailure (err, status) {
   return {
-    type: ActionTypes.FETCH_USER_FEED_FAILURE,
+    type: actionTypes.FETCH_FEED_FAILURE,
     err,
     status
   }

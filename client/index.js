@@ -11,7 +11,7 @@ import { I18nextProvider } from 'react-i18next'
 import moment from 'moment'
 require('moment/locale/da.js')
 
-import { configureStore } from '../shared/store/configureStore'
+import configureStore from '../shared/configureStore'
 import mapInitialState from '../shared/lib/mapInitialState'
 import i18n from './i18n-client'
 

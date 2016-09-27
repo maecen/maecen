@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
-import Time from 'react-time'
+import moment from 'moment'
 
 import { Card, CardContent, CardTitle, CardHeader } from '../Card'
 import IconButton from 'material-ui/IconButton'
@@ -16,7 +16,7 @@ function Post (props, context) {
   const maecenateUrl = '/maecenate/' + maecenate.slug
 
   return (
-    <Card key={post.id}>
+    <Card>
       {noTitleOnPosts ||
         <Link to={maecenateUrl}>
           <CardHeader
@@ -38,7 +38,9 @@ function Post (props, context) {
         noTopPadding={true}
         style={{opacity: '0.6'}}>
         {writtenByAlias}
-        <Time style={{float: 'right'}} value={post.created_at} format='DD/MM/YYYY' />
+        <span style={{ float: 'right' }}>
+          {moment(post.created_at).fromNow()}
+        </span>
       </CardContent>
       {media &&
         <Media type={media.type} url={media.url} fixedRatio={false} />

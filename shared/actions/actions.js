@@ -1,12 +1,14 @@
 import { browserHistory } from 'react-router'
-import * as ActionTypes from '../constants/constants'
+import { actionTypes as appActionTypes } from '../ducks/app'
+import { actionTypes as userActionTypes } from '../ducks/users'
+import { actionTypes as entityActionTypes } from '../ducks/entities'
 import { apiRequest } from '../lib/request'
 
 // Public Actions
 // ==============
 export function setAuthUser (id, token, entities) {
   return {
-    type: ActionTypes.SET_AUTH_USER,
+    type: userActionTypes.SET_AUTH,
     id,
     token,
     entities
@@ -19,7 +21,7 @@ export function authUser (credentials) {
 
 function clearAuthUser () {
   return {
-    type: ActionTypes.CLEAR_AUTH_USER
+    type: userActionTypes.CLEAR_AUTH
   }
 }
 
@@ -44,20 +46,20 @@ export function requireAuth (url) {
   url = url || null
 
   return {
-    type: ActionTypes.REQUIRE_AUTHORIZATION,
+    type: appActionTypes.REQUIRE_AUTHORIZATION,
     url
   }
 }
 
 export function cancelRequireAuth () {
   return {
-    type: ActionTypes.CANCEL_REQUIRE_AUTHORIZATION
+    type: appActionTypes.CANCEL_REQUIRE_AUTHORIZATION
   }
 }
 
 export function updateEntities (entities) {
   return {
-    type: ActionTypes.UPDATE_ENTITIES,
+    type: entityActionTypes.UPDATE,
     entities
   }
 }
