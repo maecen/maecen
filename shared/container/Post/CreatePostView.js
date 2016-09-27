@@ -98,7 +98,7 @@ class CreatePostView extends Component {
         dispatch(Actions.createPostSuccess(data))
         setDefaultAlias(this.props, post.author_alias, maecenate.id)
         setLastMaecenate(maecenate.id)
-        browserHistory.push(`/maecenate/${maecenate.slug}`)
+        browserHistory.push(`/${maecenate.slug}`)
       }).catch((res) => {
         this.setState({ errors: null, isSubmitting: false })
         this.setState({ errors: res.data.errors })

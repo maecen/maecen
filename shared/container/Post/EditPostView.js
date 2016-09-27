@@ -70,7 +70,7 @@ class EditPostView extends Component {
       .then(data => {
         this.setState({ errors: null, isSubmitting: false })
         dispatch(Actions.editPostSuccess(data))
-        browserHistory.push(`/maecenate/${maecenate.slug}`)
+        browserHistory.push(`/${maecenate.slug}`)
       }).catch((res) => {
         this.setState({ errors: null, isSubmitting: false })
         this.setState({ errors: res.data.errors })

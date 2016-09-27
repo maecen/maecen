@@ -23,7 +23,7 @@ class YourMaecenatesContainer extends Component {
   }
 
   gotoMaecenate (slug) {
-    browserHistory.push(`/maecenate/${slug}`)
+    browserHistory.push(`/${slug}`)
   }
 
   gotoMaecenateDashboard (slug, e) {

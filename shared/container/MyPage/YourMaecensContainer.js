@@ -34,7 +34,7 @@ class YourMaecensContainer extends Component {
   }
 
   gotoMaecenate (slug) {
-    browserHistory.push(`/maecenate/${slug}`)
+    browserHistory.push(`/${slug}`)
   }
 
   showSupportInfo (maecenateId, event) {

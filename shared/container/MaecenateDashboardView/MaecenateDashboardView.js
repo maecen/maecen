@@ -58,7 +58,7 @@ class MaecenateDashboardView extends Component {
     // Have to check - otherwise it fails when refreshing the page
     if (isBrowser) {
       let rootDir = window.location.hostname
-      return `${rootDir}/maecenate/${slug}/presentation`
+      return `${rootDir}/${slug}`
     }
   }
 

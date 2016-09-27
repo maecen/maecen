@@ -70,7 +70,7 @@ class CreateMaecenateView extends Component {
         this.setState({ errors: null, isSubmitting: false })
         const slug = data.entities.maecenates[data.result[0]].slug
         dispatch(Actions.createMaecenateSuccess(data))
-        browserHistory.push(`/maecenate/${slug}`)
+        browserHistory.push(`/${slug}`)
       }, (res) => {
         this.setState({ errors: null })
         this.setState({ errors: res.data.errors, isSubmitting: false })

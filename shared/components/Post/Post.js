@@ -13,12 +13,11 @@ function Post (props, context) {
   const { post, maecenate, editPost, t, noTitleOnPosts } = props
   const media = post.media && post.media[0]
   const writtenByAlias = t('post.writtenByAlias', { alias: post.author_alias })
-  const maecenateUrl = '/maecenate/' + maecenate.slug
 
   return (
     <Card>
       {noTitleOnPosts ||
-        <Link to={maecenateUrl}>
+        <Link to={`/${maecenate.slug}`}>
           <CardHeader
             title={maecenate.title}
             avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}

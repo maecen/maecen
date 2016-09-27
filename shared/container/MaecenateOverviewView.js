@@ -28,7 +28,7 @@ class MaecenateOverviewView extends Component {
         {map(maecenates, maecenate =>
           maecenate.id === aboutMaecenateId &&
             <Cell md={6} key={maecenate.id}>
-              <Link to={`/maecenate/${maecenate.slug}`}>
+              <Link to={`/${maecenate.slug}`}>
                 <MaecenateCard maecenate={maecenate} />
               </Link>
             </Cell>
@@ -36,7 +36,7 @@ class MaecenateOverviewView extends Component {
         {map(maecenates, maecenate =>
           maecenate.id !== aboutMaecenateId &&
             <Cell md={6} key={maecenate.id}>
-              <Link to={`/maecenate/${maecenate.slug}`}>
+              <Link to={`/${maecenate.slug}`}>
                 <MaecenateCard maecenate={maecenate} />
               </Link>
             </Cell>
