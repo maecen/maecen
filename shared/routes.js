@@ -56,43 +56,52 @@ const getRoutes = (store) => {
       <Route path='profile'
         component={MyPageView}
         showLangSwitch={true}
-        onEnter={requiresAuth} />
-      <Route path='terms'
-        component={TermsView} />
-
+        onEnter={requiresAuth}
+      />
+      <Route path='terms' component={TermsView} />
       <Route path='post/create'
         component={CreatePostView}
-        hideFab={true} />
+        hideFab={true}
+      />
       <Route path='maecenate/:slug/post/:postId/edit'
         component={EditPostView}
         hideFab={true}
-        onEnter={requiresMaecenateAdmin} />
+        onEnter={requiresMaecenateAdmin}
+      />
 
       <Route path='maecenate/create'
         component={CreateMaecenateView}
         hideFab={true}
-        onEnter={requiresAuth} />
+        onEnter={requiresAuth}
+      />
       <Route path='maecenates'
-        component={MaecenateOverviewView} />
-      <Route path='maecenate/:slug'
-        component={MaecenateView}
-        noTitleOnPosts={true}
-        />
+        component={MaecenateOverviewView}
+      />
       <Route path='maecenate/:slug/edit'
         component={EditMaecenateView}
         hideFab={true}
-        onEnter={requiresMaecenateAdmin} />
+        onEnter={requiresMaecenateAdmin}
+      />
 
       <Route path='maecenate/:slug/presentation'
         component={MaecenateView}
-        presentation={true} />
+        presentation={true}
+      />
+      <Redirect from='maecenate/:slug' to=':slug' />
       {/* TODO solve this without redirect, see attempt in feature/about */}
-      <Redirect from='about' to='maecenate/maecen-projekt/presentation' />
+      <Redirect from='about' to='maecen-projekt/presentation' />
       <Route path='maecenate/:slug/support'
-        component={MaecenateSupportView} />
+        component={MaecenateSupportView}
+      />
       <Route path='maecenate/:slug/dashboard'
         component={MaecenateDashboardView}
-        onEnter={requiresMaecenateAdmin} />
+        onEnter={requiresMaecenateAdmin}
+      />
+
+      <Route path=':slug'
+        component={MaecenateView}
+        noTitleOnPosts={true}
+      />
     </Route>
   )
 }

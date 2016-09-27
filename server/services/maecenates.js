@@ -1,10 +1,18 @@
+// Imports
 import Joi from 'joi'
+import uuid from 'node-uuid'
 import Immutable from 'seamless-immutable'
 import mapKeys from 'lodash/mapKeys'
+import axios from 'axios'
 import { slugify } from 'strman'
-import { joiValidation } from '../util/ctrlHelpers'
+
+// Utils
+import { port } from '../../shared/config'
 import { knex } from '../database'
+import { joiValidation } from '../util/ctrlHelpers'
 import { claimMedia, deleteUnusedMedia } from './media'
+
+// Services
 import {
   fetchActiveUserSubPeriods,
   fetchActiveUserSubPeriodForMaecenate,
@@ -29,19 +37,44 @@ export const schema = {
 
 // Database Calls
 // ==============
-export function updateMaecenate (id, data) {
+export const createMaecenate = (knex, userId, data) => {
+  const slugCandidate = createSlug(data.title)
+  const id = uuid.v1()
   data = Immutable(data)
-    .set('slug', slugify(data.title))
+    .set('id', id)
+    .set('slug', slugCandidate)
+    .set('creator', userId)
 
-  return validateMaecenate(data).then(() => {
+  return validateMaecenate(null, data).then(() => {
     const mediaIds = [data.logo_media, data.cover_media]
 
     return knex.transaction(trx => {
-      const maecenate = data.without('cover', 'logo', 'id')
-      return trx('maecenates').where({ id }).update(maecenate).then(() => {
+      const maecenate = data.without('cover', 'logo')
+      return trx('maecenates').insert(maecenate).then(() => {
         return claimMedia(mediaIds, 'maecenate', id, trx)
-      }).then(() => {
-        return deleteUnusedMedia('maecenate', id, mediaIds, trx)
+      })
+    })
+    .then(() => id)
+  })
+}
+
+export const updateMaecenate = (knex, id, data) => {
+  const slugCandidate = createSlug(data.title)
+  data = Immutable(data)
+    .set('slug', slugCandidate)
+
+  return knex('maecenates').where({ id })
+  .then(([maecenate]) => {
+    return validateMaecenate(maecenate, data).then(() => {
+      const mediaIds = [data.logo_media, data.cover_media]
+
+      return knex.transaction(trx => {
+        const maecenate = data.without('cover', 'logo', 'id')
+        return trx('maecenates').where({ id }).update(maecenate).then(() => {
+          return claimMedia(mediaIds, 'maecenate', id, trx)
+        }).then(() => {
+          return deleteUnusedMedia('maecenate', id, mediaIds, trx)
+        })
       })
     })
   })
@@ -51,6 +84,10 @@ export function fetchMaecenate (where, userId) {
   let maecenate = null
 
   return knex('maecenates').where(where).limit(1).then((result) => {
+    if (result.length === 0) {
+      const error = { _responseStatus: 404 }
+      throw error
+    }
     maecenate = result[0]
   }).then(() => {
     return Promise.all([
@@ -59,7 +96,6 @@ export function fetchMaecenate (where, userId) {
       fetchActiveUserSubPeriodForMaecenate(knex, userId, maecenate.id)
     ])
   }).then(([[logoMedia], [coverMedia], supports]) => {
-    console.log(supports)
     return {
       maecenate: {
         ...maecenate,
@@ -145,19 +181,30 @@ export const activeExists = (knex, maecenateId) => {
 
 // Helper methods
 // ==============
-function validateMaecenate (data) {
-  return joiValidation(data, schema, true).then(() => {
-    return knex('maecenates')
-      .where({ slug: data.slug })
-      .whereNot({ id: data.id })
-      .count('* as count')
-      .limit(1)
-      .then(([ result ]) => {
-        const exists = Boolean(Number(result.count))
-        if (exists) {
-          const error = { title: 'validationError.alreadyTaken' }
-          throw error
-        }
-      })
+const createSlug = (name) =>
+  slugify(name.replace(/\//g, '-'))
+
+const validateMaecenate = (prev, next) => {
+  return joiValidation(next, schema, true).then(() => {
+    if (prev === null || prev.slug !== next.slug) {
+      return slugIsAvailable(next.slug)
+    }
+  })
+}
+
+const slugIsAvailable = (slug) => {
+  return axios.head(`http://localhost:${port}/${slug}`)
+  .then(res => {
+    console.log(`http://localhost:${port}/${slug}`)
+    console.log(res)
+    return res
+  })
+  .then(res => false)
+  .catch(res => res.status === 404)
+  .then(isAvailable => {
+    if (isAvailable === false) {
+      const error = { title: 'validationError.alreadyTaken' }
+      throw error
+    }
   })
 }
