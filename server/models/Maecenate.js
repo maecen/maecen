@@ -1,24 +1,9 @@
-import Joi from 'joi'
 import { slugify } from 'strman'
 import uuid from 'node-uuid'
 import { joiValidation } from '../util/ctrlHelpers'
 import { bookshelf } from '../database'
 import Media from './Media'
-
-const urlRegex = /^(https?:\/\/)?[^$\/]+\..+$/i
-
-const schema = {
-  id: Joi.string().guid(),
-  title: Joi.string().required(),
-  slug: Joi.string(),
-  creator: Joi.string().guid(),
-  logo_media: Joi.string().guid().required(),
-  cover_media: Joi.string().guid().required(),
-  teaser: Joi.string().min(10).max(140).required(),
-  description: Joi.string().min(30).required(),
-  url: Joi.string().regex(urlRegex).allow(null, ''),
-  monthly_minimum: Joi.number().required()
-}
+import { schema } from '../services/maecenates'
 
 const Maecenate = bookshelf.Model.extend({
   tableName: 'maecenates',

@@ -153,7 +153,7 @@
     "anyRequired_cover_media": "You need to upload something",
     "anyRequired_logo_media": "You need to upload a logo",
     "anyEmpty": "You need to fill this out",
-    "numberMin": "This number is too low",
+    "numberMin": "Must be greater than or equal to {{limit}}",
     "numberBase": "You need to fill in a number",
     "numberInteger": "Only whole numbers are allowed",
     "objectMissing": "You are missing a field",

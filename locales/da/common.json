@@ -154,7 +154,7 @@
     "anyRequired_logo_media": "Du skal uploade et logo",
     "numberBase": "Kun numre er tilladt her",
     "numberInteger": "Kun heltal er tilladt",
-    "numberMin": "Dette nummer er for lavt",
+    "numberMin": "Skal være højere end eller lig med {{limit}}",
     "objectMissing": "Du mangler at udfylde et felt",
     "objectMissing_mediaContent": "Du er nødt til at tilføje noget tekst eller et medie element",
     "stringEmail": "Du skal indtaste en rigitg emailadresse",

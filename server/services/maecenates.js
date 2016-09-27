@@ -14,7 +14,7 @@ import {
 // Schema validation of the data
 // =============================
 const urlRegex = /^(https?:\/\/)?[^$\/]+\..+$/i
-const schema = {
+export const schema = {
   id: Joi.string().guid(),
   title: Joi.string().required(),
   slug: Joi.string(),
@@ -24,7 +24,7 @@ const schema = {
   teaser: Joi.string().min(10).max(140).required(),
   description: Joi.string().min(30).required(),
   url: Joi.string().regex(urlRegex).allow(null, ''),
-  monthly_minimum: Joi.number().required()
+  monthly_minimum: Joi.number().integer().min(1).required()
 }
 
 // Database Calls
