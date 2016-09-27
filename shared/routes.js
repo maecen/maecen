@@ -69,13 +69,13 @@ const getRoutes = (store) => {
         onEnter={requiresMaecenateAdmin}
       />
 
+      <Route path='maecenates'
+        component={MaecenateOverviewView}
+      />
       <Route path='maecenate/create'
         component={CreateMaecenateView}
         hideFab={true}
         onEnter={requiresAuth}
-      />
-      <Route path='maecenates'
-        component={MaecenateOverviewView}
       />
       <Route path='maecenate/:slug/edit'
         component={EditMaecenateView}
@@ -83,24 +83,24 @@ const getRoutes = (store) => {
         onEnter={requiresMaecenateAdmin}
       />
 
-      <Route path='maecenate/:slug/presentation'
-        component={MaecenateView}
-        presentation={true}
-      />
-      <Redirect from='maecenate/:slug' to=':slug' />
       {/* TODO solve this without redirect, see attempt in feature/about */}
       <Redirect from='about' to='maecen-projekt/presentation' />
-      <Route path='maecenate/:slug/support'
-        component={MaecenateSupportView}
-      />
       <Route path='maecenate/:slug/dashboard'
         component={MaecenateDashboardView}
         onEnter={requiresMaecenateAdmin}
       />
 
+      {/* User friendly maecenate urls */}
       <Route path=':slug'
         component={MaecenateView}
         noTitleOnPosts={true}
+      />
+      <Route path=':slug/presentation'
+        component={MaecenateView}
+        presentation={true}
+      />
+      <Route path=':slug/support'
+        component={MaecenateSupportView}
       />
     </Route>
   )

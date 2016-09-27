@@ -51,7 +51,7 @@ class MaecenateDashboardView extends Component {
   }
 
   gotoMaecenatePresentation (slug, e) {
-    browserHistory.push(`/maecenate/${slug}/presentation`)
+    browserHistory.push(`/${slug}/presentation`)
   }
 
   linkToPresentation (slug) {

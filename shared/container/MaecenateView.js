@@ -35,7 +35,7 @@ class MaecenateView extends Component {
 
   supportMaecenate () {
     const { slug } = this.props.params
-    browserHistory.push(`/maecenate/${slug}/support`)
+    browserHistory.push(`/${slug}/support`)
   }
 
   editMaecenate () {
