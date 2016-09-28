@@ -7,7 +7,7 @@ import axios from 'axios'
 import { slugify } from 'strman'
 
 // Utils
-import { port } from '../../shared/config'
+import { host } from '../../shared/config'
 import { knex } from '../database'
 import { joiValidation } from '../util/ctrlHelpers'
 import { claimMedia, deleteUnusedMedia } from './media'
@@ -107,8 +107,21 @@ export function fetchMaecenate (where, userId) {
   })
 }
 
-export function fetchMaecenateWithoutMedia (where) {
-  return knex('maecenates').where(where).limit(1).then(result => result[0])
+export function fetchMaecenateWithoutMedia (query) {
+  return knex('maecenates').where(query).limit(1).then(result => result[0])
+}
+
+export function fetchMaecenateAdminDetails (knex, query) {
+  return fetchMaecenateWithoutMedia(query)
+  .then(maecenate => {
+    return knex('transactions')
+    .sum('amount as totalEarned')
+    .where({ maecenate: maecenate.id })
+    .then(result => ({
+      id: maecenate.id,
+      totalEarned: Number(result[0].totalEarned)
+    }))
+  })
 }
 
 export function fetchMaecenates (where) {

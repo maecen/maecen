@@ -7,11 +7,10 @@ import { getSupports } from './support'
 export const getMaecenateEntities = (state, props) =>
   state.entities.maecenates
 
-const getMaecenateId = (state, props) =>
-  state.app.maecenate
+const getMaecenateOverviewIds = (state, props) =>
+  state.maecenates.overviewIds
 
-const getMaecenateIds = (state, props) =>
-  state.app.maecenates
+const getDetails = (state) => state.maecenates.detailsById
 
 const getMaecenatePropId = (state, props) =>
   props.maecenateId
@@ -30,21 +29,19 @@ export const getMaecenateById = createSelector(
   (id, maecenates) => find(maecenates, maecenate => maecenate.id === id)
 )
 
+export const getMaecenateDetails = createSelector(
+  [ getDetails, getMaecenateBySlug ],
+  (details, maecenate) => details[maecenate.id]
+)
+
 export const getMaecenateByPost = (postSelector) =>
   createSelector(
     [ postSelector, getMaecenateEntities ],
     (post, maecenates) => maecenates[post.maecenate]
   )
 
-export const getMaecenate = createSelector(
-  [ getMaecenateId, getMaecenateEntities ],
-  (id, maecenates) => (
-    maecenates[id]
-  )
-)
-
-export const getMaecenates = createSelector(
-  [ getMaecenateIds, getMaecenateEntities ],
+export const getOverviewMaecenates = createSelector(
+  [ getMaecenateOverviewIds, getMaecenateEntities ],
   (ids, maecenates) => ids.map(id => maecenates[id])
 )
 

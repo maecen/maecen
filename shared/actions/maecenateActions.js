@@ -2,30 +2,6 @@ import { actionTypes as appActionTypes } from '../ducks/app'
 import * as Actions from './actions'
 import { apiRequest } from '../lib/request'
 
-// Private Actions
-// ===============
-function fetchMaecenateSuccess (data) {
-  const id = data.result[0]
-
-  return {
-    type: appActionTypes.SET_MAECENATE,
-    id,
-    entities: data.entities
-  }
-}
-
-// Fetch Maecenate List
-// --------------------
-function fetchMaecenateListSuccess (data) {
-  const ids = data.result
-
-  return {
-    type: appActionTypes.SET_MAECENATE_LIST,
-    ids,
-    entities: data.entities
-  }
-}
-
 // Public Actions
 // ==============
 export function createMaecenateSuccess (data) {
@@ -43,7 +19,7 @@ export function editMaecenateSuccess (data) {
 export function fetchMaecenate (slug) {
   return (dispatch, state) => {
     return apiRequest(state, `/maecenates/${slug}`)
-      .then(data => dispatch(fetchMaecenateSuccess(data)))
+      .then(data => dispatch(Actions.updateEntities(data.entities)))
       .catch(res => {
         if (res.status === 404) {
           dispatch({
@@ -55,17 +31,10 @@ export function fetchMaecenate (slug) {
   }
 }
 
-export function fetchMaecenateList () {
-  return (dispatch, state) => {
-    return apiRequest(state, '/maecenates')
-      .then(data => dispatch(fetchMaecenateListSuccess(data)))
-  }
-}
-
 export function fetchAdminMaecenateList (userId) {
   return (dispatch, state) => {
     return apiRequest(state, `/users/${userId}/admin-maecenates`)
-      .then(data => dispatch(fetchMaecenateListSuccess(data)))
+      .then(data => dispatch(Actions.updateEntities(data.entities)))
   }
 }
 

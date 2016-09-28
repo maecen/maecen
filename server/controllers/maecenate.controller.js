@@ -21,6 +21,14 @@ export function getMaecenate (req, res, next) {
 }
 
 export function getAdminDetails (req, res, next) {
+  const { knex } = req.app.locals
+  const { slug } = req.params
+
+  return service.fetchMaecenateAdminDetails(knex, { slug })
+  .then(details => {
+    res.json(normalizeResponse({ maecenateDetails: details }))
+  })
+  .catch(next)
 }
 
 export function getMaecenates (req, res, next) {

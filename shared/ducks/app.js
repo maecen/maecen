@@ -5,16 +5,12 @@ import { actionTypes as usersActionTypes } from './users'
 export const actionTypes = {
   REQUIRE_AUTHORIZATION: 'maecen/app/REQUIRE_AUTHORIZATION',
   CANCEL_REQUIRE_AUTHORIZATION: 'maecen/app/CANCEL_REQUIRE_AUTHORIZATION',
-  SET_MAECENATE: 'maecen/app/SET_MAECENATE',
-  SET_MAECENATE_LIST: 'maecen/app/SET_MAECENATE_LIST',
   FETCH_MAECENATE_FAILURE: 'maecen/app/FETCH_MAECENATE_FAILURE'
 }
 
 // Reducer
 const reducer = (state = Immutable({
   pageStatus: 200,
-  maecenate: null,
-  maecenates: [],
   requireAuthorization: false
 }), action) => {
   switch (action.type) {
@@ -28,11 +24,8 @@ const reducer = (state = Immutable({
     case actionTypes.CANCEL_REQUIRE_AUTHORIZATION:
       return state.set('requireAuthorization', false)
 
-    case actionTypes.SET_MAECENATE:
-      return state.set('maecenate', action.id)
-
-    case actionTypes.SET_MAECENATE_LIST:
-      return state.set('maecenates', action.ids)
+    // case actionTypes.SET_MAECENATE_LIST:
+    //   return state.set('maecenates', action.ids)
 
     case actionTypes.FETCH_MAECENATE_FAILURE:
       return state.set('pageStatus', 404)

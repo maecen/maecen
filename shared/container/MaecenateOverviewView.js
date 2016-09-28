@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import map from 'lodash/map'
 
 // Actions & Selectors
-import * as Actions from '../actions'
-import { getMaecenates } from '../selectors/maecenate'
+import { fetchMaecenatesOverview } from '../ducks/maecenates'
+import { getOverviewMaecenates } from '../selectors/maecenate'
 
 // Components
 import Link from '../components/Link'
@@ -46,13 +46,13 @@ class MaecenateOverviewView extends Component {
   }
 }
 
-MaecenateOverviewView.need = [(params) => {
-  return Actions.fetchMaecenateList(params.slug)
+MaecenateOverviewView.need = [() => {
+  return fetchMaecenatesOverview()
 }]
 
 function mapStateToProps (state, props) {
   return {
-    maecenates: getMaecenates(state, props)
+    maecenates: getOverviewMaecenates(state, props)
   }
 }
 

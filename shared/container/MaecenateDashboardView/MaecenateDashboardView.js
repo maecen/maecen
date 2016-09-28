@@ -13,7 +13,8 @@ import styleVariables from '../../components/styleVariables'
 
 // Actions & Selectors
 import * as Actions from '../../actions'
-import { getMaecenateBySlug } from '../../selectors/maecenate'
+import { fetchMaecenateDetails } from '../../ducks/maecenates'
+import { getMaecenateBySlug, getMaecenateDetails } from '../../selectors/maecenate'
 import { getSupportingUsers } from '../../selectors/user'
 
 // Components
@@ -48,6 +49,7 @@ class MaecenateDashboardView extends Component {
     const { dispatch, params } = this.props
     dispatch(this.constructor.need[0](params))
     dispatch(this.constructor.need[1](params))
+    dispatch(this.constructor.need[2](params))
   }
 
   gotoMaecenatePresentation (slug, e) {
@@ -115,6 +117,10 @@ class MaecenateDashboardView extends Component {
                   {this.linkToPresentation(maecenate.slug)}
                 </TextLink>
               </p>
+              {this.props.details &&
+                t('maecenate.admin.totalEarned', {amount: this.props.details.totalEarned})
+              }
+
             </CardContent>
             <Divider />
             { users.length > 0
@@ -202,16 +208,17 @@ const style = {
   }
 }
 
-MaecenateDashboardView.need = [(params) => {
-  return Actions.fetchMaecenate(params.slug)
-}, (params) => {
-  return Actions.fetchMaecenateSupporter(params.slug)
-}]
+MaecenateDashboardView.need = [
+  params => Actions.fetchMaecenate(params.slug),
+  params => Actions.fetchMaecenateSupporter(params.slug),
+  params => fetchMaecenateDetails(params.slug)
+]
 
 function mapStateToProps (state, props) {
   const getUsers = getSupportingUsers(getMaecenateBySlug)
   return {
     maecenate: getMaecenateBySlug(state, props),
+    details: getMaecenateDetails(state, props),
     users: getUsers(state, props)
   }
 }

@@ -79,7 +79,10 @@
     "replaceCoverLabel": "Erstat billede eller video",
     "viewPresentation": "Redigér præsentation",
     "website": "Link til mere information",
-    "websitePlaceholder": "Skriv URL-adresse"
+    "websitePlaceholder": "Skriv URL-adresse",
+    "admin": {
+      "totalEarned": "Du har i alt tjent {{amount, 0,0}} DKK."
+    }
   },
   "post": {
     "content": "Indhold",
