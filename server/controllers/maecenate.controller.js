@@ -20,6 +20,7 @@ export function getMaecenate (req, res, next) {
   .catch(next)
 }
 
+export function getAdminDetails (req, res, next) {
 }
 
 export function getMaecenates (req, res, next) {
