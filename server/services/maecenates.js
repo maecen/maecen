@@ -195,12 +195,7 @@ const validateMaecenate = (prev, next) => {
 }
 
 const slugIsAvailable = (slug) => {
-  return axios.head(`http://localhost:${port}/${slug}`)
-  .then(res => {
-    console.log(`http://localhost:${port}/${slug}`)
-    console.log(res)
-    return res
-  })
+  return axios.head(`${host}/${slug}`)
   .then(res => false)
   .catch(res => res.status === 404)
   .then(isAvailable => {
