@@ -132,7 +132,7 @@ export function hasPermission (req, res, next) {
 
   switch (area) {
     case 'maecenateAdmin':
-      permissionPromise = maecenateService.userIsAdminBySlug(id, userId)
+      permissionPromise = maecenateService.userIsAdminBySlug(knex, id, userId)
       .then(res => Boolean(res))
       break
   }
