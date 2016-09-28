@@ -118,7 +118,9 @@ class MaecenateDashboardView extends Component {
                 </TextLink>
               </p>
               {this.props.details &&
-                t('maecenate.admin.totalEarned', {amount: this.props.details.totalEarned})
+                t('maecenate.admin.totalEarned', {
+                  amount: this.props.details.totalEarned / 100
+                })
               }
 
             </CardContent>
