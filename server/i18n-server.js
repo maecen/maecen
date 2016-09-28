@@ -1,8 +1,9 @@
 // Imports
 import i18n from 'i18next'
-import moment from 'moment'
 import Backend from 'i18next-node-fs-backend'
 import { LanguageDetector } from 'i18next-express-middleware'
+
+import { interpolation } from '../shared/i18n'
 
 export default i18n
   .use(Backend)
@@ -17,17 +18,7 @@ export default i18n
 
     debug: false,
 
-    interpolation: {
-      escapeValue: false, // not needed for react!!
-      format: (value, formatting, lng) => {
-        if (value instanceof Date) {
-          return moment(value).format(formatting)
-        } else if (value instanceof moment) {
-          return value.format(formatting)
-        }
-        return value.toString()
-      }
-    },
+    interpolation,
 
     backend: {
       loadPath: 'locales/{{lng}}/{{ns}}.json',
