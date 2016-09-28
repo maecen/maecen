@@ -125,6 +125,7 @@ export function forgotPassword (req, res, next) {
 }
 
 export function hasPermission (req, res, next) {
+  const { knex } = req.app.locals
   const userId = req.user && req.user.userId || null
   const { area, id } = req.params
 
