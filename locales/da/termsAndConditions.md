@@ -1,7 +1,7 @@
 Velkommen til Mæcen.net
 ====================
 
-*Mæcen [mεˈseˀn]: en person, der yder økonomisk støtte til en person der yder økonomisk støtte til en kunstner, et bestemt projekt, en organisation el.lign.*
+*Mæcen [mεˈseˀn]: En person der yder økonomisk støtte til en kunstner, et bestemt projekt, en organisation el.lign.*
 
 Om Mæcen.net projektet
 --------------------
@@ -22,6 +22,7 @@ Kontakt Mæcen.net
 ---------------
 DiGiDi a.m.b.a.
 +45 27 29 18 14
+www.digidi.dk
 maecen@digidi.org
 
 
