@@ -39,7 +39,7 @@ En periode starter den dag du har foretaget den første indbetaling.
 Stop din støtte her og nu.
 ----------------------
 Du kan altid afslutte din støtte til et Mæcenat uden yderligere varsel hvorefter der ikke vil blive trukket yderligere beløb fra din konto.
-Det kan du gøre her: 
+Det kan du gøre her: https://beta.maecen.net/profile
 [Det kan du gøre her](https://beta.maecen.net/profile "Profil side").
 Betalinger der allerede er gennemført refunderes ikke, men du vil fortsat have adgang til Mæcenatet indtil den periode du har betalt for udløber.
 
