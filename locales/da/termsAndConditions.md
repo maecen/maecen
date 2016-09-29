@@ -1,23 +1,24 @@
 Velkommen til Mæcen
 ====================
 
-Mæcen [mεˈseˀn]: en person, der yder økonomisk støtte til en person der yder økonomisk støtte til en kunstner, et bestemt projekt, en organisation el.lign.
+*Mæcen [mεˈseˀn]: en person, der yder økonomisk støtte til en person der yder økonomisk støtte til en kunstner, et bestemt projekt, en organisation el.lign.*
 
 Om Mæcen.net projektet
 --------------------
 
 Mæcen.net er en ægte deleøkonomisk platform, der giver brugerne mulighed for at oprette egne Mæcenater og at støtte andres
+  
 Ved at støtte et bestemt Mæcenat med en fast periodevis (månedlig) betaling, bliver man Mæcen for det pågældende Mæcenat og får adgang til Mæcenatets eksklusive indholdsside.
-
+  
 Det er gratis at oprette et Mæcenat.
 
 Ejeren (-ne) af et Mæcenat fastsætter selv prisen, og modtager den fulde betaling fra sine Mæcener, bortset fra 1kr pr Mæcen pr måned, som betales til ’Mæcen Projektet’, 
-Hvis du betaler f.eks. 20kr/md går de 19kr direkte til Mæcenatet. 
-Mæcen.net ejes 100% af  DiGiDi a..m.b.a., der er et andelsselskab, ejet i lige andele af mere end 3.000 andelshavere.
+Hvis du betaler f.eks. 20kr/md går de 19kr direkte til Mæcenatet.
 
+Mæcen.net ejes 100% af  DiGiDi a..m.b.a., der er et andelsselskab, ejet i lige andele af mere end 3.000 andelshavere.
 Mæcen.net projektet er derfor Non Profit, og alle indtægter går til drift og forsat udvikling af Mæcen projektet.
 
-Kontakt Mæcen
+Kontakt Mæcen.net
 ---------------
 DiGiDi a.m.b.a.
 +45 27 29 18 14
@@ -36,7 +37,8 @@ En periode starter den dag du har foretaget den første indbetaling.
 Stop din støtte her og nu.
 ----------------------
 Du kan altid afslutte din støtte til et Mæcenat uden yderligere varsel hvorefter der ikke vil blive trukket yderligere beløb fra din konto.
-Det kan du gøre her: https://beta.maecen.net/profile
+Det kan du gøre her: 
+[Det kan du gøre her](https://beta.maecen.net/profile "Profil side").
 Betalinger der allerede er gennemført refunderes ikke, men du vil fortsat have adgang til Mæcenatet indtil den periode du har betalt for udløber.
 
 Personlige informationer er dine informationer
