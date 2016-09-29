@@ -1,4 +1,4 @@
-Velkommen til Mæcen
+Velkommen til Mæcen.net
 ====================
 
 *Mæcen [mεˈseˀn]: en person, der yder økonomisk støtte til en person der yder økonomisk støtte til en kunstner, et bestemt projekt, en organisation el.lign.*
@@ -25,8 +25,9 @@ DiGiDi a.m.b.a.
 maecen@digidi.org
 
 
-Når du støtter et Mæcenat og bliver Mæcen
+Når du støtter et Mæcenat
 ==================================
+Når du støtter et Mæcenat, bliver du Mæcen for dette. Første gang du blive Mæcen skal du indtaste kortinformationer for at aktivere betalingen.
 
 Fast betaling
 -----------
