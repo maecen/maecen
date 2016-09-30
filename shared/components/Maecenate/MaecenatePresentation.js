@@ -65,7 +65,7 @@ function MaecenatePresentation (props) {
           <CardContent style={style.subtitle}>
             { maecenate.teaser }
           </CardContent>
-          <CardContent>
+          <CardContent style={style.description}>
             {maecenate.description}
           </CardContent>
         </Card>
@@ -125,6 +125,9 @@ const style = {
   },
   subtitle: {
     fontWeight: font.weight.subtitle
+  },
+  description: {
+    whiteSpace: 'pre-line'
   },
   titleWrap: {
     display: 'flex',
