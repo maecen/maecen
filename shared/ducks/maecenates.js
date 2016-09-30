@@ -82,3 +82,10 @@ export const fetchMaecenatesOverview = () => (dispatch, state) => {
     error
   }))
 }
+
+export const sendEmailToSupporters = (slug, subject, message) =>
+  (dispatch, state) =>
+    apiRequest(state, `/maecenates/${slug}/admin/email-supporters`, {
+      method: 'POST',
+      data: { subject, message }
+    })

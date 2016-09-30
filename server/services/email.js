@@ -1,3 +1,4 @@
+import { fetchSupporters } from './maecenates'
 
 export const fetchMaecenateDeactivatedData = (knex, maecenateId) => {
   const date = new Date()
@@ -32,4 +33,23 @@ export const fetchMaecenateDeactivatedData = (knex, maecenateId) => {
   .then(([[maecenate], users]) => {
     return { maecenate, users }
   })
+}
+
+export const fetchToMaecenateData = (knex, maecenateId) => {
+  return Promise.all([
+    fetchSupporters(knex, maecenateId)
+    .then(userIds =>
+      knex('users')
+      .select(
+        'email',
+        'first_name',
+        'last_name',
+        'language'
+      )
+      .whereIn('id', userIds)
+    ),
+    knex('maecenates')
+    .select('title', 'slug')
+    .where({ id: maecenateId })
+  ]).then(([users, [maecenate]]) => ({ users, maecenate }))
 }

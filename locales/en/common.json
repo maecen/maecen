@@ -81,7 +81,12 @@
     "website": "More info",
     "websitePlaceholder": "Enter URL-adress",
     "admin": {
-      "totalEarned": "You've earned {{amount, 0,0}} DKK in total."
+      "totalEarned": "You've earned {{amount, 0,0}} DKK in total.",
+      "emailSupportersBtn": "Email Maecens",
+      "emailSupporters": "Send an email to your maecens",
+      "messageToSupporters": "Message to your maecens",
+      "emailSubject": "Subject",
+      "sendEmail": "Send email!"
     }
   },
   "support": {

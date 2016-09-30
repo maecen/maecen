@@ -5,6 +5,7 @@ import fs from 'fs'
 import path from 'path'
 import Handlebars from 'handlebars'
 import { host } from '../../shared/config'
+import * as service from './email'
 import * as transactionService from './transactions'
 import * as userService from '../services/users'
 
@@ -59,7 +60,7 @@ export function emailSupportReceipt (knex, transactionId) {
         firstName,
         fixedAmount: (amount / 100).toFixed(2),
         currency,
-        maecenateUrl: `${host}/maecenate/${maecenateSlug}`,
+        maecenateUrl: `${host}/${maecenateSlug}`,
         maecenateTitle,
         nextDonation,
         orderId
@@ -88,7 +89,7 @@ export function emailMaecenateDeactivated (knex, data, message) {
   const limit = promiseLimit(10)
   const { maecenate, users } = data
 
-  return Promise.all(users.map(user =>
+  Promise.all(users.map(user =>
     limit(() =>
       loadTemplate('maecenateDeactivated', user.language)
       .then((template) => {
@@ -104,6 +105,30 @@ export function emailMaecenateDeactivated (knex, data, message) {
       })
     )
   ))
+}
+
+export function emailToSupporters (knex, maecenateId, title, message) {
+  const limit = promiseLimit(10)
+
+  return service.fetchToMaecenateData(knex, maecenateId)
+  .then(({ users, maecenate }) => {
+    Promise.all(users.map(user =>
+      limit(() =>
+        loadTemplate('maecenateToSupporters', user.language)
+        .then(template => {
+          console.log('maecenate', maecenate)
+          const { subject, body } = template({
+            maecenateTitle: maecenate.title,
+            maecenateUrl: `${host}/${maecenate.slug}`,
+            message,
+            subject: title
+          })
+
+          return sendEmail(user.email, subject, body, true)
+        })
+      )
+    ))
+  })
 }
 
 // Helper functions

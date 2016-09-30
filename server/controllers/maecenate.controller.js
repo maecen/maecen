@@ -2,7 +2,10 @@ import { normalizeResponse } from '../util/ctrlHelpers'
 import * as service from '../services/maecenates'
 import * as subscriptionService from '../services/subscriptions'
 import { knex } from '../database'
-import { emailMaecenateDeactivated } from '../services/emailSender'
+import {
+  emailMaecenateDeactivated,
+  emailToSupporters
+} from '../services/emailSender'
 import * as emailService from '../services/email'
 
 export function getMaecenate (req, res, next) {
@@ -133,5 +136,22 @@ export function getFeed (req, res, next) {
 
     res.json(normalizeResponse({ posts }))
   })
+  .catch(next)
+}
+
+export function sendEmailToSupporters (req, res, next) {
+  const { knex } = req.app.locals
+  const { message, subject } = req.body
+  const { maecenateId } = req
+
+  const formattedMessage = message.replace(/\n/g, '<br />')
+
+  return emailToSupporters(knex, maecenateId, subject,
+    formattedMessage)
+  .then(() =>
+    res.json({
+      success: true
+    })
+  )
   .catch(next)
 }

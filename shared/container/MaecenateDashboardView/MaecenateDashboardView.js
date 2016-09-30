@@ -32,17 +32,21 @@ import {
   TableRowColumn
 } from '../../components/Table/'
 import DeactivateMaecenateDialog from '../Dialogs/DeactivateMaecenateDialog'
+import EmailSupportersDialog from '../Dialogs/EmailSupportersDialog'
 
 class MaecenateDashboardView extends Component {
 
   constructor (props) {
     super(props)
     this.state = {
-      isDeactivateDialogOpen: false
+      isDeactivateDialogOpen: false,
+      isEmailSupportersDialogOpen: false
     }
 
     this.closeDeactivateDialog = this.closeDeactivateDialog.bind(this)
     this.openDeactivateDialog = this.openDeactivateDialog.bind(this)
+    this.openEmailSupportersDialog = this.openEmailSupportersDialog.bind(this)
+    this.closeEmailSupportersDialog = this.closeEmailSupportersDialog.bind(this)
   }
 
   componentDidMount () {
@@ -62,6 +66,14 @@ class MaecenateDashboardView extends Component {
       let rootDir = window.location.hostname
       return `${rootDir}/${slug}`
     }
+  }
+
+  openEmailSupportersDialog () {
+    this.setState({ isEmailSupportersDialogOpen: true })
+  }
+
+  closeEmailSupportersDialog () {
+    this.setState({ isEmailSupportersDialogOpen: false })
   }
 
   openDeactivateDialog () {
@@ -84,6 +96,12 @@ class MaecenateDashboardView extends Component {
           close={this.closeDeactivateDialog}
         />
 
+        <EmailSupportersDialog
+          maecenate={maecenate}
+          open={this.state.isEmailSupportersDialogOpen}
+          close={this.closeEmailSupportersDialog}
+        />
+
         <Cell>
           <Card>
             <CardHeader
@@ -97,6 +115,11 @@ class MaecenateDashboardView extends Component {
                 label={t('maecenate.viewPresentation')}
                 primary={true}
                 onClick={this.gotoMaecenatePresentation.bind(this, maecenate.slug)}
+              />
+
+              <Button
+                label={t('maecenate.admin.emailSupportersBtn')}
+                onClick={this.openEmailSupportersDialog}
               />
 
               { maecenate.active

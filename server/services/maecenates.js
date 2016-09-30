@@ -194,6 +194,17 @@ export const activeExists = (knex, maecenateId) => {
   .then(res => Number(res[0].count) > 0)
 }
 
+export const fetchSupporters = (knex, maecenateId, date) => {
+  date = date || new Date()
+  return knex('subscriptions')
+  .select('users.id')
+  .innerJoin('sub_periods', 'sub_periods.subscription', 'subscriptions.id')
+  .innerJoin('users', 'subscriptions.user', 'users.id')
+  .where('sub_periods.start', '<=', date)
+  .where('sub_periods.end', '>', date)
+  .then(res => res.map(o => o.id))
+}
+
 // Helper methods
 // ==============
 const createSlug = (name) =>

@@ -19,6 +19,7 @@ adminRouter.put('/edit', maecenates.editMaecenate)
 adminRouter.put('/deactivate', maecenates.deactivateMaecenate)
 adminRouter.get('/details', maecenates.getAdminDetails)
 adminRouter.get('/supporters', maecenates.getMaecenateSupporters)
+adminRouter.post('/email-supporters', maecenates.sendEmailToSupporters)
 
 router.use('/:slug/admin', adminRouter)
 

@@ -81,7 +81,12 @@
     "website": "Link til mere information",
     "websitePlaceholder": "Skriv URL-adresse",
     "admin": {
-      "totalEarned": "Du har i alt tjent {{amount, 0,0}} DKK."
+      "totalEarned": "Du har i alt tjent {{amount, 0,0}} DKK.",
+      "emailSupportersBtn": "Email Mæcener",
+      "emailSupporters": "Send email til dine mæcener",
+      "messageToSupporters": "Besked til dine mæcener",
+      "emailSubject": "Emne",
+      "sendEmail": "Send email!"
     }
   },
   "post": {
