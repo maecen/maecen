@@ -11,16 +11,17 @@ import * as userService from '../services/users'
 
 const mandrillClient = new Mandrill(process.env.MANDRILL_API)
 const SENDER_EMAIL = 'hello@maecen.net'
+const NO_REPLY_EMAIL = 'no_reply@maecen.net'
 const SENDER_NAME = 'Maecen'
 
-function sendEmail (receiver, subject, message, async) {
+function sendEmail (receiver, subject, message, sender, async) {
   async = async || false
   return new Promise((resolve, reject) => {
     mandrillClient.messages.send({
       message: {
         'html': message,
         subject,
-        'from_email': SENDER_EMAIL,
+        'from_email': sender || SENDER_EMAIL,
         'from_name': SENDER_NAME,
         'to': [{
           email: receiver
@@ -101,7 +102,7 @@ export function emailMaecenateDeactivated (knex, data, message) {
         })
         console.log(subject, body)
 
-        return sendEmail(user.email, subject, body, true)
+        return sendEmail(user.email, subject, body, null, true)
       })
     )
   ))
@@ -124,7 +125,7 @@ export function emailToSupporters (knex, maecenateId, title, message) {
             subject: title
           })
 
-          return sendEmail(user.email, subject, body, true)
+          return sendEmail(user.email, subject, body, NO_REPLY_EMAIL, true)
         })
       )
     ))
