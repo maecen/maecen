@@ -54,9 +54,9 @@ class UserSupportDialog extends Component {
 
     let axiosReq = null
     if (change === 'cancel') {
-      axiosReq = axios.put(`/api/subscription/${this.props.maecenateId}/cancel`)
+      axiosReq = axios.put(`/api/subscriptions/${this.props.maecenateId}/cancel`)
     } else if (change === 'update') {
-      axiosReq = axios.put(`/api/subscription/${this.props.maecenateId}/update`, {
+      axiosReq = axios.put(`/api/subscriptions/${this.props.maecenateId}/update`, {
         amount: this.state.amount * 100
       })
     }

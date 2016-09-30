@@ -200,6 +200,7 @@ export const fetchSupporters = (knex, maecenateId, date) => {
   .select('users.id')
   .innerJoin('sub_periods', 'sub_periods.subscription', 'subscriptions.id')
   .innerJoin('users', 'subscriptions.user', 'users.id')
+  .where('subscriptions.maecenate', maecenateId)
   .where('sub_periods.start', '<=', date)
   .where('sub_periods.end', '>', date)
   .then(res => res.map(o => o.id))
