@@ -5,6 +5,7 @@ import MaecenateRoutes from '../routes/maecenate.routes'
 import PostRoutes from '../routes/post.routes'
 import MediaRoutes from '../routes/media.routes'
 import TransactionRoutes from '../routes/transaction.routes'
+import SubscriptionRoutes from '../routes/subscription.routes'
 import * as errors from '../routes/errors'
 
 import { authWithAccessToken } from '../controllers/user.controller'
@@ -17,6 +18,7 @@ export default function configRoutes (app) {
   router.use('/api/posts', PostRoutes)
   router.use('/api/media', MediaRoutes)
   router.use('/api/transactions', TransactionRoutes)
+  router.use('/api/subscriptions', SubscriptionRoutes)
 
   router.get('/authToken', authWithAccessToken)
 

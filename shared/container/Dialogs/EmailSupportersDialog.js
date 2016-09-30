@@ -34,7 +34,9 @@ class EmailSupportersDialog extends Component {
     return this.state.message && this.state.subject
   }
 
-  submit () {
+  submit (event) {
+    event.preventDefault()
+
     if (this.isValid()) {
       this.setState({ isSubmitting: true, errors: null })
       const { message, subject } = this.state
@@ -45,6 +47,8 @@ class EmailSupportersDialog extends Component {
       .catch(res => this.setState({ errors: res.data.errors }))
       .then(() => this.setState({ isSubmitting: false }))
     }
+
+    return false
   }
 
   render () {
@@ -70,7 +74,7 @@ class EmailSupportersDialog extends Component {
       >
         <ErrorMessage message={this.state.errors && this.state.errors._} />
 
-        <form onChange={this.change}>
+        <form onChange={this.change} onSubmit={this.submit}>
           <TextField label={t('maecenate.admin.emailSubject')} name='subject'/>
           <TextField
             label={t('maecenate.admin.messageToSupporters')}
