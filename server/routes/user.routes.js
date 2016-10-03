@@ -18,6 +18,9 @@ userRouter.get('/has-permission/:area/:id', users.hasPermission)
 userRouter.get('/admin-maecenates', users.getAdminMaecenates)
 userRouter.get('/supported-maecenates', users.getSupportedMaecenates)
 userRouter.get('/feed', users.getFeed)
+userRouter.get('/new-card-params', users.getNewCardParams)
+
+userRouter.get('/new-card-callback', users.newCardCallback)
 
 router.use('/:userId', userRouter)
 

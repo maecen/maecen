@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
+import EpayWindow from '../lib/EpayWindow'
 import styleVariables from '../components/styleVariables'
 
 // Actions
@@ -20,14 +21,13 @@ import { getMaecenateBySlug } from '../selectors/maecenate'
 import { isAuthUserMaecenateSupporter } from '../selectors/support'
 
 // Components
+import HappyIcon from 'material-ui/svg-icons/social/mood'
 import Checkbox from 'material-ui/Checkbox'
-import EpayWindow from '../lib/EpayWindow'
 import { TextLink } from '../components/Link'
 import { Table, TableBody, TableRow, TableRowColumn } from '../components/Table'
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
 import { Row, Cell } from '../components/Grid'
-import HappyIcon from 'material-ui/svg-icons/social/mood'
 
 class MaecenateSupportView extends Component {
   constructor (props) {
@@ -40,8 +40,6 @@ class MaecenateSupportView extends Component {
       success: false,
       display: 'amount', // amount | confirm
       paymentWindowReady: false,
-      epayWindowOpen: false,
-      epayOptions: null,
       isSubmitting: false,
       acceptedTerms: false
     }
@@ -51,7 +49,6 @@ class MaecenateSupportView extends Component {
     this.gotoContent = this.gotoContent.bind(this)
     this.paymentComplete = this.paymentComplete.bind(this)
     this.triggerAcceptTerms = this.triggerAcceptTerms.bind(this)
-    this.paymentWindowReady = this.paymentWindowReady.bind(this)
   }
 
   componentDidMount () {
@@ -60,7 +57,8 @@ class MaecenateSupportView extends Component {
     dispatch(this.constructor.need[1](params))
 
     this.paymentWindow = new EpayWindow()
-    this.paymentWindow.onReady = this.paymentWindowReady
+    this.paymentWindow.onReady = () =>
+      this.setState({ paymentWindowReady: true })
   }
 
   componentWillReceiveProps (nextProps) {
@@ -71,10 +69,6 @@ class MaecenateSupportView extends Component {
 
   triggerAcceptTerms (e, isChecked) {
     this.setState({ acceptedTerms: isChecked })
-  }
-
-  paymentWindowReady () {
-    this.setState({ paymentWindowReady: true })
   }
 
   paymentComplete () {
