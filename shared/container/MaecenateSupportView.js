@@ -28,6 +28,7 @@ import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
 import { Row, Cell } from '../components/Grid'
 import HappyIcon from 'material-ui/svg-icons/social/mood'
+import ChangeCreditCardDialog from 'Dialogs/ChangeCreditCardDialog'
 
 class MaecenateSupportView extends React.Component {
   constructor (props) {
@@ -41,6 +42,7 @@ class MaecenateSupportView extends React.Component {
       display: 'amount', // amount | confirm
       epayScriptLoaded: false,
       isSubmitting: false,
+      isChangeCreditCardDialogOpen: false,
       acceptedTerms: false
     }
 
@@ -49,6 +51,8 @@ class MaecenateSupportView extends React.Component {
     this.gotoContent = this.gotoContent.bind(this)
     this.paymentComplete = this.paymentComplete.bind(this)
     this.triggerAcceptTerms = this.triggerAcceptTerms.bind(this)
+    this.openChangeCreditCardDialog = this.openChangeCreditCardDialog.bind(this)
+    this.closeChangeCreditCardDialog = this.closeChangeCreditCardDialog.bind(this)
   }
 
   componentDidMount () {
@@ -62,6 +66,14 @@ class MaecenateSupportView extends React.Component {
     if (this.props.hasAuth !== nextProps.hasAuth) {
       this.setState({ amountError: null })
     }
+  }
+
+  openChangeCreditCardDialog () {
+    this.setState({ isChangeCreditCardDialogOpen: true })
+  }
+
+  closeChangeCreditCardDialog () {
+    this.setState({ isChangeCreditCardDialogOpen: false })
   }
 
   triggerAcceptTerms (e, isChecked) {
@@ -186,6 +198,11 @@ class MaecenateSupportView extends React.Component {
 
     return (
       <Row>
+        <ChangeCreditCardDialog
+          open={this.state.isChangeCreditCardDialogOpen}
+          close={this.closeChangeCreditCardDialog}
+        />
+
         <Cell narrowerLayout={true}>
           <Card>
             <CardTitle
@@ -267,19 +284,16 @@ class MaecenateSupportView extends React.Component {
                       </TableRowColumn>
                       <TableRowColumn>
                         {user.payment_card}
-                        <Button label={t('action.edit')}
-                          last={true}
-                          primary={true}
-                          flat={true}
-                          style={style.editCardButton}
-                          labelStyle={{padding: '4px'}}
-                          onClick={console.log('Epay window')} />
                       </TableRowColumn>
                     </TableRow>
                   </TableBody>
                 </Table>
                 <div style={style.amountButton}>
-                  <Button label={t('support.confirmSubscription')}
+                  <Button label={t('support.confirmSupportNewCard')}
+                    flat={true}
+                    primary={true}
+                    disabled={disableSubmit} />
+                  <Button label={t('support.confirmSupport')}
                     type='submit'
                     secondary={true}
                     last={true}

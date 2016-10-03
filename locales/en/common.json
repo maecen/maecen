@@ -92,8 +92,8 @@
   "support": {
     "belowMin": "The amount is below the monthly mininum",
     "congratulations": "Congratulations",
-    "confirmSubscription": "Confirm subscription",
     "confirmSupport": "Confirm support",
+    "confirmSupportNewCard": "Change credit card",
     "continueToPayment": "Continue to payment",
     "howMuch": "Enter your monthly support in DKK",
     "join": "Support",

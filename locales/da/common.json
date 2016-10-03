@@ -103,8 +103,8 @@
   "support": {
     "belowMin": "Beløbet er mindre end det månedlige minimum",
     "congratulations": "Tillykke",
-    "confirmSubscription": "Bekræft abonnement",
     "confirmSupport": "Bekræft støtte",
+    "confirmSupportNewCard": "Ændr kreditkort",
     "continueToPayment": "Forsæt til betaling",
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
     "join": "Bliv mæcen",
