@@ -8,7 +8,7 @@ import { emailSupportReceipt } from '../services/emailSender'
 export function maecenateInitiatePayment (req, res, next) {
   const { knex } = req.app.locals
   const { userId } = req.user
-  const { amount, maecenateId } = req.body
+  const { amount, maecenateId, setupNewCard } = req.body
 
   const activeSubPeriod = subscriptionService.fetchActiveUserSubPeriodForMaecenate(
     knex, userId, maecenateId
@@ -32,7 +32,9 @@ export function maecenateInitiatePayment (req, res, next) {
 
       return userService.fetchPaymentInfo(knex, userId)
         .then(info => {
-          if (info.epay_subscription_id) {
+          // Use the old payment options if they exist, and the user hasn't
+          // chosen to setup a new payment card
+          if (info.epay_subscription_id && setupNewCard !== true) {
             return authorizeMaecenateSubscription(
               knex, userId, info.epay_subscription_id, maecenateId, amount)
               .then(result => res.json({ paymentComplete: result }))
