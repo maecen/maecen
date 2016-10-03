@@ -127,6 +127,7 @@
   "user": {
     "alias": "Alias",
     "buttonRegisterUser": "Opret bruger",
+    "changeCard": "Change credit card",
     "confirmPassword": "Bekræft kodeord",
     "confirmPasswordPlaceholder": "Bekræft kodeord",
     "country": "Land",
@@ -149,7 +150,8 @@
     "passwordNew": "Nyt kodeord",
     "passwordPlaceholder": "Vælg et kodeord",
     "phoneNumber": "Telefonnummer",
-    "yourProfile": "Din profil",
+    "yourPayment": "Betalingsoplysninger",
+    "yourProfile": "Profil",
     "yourMaecenates": "Dine Mæcenater",
     "yourNoMaecenates": "Du har ingen Mæcenater",
     "yourNoMaecenes": "Du har ingen Mæcener endnu",
