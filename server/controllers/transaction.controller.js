@@ -17,39 +17,34 @@ export function maecenateInitiatePayment (req, res, next) {
   return Promise.all([
     activeSubPeriod,
     maecenateService.activeExists(knex, maecenateId)
-  ]).then(([period, activeMaecenateExists]) => {
-    // The user already has an active period stop payment
-    if (period) {
-      const error = { _: 'maecenate.alreadySupported' }
-      throw error
-    }
-
-    if (activeMaecenateExists === false) {
-      const error = { _: 'maecenate.doesNotExist' }
-      throw error
-    }
-
-    return userService.fetchPaymentInfo(knex, userId)
-    .then(info => {
-      if (info.epay_subscription_id) {
-        return authorizeMaecenateSubscription(
-          knex, userId, info.epay_subscription_id, maecenateId, amount
-        ).then(result => {
-          return res.json({
-            paymentComplete: result
-          })
-        })
-      } else {
-        return setupFirstTimePayment(knex, userId, maecenateId, amount)
-        .then(epayPaymentParams => {
-          return res.json({
-            paymentComplete: false,
-            epayPaymentParams
-          })
-        })
+  ])
+    .then(([period, activeMaecenateExists]) => {
+      // The user already has an active period stop payment
+      if (period) {
+        const error = { _: 'maecenate.alreadySupported' }
+        throw error
       }
+
+      if (activeMaecenateExists === false) {
+        const error = { _: 'maecenate.doesNotExist' }
+        throw error
+      }
+
+      return userService.fetchPaymentInfo(knex, userId)
+        .then(info => {
+          if (info.epay_subscription_id) {
+            return authorizeMaecenateSubscription(
+              knex, userId, info.epay_subscription_id, maecenateId, amount)
+              .then(result => res.json({ paymentComplete: result }))
+          } else {
+            return setupFirstTimePayment(knex, userId, maecenateId, amount)
+              .then(epayPaymentParams =>
+                res.json({ paymentComplete: false, epayPaymentParams })
+              )
+          }
+        })
     })
-  }).catch(next)
+    .catch(next)
 }
 
 function setupFirstTimePayment (knex, userId, maecenateId, amount) {
@@ -59,8 +54,8 @@ function setupFirstTimePayment (knex, userId, maecenateId, amount) {
     maecenateId,
     amount,
     currency: 'DKK'
-  }).then(epayOptions => {
-    const epayPaymentParams = {
+  })
+    .then(epayOptions => ({
       ...epayOptions,
       windowid: String(process.env.EPAY_WINDOW_ID),
       paymentcollection: '1',
@@ -69,10 +64,7 @@ function setupFirstTimePayment (knex, userId, maecenateId, amount) {
       subscription: '1',
       instantcapture: '1', // We take the money right away
       callbackurl: `${apiURL}/transactions/payment-callback`
-    }
-
-    return epayPaymentParams
-  })
+    }))
 }
 
 function authorizeMaecenateSubscription (
@@ -86,14 +78,15 @@ function authorizeMaecenateSubscription (
     maecenateId,
     amount,
     currency: 'DKK'
-  }).then(transaction => {
-    if (transaction) {
-      return subscriptionService.startSubscription(knex, transaction)
-      .then(() => emailSupportReceipt(knex, transaction.id))
-      .then(() => true)
-    }
-    return false
   })
+    .then(transaction => {
+      if (transaction) {
+        return subscriptionService.startSubscription(knex, transaction)
+          .then(() => emailSupportReceipt(knex, transaction.id))
+          .then(() => true)
+      }
+      return false
+    })
 }
 
 export function paymentCallback (req, res, next) {
@@ -108,34 +101,29 @@ export function paymentCallback (req, res, next) {
   const amount = Number(req.query.amount)
 
   return service.verifyPayment(knex, orderid, amount)
-  .then(({valid, verified}) => {
-    // The payment is already verified
-    if (verified === true) {
-      return res.json({ success: true })
-    }
-
-    // The payment is valid
-    if (valid === true) {
-      return service.paymentSuccess(knex, orderid, txnid)
-      .then((transaction) => {
-        const { user } = transaction
-        return userService.savePaymentInfo(knex, user, subscriptionid, cardno)
-        .then(() => {
-          return subscriptionService.startSubscription(knex, transaction)
-        }).then(() => {
-          return emailSupportReceipt(knex, transaction.id)
-        })
-      }).then(() => {
+    .then(({valid, verified}) => {
+      // The payment is already verified
+      if (verified === true) {
         return res.json({ success: true })
-      })
+      }
 
-    // The payment is __not__ valid
-    } else {
-      return service.paymentFailed(knex, orderid).then((support) => {
-        return res.json({ success: false })
-      })
-    }
-  }).catch(next)
+      // The payment is valid
+      if (valid === true) {
+        return service.paymentSuccess(knex, orderid, txnid)
+          .then(transaction =>
+            userService.savePaymentInfo(knex, transaction.user, subscriptionid, cardno)
+              .then(() => subscriptionService.startSubscription(knex, transaction))
+              .then(() => emailSupportReceipt(knex, transaction.id))
+          )
+          .then(() => res.json({ success: true }))
+
+      // The payment is __not__ valid
+      } else {
+        return service.paymentFailed(knex, orderid)
+          .then(support => res.json({ success: false }))
+      }
+    })
+    .catch(next)
 }
 
 export function cronRefreshSubscriptions (req, res, next) {
