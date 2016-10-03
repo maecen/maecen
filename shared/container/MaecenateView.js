@@ -1,7 +1,10 @@
+// Imports
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
+// Selectors & Actions
+import { isAuthorized } from '../selectors/user'
 import {
   getMaecenateBySlug,
   isAuthUserMaecenateOwner
@@ -35,7 +38,11 @@ class MaecenateView extends Component {
 
   supportMaecenate () {
     const { slug } = this.props.params
-    this.props.dispatch(Actions.requireAuth(`/${slug}/support`))
+    if (this.props.hasAuth) {
+      browserHistory.push(`/${slug}/support`)
+    } else {
+      this.props.dispatch(Actions.requireAuth(`/${slug}/support`))
+    }
   }
 
   editMaecenate () {
@@ -92,6 +99,7 @@ function mapStateToProps (state, props) {
 
   return {
     maecenate: getMaecenateBySlug(state, props),
+    hasAuth: isAuthorized(state),
     isAuthUserOwner: isMaecenateOwner(state, props),
     isSupporter: isSupporter(state, props),
     posts: getPosts(state, props)
