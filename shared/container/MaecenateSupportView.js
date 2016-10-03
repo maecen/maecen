@@ -267,6 +267,13 @@ class MaecenateSupportView extends React.Component {
                       </TableRowColumn>
                       <TableRowColumn>
                         {user.payment_card}
+                        <Button label={t('action.edit')}
+                          last={true}
+                          primary={true}
+                          flat={true}
+                          style={style.editCardButton}
+                          labelStyle={{padding: '4px'}}
+                          onClick={console.log('Epay window')} />
                       </TableRowColumn>
                     </TableRow>
                   </TableBody>
@@ -348,6 +355,14 @@ const style = {
   },
   termsLink: {
     textDecoration: 'underline'
+  },
+  editCardButton: {
+    float: 'right',
+    lineHeight: '20px',
+    height: '20px',
+    minWidth: 'auto',
+    marginRight: `-${spacer.half}`,
+    marginTop: '-2px'
   }
 }
 
