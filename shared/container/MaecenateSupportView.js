@@ -1,11 +1,10 @@
 // Imports
-import React from 'react'
+import React, { Component } from 'react'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-import { isBrowser, isSmallDevice } from '../config'
 import styleVariables from '../components/styleVariables'
 
 // Actions
@@ -22,6 +21,7 @@ import { isAuthUserMaecenateSupporter } from '../selectors/support'
 
 // Components
 import Checkbox from 'material-ui/Checkbox'
+import EpayWindow from '../lib/EpayWindow'
 import { TextLink } from '../components/Link'
 import { Table, TableBody, TableRow, TableRowColumn } from '../components/Table'
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
@@ -29,7 +29,7 @@ import { Button, TextField } from '../components/Form'
 import { Row, Cell } from '../components/Grid'
 import HappyIcon from 'material-ui/svg-icons/social/mood'
 
-class MaecenateSupportView extends React.Component {
+class MaecenateSupportView extends Component {
   constructor (props) {
     super(props)
 
@@ -39,7 +39,9 @@ class MaecenateSupportView extends React.Component {
       errors: {},
       success: false,
       display: 'amount', // amount | confirm
-      epayScriptLoaded: false,
+      paymentWindowReady: false,
+      epayWindowOpen: false,
+      epayOptions: null,
       isSubmitting: false,
       acceptedTerms: false
     }
@@ -49,13 +51,16 @@ class MaecenateSupportView extends React.Component {
     this.gotoContent = this.gotoContent.bind(this)
     this.paymentComplete = this.paymentComplete.bind(this)
     this.triggerAcceptTerms = this.triggerAcceptTerms.bind(this)
+    this.paymentWindowReady = this.paymentWindowReady.bind(this)
   }
 
   componentDidMount () {
     const { dispatch, params } = this.props
     dispatch(this.constructor.need[0](params))
     dispatch(this.constructor.need[1](params))
-    this.loadExternalEpayScript()
+
+    this.paymentWindow = new EpayWindow()
+    this.paymentWindow.onReady = this.paymentWindowReady
   }
 
   componentWillReceiveProps (nextProps) {
@@ -68,43 +73,12 @@ class MaecenateSupportView extends React.Component {
     this.setState({ acceptedTerms: isChecked })
   }
 
-  loadExternalEpayScript () {
-    if (isBrowser === false) { return }
-
-    const epayScript = 'https://ssl.ditonlinebetalingssystem.dk' +
-      '/integration/ewindow/paymentwindow.js'
-
-    if (typeof window.PaymentWindow === 'undefined') {
-      const $script = require('scriptjs')
-      $script(epayScript, () => {
-        this.setState({ epayScriptLoaded: true })
-      })
-    } else {
-      this.setState({ epayScriptLoaded: true })
-    }
-  }
-
-  openEpayPayment (options) {
-    if (isSmallDevice) {
-      options = {
-        ...options,
-        accepturl: `${window.location.href}`
-      }
-    }
-
-    const paymentWindow = new PaymentWindow(options) // eslint-disable-line no-undef
-
-    // We fetch the maecenate again when the payment window has been closed to
-    // check if the payment has gone through (a support object will be included
-    // from the server)
-    paymentWindow.on('close', this.paymentComplete)
-
-    paymentWindow.open()
+  paymentWindowReady () {
+    this.setState({ paymentWindowReady: true })
   }
 
   paymentComplete () {
-    const { dispatch } = this.props
-    return dispatch(Actions.fetchMaecenate(this.props.params.slug))
+    return this.props.dispatch(Actions.fetchMaecenate(this.props.params.slug))
   }
 
   gotoContent () {
@@ -147,7 +121,8 @@ class MaecenateSupportView extends React.Component {
         if (data.paymentComplete === true) {
           return this.paymentComplete()
         } else {
-          this.openEpayPayment(data.epayPaymentParams)
+          this.epayWindow.open(data.epayPaymentParams)
+            .then(() => this.paymentComplete())
         }
       }).catch(err => {
         if (err.data && err.data.errors) {
@@ -180,7 +155,7 @@ class MaecenateSupportView extends React.Component {
       ? t('support.joinMaecenate', { title: maecenate.title })
       : t('support.confirmSupport')
 
-    const disableSubmit = !this.state.epayScriptLoaded ||
+    const disableSubmit = !this.state.paymentWindowReady ||
       this.state.isSubmitting || !this.state.acceptedTerms
 
     return (
