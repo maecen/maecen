@@ -180,7 +180,7 @@ class ProfileContainer extends Component {
             <div>
               {user.payment_card}
             </div>
-            <Button onClick={console.log('epay vindue action her')}
+            <Button style={style.creditButton} onClick={console.log('epay vindue action her')}
               primary={true}
               flat={true}
               last={true}
@@ -211,13 +211,17 @@ const style = {
   cardTitle: {
     paddingBottom: '0px'
   },
+  creditButton: {
+    marginLeft: 'auto'
+  },
   buttons: {
     marginTop: styleVariables.spacer.base,
     textAlign: 'right'
   },
   spaceBetween: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
   }
 }
 
