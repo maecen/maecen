@@ -127,7 +127,7 @@
   "user": {
     "alias": "Alias",
     "buttonRegisterUser": "Register",
-    "changeCard": "Skift kreditkort",
+    "changeCard": "Change credit card",
     "confirmPassword": "Confirm Password",
     "confirmPasswordPlaceholder": "Confirm your password",
     "country": "Country",
