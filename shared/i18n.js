@@ -1,6 +1,10 @@
 import moment from 'moment'
 import numbro from 'numbro'
 
+// Moment locales that we're using
+require('moment/locale/da.js')
+
+// Rename and import the locales we're using from numbro
 numbro.culture('da', require('numbro/languages/da-DK'))
 numbro.culture('en', numbro.cultures()['en-US'])
 
