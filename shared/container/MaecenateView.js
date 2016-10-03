@@ -35,8 +35,7 @@ class MaecenateView extends Component {
 
   supportMaecenate () {
     const { slug } = this.props.params
-
-    this.props.requireAuth(`/${slug}/support`)
+    this.props.dispatch(Actions.requireAuth(`/${slug}/support`))
   }
 
   editMaecenate () {
@@ -99,6 +98,4 @@ function mapStateToProps (state, props) {
   }
 }
 
-export default connect(mapStateToProps, {
-  requireAuth: Actions.requireAuth
-})(MaecenateView)
+export default connect(mapStateToProps)(MaecenateView)
