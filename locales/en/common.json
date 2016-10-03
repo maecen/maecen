@@ -127,6 +127,7 @@
   "user": {
     "alias": "Alias",
     "buttonRegisterUser": "Register",
+    "changeCard": "Skift kreditkort",
     "confirmPassword": "Confirm Password",
     "confirmPasswordPlaceholder": "Confirm your password",
     "country": "Country",
@@ -150,7 +151,8 @@
     "passwordNew": "New password",
     "passwordPlaceholder": "Choose a password",
     "phoneNumber": "Phone number",
-    "yourProfile": "Your profile",
+    "yourProfile": "Profile",
+    "yourPayment": "Payment info",
     "yourMaecenates": "Your Maecenates",
     "yourMaecenes": "Your Maecenes",
     "yourNoMaecenates": "You don't have any Maecenates yet",

@@ -172,6 +172,22 @@ class ProfileContainer extends Component {
           </CardContent>
         </Card>
         <Card>
+          <CardTitle
+            title={t('user.yourPayment')}
+            style={style.cardTitle}
+          />
+          <CardContent style={style.spaceBetween}>
+            <div>
+              {user.payment_card}
+            </div>
+            <Button onClick={console.log('epay vindue action her')}
+              primary={true}
+              flat={true}
+              last={true}
+              label={t('user.changeCard')} />
+          </CardContent>
+        </Card>
+        <Card>
           <CardContent style={{textAlign: 'right'}}>
             <Button onClick={this.clearAuth.bind(this)}
               primary={true}
@@ -198,6 +214,10 @@ const style = {
   buttons: {
     marginTop: styleVariables.spacer.base,
     textAlign: 'right'
+  },
+  spaceBetween: {
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 }
 
