@@ -181,7 +181,8 @@ class MaecenateSupportView extends React.Component {
       : t('support.confirmSupport')
 
     const disableSubmit = !this.state.epayScriptLoaded ||
-      this.state.isSubmitting || !this.state.acceptedTerms
+      this.state.isSubmitting || !this.state.acceptedTerms ||
+      this.state.amount < maecenate.monthly_minimum
 
     return (
       <Row>
