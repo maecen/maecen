@@ -53,7 +53,6 @@ class MaecenateSupportView extends Component {
     this.triggerAcceptTerms = this.triggerAcceptTerms.bind(this)
     this.openChangeCreditCardDialog = this.openChangeCreditCardDialog.bind(this)
     this.closeChangeCreditCardDialog = this.closeChangeCreditCardDialog.bind(this)
-    this.supportNewCard = this.supportNewCard.bind(this)
   }
 
   componentDidMount () {
@@ -75,6 +74,14 @@ class MaecenateSupportView extends Component {
 
   openChangeCreditCardDialog () {
     this.setState({ isChangeCreditCardDialogOpen: true })
+  }
+
+  closeChangeCreditCardDialog () {
+    this.setState({ isChangeCreditCardDialogOpen: false })
+  }
+
+  triggerAcceptTerms (e, isChecked) {
+    this.setState({ acceptedTerms: isChecked })
   }
 
   closeChangeCreditCardDialog () {
