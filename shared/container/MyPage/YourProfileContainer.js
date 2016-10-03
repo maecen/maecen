@@ -39,6 +39,7 @@ class ProfileContainer extends Component {
     this.paymentWindow = new EpayWindow()
     this.paymentWindow.onReady = () =>
       this.setState({ paymentWindowReady: true })
+    this.paymentWindow.load()
   }
 
   updateModel (path, value) {

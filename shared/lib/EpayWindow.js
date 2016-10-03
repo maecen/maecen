@@ -1,13 +1,12 @@
 // Imports
 import { isBrowser, isSmallDevice } from '../config'
 
-class EpayWindowF {
+class EpayWindow {
   constructor () {
     this.onReady = null
-    this.loadExternalEpayScript()
   }
 
-  loadExternalEpayScript () {
+  load () {
     if (isBrowser === true) {
       const epayScript = 'https://ssl.ditonlinebetalingssystem.dk' +
         '/integration/ewindow/paymentwindow.js'
@@ -24,6 +23,7 @@ class EpayWindowF {
   }
 
   open (options) {
+    console.log('open?')
     return new Promise((resolve, reject) => {
       if (isSmallDevice) {
         options = {
@@ -40,4 +40,4 @@ class EpayWindowF {
   }
 }
 
-export default EpayWindowF
+export default EpayWindow

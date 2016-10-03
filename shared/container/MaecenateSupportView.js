@@ -28,6 +28,7 @@ import { Table, TableBody, TableRow, TableRowColumn } from '../components/Table'
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
 import { Row, Cell } from '../components/Grid'
+import ChangeCreditCardDialog from '../components/Dialog/ChangeCreditCardDialog'
 
 class MaecenateSupportView extends Component {
   constructor (props) {
@@ -41,6 +42,7 @@ class MaecenateSupportView extends Component {
       display: 'amount', // amount | confirm
       paymentWindowReady: false,
       isSubmitting: false,
+      isChangeCreditCardDialogOpen: false,
       acceptedTerms: false
     }
 
@@ -49,6 +51,9 @@ class MaecenateSupportView extends Component {
     this.gotoContent = this.gotoContent.bind(this)
     this.paymentComplete = this.paymentComplete.bind(this)
     this.triggerAcceptTerms = this.triggerAcceptTerms.bind(this)
+    this.openChangeCreditCardDialog = this.openChangeCreditCardDialog.bind(this)
+    this.closeChangeCreditCardDialog = this.closeChangeCreditCardDialog.bind(this)
+    this.supportNewCard = this.supportNewCard.bind(this)
   }
 
   componentDidMount () {
@@ -59,12 +64,21 @@ class MaecenateSupportView extends Component {
     this.paymentWindow = new EpayWindow()
     this.paymentWindow.onReady = () =>
       this.setState({ paymentWindowReady: true })
+    this.paymentWindow.load()
   }
 
   componentWillReceiveProps (nextProps) {
     if (this.props.hasAuth !== nextProps.hasAuth) {
       this.setState({ amountError: null })
     }
+  }
+
+  openChangeCreditCardDialog () {
+    this.setState({ isChangeCreditCardDialogOpen: true })
+  }
+
+  closeChangeCreditCardDialog () {
+    this.setState({ isChangeCreditCardDialogOpen: false })
   }
 
   triggerAcceptTerms (e, isChecked) {
@@ -86,8 +100,17 @@ class MaecenateSupportView extends Component {
     })
   }
 
+  supportNewCard () {
+    this.setupSubscription(true)
+    this.closeChangeCreditCardDialog()
+  }
+
   handleSubmit (e) {
     e.preventDefault()
+    this.setupSubscription(false)
+  }
+
+  setupSubscription (setupNewCard) {
     const { dispatch, maecenate, hasAuth, hasSavedPaymentCard, t } = this.props
     const { display } = this.state
 
@@ -107,7 +130,8 @@ class MaecenateSupportView extends Component {
       this.setState({isSubmitting: true})
       axios.post('/api/maecenates/initiate-payment', {
         maecenateId: maecenate.id,
-        amount: Math.round(Number(this.state.amount)) * 100
+        amount: Math.round(Number(this.state.amount)) * 100,
+        setupNewCard
       }).then(res => {
         this.setState({ errors: {} })
         return res.data
@@ -115,12 +139,14 @@ class MaecenateSupportView extends Component {
         if (data.paymentComplete === true) {
           return this.paymentComplete()
         } else {
-          this.epayWindow.open(data.epayPaymentParams)
+          this.paymentWindow.open(data.epayPaymentParams)
             .then(() => this.paymentComplete())
         }
       }).catch(err => {
         if (err.data && err.data.errors) {
           this.setState({ errors: err.data.errors })
+        } else {
+          console.error(err)
         }
       }).then(() => {
         this.setState({isSubmitting: false})
@@ -155,6 +181,15 @@ class MaecenateSupportView extends Component {
 
     return (
       <Row>
+        <ChangeCreditCardDialog
+          open={this.state.isChangeCreditCardDialogOpen}
+          onAccept={this.supportNewCard}
+          onCancel={this.closeChangeCreditCardDialog}
+        >
+          [Some text about how the user will change the creditcard on all their
+          subscriptions if they change it now.]
+        </ChangeCreditCardDialog>
+
         <Cell narrowerLayout={true}>
           <Card>
             <CardTitle
@@ -241,7 +276,13 @@ class MaecenateSupportView extends Component {
                   </TableBody>
                 </Table>
                 <div style={style.amountButton}>
-                  <Button label={t('support.confirmSubscription')}
+                  <Button label={t('support.confirmSupportNewCard')}
+                    flat={true}
+                    primary={true}
+                    disabled={disableSubmit}
+                    onClick={this.openChangeCreditCardDialog}
+                  />
+                  <Button label={t('support.confirmSupport')}
                     type='submit'
                     secondary={true}
                     last={true}
@@ -317,6 +358,14 @@ const style = {
   },
   termsLink: {
     textDecoration: 'underline'
+  },
+  editCardButton: {
+    float: 'right',
+    lineHeight: '20px',
+    height: '20px',
+    minWidth: 'auto',
+    marginRight: `-${spacer.half}`,
+    marginTop: '-2px'
   }
 }
 
