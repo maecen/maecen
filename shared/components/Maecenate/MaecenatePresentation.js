@@ -94,6 +94,7 @@ function MaecenatePresentation (props) {
                   last={true}
                   label={t('support.join')}
                   onClick={supportMaecenate}
+                  style={style.button}
                 />
               }
             </CardContent>
@@ -136,7 +137,13 @@ const style = {
   flexMe: {
     display: 'flex',
     alignItems: 'flex-end',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
+  },
+  button: {
+    flexShrink: '0',
+    marginLeft: 'auto',
+    marginTop: spacer.base
   },
   closedMessage: {
     fontWeight: font.weight.subtitle,
