@@ -37,6 +37,7 @@ const ChangeCreditCardDialog = ({
       actions={actions}
       title={title}
       contentStyle={style.content}
+      onRequestClose={onCancel}
     >
       {children}
     </Dialog>
