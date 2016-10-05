@@ -19,6 +19,11 @@ import {
   fetchActiveSubPeriodsForMaecenate
 } from './subscriptions'
 
+// Constants
+// =========
+// How many supporters does a maecenate need before it's public
+export const PUBLIC_SUPPORTER_THRESHOLD = 5
+
 // Schema validation of the data
 // =============================
 const urlRegex = /^(https?:\/\/)?[^$\/]+\..+$/i
@@ -124,24 +129,37 @@ export function fetchMaecenateAdminDetails (knex, query) {
   })
 }
 
-export function fetchMaecenates (where) {
-  where = where || {}
-  let maecenates = null
-  return knex('maecenates').where(where).then((result) => {
-    maecenates = result
-    return knex('media')
-      .where('obj_type', 'maecenate')
-      .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
-      .select('id', 'url', 'type', 'created_at')
-  }).then((media) => {
-    const mappedMedia = mapKeys(media, (o) => o.id)
-    return maecenates.map((maecenate) => ({
-      ...maecenate,
-      logo: mappedMedia[maecenate.logo_media],
-      cover: mappedMedia[maecenate.cover_media]
-    }))
-  })
+export const fetchMaecenates = (where) =>
+  knex('maecenates').where(where)
+    .then(maecenates => populateMaecenatesWithMedia(knex, maecenates))
+
+export const fetchMaecenatesOverview = (knex) => {
+  const now = new Date()
+  const countQuery = knex('subscriptions')
+    .count()
+    .join('sub_periods', 'subscriptions.id', 'sub_periods.subscription')
+    .where('sub_periods.start', '<=', now)
+    .where('sub_periods.end', '>', now)
+    .whereRaw('subscriptions.maecenate = maecenates.id')
+
+  return knex('maecenates')
+    .where('active', true)
+    .where(PUBLIC_SUPPORTER_THRESHOLD, '<=', countQuery)
 }
+
+export const populateMaecenatesWithMedia = (knex, maecenates) =>
+  knex('media')
+    .where('obj_type', 'maecenate')
+    .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
+    .select('id', 'url', 'type', 'created_at')
+    .then(media => {
+      const mappedMedia = mapKeys(media, (o) => o.id)
+      return maecenates.map((maecenate) => ({
+        ...maecenate,
+        logo: mappedMedia[maecenate.logo_media],
+        cover: mappedMedia[maecenate.cover_media]
+      }))
+    })
 
 export function fetchSupportedMaecenates (userId) {
   let subPeriods = null

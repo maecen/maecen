@@ -34,14 +34,17 @@ export function getAdminDetails (req, res, next) {
   .catch(next)
 }
 
+export function getMaecenatesOverview (req, res, next) {
+  const { knex } = req.app.locals
+  return service.fetchMaecenatesOverview(knex)
+    .then(maecenates => service.populateMaecenatesWithMedia(knex, maecenates))
+    .then(maecenates => res.json(normalizeResponse({ maecenates })))
+}
+
 export function getMaecenates (req, res, next) {
   return service.fetchMaecenates({ active: true })
-  .then((maecenates) => {
-    return res.json(normalizeResponse({
-      maecenates
-    }))
-  })
-  .catch(next)
+    .then(maecenates => res.json(normalizeResponse({ maecenates })))
+    .catch(next)
 }
 
 export function createMaecenate (req, res, next) {
