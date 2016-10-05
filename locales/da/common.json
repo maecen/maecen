@@ -71,7 +71,7 @@
     "subscriptionPricePlaceholder": "f.eks. 10",
     "teaser": "Teaser",
     "teaserPlaceholder": "Maks 140 tegn",
-    "totalAmount": "Dine Mæcener støtter med i alt {{amount}} DKK per måned",
+    "totalAmount": "Dine Mæcener støtter med i alt {{amount}} DKK per måned.",
     "update": "Opdatér {{maecenate}}",
     "uploadLogoLabel": "Indsæt logo",
     "replaceLogoLabel": "Erstat logo",
@@ -155,7 +155,7 @@
     "yourProfile": "Profil",
     "yourMaecenates": "Dine Mæcenater",
     "yourNoMaecenates": "Du har ingen Mæcenater",
-    "yourNoMaecenes": "Du har ingen Mæcener endnu",
+    "yourNoFiveMaecenes": "Du har ikke 5 Mæcener endnu. Først herefter bliver dit Mæcenat synligt i Mæcenat-oversigten.",
     "yourMaecenes": "Dine Mæcener",
     "zip": "Postnummer"
   },

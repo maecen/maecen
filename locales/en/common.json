@@ -71,7 +71,7 @@
     "subscriptionPricePlaceholder": "e.g. 10",
     "teaser": "Teaser",
     "teaserPlaceholder": "Max 140 characters",
-    "totalAmount": "Your Maecenes support you with {{amount}} DKK per month",
+    "totalAmount": "Your Maecenes support you with {{amount}} DKK per month.",
     "update": "Update {{maecenate}}",
     "uploadLogoLabel": "Upload Logo",
     "replaceLogoLabel": "Replace Logo",
@@ -157,7 +157,7 @@
     "yourMaecenates": "Your Maecenates",
     "yourMaecenes": "Your Maecenes",
     "yourNoMaecenates": "You don't have any Maecenates yet",
-    "yourNoMaecenes": "You don't have any Maecenes yet",
+    "yourNoFiveMaecenes": "You don't have 5 Maecenes yet. Your Maecenate will be visible amongst the other Maecenates once you have that.",
     "zip": "Zip Code"
   },
   "validationError": {
