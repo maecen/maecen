@@ -94,7 +94,7 @@ class ProfileContainer extends Component {
     const { isEdit, user } = this.state
     const { t } = this.props
 
-    if (!user) return null
+    if (!this.props.user) return null
 
     return (
       <div>
