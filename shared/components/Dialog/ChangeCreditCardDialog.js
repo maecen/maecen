@@ -19,7 +19,7 @@ const ChangeCreditCardDialog = ({
 }) => {
   const actions = [
     <Button
-      label={t('cancel')}
+      label={t('action.cancel')}
       flat={true}
       onClick={onCancel}
     />,
