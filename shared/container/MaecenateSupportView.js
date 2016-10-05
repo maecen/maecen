@@ -85,6 +85,15 @@ class MaecenateSupportView extends Component {
     this.setState({ acceptedTerms: isChecked })
   }
 
+  isValid () {
+    if (this.state.acceptedTerms &&
+    this.state.amount >= this.props.maecenate.monthly_minimum) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   paymentComplete () {
     return this.props.dispatch(Actions.fetchMaecenate(this.props.params.slug))
   }
@@ -113,6 +122,10 @@ class MaecenateSupportView extends Component {
   setupSubscription (setupNewCard) {
     const { dispatch, maecenate, hasAuth, hasSavedPaymentCard, t } = this.props
     const { display } = this.state
+
+    if (!this.isValid()) {
+      return
+    }
 
     if (hasSavedPaymentCard && display === 'amount') {
       this.setState({display: 'confirm'})
@@ -176,8 +189,7 @@ class MaecenateSupportView extends Component {
       : t('support.confirmSupport')
 
     const disableSubmit = !this.state.paymentWindowReady ||
-      this.state.isSubmitting || !this.state.acceptedTerms ||
-      this.state.amount < maecenate.monthly_minimum
+      this.state.isSubmitting || !this.isValid()
 
     return (
       <Row>
