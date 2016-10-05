@@ -66,12 +66,12 @@ class MaecenateView extends Component {
   renderContent () {
     const { maecenate, posts, isAuthUserOwner, isSupporter } = this.props
     const forcePresentation = Boolean(this.props.route.presentation)
-    const noTitleOnPosts = Boolean(this.props.route.noTitleOnPosts)
+    const showMaecenateTitle = Boolean(this.props.route.showMaecenateTitle)
 
     if (!forcePresentation && (isAuthUserOwner || isSupporter)) {
       return <MaecenateContent
         maecenate={maecenate}
-        noTitleOnPosts={noTitleOnPosts}
+        showMaecenateTitle={showMaecenateTitle}
         posts={posts}
         editPost={isAuthUserOwner && this.editPost}
         isAuthUserOwner={isAuthUserOwner}

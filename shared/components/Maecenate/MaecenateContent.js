@@ -10,7 +10,7 @@ import Media from '../Media/Media'
 import cropCloudy from '../../lib/cropCloudy'
 
 function MaecenateContent (props) {
-  const { maecenate, posts, editPost, noTitleOnPosts, t } = props
+  const { maecenate, posts, editPost, showMaecenateTitle, t } = props
 
   const style = {
     avatar: {
@@ -100,7 +100,7 @@ function MaecenateContent (props) {
             maecenate={maecenate}
             editPost={editPost}
             key={post.id}
-            noTitleOnPosts={noTitleOnPosts} />
+            showMaecenateTitle={showMaecenateTitle} />
         ))}
       </Cell>
     </Row>
