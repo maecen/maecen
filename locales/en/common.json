@@ -81,6 +81,7 @@
     "website": "More info",
     "websitePlaceholder": "Enter URL-adress",
     "admin": {
+      "belowPublicThreshold": "You don't have {{amount}} Maecenes yet. Your Maecenate will be visible amongst the other Maecenates once you have that.",
       "totalEarned": "You've earned {{amount, 0,0}} DKK in total.",
       "emailSupportersBtn": "Email Maecens",
       "emailSupporters": "Send an email to your maecens",
@@ -157,7 +158,6 @@
     "yourMaecenates": "Your Maecenates",
     "yourMaecenes": "Your Maecenes",
     "yourNoMaecenates": "You don't have any Maecenates yet",
-    "yourNoFiveMaecenes": "You don't have 5 Maecenes yet. Your Maecenate will be visible amongst the other Maecenates once you have that.",
     "zip": "Zip Code"
   },
   "validationError": {

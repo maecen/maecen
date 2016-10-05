@@ -7,7 +7,7 @@ import sumBy from 'lodash/sumBy'
 import moment from 'moment'
 
 // Utils
-import { isBrowser } from '../../config'
+import { isBrowser, PUBLIC_SUPPORTER_THRESHOLD } from '../../config'
 import cropCloudy from '../../lib/cropCloudy'
 import styleVariables from '../../components/styleVariables'
 
@@ -134,9 +134,11 @@ class MaecenateDashboardView extends Component {
                     {t('maecenate.closedMessage')}
                   </div>
               }
-              { maecenate.active && users.length < 5 &&
+              { maecenate.active && maecenate.supporters < PUBLIC_SUPPORTER_THRESHOLD &&
                 <p>
-                  {t('user.yourNoFiveMaecenes')}
+                  {t('maecenate.admin.belowPublicThreshold', {
+                    amount: PUBLIC_SUPPORTER_THRESHOLD}
+                  )}
                 </p>
               }
 

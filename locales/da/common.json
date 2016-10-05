@@ -81,6 +81,7 @@
     "website": "Link til mere information",
     "websitePlaceholder": "Skriv URL-adresse",
     "admin": {
+      "belowPublicThreshold": "Du har ikke {{amount}} Mæcener endnu. Først herefter bliver dit Mæcenat synligt i Mæcenat-oversigten.",
       "totalEarned": "Du har i alt tjent {{amount, 0,0}} DKK.",
       "emailSupportersBtn": "Email Mæcener",
       "emailSupporters": "Send email til dine mæcener",
@@ -155,7 +156,6 @@
     "yourProfile": "Profil",
     "yourMaecenates": "Dine Mæcenater",
     "yourNoMaecenates": "Du har ingen Mæcenater",
-    "yourNoFiveMaecenes": "Du har ikke 5 Mæcener endnu. Først herefter bliver dit Mæcenat synligt i Mæcenat-oversigten.",
     "yourMaecenes": "Dine Mæcener",
     "zip": "Postnummer"
   },
