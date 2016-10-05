@@ -186,8 +186,7 @@ class MaecenateSupportView extends Component {
           onAccept={this.supportNewCard}
           onCancel={this.closeChangeCreditCardDialog}
         >
-          [Some text about how the user will change the creditcard on all their
-          subscriptions if they change it now.]
+          {t('support.changeCardHelpText')}
         </ChangeCreditCardDialog>
 
         <Cell narrowerLayout={true}>

@@ -107,6 +107,7 @@
     "willExpireOn": "Your support will end {{date, LL}}",
     "wasRenewedToday": "Your support was renewed today, will be renewed again {{date, LL}}",
     "editTitle": "Edit your {{title}} support",
+    "changeCardHelpText": "Please note that this will also change your credit card for your other subscriptions.",
     "changeSupport": "Update Support",
     "cancelSupport": "Cancel Support",
     "cancelSupportHelpText": "Confirm by clicking the button. You will have access to the maecenate until {{date, LL}}. You can resubscribe after that date.",

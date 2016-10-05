@@ -118,6 +118,7 @@
     "wasRenewedToday": "Din støtte er blevet fornyet idag, bliver fornyet igen den {{date, LL}}",
     "willExpireOn": "Din støtte stopper den {{date, LL}}",
     "editTitle": "Rediger din {{title}} støtte",
+    "changeCardHelpText": "Bemærk venligst at dit kreditkort på dine andre abonnementer også bliver opdateret til det du ændrer til.",
     "changeSupport": "Ændr støtte",
     "cancelSupport": "Stop støtte",
     "cancelSupportHelpText": "Bekræft ved at klikke på knappen. Du har adgang til Mæcenatet indtil {{date, LL}}, hvorefter du kan tilmelde dig igen.",
