@@ -1,4 +1,6 @@
+import { apiURL } from '../../shared/config'
 import { normalizeResponse } from '../util/ctrlHelpers'
+import { getToken } from '../util/fetchData'
 import * as service from '../services/users'
 import * as postService from '../services/posts'
 import * as maecenateService from '../services/maecenates'
@@ -182,6 +184,33 @@ export function getFeed (req, res, next) {
       supports
     }, 'posts'))
   })
+}
+
+export function getNewCardParams (req, res, next) {
+  const token = getToken(req)
+
+  res.json({
+    merchantnumber: process.env.EPAY_MERCANT_NUMBER,
+    amount: '0',
+    currency: 'DKK',
+    windowid: String(process.env.EPAY_WINDOW_ID),
+    paymentcollection: '1',
+    lockpaymentcollection: '1',
+    instantcallback: '1',
+    subscription: '1',
+    instantcapture: '1',
+    callbackurl: `${apiURL}/users/me/new-card-callback?token=${token}`
+  })
+}
+
+export function newCardCallback (req, res, next) {
+  const { userId } = req.user
+  const { knex } = req.app.locals
+  const { subscriptionid, cardno } = req.query
+
+  service.savePaymentInfo(knex, userId, subscriptionid, cardno)
+    .then(() => res.json({ success: true }))
+    .catch(next)
 }
 
 // Helper functions (not exported)

@@ -18,6 +18,8 @@ export function getToken (req) {
     return req.cookies.id_token
   } else if (req.headers.authorization) {
     return req.headers.authorization.replace(/^Token /, '')
+  } else if (req.query.token) {
+    return req.query.token
   }
   return null
 }

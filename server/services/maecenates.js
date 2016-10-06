@@ -7,7 +7,7 @@ import axios from 'axios'
 import { slugify } from 'strman'
 
 // Utils
-import { host } from '../../shared/config'
+import { host, PUBLIC_SUPPORTER_THRESHOLD } from '../../shared/config'
 import { knex } from '../database'
 import { joiValidation } from '../util/ctrlHelpers'
 import { claimMedia, deleteUnusedMedia } from './media'
@@ -83,28 +83,37 @@ export const updateMaecenate = (knex, id, data) => {
 export function fetchMaecenate (where, userId) {
   let maecenate = null
 
-  return knex('maecenates').where(where).limit(1).then((result) => {
-    if (result.length === 0) {
-      const error = { _responseStatus: 404 }
-      throw error
-    }
-    maecenate = result[0]
-  }).then(() => {
-    return Promise.all([
-      knex('media').where({ id: maecenate.logo_media }).limit(1),
-      knex('media').where({ id: maecenate.cover_media }).limit(1),
-      fetchActiveUserSubPeriodForMaecenate(knex, userId, maecenate.id)
-    ])
-  }).then(([[logoMedia], [coverMedia], supports]) => {
-    return {
-      maecenate: {
-        ...maecenate,
-        logo: logoMedia,
-        cover: coverMedia
-      },
-      supports
-    }
-  })
+  return knex('maecenates')
+    .select('*')
+    .select(function () {
+      supportersQuery(this).as('supporters')
+    })
+    .where(where).limit(1)
+    .then((result) => {
+      if (result.length === 0) {
+        const error = { _responseStatus: 404 }
+        throw error
+      }
+      maecenate = result[0]
+    })
+    .then(() =>
+      Promise.all([
+        knex('media').where({ id: maecenate.logo_media }).limit(1),
+        knex('media').where({ id: maecenate.cover_media }).limit(1),
+        fetchActiveUserSubPeriodForMaecenate(knex, userId, maecenate.id)
+      ])
+    )
+    .then(([[logoMedia], [coverMedia], supports]) => {
+      return {
+        maecenate: {
+          ...maecenate,
+          supporters: Number(maecenate.supporters),
+          logo: logoMedia,
+          cover: coverMedia
+        },
+        supports
+      }
+    })
 }
 
 export function fetchMaecenateWithoutMedia (query) {
@@ -119,29 +128,35 @@ export function fetchMaecenateAdminDetails (knex, query) {
     .where({ maecenate: maecenate.id })
     .then(result => ({
       id: maecenate.id,
-      totalEarned: Number(result[0].totalEarned)
+      totalEarned: Number(result[0].totalEarned),
+      supporters: Number(result[0].supporters)
     }))
   })
 }
 
-export function fetchMaecenates (where) {
-  where = where || {}
-  let maecenates = null
-  return knex('maecenates').where(where).then((result) => {
-    maecenates = result
-    return knex('media')
-      .where('obj_type', 'maecenate')
-      .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
-      .select('id', 'url', 'type', 'created_at')
-  }).then((media) => {
-    const mappedMedia = mapKeys(media, (o) => o.id)
-    return maecenates.map((maecenate) => ({
-      ...maecenate,
-      logo: mappedMedia[maecenate.logo_media],
-      cover: mappedMedia[maecenate.cover_media]
-    }))
-  })
+export const fetchMaecenates = (where) =>
+  knex('maecenates').where(where)
+    .then(maecenates => populateMaecenatesWithMedia(knex, maecenates))
+
+export const fetchMaecenatesOverview = (knex) => {
+  return knex('maecenates')
+    .where('active', true)
+    .where(PUBLIC_SUPPORTER_THRESHOLD, '<=', supportersQuery(knex))
 }
+
+export const populateMaecenatesWithMedia = (knex, maecenates) =>
+  knex('media')
+    .where('obj_type', 'maecenate')
+    .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
+    .select('id', 'url', 'type', 'created_at')
+    .then(media => {
+      const mappedMedia = mapKeys(media, (o) => o.id)
+      return maecenates.map((maecenate) => ({
+        ...maecenate,
+        logo: mappedMedia[maecenate.logo_media],
+        cover: mappedMedia[maecenate.cover_media]
+      }))
+    })
 
 export function fetchSupportedMaecenates (userId) {
   let subPeriods = null
@@ -229,4 +244,14 @@ const slugIsAvailable = (slug) => {
       throw error
     }
   })
+}
+
+const supportersQuery = (knex, date) => {
+  date = date || new Date()
+  return knex.from('subscriptions')
+    .count()
+    .join('sub_periods', 'subscriptions.id', 'sub_periods.subscription')
+    .where('sub_periods.start', '<=', date)
+    .where('sub_periods.end', '>', date)
+    .whereRaw('subscriptions.maecenate = maecenates.id')
 }

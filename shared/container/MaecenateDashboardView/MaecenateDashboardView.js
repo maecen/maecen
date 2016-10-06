@@ -7,7 +7,7 @@ import sumBy from 'lodash/sumBy'
 import moment from 'moment'
 
 // Utils
-import { isBrowser } from '../../config'
+import { isBrowser, PUBLIC_SUPPORTER_THRESHOLD } from '../../config'
 import cropCloudy from '../../lib/cropCloudy'
 import styleVariables from '../../components/styleVariables'
 
@@ -18,7 +18,6 @@ import { getMaecenateBySlug, getMaecenateDetails } from '../../selectors/maecena
 import { getSupportingUsers } from '../../selectors/user'
 
 // Components
-import Divider from 'material-ui/Divider'
 import { TextLink } from '../../components/Link'
 import { Row, Cell } from '../../components/Grid'
 import { Card, CardHeader, CardContent } from '../../components/Card'
@@ -87,6 +86,10 @@ class MaecenateDashboardView extends Component {
   render () {
     const { users, maecenate, t } = this.props
     const totalAmount = Math.round(sumBy(users, o => o.support.amount) / 100)
+    const totalAmountString =
+      this.props.details && t('maecenate.admin.totalEarned', {
+        amount: this.props.details.totalEarned / 100
+      })
 
     return (
       <Row>
@@ -131,8 +134,14 @@ class MaecenateDashboardView extends Component {
                     {t('maecenate.closedMessage')}
                   </div>
               }
+              { maecenate.active && maecenate.supporters < PUBLIC_SUPPORTER_THRESHOLD &&
+                <p>
+                  {t('maecenate.admin.belowPublicThreshold', {
+                    amount: PUBLIC_SUPPORTER_THRESHOLD}
+                  )}
+                </p>
+              }
 
-              <br />
               <p>
                 {t('maecenate.linkToPresentation')}
                 <TextLink
@@ -140,18 +149,13 @@ class MaecenateDashboardView extends Component {
                   {this.linkToPresentation(maecenate.slug)}
                 </TextLink>
               </p>
-              {this.props.details &&
-                t('maecenate.admin.totalEarned', {
-                  amount: this.props.details.totalEarned / 100
-                })
-              }
-
             </CardContent>
-            <Divider />
             { users.length > 0
               ? <div>
                   <CardContent>
-                    {t('maecenate.totalAmount', { amount: totalAmount })}
+                    { t('maecenate.totalAmount', { amount: totalAmount }) }
+                    {'\u00A0'}
+                    { totalAmountString }
                   </CardContent>
                   <Table
                     fixedHeader={false}
@@ -211,10 +215,8 @@ class MaecenateDashboardView extends Component {
                     </TableBody>
                   </Table>
                 </div>
-              : <CardContent>
-                  {t('user.yourNoMaecenes')}
-                </CardContent>
-              }
+              : totalAmountString
+            }
           </Card>
         </Cell>
       </Row>

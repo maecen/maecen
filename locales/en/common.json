@@ -71,7 +71,7 @@
     "subscriptionPricePlaceholder": "e.g. 10",
     "teaser": "Teaser",
     "teaserPlaceholder": "Max 140 characters",
-    "totalAmount": "Your Maecenes support you with {{amount}} DKK per month",
+    "totalAmount": "Your Maecenes support you with {{amount}} DKK per month.",
     "update": "Update {{maecenate}}",
     "uploadLogoLabel": "Upload Logo",
     "replaceLogoLabel": "Replace Logo",
@@ -81,6 +81,7 @@
     "website": "More info",
     "websitePlaceholder": "Enter URL-adress",
     "admin": {
+      "belowPublicThreshold": "You don't have {{amount}} Maecenes yet. Your Maecenate will be visible amongst the other Maecenates once you have that.",
       "totalEarned": "You've earned {{amount, 0,0}} DKK in total.",
       "emailSupportersBtn": "Email Maecens",
       "emailSupporters": "Send an email to your maecens",
@@ -92,8 +93,8 @@
   "support": {
     "belowMin": "The amount is below the monthly mininum",
     "congratulations": "Congratulations",
-    "confirmSubscription": "Confirm subscription",
     "confirmSupport": "Confirm support",
+    "confirmSupportNewCard": "Change credit card",
     "continueToPayment": "Continue to payment",
     "howMuch": "Enter your monthly support in DKK",
     "join": "Support",
@@ -107,6 +108,7 @@
     "willExpireOn": "Your support will end {{date, LL}}",
     "wasRenewedToday": "Your support was renewed today, will be renewed again {{date, LL}}",
     "editTitle": "Edit your {{title}} support",
+    "changeCardHelpText": "Please note that this will also change your credit card for your other subscriptions.",
     "changeSupport": "Update Support",
     "cancelSupport": "Cancel Support",
     "cancelSupportHelpText": "Confirm by clicking the button. You will have access to the maecenate until {{date, LL}}. You can resubscribe after that date.",
@@ -127,6 +129,7 @@
   "user": {
     "alias": "Alias",
     "buttonRegisterUser": "Register",
+    "changeCard": "Change credit card",
     "confirmPassword": "Confirm Password",
     "confirmPasswordPlaceholder": "Confirm your password",
     "country": "Country",
@@ -150,11 +153,11 @@
     "passwordNew": "New password",
     "passwordPlaceholder": "Choose a password",
     "phoneNumber": "Phone number",
-    "yourProfile": "Your profile",
+    "yourProfile": "Profile",
+    "yourPayment": "Payment info",
     "yourMaecenates": "Your Maecenates",
     "yourMaecenes": "Your Maecenes",
     "yourNoMaecenates": "You don't have any Maecenates yet",
-    "yourNoMaecenes": "You don't have any Maecenes yet",
     "zip": "Zip Code"
   },
   "validationError": {

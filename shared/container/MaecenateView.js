@@ -38,7 +38,6 @@ class MaecenateView extends Component {
 
   supportMaecenate () {
     const { slug } = this.props.params
-    console.log(this.props.hasAuth)
     if (this.props.hasAuth) {
       browserHistory.push(`/${slug}/support`)
     } else {
@@ -67,12 +66,12 @@ class MaecenateView extends Component {
   renderContent () {
     const { maecenate, posts, isAuthUserOwner, isSupporter } = this.props
     const forcePresentation = Boolean(this.props.route.presentation)
-    const noTitleOnPosts = Boolean(this.props.route.noTitleOnPosts)
+    const showMaecenateTitle = Boolean(this.props.route.showMaecenateTitle)
 
     if (!forcePresentation && (isAuthUserOwner || isSupporter)) {
       return <MaecenateContent
         maecenate={maecenate}
-        noTitleOnPosts={noTitleOnPosts}
+        showMaecenateTitle={showMaecenateTitle}
         posts={posts}
         editPost={isAuthUserOwner && this.editPost}
         isAuthUserOwner={isAuthUserOwner}

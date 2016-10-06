@@ -2,7 +2,6 @@ var webpack = require('webpack');
 
 const DEBUG = !process.argv.includes('--release')
 
-
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
 
@@ -39,7 +38,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        CLIENT: JSON.stringify(true)
+        CLIENT: JSON.stringify(true),
+        PUBLIC_SUPPORTER_THRESHOLD: JSON.stringify(process.env.PUBLIC_SUPPORTER_THRESHOLD)
       }
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|da)/)

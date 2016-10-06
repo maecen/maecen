@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { translate } from 'react-i18next'
 
+import EpayWindow from '../../lib/EpayWindow'
+
 // Selectors and Actions
 import * as Actions from '../../actions'
 import { getAuthUser } from '../../selectors/user'
@@ -26,23 +28,28 @@ class ProfileContainer extends Component {
       errors: null,
       isEdit: false,
       user: props.user,
-      isSubmitting: false
+      isSubmitting: false,
+      paymentWindowReady: false
     }
+
+    this.changePaymentCard = this.changePaymentCard.bind(this)
+  }
+
+  componentDidMount () {
+    this.paymentWindow = new EpayWindow()
+    this.paymentWindow.onReady = () =>
+      this.setState({ paymentWindowReady: true })
+    this.paymentWindow.load()
   }
 
   updateModel (path, value) {
-    const user = this.state.user.setIn(path, value)
-    this.setState({user})
+    this.setState({
+      user: this.state.user.setIn(path, value)
+    })
   }
 
-  toggleEdit (newState) {
-    const { isEdit } = this.state
-
-    if (typeof newState === 'boolean') {
-      this.setState({ isEdit: newState })
-    } else {
-      this.setState({ isEdit: !isEdit })
-    }
+  toggleEdit (event, newState) {
+    this.setState({ isEdit: !this.state.isEdit })
   }
 
   clearAuth () {
@@ -59,20 +66,35 @@ class ProfileContainer extends Component {
 
     axios.put('/api/users/me/edit', {
       user: user.without(['epay_subscription_id', 'payment_card'])
-    }).then((res) => {
-      return res.data
-    }).then((data) => {
-      this.setState({ isSubmitting: false })
-      this.toggleEdit(false)
-      dispatch(Actions.updateEntities(data.entities))
-    }, (res) => {
-      this.setState({ errors: res.data.errors, isSubmitting: false })
     })
+      .then(res => res.data)
+      .then(data => {
+        this.setState({ isSubmitting: false })
+        this.toggleEdit(false)
+        dispatch(Actions.updateEntities(data.entities))
+      })
+      .catch(res =>
+        this.setState({ errors: res.data.errors, isSubmitting: false })
+      )
+  }
+
+  changePaymentCard () {
+    axios.get('/api/users/me/new-card-params')
+      .then(res => res.data)
+      .then(data => this.paymentWindow.open(data))
+      .then(() => this.changePaymentCardComplete())
+  }
+
+  changePaymentCardComplete () {
+    const { dispatch } = this.props
+    dispatch(Actions.fetchAuthUser())
   }
 
   render () {
     const { isEdit, user } = this.state
     const { t } = this.props
+
+    if (!this.props.user) return null
 
     return (
       <div>
@@ -172,12 +194,33 @@ class ProfileContainer extends Component {
           </CardContent>
         </Card>
         <Card>
-          <CardContent style={{textAlign: 'right'}}>
-            <Button onClick={this.clearAuth.bind(this)}
+          <CardTitle
+            title={t('user.yourPayment')}
+            style={style.cardTitle}
+          />
+          <CardContent style={style.spaceBetween}>
+            <div>
+              {this.props.user.payment_card}
+            </div>
+            <Button
+              style={style.creditButton}
+              onClick={this.changePaymentCard}
               primary={true}
               flat={true}
               last={true}
-              label={t('logout')} />
+              label={t('user.changeCard')}
+            />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent style={{textAlign: 'right'}}>
+            <Button
+              onClick={this.clearAuth.bind(this)}
+              primary={true}
+              flat={true}
+              last={true}
+              label={t('logout')}
+            />
           </CardContent>
         </Card>
       </div>
@@ -195,9 +238,17 @@ const style = {
   cardTitle: {
     paddingBottom: '0px'
   },
+  creditButton: {
+    marginLeft: 'auto'
+  },
   buttons: {
     marginTop: styleVariables.spacer.base,
     textAlign: 'right'
+  },
+  spaceBetween: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
   }
 }
 

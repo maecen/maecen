@@ -71,7 +71,7 @@ export const fetchMaecenatesOverview = () => (dispatch, state) => {
     type: actionTypes.FETCH_OVERVIEW_REQUEST
   })
 
-  return apiRequest(state, '/maecenates')
+  return apiRequest(state, '/maecenates/overview')
   .then(response => dispatch({
     type: actionTypes.FETCH_OVERVIEW_SUCCESS,
     response,

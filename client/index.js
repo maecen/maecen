@@ -9,7 +9,6 @@ import { StyleRoot } from 'radium'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import { I18nextProvider } from 'react-i18next'
 import moment from 'moment'
-require('moment/locale/da.js')
 
 import configureStore from '../shared/configureStore'
 import mapInitialState from '../shared/lib/mapInitialState'
@@ -32,7 +31,6 @@ const routes = getRoutes(store)
 
 // Set the correct locale for moment
 moment.locale(window.__i18n.locale)
-console.log('setting language', i18n.language, window.__i18n.locale, moment.locale())
 
 const App = () => (
   <I18nextProvider i18n={i18n}>

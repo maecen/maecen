@@ -11,3 +11,4 @@ static/css/app.min.css
 development.sqlite
 development.sqlite-journal
 notes.md
+tasks/*.sh

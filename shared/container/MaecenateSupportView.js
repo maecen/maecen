@@ -1,11 +1,11 @@
 // Imports
-import React from 'react'
+import React, { Component } from 'react'
 import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-import { isBrowser, isSmallDevice } from '../config'
+import EpayWindow from '../lib/EpayWindow'
 import styleVariables from '../components/styleVariables'
 
 // Actions
@@ -21,15 +21,16 @@ import { getMaecenateBySlug } from '../selectors/maecenate'
 import { isAuthUserMaecenateSupporter } from '../selectors/support'
 
 // Components
+import HappyIcon from 'material-ui/svg-icons/social/mood'
 import Checkbox from 'material-ui/Checkbox'
 import { TextLink } from '../components/Link'
 import { Table, TableBody, TableRow, TableRowColumn } from '../components/Table'
 import Card, { CardContent, CardError, CardTitle } from '../components/Card'
 import { Button, TextField } from '../components/Form'
 import { Row, Cell } from '../components/Grid'
-import HappyIcon from 'material-ui/svg-icons/social/mood'
+import ChangeCreditCardDialog from '../components/Dialog/ChangeCreditCardDialog'
 
-class MaecenateSupportView extends React.Component {
+class MaecenateSupportView extends Component {
   constructor (props) {
     super(props)
 
@@ -39,8 +40,9 @@ class MaecenateSupportView extends React.Component {
       errors: {},
       success: false,
       display: 'amount', // amount | confirm
-      epayScriptLoaded: false,
+      paymentWindowReady: false,
       isSubmitting: false,
+      isChangeCreditCardDialogOpen: false,
       acceptedTerms: false
     }
 
@@ -49,13 +51,20 @@ class MaecenateSupportView extends React.Component {
     this.gotoContent = this.gotoContent.bind(this)
     this.paymentComplete = this.paymentComplete.bind(this)
     this.triggerAcceptTerms = this.triggerAcceptTerms.bind(this)
+    this.openChangeCreditCardDialog = this.openChangeCreditCardDialog.bind(this)
+    this.closeChangeCreditCardDialog = this.closeChangeCreditCardDialog.bind(this)
+    this.supportNewCard = this.supportNewCard.bind(this)
   }
 
   componentDidMount () {
     const { dispatch, params } = this.props
     dispatch(this.constructor.need[0](params))
     dispatch(this.constructor.need[1](params))
-    this.loadExternalEpayScript()
+
+    this.paymentWindow = new EpayWindow()
+    this.paymentWindow.onReady = () =>
+      this.setState({ paymentWindowReady: true })
+    this.paymentWindow.load()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -64,47 +73,29 @@ class MaecenateSupportView extends React.Component {
     }
   }
 
+  openChangeCreditCardDialog () {
+    this.setState({ isChangeCreditCardDialogOpen: true })
+  }
+
+  closeChangeCreditCardDialog () {
+    this.setState({ isChangeCreditCardDialogOpen: false })
+  }
+
   triggerAcceptTerms (e, isChecked) {
     this.setState({ acceptedTerms: isChecked })
   }
 
-  loadExternalEpayScript () {
-    if (isBrowser === false) { return }
-
-    const epayScript = 'https://ssl.ditonlinebetalingssystem.dk' +
-      '/integration/ewindow/paymentwindow.js'
-
-    if (typeof window.PaymentWindow === 'undefined') {
-      const $script = require('scriptjs')
-      $script(epayScript, () => {
-        this.setState({ epayScriptLoaded: true })
-      })
+  isValid () {
+    if (this.state.acceptedTerms &&
+    this.state.amount >= this.props.maecenate.monthly_minimum) {
+      return true
     } else {
-      this.setState({ epayScriptLoaded: true })
+      return false
     }
-  }
-
-  openEpayPayment (options) {
-    if (isSmallDevice) {
-      options = {
-        ...options,
-        accepturl: `${window.location.href}`
-      }
-    }
-
-    const paymentWindow = new PaymentWindow(options) // eslint-disable-line no-undef
-
-    // We fetch the maecenate again when the payment window has been closed to
-    // check if the payment has gone through (a support object will be included
-    // from the server)
-    paymentWindow.on('close', this.paymentComplete)
-
-    paymentWindow.open()
   }
 
   paymentComplete () {
-    const { dispatch } = this.props
-    return dispatch(Actions.fetchMaecenate(this.props.params.slug))
+    return this.props.dispatch(Actions.fetchMaecenate(this.props.params.slug))
   }
 
   gotoContent () {
@@ -118,10 +109,23 @@ class MaecenateSupportView extends React.Component {
     })
   }
 
+  supportNewCard () {
+    this.setupSubscription(true)
+    this.closeChangeCreditCardDialog()
+  }
+
   handleSubmit (e) {
     e.preventDefault()
+    this.setupSubscription(false)
+  }
+
+  setupSubscription (setupNewCard) {
     const { dispatch, maecenate, hasAuth, hasSavedPaymentCard, t } = this.props
     const { display } = this.state
+
+    if (!this.isValid()) {
+      return
+    }
 
     if (hasSavedPaymentCard && display === 'amount') {
       this.setState({display: 'confirm'})
@@ -139,7 +143,8 @@ class MaecenateSupportView extends React.Component {
       this.setState({isSubmitting: true})
       axios.post('/api/maecenates/initiate-payment', {
         maecenateId: maecenate.id,
-        amount: Math.round(Number(this.state.amount)) * 100
+        amount: Math.round(Number(this.state.amount)) * 100,
+        setupNewCard
       }).then(res => {
         this.setState({ errors: {} })
         return res.data
@@ -147,11 +152,14 @@ class MaecenateSupportView extends React.Component {
         if (data.paymentComplete === true) {
           return this.paymentComplete()
         } else {
-          this.openEpayPayment(data.epayPaymentParams)
+          this.paymentWindow.open(data.epayPaymentParams)
+            .then(() => this.paymentComplete())
         }
       }).catch(err => {
         if (err.data && err.data.errors) {
           this.setState({ errors: err.data.errors })
+        } else {
+          console.error(err)
         }
       }).then(() => {
         this.setState({isSubmitting: false})
@@ -180,11 +188,19 @@ class MaecenateSupportView extends React.Component {
       ? t('support.joinMaecenate', { title: maecenate.title })
       : t('support.confirmSupport')
 
-    const disableSubmit = !this.state.epayScriptLoaded ||
-      this.state.isSubmitting || !this.state.acceptedTerms
+    const disableSubmit = !this.state.paymentWindowReady ||
+      this.state.isSubmitting || !this.isValid()
 
     return (
       <Row>
+        <ChangeCreditCardDialog
+          open={this.state.isChangeCreditCardDialogOpen}
+          onAccept={this.supportNewCard}
+          onCancel={this.closeChangeCreditCardDialog}
+        >
+          {t('support.changeCardHelpText')}
+        </ChangeCreditCardDialog>
+
         <Cell narrowerLayout={true}>
           <Card>
             <CardTitle
@@ -271,7 +287,13 @@ class MaecenateSupportView extends React.Component {
                   </TableBody>
                 </Table>
                 <div style={style.amountButton}>
-                  <Button label={t('support.confirmSubscription')}
+                  <Button label={t('support.confirmSupportNewCard')}
+                    flat={true}
+                    primary={true}
+                    disabled={disableSubmit}
+                    onClick={this.openChangeCreditCardDialog}
+                  />
+                  <Button label={t('support.confirmSupport')}
                     type='submit'
                     secondary={true}
                     last={true}
@@ -347,6 +369,14 @@ const style = {
   },
   termsLink: {
     textDecoration: 'underline'
+  },
+  editCardButton: {
+    float: 'right',
+    lineHeight: '20px',
+    height: '20px',
+    minWidth: 'auto',
+    marginRight: `-${spacer.half}`,
+    marginTop: '-2px'
   }
 }
 

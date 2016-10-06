@@ -14,10 +14,12 @@ export default class Dialog extends Component {
       <MaterialDialog
         {...this.props}
       >
-        <IconButton iconStyle={style.closeIcon} style={style.close}
-          onTouchTap={this.props.onRequestClose}>
-          <NavigationClose />
-        </IconButton>
+        {this.props.modal !== true &&
+          <IconButton iconStyle={style.closeIcon} style={style.close}
+            onTouchTap={this.props.onRequestClose}>
+            <NavigationClose />
+          </IconButton>
+        }
         {this.props.onClick
           ? <div onClick={this.props.onClick}>{this.props.children}</div>
           : this.props.children

@@ -7,6 +7,7 @@ const router = new Router()
 
 // Get Maecenate by slug
 router.get('/', maecenates.getMaecenates)
+router.get('/overview', maecenates.getMaecenatesOverview)
 router.post('/create', verifyAuth, maecenates.createMaecenate)
 router.post('/initiate-payment', transactions.maecenateInitiatePayment)
 router.get('/:slug', maecenates.getMaecenate)
