@@ -1,3 +1,4 @@
+import json2csv from 'json2csv'
 import { apiURL } from '../../shared/config'
 import * as service from '../services/transactions'
 import * as maecenateService from '../services/maecenates'
@@ -137,3 +138,54 @@ export function cronRefreshSubscriptions (req, res, next) {
   subscriptionService.refreshExpiringSubscriptions(knex)
   return res.json({ success: true })
 }
+
+export function csvExtract (req, res, next) {
+  const { knex } = req.app.locals
+  if (req.params.code !== process.env.CSV_EXTRACT_CODE) {
+    res.status(404).send('Not Found')
+  }
+
+  return knex('transactions')
+    .select(
+      'created_at as timestamp',
+      'maecenates.title as maecenateTitle',
+      'maecenates.id as maecenateID',
+      'creator.id as creatorID',
+      'creator.email as creatorEmail',
+      'supporter.id as supporterID',
+      'supporter.email as supporterEmail',
+      'supporter.country as supporterCountry',
+      'amount',
+      'currency'
+    )
+    .innerJoin('maecenates', 'transactions.maecenate', 'maecenates.id')
+    .innerJoin('users as creator', 'maecenates.creator', 'creator.id')
+    .innerJoin('users as supporter', 'transactions.user', 'supporter.id')
+    .then((data) => {
+      // Write out the date in a good format
+      data = data.map(transaction => ({
+        ...transaction,
+        timestamp: (new Date(transaction.timestamp)).toISOString()
+      }))
+
+      const fields = [
+        'timestamp',
+        'maecenateTitle',
+        'maecenateID',
+        'creatorID',
+        'creatorEmail',
+        'supporterID',
+        'supporterEmail',
+        'supporterCountry',
+        'amount',
+        'currency'
+      ]
+
+      const csv = json2csv({ data, fields })
+      res.setHeader('Content-disposition', 'attachment; filename=transactions.csv')
+      res.set('Content-Type', 'text/csv')
+      res.status(200).send(csv)
+    })
+    .catch(next)
+}
+
