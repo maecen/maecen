@@ -6,9 +6,6 @@ Velkommen til Mæcen.net
 Om Mæcen.net projektet
 --------------------
 
-
-
-
 Mæcen.net er en ægte deleøkonomisk platform, der giver brugerne mulighed for at oprette egne Mæcenater og at støtte andres
   
 Ved at støtte et bestemt Mæcenat med en fast periodevis (månedlig) betaling, bliver man Mæcen for det pågældende Mæcenat og får adgang til Mæcenatets eksklusive indholdsside.
@@ -19,14 +16,14 @@ Ejeren (-ne) af et Mæcenat fastsætter selv prisen, og modtager den fulde betal
 Hvis du betaler f.eks. 20kr/md går de 19kr direkte til Mæcenatet.
 
 Mæcen.net ejes 100% af  DiGiDi a..m.b.a., der er et andelsselskab, ejet i lige andele af mere end 3.500 andelshavere.
-Mæcen.net projektet er derfor Non Profit, og alle indtægter går til drift og forsat udvikling af Mæcen projektet.
-
+Mæcen.net projektet er derfor Non Profit, og alle indtægter går til drift og forsat udvikling af Mæcen projektet.  
+[Læs mere om Mæcen-projektet og om hvordan du kommer igang](https://beta.maecen.net/about "Om mæcen.net")
 
 Kontakt Mæcen.net
 ---------------
 DiGiDi a.m.b.a. +45 27 29 18 14 CVR: DK-27628389  
-www.digidi.dk maecen@digidi.org
-
+[www.digidi.dk](https://www.digidi.dk "Til DiGiDi") maecen@digidi.org  
+<a href="http://www.digidi.dk/" target="_blank">Blank til digidi</a>
 
 Når du støtter et Mæcenat
 ==================================
