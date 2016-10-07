@@ -10,7 +10,10 @@
 import uuid from 'node-uuid'
 import moment from 'moment'
 import * as transactionService from './transactions'
-import { emailSupportReceipt } from './emailSender'
+import {
+  emailSupportReceipt,
+  emailMaecenateAdminAboutNewSupporter
+} from './emailSender'
 import { getNextEndDate } from '../../shared/lib/subscription'
 
 // Database Calls
@@ -100,11 +103,13 @@ export function startSubscription (knex, transaction) {
       .insert({ ...subscription, id })
       .then(() => id)
     }
-  }).then((subscriptionId) => {
-    return createSubPeriod(
-      knex, subscriptionId, transaction, transaction.created_at, 1
-    )
   })
+  .then(subscriptionId =>
+    createSubPeriod(knex, subscriptionId, transaction, transaction.created_at, 1)
+    .then(() =>
+      emailMaecenateAdminAboutNewSupporter(knex, subscriptionId)
+    )
+  )
 }
 
 export function createSubPeriod (

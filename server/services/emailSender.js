@@ -3,6 +3,7 @@ import promiseLimit from 'promise-limit'
 import moment from 'moment'
 import fs from 'fs'
 import path from 'path'
+import numbro from 'numbro'
 import Handlebars from 'handlebars'
 import { host } from '../../shared/config'
 import * as service from './email'
@@ -131,6 +132,25 @@ export function emailToSupporters (knex, maecenateId, title, message) {
     ))
   })
 }
+
+export const emailMaecenateAdminAboutNewSupporter = (knex, subscriptionId) =>
+  service.fetchNewSupporterData(knex, subscriptionId)
+    .then(data => {
+      loadTemplate('newSupporterInfo', data.admin.language)
+        .then(template => {
+          const { admin } = data
+
+          numbro.culture(admin.language)
+          const { subject, body } = template({
+            ...data,
+            amount: numbro(data.subscription.amount / 100).format('0,0.00'),
+            maecenateLink: `${host}/${data.maecenate.slug}`,
+            maecenateDashboardLink: `${host}/maecenate/${data.maecenate.slug}/dashboard`
+          })
+
+          return sendEmail(admin.email, subject, body, NO_REPLY_EMAIL, true)
+        })
+    })
 
 // Helper functions
 // ================

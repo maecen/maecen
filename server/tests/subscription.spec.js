@@ -55,10 +55,26 @@ test('Support maecenates', async t => {
   t.is(res.body.epayPaymentParams.amount, String(amount))
   const orderId = res.body.epayPaymentParams.orderid
 
+  // First email to the creator
   nock('https://mandrillapp.com:443')
     .post('/api/1.0/messages/send.json')
     .reply(200, [{
-      'email': 'kristofferdo@gmail.com',
+      'email': t.context.otherUser.email,
+      'status': 'sent',
+      '_id': 'daf5569a13c54fb799266523c610f48d',
+      'reject_reason': null
+    }], {
+      server: 'nginx/1.8.0',
+      'content-type': 'application/json; charset=utf-8',
+      'transfer-encoding': 'chunked',
+      vary: 'Accept-Encoding'
+    })
+
+  // THen an email to the supporter
+  nock('https://mandrillapp.com:443')
+    .post('/api/1.0/messages/send.json')
+    .reply(200, [{
+      'email': t.context.authUser.email,
       'status': 'sent',
       '_id': 'daf5569a13c54fb799266523c610f48d',
       'reject_reason': null
