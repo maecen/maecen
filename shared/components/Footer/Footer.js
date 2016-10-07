@@ -21,6 +21,10 @@ function gotoTerms () {
   browserHistory.push('/terms')
 }
 
+function gotoAbout () {
+  browserHistory.push('/about')
+}
+
 function Footer (props) {
   const { hasAuth, lang, langOptions, changeLang, showLangSwitch, t } = props
 
@@ -43,8 +47,11 @@ function Footer (props) {
             )}
           </SelectField>
           <div
-            style={style.terms}
+            style={style.footerLink}
             onClick={gotoTerms}>{t('terms')}</div>
+          <div
+            style={style.footerLink}
+            onClick={gotoAbout}>{t('aboutMaecen')}</div>
         </div>
       }
     </footer>
@@ -76,7 +83,8 @@ const style = {
   selectUnderline: {
     display: 'none'
   },
-  terms: {
+  footerLink: {
+    cursor: 'pointer',
     paddingLeft: spacer.base,
     paddingTop: spacer.quart
   }
