@@ -23,7 +23,6 @@ class EpayWindow {
   }
 
   open (options) {
-    console.log('open?')
     return new Promise((resolve, reject) => {
       if (isSmallDevice) {
         options = {
