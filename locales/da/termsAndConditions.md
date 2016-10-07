@@ -22,8 +22,8 @@ Mæcen.net projektet er derfor Non Profit, og alle indtægter går til drift og 
 Kontakt Mæcen.net
 ---------------
 DiGiDi a.m.b.a. +45 27 29 18 14 CVR: DK-27628389  
-[www.digidi.dk](https://www.digidi.dk "Til DiGiDi") maecen@digidi.org  
-<a href="http://www.digidi.dk/" target="_blank">Blank til digidi</a>
+<a href="http://www.digidi.dk/" target="_blank">www.digidi.dk</a> maecen@digidi.org  
+
 
 Når du støtter et Mæcenat
 ==================================
