@@ -156,7 +156,8 @@ export function csvExtract (req, res, next) {
       'supporter.email as supporterEmail',
       'supporter.country as supporterCountry',
       'amount',
-      'currency'
+      'currency',
+      'type'
     )
     .innerJoin('maecenates', 'transactions.maecenate', 'maecenates.id')
     .innerJoin('users as creator', 'maecenates.creator', 'creator.id')
@@ -178,7 +179,8 @@ export function csvExtract (req, res, next) {
         'supporterEmail',
         'supporterCountry',
         'amount',
-        'currency'
+        'currency',
+        'type'
       ]
 
       const csv = json2csv({ data, fields })
