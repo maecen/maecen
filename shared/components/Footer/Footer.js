@@ -30,8 +30,8 @@ function Footer (props) {
 
   return (
     <footer style={style.footer}>
-      { (hasAuth && !showLangSwitch) ||
-        <div style={style.footerContent}>
+      <div style={style.footerContent}>
+        { (hasAuth && !showLangSwitch) ||
           <SelectField
             value={lang}
             onChange={changeLang}
@@ -46,14 +46,14 @@ function Footer (props) {
                 primaryText={languages[option].name} />
             )}
           </SelectField>
-          <div
-            style={style.footerLink}
-            onClick={gotoTerms}>{t('terms')}</div>
-          <div
-            style={style.footerLink}
-            onClick={gotoAbout}>{t('aboutMaecen')}</div>
-        </div>
-      }
+        }
+        <div
+          style={style.footerLink}
+          onClick={gotoTerms}>{t('terms')}</div>
+        <div
+          style={style.footerLink}
+          onClick={gotoAbout}>{t('aboutMaecen')}</div>
+      </div>
     </footer>
   )
 }
@@ -61,7 +61,7 @@ function Footer (props) {
 const { spacer, icon } = styleVariables
 const style = {
   footer: {
-    padding: `${spacer.base} 0px ${spacer.quart}`,
+    padding: `${spacer.base} 0px ${spacer.base}`,
     color: styleVariables.color.bodyText
   },
   footerContent: {
@@ -78,6 +78,7 @@ const style = {
     lineHeight: 0
   },
   selectField: {
+    marginRight: spacer.base,
     width: '50px'
   },
   selectUnderline: {
@@ -85,8 +86,9 @@ const style = {
   },
   footerLink: {
     cursor: 'pointer',
-    paddingLeft: spacer.base,
-    paddingTop: spacer.quart
+    paddingRight: spacer.base,
+    paddingTop: spacer.half,
+    paddingBottom: spacer.quart
   }
 }
 
