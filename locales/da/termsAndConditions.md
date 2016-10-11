@@ -24,26 +24,35 @@ Kontakt Mæcen.net
 DiGiDi a.m.b.a. +45 27 29 18 14 CVR: DK-27628389  
 <a href="http://www.digidi.dk/" target="_blank">www.digidi.dk</a> maecen@digidi.org  
 
+Handelsbetingelser og vilkår
+=================================
+Herunder finde du de vilkår du accepterer, når den støtter eller opretter et Mæcenat.  
+Såfremt der sker ændringer i disse generelle vilkår, vil du blive informeret pr email senest 1 måned før ændringerne træder i kraft. Eventuelle ændringer kan ikke påvirke dine betalinger, med mindre du selv aktivt accepterer dette. 
 
 Når du støtter et Mæcenat
 ==================================
 Når du støtter et Mæcenat, bliver du Mæcen for dette. Første gang du blive Mæcen skal du indtaste kortinformationer for at aktivere betalingen.
 
-Fast betaling
+Fast betaling - abonnementsaftale
 -----------
 Ved at acceptere vilkårene, godkender du at Mæcen.net automatisk trækker det faste beløb, som du selv har angivet, fra den konto du tilknytter din bruger ved dit første køb.  
 Din støtte til et bestemt Mæcenat fortsætter automatisk fra periode til periode (fra måned til måned), med mindre du selv opsiger det eller at Mæcenatet bliver lukket.  
-En periode starter den dag du har foretaget den første indbetaling.
+En periode starter den dag du har foretaget den første indbetaling.  
+Du vil modtage en email med kvittering for hver indbetaling.  
+
+Ændring af din støtte eller af abonnementsvilkår
+------------------------------------
+Du kan på et hvert tildspunkt gå ind via din profil og ænste det beløb som du støtter et Mæcenat med. Dog ikke under det angivne minimum. 
+Såfremt denne minimumsbetaling ændres af ejeren af Mæcenatet, vil det IKKE påvirke din betaling, med mindre du selv går ind og opdaterer beløbet.  
 
 Stop din støtte her og nu.
 ----------------------
 Du kan altid afslutte din støtte til et Mæcenat uden yderligere varsel hvorefter der ikke vil blive trukket yderligere beløb fra din konto. [Det kan du gøre her](https://beta.maecen.net/profile "Profil side").  
-Betalinger der allerede er gennemført refunderes ikke, men du vil fortsat have adgang til Mæcenatet indtil den periode du har betalt for udløber.
+Betalinger der allerede er gennemført refunderes ikke, men du vil fortsat have adgang til Mæcenatet indtil den periode du har betalt for udløber.  
 
 Ændring af betalingsoplysninger
 ----------------------------
-Hvis du skifter kreditkort eller ønsker at anvende et andet kort på Mæcen, kan du foretage ændringer på din [Profil](https://beta.maecen.net/profile "Profil side").  Bemærk, at du kan kun have et kort tilknyttet en profil. Ønsker du at anvende forskellige betalingskort til forskellige Mæcenater, skal du oprette flere profiler.
-
+Hvis du skifter kreditkort eller ønsker at anvende et andet kort på Mæcen, kan du foretage ændringer på din [Profil](https://beta.maecen.net/profile "Profil side").  Bemærk, at du kan kun have et kort tilknyttet en profil. Ønsker du at anvende forskellige betalingskort til forskellige Mæcenater, skal du oprette flere profiler.  Dine kortinformationer bliver ikke gemt af Mæcen.net
 
 Personlige informationer er dine informationer
 ------------------------------
