@@ -1,3 +1,4 @@
+// Imports
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
@@ -6,30 +7,39 @@ import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 import find from 'lodash/find'
 
-import { isBrowser } from '../../config'
-import * as Actions from '../../actions'
+// Utils
+import { postStatus, isBrowser } from '../../config'
 import { mediaUpload } from '../../lib/fileHandler'
+
+// Actions & Selectors
+import * as Actions from '../../actions'
 import { getUserMaecenates } from '../../selectors/maecenate'
 import { getAuthUser, getAuthUserId } from '../../selectors/user'
 
+// Components
 import PostForm from '../../components/Post/PostForm'
 
 class CreatePostView extends Component {
 
   constructor (props) {
     super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.updateModel = this.updateModel.bind(this)
-    this.mediaChange = this.mediaChange.bind(this)
-    this.onChangeMaecenate = this.onChangeMaecenate.bind(this)
+
     this.state = {
-      post: Immutable({ }),
+      post: Immutable({
+        status: postStatus.PUBLISHED
+      }),
       errors: null,
       isSubmitting: false,
       mediaPreview: null,
       uploadProgress: 0,
       media: []
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.updateModel = this.updateModel.bind(this)
+    this.mediaChange = this.mediaChange.bind(this)
+    this.onChangeMaecenate = this.onChangeMaecenate.bind(this)
+    this.toggleVisible = this.toggleVisible.bind(this)
   }
 
   componentDidMount () {
@@ -42,6 +52,13 @@ class CreatePostView extends Component {
 
   updateModel (path, value) {
     this.setState({ post: this.state.post.setIn(path, value) })
+  }
+
+  toggleVisible (event, check) {
+    const status = check ? postStatus.PUBLISHED : postStatus.HIDDEN
+    this.setState({
+      post: this.state.post.set('status', status)
+    })
   }
 
   setAuthorAlias (props) {
@@ -119,6 +136,7 @@ class CreatePostView extends Component {
           onChangeMaecenate={this.onChangeMaecenate}
           uploadProgress={this.state.uploadProgress}
           mediaChange={this.mediaChange}
+          toggleVisible={this.toggleVisible}
           isSubmitting={this.state.isSubmitting}
         />
       : <div>Loading...</div>

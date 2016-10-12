@@ -99,7 +99,8 @@
     "saveEdit": "Gem ændringer",
     "see": "Se indlæg",
     "title": "Titel",
-    "writtenByAlias": "Af: {{alias}}"
+    "writtenByAlias": "Af: {{alias}}",
+    "setVisible": "Synlig for mæcener"
   },
   "support": {
     "belowMin": "Beløbet er mindre end det månedlige minimum",

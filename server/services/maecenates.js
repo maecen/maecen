@@ -203,6 +203,24 @@ export function userIsAdminBySlug (knex, slug, userId) {
   .then(res => res[0] ? res[0].id : false)
 }
 
+export function userIsSupporterBySlug (knex, slug, userId, date) {
+  date = date || new Date()
+
+  const maecenateId = knex('maecenates').where({ slug })
+    .limit(1)
+    .select('id')
+
+  return knex('subscriptions')
+    .select('subscriptions.id')
+    .innerJoin('sub_periods', 'sub_periods.subscription', 'subscriptions.id')
+    .limit(1)
+    .where('maecenate', maecenateId)
+    .where('user', userId)
+    .where('sub_periods.start', '<=', date)
+    .where('sub_periods.end', '>', date)
+    .then(res => Boolean(res[0]))
+}
+
 export const activeExists = (knex, maecenateId) => {
   return knex('maecenates').where({ id: maecenateId, active: true })
   .count('* as count')

@@ -1,6 +1,14 @@
-import React from 'react'
+// Imports
+import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
 
+// Utils
+import { postStatus } from '../../config'
+
+// Components
+import Checkbox from 'material-ui/Checkbox'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
 import { Row, Cell } from '../../components/Grid'
 import { Card, CardContent, CardTitle, CardActions } from '../../components/Card'
 import Form from '../../components/Form/Form'
@@ -8,8 +16,6 @@ import TextField from '../../components/Form/TextField'
 import Button from '../../components/Form/Button'
 import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
 import FileDropzone from '../../components/Form/FileDropzone'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
 
 function PostForm (props) {
   const {
@@ -22,6 +28,7 @@ function PostForm (props) {
     mediaChange,
     uploadProgress,
     isSubmitting,
+    toggleVisible,
     t
   } = props
 
@@ -78,6 +85,12 @@ function PostForm (props) {
                 path={['author_alias']}
                 placeholder={t('user.alias')} />
 
+              <Checkbox
+                label={t('post.setVisible')}
+                onCheck={toggleVisible}
+                defaultChecked={post.status === postStatus.PUBLISHED}
+              />
+
             </CardContent>
             <CardActions style={{textAlign: 'right'}}>
               <Button
@@ -91,6 +104,23 @@ function PostForm (props) {
       </Cell>
     </Row>
   )
+}
+
+PostForm.propTypes = {
+  maecenates: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+  })),
+  post: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  updateModel: PropTypes.func.isRequired,
+  errors: PropTypes.object,
+  onChangeMaecenate: PropTypes.func,
+  mediaChange: PropTypes.func.isRequired,
+  uploadProgress: PropTypes.number.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  toggleVisible: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 }
 
 export default translate(['common'])(

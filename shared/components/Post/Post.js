@@ -1,21 +1,30 @@
+// Imports
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import moment from 'moment'
 
-import { Card, CardContent, CardTitle, CardHeader } from '../Card'
+// Utils
+import { postStatus } from '../../config'
+
+// Components
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import IconButton from 'material-ui/IconButton'
+import { Card, CardContent, CardTitle, CardHeader } from '../Card'
 import cropCloudy from '../../lib/cropCloudy'
 import Media from '../Media/Media'
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 
 function Post (props, context) {
   const { post, maecenate, editPost, t, showMaecenateTitle } = props
   const media = post.media && post.media[0]
   const writtenByAlias = t('post.writtenByAlias', { alias: post.author_alias })
 
+  const baseStyle = Object.assign({}, style.base,
+    post.status === postStatus.HIDDEN ? style.hidden : null
+  )
+
   return (
-    <Card>
+    <Card style={baseStyle}>
       {showMaecenateTitle === false
         ? null
         : <Link to={`/${maecenate.slug}`}>
@@ -50,6 +59,13 @@ function Post (props, context) {
       </CardContent>
     </Card>
   )
+}
+
+const style = {
+  base: {},
+  hidden: {
+    opacity: 0.5
+  }
 }
 
 Post.defaultProps = {

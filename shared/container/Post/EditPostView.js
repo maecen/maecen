@@ -1,3 +1,4 @@
+// Imports
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
@@ -5,12 +6,16 @@ import axios from 'axios'
 import { translate } from 'react-i18next'
 import Immutable from 'seamless-immutable'
 
-import * as Actions from '../../actions'
+// Utils
+import { postStatus } from '../../config'
 import { mediaUpload } from '../../lib/fileHandler'
 
+// Actions & Selectors
+import * as Actions from '../../actions'
 import { getPostById } from '../../selectors/post'
 import { getMaecenateByPost } from '../../selectors/maecenate'
 
+// Components
 import PostForm from '../../components/Post/PostForm'
 
 class EditPostView extends Component {
@@ -29,6 +34,7 @@ class EditPostView extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateModel = this.updateModel.bind(this)
     this.mediaChange = this.mediaChange.bind(this)
+    this.toggleVisible = this.toggleVisible.bind(this)
   }
 
   componentWillMount () {
@@ -48,6 +54,13 @@ class EditPostView extends Component {
 
   updateModel (path, value) {
     this.setState({ post: this.state.post.setIn(path, value) })
+  }
+
+  toggleVisible (event, check) {
+    const status = check ? postStatus.PUBLISHED : postStatus.HIDDEN
+    this.setState({
+      post: this.state.post.set('status', status)
+    })
   }
 
   mediaChange (files) {
@@ -89,6 +102,7 @@ class EditPostView extends Component {
           uploadProgress={this.state.uploadProgress}
           mediaChange={this.mediaChange}
           isSubmitting={this.state.isSubmitting}
+          toggleVisible={this.toggleVisible}
           editMode={true}
         />
       : <div>Loading...</div>

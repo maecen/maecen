@@ -1,7 +1,13 @@
+// Imports
 import Joi from 'joi'
+import uuid from 'node-uuid'
 import Immutable from 'seamless-immutable'
+
 import { knex } from '../database'
 import { joiValidation } from '../util/ctrlHelpers'
+import { postStatus } from '../../shared/config'
+
+// Services
 import { claimMedia, deleteUnusedMedia } from './media'
 import { fetchMaecenates } from './maecenates'
 import { fetchActiveUserSubPeriods } from './subscriptions'
@@ -15,7 +21,8 @@ const schema = Joi.object({
   author: Joi.string().guid().required(),
   author_alias: Joi.string().required(),
   content: Joi.string().allow(null, ''),
-  media: [Joi.any().allow(null, '')]
+  media: [Joi.any().allow(null, '')],
+  status: Joi.string().only(Object.keys(postStatus)).required()
 }).or('media', 'content')
 
 // Private methods
@@ -51,6 +58,28 @@ export function fetchPost (id) {
   })
 }
 
+export function createPost (knex, data, userId) {
+  const post = Immutable({
+    ...data,
+    author: userId,
+    id: uuid.v1()
+  })
+
+  return joiValidation(post, schema, true)
+    .then(() => {
+      const media = data.media || []
+      const mediaIds = media.filter(o => typeof o === 'string')
+
+      return knex.transaction(trx => {
+        return trx('posts').insert(post.without('media')).then(() => {
+          if (mediaIds) {
+            return claimMedia(mediaIds, 'post', post.id, trx)
+          }
+        }).then(() => post.id)
+      })
+    })
+}
+
 export function updatePost (id, data) {
   data = Immutable(data)
   return joiValidation(data, schema, true).then(() => {
@@ -83,6 +112,7 @@ export function fetchSupportedMaecenatePosts (userId) {
       }),
       knex('posts')
         .where('maecenate', 'in', maecenateIds)
+        .where('status', postStatus.PUBLISHED)
         .orderBy('created_at', 'desc')
         .limit(10)
         .then(populateMedia)

@@ -124,7 +124,8 @@
     "saveEdit": "Save edits",
     "see": "See posts",
     "title": "Title",
-    "writtenByAlias": "By: {{alias}}"
+    "writtenByAlias": "By: {{alias}}",
+    "setVisible": "Visible for maecens"
   },
   "user": {
     "alias": "Alias",

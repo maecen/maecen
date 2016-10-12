@@ -11,3 +11,8 @@ export const jwt = { secret: process.env.JWT_SECRET || 'React Starter Kit' }
 
 // How many supporters does a maecenate need before it's public
 export const PUBLIC_SUPPORTER_THRESHOLD = Number(process.env.PUBLIC_SUPPORTER_THRESHOLD) || 5
+
+export const postStatus = {
+  PUBLISHED: 'PUBLISHED',
+  HIDDEN: 'HIDDEN'
+}
