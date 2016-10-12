@@ -1,13 +1,14 @@
 #Om Mæcen.net projektet
 
 
-I dag arbejder mange kreative mennesker med at skabe indhold til Internettet.  til de store sociale medier, uden at få del af den værdi som de faktisk skaber.  
-Vi lever, som kreative, i den illution, at vi stiller vores indhold gratis til rådighed for Internettets bruger, ved at lægge det frit til rådighed på de store sociale medier.  
+Mange kreative mennesker og virksomheder arbejder med at skabe indhold til Internettet.  
+Vi lever, som kreative, i den illusion, at vi stiller vores indhold gratis til rådighed for Internettets brugere, ved at lægge indholdet frit til rådighed på de store sociale medier.  
 Men brugerne betaler dyrt - med deres presonlige data. Og vi modtager ikke noget, i forhold til den værdi vi er med til at skabe.    
-Nogle af de største og hurtigst voksende virksomheder på de amerikanske børser, lever at at høste og videresælge information om brugerne på Internettet.  
 
 Platformene, som Google, YouTube, Facebook, Soundcloud og Twitter er hver især mange milliarder af kroner værd. Men uden det indhold som kreative mennesker dagligt bidrager med, ville disse platforme ikke have nogen værdi overhovedet.  
-Formålet med Mæcen er at skabe en fælles platform hvor brugerne faktisk betaler for det indhold de modtager. og hvor de der skaber indholdet får det maksimale udbytte ud af deres indsats.
+Og nogle af de største og hurtigst voksende virksomheder på de amerikanske børser, lever at at høste og videresælge information om brugerne på Internettet.  
+
+Formålet med Mæcen er at skabe en fælles platform hvor brugerne faktisk betaler for det indhold de modtager. og hvor de der skaber indholdet får det maksimale udbytte ud af deres indsats.  
 
 ###Cooperative platform
 Mæcen.net er ejet og drevet af andelselskabet DiGiDi a.m.b.a. Alle de mere end 3.500 andelshavere har én andel hver og én stemme.
