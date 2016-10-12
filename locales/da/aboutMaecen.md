@@ -1,4 +1,4 @@
-#Om Mæcen.net projektet
+# Om Mæcen.net projektet
 
 
 Mange kreative mennesker og virksomheder arbejder med at skabe indhold til Internettet.  
