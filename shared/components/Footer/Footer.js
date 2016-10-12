@@ -1,10 +1,14 @@
+// Imports
 import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
+
 import styleVariables from '../styleVariables'
-import * as Flags from '../Graphics/Flags'
+
+// Components
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import { browserHistory } from 'react-router'
+import * as Flags from '../Graphics/Flags'
+import { TextLink } from '../../components/Link'
 
 const languages = {
   da: {
@@ -17,17 +21,13 @@ const languages = {
   }
 }
 
-function gotoTerms () {
-  browserHistory.push('/terms')
-}
-
 function Footer (props) {
   const { hasAuth, lang, langOptions, changeLang, showLangSwitch, t } = props
 
   return (
     <footer style={style.footer}>
-      { (hasAuth && !showLangSwitch) ||
-        <div style={style.footerContent}>
+      <div style={style.footerContent}>
+        { (hasAuth && !showLangSwitch) ||
           <SelectField
             value={lang}
             onChange={changeLang}
@@ -42,11 +42,15 @@ function Footer (props) {
                 primaryText={languages[option].name} />
             )}
           </SelectField>
-          <div
-            style={style.terms}
-            onClick={gotoTerms}>{t('terms')}</div>
-        </div>
-      }
+        }
+
+        <TextLink to='/terms' style={style.footerLink}>
+          {t('terms')}
+        </TextLink>
+        <TextLink to='/about' style={style.footerLink}>
+          {t('aboutMaecen')}
+        </TextLink>
+      </div>
     </footer>
   )
 }
@@ -76,9 +80,12 @@ const style = {
   selectUnderline: {
     display: 'none'
   },
-  terms: {
-    paddingLeft: spacer.base,
-    paddingTop: spacer.quart
+  footerLink: {
+    cursor: 'pointer',
+    color: '#fff',
+    paddingRight: spacer.base,
+    paddingTop: spacer.half,
+    paddingBottom: spacer.quart
   }
 }
 
