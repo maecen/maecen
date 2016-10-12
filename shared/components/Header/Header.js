@@ -99,7 +99,7 @@ const { color, spacer, icon, defaults } = styleVariables
 const style = {
   main: {
     backgroundColor: color.headerBG,
-    marginBottom: spacer.quadrouple,
+    marginBottom: spacer.tripple,
     padding: '.5vw 0'
     // boxShadow: '0 0 20px rgba(0,0,0,.03), 0 0 10px rgba(0,0,0,.06), 0 0 1px rgba(0,0,0,.2)'
   },

@@ -70,6 +70,7 @@ const style = {
     display: 'flex',
     margin: defaults.margin,
     maxWidth: defaults.maxWidth,
+    minHeight: spacer.tripple,
     padding: defaults.padding
   },
   selectLabel: {

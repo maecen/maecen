@@ -30,8 +30,10 @@ export default {
       bodySmall: '12px',
       body: `${defaultUnit}px`,
       bodyLarge: '18px',
-      h1: '24px',
-      h1Big: '40px'
+      h1: '30px',
+      h1Big: '40px',
+      h2: '26px',
+      h2Big: '32px'
     },
     weight: {
       heading: '300',

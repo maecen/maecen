@@ -139,10 +139,15 @@ function renderTemplate (html, initialState, i18n) {
       color: white;
       text-decoration: none;
     }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: ${styleVariables.font.weight.heading};
+    }
   `
   const style = {
     html: `
       overflow-x: hidden;
+      color: ${styleVariables.color.textColor};
       font-family: Roboto, sans-serif;
       font-size: 16px;
       min-height: 100%;
