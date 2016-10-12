@@ -59,9 +59,8 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-    padding: '0 .5rem',
-    maxWidth: '70rem',
-    margin: '0 auto'
+    margin: '0 auto',
+    width: '100%'
   },
   contentWrap: {
     display: 'flex',

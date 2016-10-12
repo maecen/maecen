@@ -148,14 +148,10 @@ function renderTemplate (html, initialState, i18n) {
       margin: 0;
       padding: 0;`,
     body: `
-      background-image: url('/assets/img/bg.svg');
       min-height: 100%;
       margin: 0;
       padding: 0;
-      background-color: #202020;
-      background-position: 50%;
-      background-size: cover;
-      background-attachment: fixed;`
+      background-color: hsl(210, 5%, 95%);`
   }
   return `
     <!DOCTYPE html>
