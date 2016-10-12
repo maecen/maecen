@@ -12,17 +12,18 @@ export default {
     default: '.3s ease'
   },
   border: {
-    radius: '3px'
+    radius: '4px',
+    thickness: '2px'
   },
   color: {
     alert: 'rgb(244, 67, 54)',
-    background: 'hsl(210, 5%, 92%)',
+    background: 'hsl(210, 8%, 92%)',
     bodyText: 'hsl(210, 5%, 30%)',
     cardText: 'hsl(0, 0%, 13%)',
     gray: 'rgb(200,200,200)',
-    headerBG: 'hsl(210, 8%, 87%)',
+    headerBG: 'hsl(210, 10%, 87%)',
     icon: 'rgba(255,255,255,0.6)',
-    primary: 'hsl(190, 100%, 30%)',
+    primary: 'hsl(320, 100%, 35%)',
     white: 'white'
   },
   font: {
@@ -61,6 +62,8 @@ export default {
   },
   defaults: {
     maxWidth: '70rem',
+    maxWidthText: '40rem',
+    maxWidthContent: '60rem',
     padding: '0 0.5rem',
     margin: '0 auto'
   },

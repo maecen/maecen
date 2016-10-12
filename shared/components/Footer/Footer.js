@@ -90,8 +90,8 @@ const style = {
     fill: color.textColor
   },
   footerLink: {
+    color: styleVariables.color.bodyText,
     cursor: 'pointer',
-    color: '#fff',
     paddingRight: spacer.base,
     paddingTop: spacer.half,
     paddingBottom: spacer.quart

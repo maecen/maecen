@@ -1,11 +1,8 @@
 import React, { PropTypes } from 'react'
 
 import styleVariables from '../styleVariables'
-import { Row, Cell } from '../Grid'
 import { Card, CardContent, CardBigTitle } from '../../components/Card'
 import { translate } from 'react-i18next'
-import cropCloudy from '../../lib/cropCloudy'
-import Avatar from 'material-ui/Avatar'
 import Button from '../Form/Button'
 import Media from '../Media/Media'
 import IconButton from 'material-ui/IconButton'
@@ -22,25 +19,17 @@ function MaecenatePresentation (props) {
 
   const {
     cover,
-    logo,
     url: url,
     monthly_minimum: monthlyMinimum
   } = maecenate
 
   return (
-    <Row>
-      <Cell narrowLayout={true}>
-        <Card>
-          <div style={style.titleWrap}>
-            <Avatar
-              src={cropCloudy(logo.url, 'logo-tiny')}
-              size={60}
-              style={style.avatar}
-            />
-            <CardBigTitle>
-              {maecenate.title}
-            </CardBigTitle>
-          </div>
+    <div style={style.container}>
+      <Card>
+        <div style={style.cardContainer}>
+          <CardBigTitle style={style.title}>
+            {maecenate.title}
+          </CardBigTitle>
           {isAuthUserOwner &&
             <IconButton
               style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
@@ -48,66 +37,63 @@ function MaecenatePresentation (props) {
               <EditIcon />
             </IconButton>
           }
-        </Card>
-        {maecenate.active ||
-          <Card>
+          {maecenate.active ||
             <CardContent style={style.closedMessage}>
               { t('maecenate.closedSupporterMessage') }
             </CardContent>
-          </Card>
-        }
-        <Card>
+          }
           <CardContent>
             {cover &&
               <Media type={cover.type} url={cover.url} fixedRatio={true} />
             }
           </CardContent>
-          <CardContent style={style.subtitle}>
-            { maecenate.teaser }
-          </CardContent>
           <CardContent style={style.description}>
+            <div style={style.subtitle}>
+              { maecenate.teaser }
+            </div>
             {maecenate.description}
+            {url &&
+              <div style={style.url}>
+                {t('website')}:
+                <a
+                  href={`http://${url}`}
+                  target='_blank'
+                  style={style.link}>
+                  &nbsp;{url}
+                </a>
+              </div>
+            }
           </CardContent>
-        </Card>
-        { maecenate.active &&
-          <Card>
-            <CardContent style={style.flexMe}>
-              <div>
-                {t('support.minimumAmount',
-                  { context: 'DKK', count: monthlyMinimum })}
-                {url &&
-                  <span>
-                    <br />
-                    {t('website')}:
-                    <a
-                      href={`http://${url}`}
-                      target='_blank'
-                      style={style.link}>
-                      &nbsp;{url}
-                    </a>
-                  </span>
+          { maecenate.active &&
+            <CardContent>
+              <div style={style.flexMe}>
+                <div>
+                  {t('support.minimumAmount',
+                    { context: 'DKK', count: monthlyMinimum })}
+                </div>
+                {!isAuthUserOwner &&
+                  <Button
+                    primary={true}
+                    last={true}
+                    label={t('support.join')}
+                    onClick={supportMaecenate}
+                    style={style.button}
+                  />
                 }
               </div>
-              {!isAuthUserOwner &&
-                <Button
-                  primary={true}
-                  last={true}
-                  label={t('support.join')}
-                  onClick={supportMaecenate}
-                  style={style.button}
-                />
-              }
             </CardContent>
-          </Card>
-        }
-      </Cell>
-    </Row>
+          }
+        </div>
+      </Card>
+    </div>
   )
 }
 
-const { spacer, font, color } = styleVariables
-
+const { spacer, font, color, border, defaults } = styleVariables
 const style = {
+  container: {
+    width: '100%'
+  },
   avatar: {
     marginTop: spacer.base,
     marginRight: 0,
@@ -125,29 +111,43 @@ const style = {
     textDecoration: 'none'
   },
   subtitle: {
-    fontWeight: font.weight.subtitle
+    fontWeight: font.weight.subtitle,
+    marginBottom: spacer.base
   },
   description: {
-    whiteSpace: 'pre-line'
+    whiteSpace: 'pre-line',
+    margin: '0 auto',
+    maxWidth: defaults.maxWidthText
   },
-  titleWrap: {
-    display: 'flex',
-    alignItems: 'center'
+  cardContainer: {
+    margin: '0 auto',
+    maxWidth: defaults.maxWidthContent
+  },
+  title: {
+    textAlign: 'center',
+    paddingTop: spacer.double,
+    paddingBottom: spacer.base,
+    borderBottom: `${border.thickness} solid ${color.background}`
   },
   flexMe: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    borderTop: `${border.thickness} solid ${color.background}`,
+    paddingTop: spacer.double,
+    paddingBottom: spacer.base
   },
   button: {
     flexShrink: '0',
-    marginLeft: 'auto',
-    marginTop: spacer.base
+    marginLeft: 'auto'
   },
   closedMessage: {
     fontWeight: font.weight.subtitle,
     textAlign: 'center'
+  },
+  url: {
+    marginTop: spacer.base
   }
 }
 

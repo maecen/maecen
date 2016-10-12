@@ -27,7 +27,7 @@ function MaecenateCard (props, context) {
 const descriptionLineCount = 3
 const descriptionHeight =
   styleVariables.font.lineHeight.body * descriptionLineCount - 0.2 + 'em'
-const { font, spacer, color } = styleVariables
+const { font, spacer, color, border } = styleVariables
 const style = {
   avatar: {
     marginTop: spacer.base,
@@ -39,7 +39,8 @@ const style = {
     boxShadow: 'none',
     cursor: 'pointer',
     marginBottom: spacer.base,
-    paddingBottom: spacer.base
+    paddingBottom: spacer.base,
+    borderRadius: styleVariables.border.radius
   },
   description: {
     height: descriptionHeight,
@@ -55,8 +56,8 @@ const style = {
     margin: `0 ${spacer.base}`,
     textAlign: 'center',
     fontSize: font.size.h2Big,
-    borderTop: `2px solid ${color.background}`,
-    borderBottom: `2px solid ${color.background}`,
+    borderTop: `${border.thickness} solid ${color.background}`,
+    borderBottom: `${border.thickness} solid ${color.background}`,
     padding: `${spacer.quart} 0`
   }
 }

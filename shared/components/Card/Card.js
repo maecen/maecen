@@ -24,6 +24,7 @@ const objStyle = {
   base: {
     marginBottom: styleVariables.spacer.base,
     boxShadow: 'none',
+    borderRadius: styleVariables.border.radius,
     // relative because absolute positioned edit buttons
     position: 'relative'
   }
