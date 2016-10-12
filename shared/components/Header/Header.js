@@ -38,63 +38,76 @@ function Header (props, context) {
 
   return (
     <header style={style.main}>
-      <Link to={homeUrl}>
-        <IconButton
-          style={style.homeBtnStyle}
-          iconStyle={style.homeBtnIconStyle}
-          touchRippleColor={style.homeIconColor}
-        >
-          <MaecenIcon color={style.homeIconColor} viewBox='0 0 832 687'/>
-        </IconButton>
-      </Link>
-      <div style={style.rightmenu}>
-        {hasAccess
-        ? hasAuth === false
-          ? <Button label={t('login')}
-              primary={true}
-              last={true}
-              onClick={loginAction}
-            />
-          : <span>
-              <Link to={allMaecenatesUrl}>
-                <IconButton
-                  style={style.btnStyle}
-                  iconStyle={style.btnIconStyle}
-                  touchRippleColor={style.homeIconColor}
-                >
-                  <SearchIcon color={style.iconColor}/>
-                </IconButton>
-              </Link>
-              <Link to={myPageUrl}>
-                <IconButton
-                  style={style.btnStyle}
-                  iconStyle={style.btnIconStyle}
-                  touchRippleColor={style.homeIconColor}
-                >
-                  <PersonIcon color={style.iconColor} style={style.icon}/>
-                </IconButton>
-              </Link>
-            </span>
-        : <IconButton
-            onTouchTap={getAccessAction} >
-            <Burn color='rgba(255,255,255,0.25)'/>
+      <div style={style.wrapper}>
+        <Link to={homeUrl}>
+          <IconButton
+            style={style.homeBtnStyle}
+            iconStyle={style.homeBtnIconStyle}
+            touchRippleColor={style.homeIconColor}
+          >
+            <MaecenIcon color={style.homeIconColor} viewBox='0 0 832 687'/>
           </IconButton>
-        }
+        </Link>
+        <div style={style.rightmenu}>
+          {hasAccess
+          ? hasAuth === false
+            ? <Button label={t('login')}
+                primary={true}
+                last={true}
+                onClick={loginAction}
+              />
+            : <span>
+                <Link to={allMaecenatesUrl}>
+                  <IconButton
+                    style={style.btnStyle}
+                    iconStyle={style.btnIconStyle}
+                    touchRippleColor={style.homeIconColor}
+                  >
+                    <SearchIcon color={style.iconColor}/>
+                  </IconButton>
+                </Link>
+                <Link to={myPageUrl}>
+                  <IconButton
+                    style={style.btnStyle}
+                    iconStyle={style.btnIconStyle}
+                    touchRippleColor={style.homeIconColor}
+                  >
+                    <PersonIcon color={style.iconColor} style={style.icon}/>
+                  </IconButton>
+                </Link>
+              </span>
+          : <IconButton
+              onTouchTap={getAccessAction} >
+              <Burn color='rgba(255,255,255,0.25)'/>
+            </IconButton>
+          }
+        </div>
+        { !hideFab &&
+          adminMaecenates.length !== 0 &&
+            <Link to={createPostUrl} style={style.fabWrap}>
+              <FloatingActionButton style={style.fab}>
+                <ContentAdd />
+              </FloatingActionButton>
+            </Link>
+          }
       </div>
-      { !hideFab &&
-        adminMaecenates.length !== 0 &&
-          <Link to={createPostUrl} style={style.fabWrap}>
-            <FloatingActionButton style={style.fab}>
-              <ContentAdd />
-            </FloatingActionButton>
-          </Link>
-        }
     </header>
   )
 }
 
-const { color, spacer, icon } = styleVariables
+const { color, spacer, icon, defaults } = styleVariables
 const style = {
+  main: {
+    backgroundColor: color.headerBG,
+    marginBottom: spacer.tripple,
+    padding: '.5vw 0'
+    // boxShadow: '0 0 20px rgba(0,0,0,.03), 0 0 10px rgba(0,0,0,.06), 0 0 1px rgba(0,0,0,.2)'
+  },
+  wrapper: {
+    margin: defaults.margin,
+    maxWidth: defaults.maxWidth,
+    padding: defaults.padding
+  },
   icon: {
     width: icon.size.lg,
     height: icon.size.lg
@@ -102,12 +115,8 @@ const style = {
   logo: {
     color: color.bodyText
   },
-  iconColor: color.icon,
+  iconColor: color.bodyText,
   homeIconColor: color.bodyText,
-  main: {
-    marginBottom: spacer.base,
-    padding: '1vw 0'
-  },
   rightmenu: {
     float: 'right',
     marginLeft: spacer.base,

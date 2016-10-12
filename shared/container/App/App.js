@@ -54,20 +54,23 @@ function App (props) {
   )
 }
 
+const { defaults, spacer } = styleVariables
+
 const style = {
   main: {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-    padding: '0 .5rem',
-    maxWidth: '70rem',
-    margin: '0 auto'
+    margin: '0 auto',
+    width: '100%'
   },
   contentWrap: {
     display: 'flex',
     flex: '1',
     justifyContent: 'center',
-    paddingBottom: styleVariables.spacer.quadrouple
+    paddingBottom: spacer.quadrouple,
+    margin: defaults.margin,
+    maxWidth: defaults.maxWidth
   }
 }
 

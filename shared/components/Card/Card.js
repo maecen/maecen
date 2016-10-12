@@ -22,7 +22,8 @@ export default function Card ({
 
 const objStyle = {
   base: {
-    marginBottom: styleVariables.spacer.quart,
+    marginBottom: styleVariables.spacer.base,
+    boxShadow: 'none',
     // relative because absolute positioned edit buttons
     position: 'relative'
   }
