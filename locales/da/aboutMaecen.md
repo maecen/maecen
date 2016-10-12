@@ -8,7 +8,7 @@ Men brugerne betaler dyrt - med deres presonlige data. Og vi modtager ikke noget
 Platformene, som Google, YouTube, Facebook, Soundcloud og Twitter er hver især mange milliarder af kroner værd. Men uden det indhold som kreative mennesker dagligt bidrager med, ville disse platforme ikke have nogen værdi overhovedet.  
 Og nogle af de største og hurtigst voksende virksomheder på de amerikanske børser, lever at at høste og videresælge information om brugerne på Internettet.  
 
-Formålet med Mæcen er at skabe en fælles platform hvor brugerne faktisk betaler for det indhold de modtager. og hvor de der skaber indholdet får det maksimale udbytte ud af deres indsats.  
+Formålet med Mæcen er at skabe en fællesejet global platform, hvor brugerne faktisk betaler for det indhold de modtager. og hvor vi, der skaber indholdet, får det maksimale udbytte ud af vores indsats.  
 
 ###Cooperative platform
 Mæcen.net er ejet og drevet af andelselskabet DiGiDi a.m.b.a. Alle de mere end 3.500 andelshavere har én andel hver og én stemme.
