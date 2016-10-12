@@ -58,7 +58,7 @@ class HomeView extends Component {
                 />
               </div>
               <Link to='/about'>
-                <Button primary={true} label={t('aboutMaecen')} />
+                <Button primary={true} last={true} label={t('aboutMaecen')} />
               </Link>
             </div>
           : <div id='mc_embed_signup'>

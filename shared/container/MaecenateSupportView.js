@@ -152,7 +152,7 @@ class MaecenateSupportView extends Component {
         if (data.paymentComplete === true) {
           return this.paymentComplete()
         } else {
-          this.paymentWindow.open(data.epayPaymentParams)
+          return this.paymentWindow.open(data.epayPaymentParams)
             .then(() => this.paymentComplete())
         }
       }).catch(err => {

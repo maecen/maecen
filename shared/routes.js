@@ -1,4 +1,4 @@
-import { Route, IndexRoute, Redirect } from 'react-router'
+import { Route, IndexRoute } from 'react-router'
 import React from 'react'
 import App from './container/App/App'
 
@@ -9,6 +9,7 @@ import MaecenateOverviewView from './container/MaecenateOverviewView'
 import MaecenateView from './container/MaecenateView'
 import MaecenateSupportView from './container/MaecenateSupportView'
 import TermsView from './container/TermsView'
+import AboutView from './container/AboutView'
 
 import CreatePostView from './container/Post/CreatePostView'
 import EditPostView from './container/Post/EditPostView'
@@ -59,6 +60,7 @@ const getRoutes = (store) => {
         onEnter={requiresAuth}
       />
       <Route path='terms' component={TermsView} />
+      <Route path='about' component={AboutView} />
       <Route path='post/create'
         component={CreatePostView}
         hideFab={true}
@@ -83,8 +85,6 @@ const getRoutes = (store) => {
         onEnter={requiresMaecenateAdmin}
       />
 
-      {/* TODO solve this without redirect, see attempt in feature/about */}
-      <Redirect from='about' to='maecen-projekt/presentation' />
       <Route path='maecenate/:slug/dashboard'
         component={MaecenateDashboardView}
         onEnter={requiresMaecenateAdmin}

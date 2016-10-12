@@ -58,7 +58,7 @@ function Footer (props) {
 const { spacer, icon } = styleVariables
 const style = {
   footer: {
-    padding: `${spacer.base} 0px ${spacer.quart}`,
+    padding: `${spacer.base} 0px ${spacer.base}`,
     color: styleVariables.color.bodyText
   },
   footerContent: {
@@ -75,6 +75,7 @@ const style = {
     lineHeight: 0
   },
   selectField: {
+    marginRight: spacer.base,
     width: '50px'
   },
   selectUnderline: {

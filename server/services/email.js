@@ -1,3 +1,4 @@
+import { toCamelCase } from 'strman'
 import { fetchSupporters } from './maecenates'
 
 export const fetchMaecenateDeactivatedData = (knex, maecenateId) => {
@@ -30,13 +31,11 @@ export const fetchMaecenateDeactivatedData = (knex, maecenateId) => {
     maecenateQuery,
     subscriptionsQuery
   ])
-  .then(([[maecenate], users]) => {
-    return { maecenate, users }
-  })
+  .then(([[maecenate], users]) => ({maecenate, users}))
 }
 
-export const fetchToMaecenateData = (knex, maecenateId) => {
-  return Promise.all([
+export const fetchToMaecenateData = (knex, maecenateId) =>
+  Promise.all([
     fetchSupporters(knex, maecenateId)
     .then(userIds =>
       knex('users')
@@ -52,4 +51,33 @@ export const fetchToMaecenateData = (knex, maecenateId) => {
     .select('title', 'slug')
     .where({ id: maecenateId })
   ]).then(([users, [maecenate]]) => ({ users, maecenate }))
+
+export const fetchNewSupporterData = (knex, subscriptionId) =>
+  knex('subscriptions')
+    .select(selectFields('maecenates', 'maecenate', ['title', 'slug']))
+    .select(selectFields('supporter', ['first_name', 'last_name', 'email']))
+    .select(selectFields('admin', ['first_name', 'email', 'language']))
+    .select(selectFields('subscriptions', 'subscription', ['amount', 'currency']))
+    .innerJoin('maecenates', 'subscriptions.maecenate', 'maecenates.id')
+    .innerJoin('users as supporter', 'supporter.id', 'subscriptions.user')
+    .innerJoin('users as admin', 'admin.id', 'maecenates.creator')
+    .where('subscriptions.id', subscriptionId)
+    .then(data => parseSelectedResponse(data[0]))
+
+const parseSelectedResponse = (data) => {
+  let obj = {}
+  for (let key in data) {
+    const keys = key.split('.')
+    if (keys[0] in obj === false) obj[keys[0]] = {}
+    obj[keys[0]][keys[1]] = data[key]
+  }
+  return obj
+}
+
+const selectFields = (from, to, fields) => {
+  if (typeof fields === 'undefined') {
+    fields = to
+    to = from
+  }
+  return fields.map(field => `${from}.${field} as ${to}.${toCamelCase(field)}`)
 }

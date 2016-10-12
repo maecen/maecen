@@ -157,7 +157,7 @@ function getDefaultAlias (props, maecenateId) {
     alias = authUser.alias
   }
 
-  return alias
+  return alias || ''
 }
 
 function setDefaultAlias (props, alias, maecenateId) {

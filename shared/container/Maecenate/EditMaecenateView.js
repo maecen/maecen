@@ -1,12 +1,17 @@
+// Imports
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { browserHistory } from 'react-router'
+import pick from 'lodash/pick'
 import axios from 'axios'
 import Immutable from 'seamless-immutable'
-import { mediaUpload } from '../../lib/fileHandler'
-import * as Actions from '../../actions'
 
+// Utils
+import { mediaUpload } from '../../lib/fileHandler'
+
+// Selectors & Actions
+import * as Actions from '../../actions'
 import {
   getMaecenateBySlug
 } from '../../selectors/maecenate'
@@ -29,7 +34,16 @@ class EditMaecenateView extends Component {
   }
 
   componentWillMount () {
-    this.setState({ maecenate: Immutable(this.props.maecenate) || null })
+    const maecenate = pick(this.props.maecenate, [
+      'title',
+      'logo_media',
+      'cover_media',
+      'teaser',
+      'description',
+      'url',
+      'monthly_minimum'
+    ])
+    this.setState({ maecenate: Immutable(maecenate) || null })
   }
 
   componentDidMount () {
@@ -81,9 +95,15 @@ class EditMaecenateView extends Component {
 
     this.setState({ isSubmitting: true })
 
-    const maecenate = data.set('url', (data.url || '').replace(/https?:\/\//i, ''))
+    const { maecenate } = this.props
+    const maecenateData = data.set('url', (data.url || '').replace(/https?:\/\//i, ''))
 
-    axios.put(`/api/maecenates/${maecenate.slug}/admin/edit`, { maecenate })
+    axios.put(`/api/maecenates/${maecenate.slug}/admin/edit`, {
+      maecenate: {
+        id: maecenate.id,
+        ...maecenateData
+      }
+    })
       .then(res => res.data)
       .then((data) => {
         this.setState({ errors: null, isSubmitting: false })
