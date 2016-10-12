@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 import styleVariables from '../styleVariables'
-import { Card, CardContent, CardBigTitle } from '../../components/Card'
+import { Card, CardContent, CardBigTitle } from '../Card'
 import { translate } from 'react-i18next'
 import Button from '../Form/Button'
 import Media from '../Media/Media'
@@ -19,20 +19,23 @@ function MaecenatePresentation (props) {
 
   const {
     cover,
+    description,
+    teaser,
+    title,
     url: url,
     monthly_minimum: monthlyMinimum
   } = maecenate
 
   return (
-    <div style={style.container}>
+    <div style={style.mainContainer}>
       <Card>
         <div style={style.cardContainer}>
-          <CardBigTitle style={style.title}>
-            {maecenate.title}
+          <CardBigTitle>
+            { title }
           </CardBigTitle>
           {isAuthUserOwner &&
             <IconButton
-              style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
+              style={style.editIcon}
               onTouchTap={editMaecenate} >
               <EditIcon />
             </IconButton>
@@ -47,11 +50,11 @@ function MaecenatePresentation (props) {
               <Media type={cover.type} url={cover.url} fixedRatio={true} />
             }
           </CardContent>
-          <CardContent style={style.description}>
+          <CardContent textLayout={true}>
             <div style={style.subtitle}>
-              { maecenate.teaser }
+              { teaser }
             </div>
-            {maecenate.description}
+            { description }
             {url &&
               <div style={style.url}>
                 {t('website')}:
@@ -66,7 +69,7 @@ function MaecenatePresentation (props) {
           </CardContent>
           { maecenate.active &&
             <CardContent>
-              <div style={style.flexMe}>
+              <div style={style.supportWrap}>
                 <div>
                   {t('support.minimumAmount',
                     { context: 'DKK', count: monthlyMinimum })}
@@ -91,45 +94,35 @@ function MaecenatePresentation (props) {
 
 const { spacer, font, color, border, defaults } = styleVariables
 const style = {
-  container: {
+  mainContainer: {
     width: '100%'
-  },
-  avatar: {
-    marginTop: spacer.base,
-    marginRight: 0,
-    marginBottom: spacer.base,
-    marginLeft: spacer.base,
-    flexShrink: '0'
-  },
-  header: {
-    position: 'absolute',
-    right: '0px',
-    top: spacer.double
-  },
-  link: {
-    color: color.primary,
-    textDecoration: 'none'
-  },
-  subtitle: {
-    fontWeight: font.weight.subtitle,
-    marginBottom: spacer.base
-  },
-  description: {
-    whiteSpace: 'pre-line',
-    margin: '0 auto',
-    maxWidth: defaults.maxWidthText
   },
   cardContainer: {
     margin: '0 auto',
     maxWidth: defaults.maxWidthContent
   },
-  title: {
-    textAlign: 'center',
-    paddingTop: spacer.double,
-    paddingBottom: spacer.base,
-    borderBottom: `${border.thickness} solid ${color.background}`
+  editIcon: {
+    marginRight: '0px',
+    position: 'absolute',
+    top: '0px',
+    right: '0px'
   },
-  flexMe: {
+  closedMessage: {
+    fontWeight: font.weight.subtitle,
+    textAlign: 'center'
+  },
+  subtitle: {
+    fontWeight: font.weight.subtitle,
+    marginBottom: spacer.base
+  },
+  url: {
+    marginTop: spacer.base
+  },
+  link: {
+    color: color.primary,
+    textDecoration: 'none'
+  },
+  supportWrap: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -141,13 +134,6 @@ const style = {
   button: {
     flexShrink: '0',
     marginLeft: 'auto'
-  },
-  closedMessage: {
-    fontWeight: font.weight.subtitle,
-    textAlign: 'center'
-  },
-  url: {
-    marginTop: spacer.base
   }
 }
 

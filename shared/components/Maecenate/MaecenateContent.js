@@ -3,46 +3,36 @@ import { translate } from 'react-i18next'
 
 import styleVariables from '../styleVariables'
 import { Card, CardHeader, CardBigTitle, CardContent } from '../Card'
-import { Row, Cell } from '../Grid'
 import Post from '../Post/Post'
 import Avatar from 'material-ui/Avatar'
 import Media from '../Media/Media'
 import cropCloudy from '../../lib/cropCloudy'
+import IconButton from 'material-ui/IconButton'
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 
 function MaecenateContent (props) {
-  const { maecenate, posts, editPost, showMaecenateTitle, t } = props
+  const {
+    maecenate,
+    posts,
+    editPost,
+    editMaecenate,
+    showMaecenateTitle,
+    isAuthUserOwner,
+    t
+  } = props
 
-  const style = {
-    avatar: {
-      margin: styleVariables.spacer.base,
-      marginRight: '0px'
-    },
-    header: {
-      position: 'absolute',
-      right: '0px',
-      top: styleVariables.spacer.onePointFive
-    },
-    link: {
-      color: styleVariables.color.primary,
-      textDecoration: 'none'
-    },
-    subtitle: {
-      fontWeight: styleVariables.font.weight.subtitle
-    },
-    titleWrap: {
-      display: 'flex',
-      alignItems: 'center'
-    },
-    closedMessage: {
-      fontWeight: styleVariables.font.weight.subtitle,
-      textAlign: 'center'
-    }
-  }
+  const {
+    cover,
+    description,
+    teaser,
+    title,
+    url
+  } = maecenate
 
   return (
-    <Row>
-      <Cell narrowLayout={true}>
-        <Card>
+    <div style={style.mainContainer}>
+      <Card>
+        <div style={style.cardContainer}>
           <div style={style.titleWrap}>
             <Avatar
               src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
@@ -50,61 +40,118 @@ function MaecenateContent (props) {
               style={style.avatar}
             />
             <CardBigTitle>
-              {maecenate.title}
+              { title }
             </CardBigTitle>
           </div>
           <CardHeader
-            style={style.header}
+            title="Expand virker ikke lige nu..."
+            // style={style.header}
             actAsExpander={true}
             showExpandableButton={true}
           />
+          {isAuthUserOwner &&
+            <IconButton
+              style={style.editIcon}
+              onTouchTap={editMaecenate} >
+              <EditIcon />
+            </IconButton>
+          }
           {maecenate.active ||
             <CardContent style={style.closedMessage}>
               { t('maecenate.closedSupporterMessage') }
             </CardContent>
           }
-
           <CardContent expandable={true}>
             { maecenate.cover &&
-              <Media type={maecenate.cover.type} url={maecenate.cover.url} fixedRatio={true} />
+              <Media type={cover.type} url={cover.url} fixedRatio={true} />
             }
           </CardContent>
-          <CardContent style={style.subtitle} expandable={true}>
-            { maecenate.teaser }
+          <CardContent expandable={true} textLayout={true}>
+            <div style={style.subtitle}>
+              { teaser }
+            </div>
+            { description }
+            {url &&
+              <div style={style.url}>
+                {t('website')}:
+                <a
+                  href={`http://${url}`}
+                  target='_blank'
+                  style={style.link}>
+                  &nbsp;{url}
+                </a>
+              </div>
+            }
           </CardContent>
-          <CardContent expandable={true}>
-            { maecenate.description }
-          </CardContent>
-          {maecenate.active &&
-            <CardContent expandable={true}>
-              {t('support.minimumAmount',
-                { context: 'DKK', count: maecenate.monthly_minimum })}
-              <br />
-              {maecenate.url &&
-                <span>
-                  {t('website')}:
-                  <a
-                    href={`http://${maecenate.url}`}
-                    target='_blank'
-                    style={style.link}>
-                    &nbsp;{maecenate.url}
-                  </a>
-                </span>
-              }
-            </CardContent>
-          }
-        </Card>
-        {posts.map(post => (
-          <Post
-            post={post}
-            maecenate={maecenate}
-            editPost={editPost}
-            key={post.id}
-            showMaecenateTitle={showMaecenateTitle} />
-        ))}
-      </Cell>
-    </Row>
+        </div>
+      </Card>
+      { posts.map(post => (
+        <Post
+          post={post}
+          maecenate={maecenate}
+          editPost={editPost}
+          key={post.id}
+          showMaecenateTitle={showMaecenateTitle} />
+      ))}
+    </div>
   )
+}
+
+const { spacer, font, color, border, defaults } = styleVariables
+const style = {
+  mainContainer: {
+    width: '100%'
+  },
+  cardContainer: {
+    margin: '0 auto',
+    maxWidth: defaults.maxWidthContent
+  },
+  titleWrap: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  avatar: {
+    borderRadius: '0px'
+  },
+  editIcon: {
+    marginRight: '0px',
+    position: 'absolute',
+    top: '0px',
+    right: '0px'
+  },
+  header: {
+    position: 'absolute',
+    right: '0px',
+    top: styleVariables.spacer.onePointFive
+  },
+  closedMessage: {
+    fontWeight: font.weight.subtitle,
+    textAlign: 'center'
+  },
+  subtitle: {
+    fontWeight: font.weight.subtitle,
+    marginBottom: spacer.base
+  },
+  url: {
+    marginTop: spacer.base
+  },
+  link: {
+    color: color.primary,
+    textDecoration: 'none'
+  },
+  supportWrap: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    borderTop: `${border.thickness} solid ${color.background}`,
+    paddingTop: spacer.double,
+    paddingBottom: spacer.base
+  },
+  button: {
+    flexShrink: '0',
+    marginLeft: 'auto'
+  }
 }
 
 MaecenateContent.propTypes = {

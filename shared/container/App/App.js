@@ -70,7 +70,8 @@ const style = {
     justifyContent: 'center',
     paddingBottom: spacer.quadrouple,
     margin: defaults.margin,
-    maxWidth: defaults.maxWidth
+    width: defaults.maxWidth,
+    maxWidth: '100%'
   }
 }
 

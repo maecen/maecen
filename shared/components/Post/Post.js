@@ -8,9 +8,10 @@ import moment from 'moment'
 import { postStatus } from '../../config'
 
 // Components
+import styleVariables from '../styleVariables'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import IconButton from 'material-ui/IconButton'
-import { Card, CardContent, CardTitle, CardHeader } from '../Card'
+import { Card, CardContent, CardBigTitle, CardHeader } from '../Card'
 import cropCloudy from '../../lib/cropCloudy'
 import Media from '../Media/Media'
 
@@ -25,38 +26,43 @@ function Post (props, context) {
 
   return (
     <Card style={baseStyle}>
-      {showMaecenateTitle === false
-        ? null
-        : <Link to={`/${maecenate.slug}`}>
-            <CardHeader
-              title={maecenate.title}
-              avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-            />
-          </Link>
-      }
-      <CardTitle title={post.title}
-        style={{paddingBottom: '0px'}} />
-      {editPost &&
-        <IconButton
-          style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
-          onClick={editPost.bind(null, post.id)}>
-          <EditIcon />
-        </IconButton>
-      }
-      <CardContent
-        noTopPadding={true}
-        style={{opacity: '0.6'}}>
-        {writtenByAlias}
-        <span style={{ float: 'right' }}>
-          {moment(post.created_at).fromNow()}
-        </span>
-      </CardContent>
-      {media &&
-        <Media type={media.type} url={media.url} fixedRatio={false} />
-      }
-      <CardContent noTopPadding={true}>
-        {post.content}
-      </CardContent>
+      <div style={style.cardContainer}>
+        {showMaecenateTitle === false
+          ? null
+          : <Link to={`/${maecenate.slug}`}>
+              <CardHeader
+                title={maecenate.title}
+                avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+              />
+            </Link>
+        }
+        <CardBigTitle>
+          { post.title }
+        </CardBigTitle>
+        {editPost &&
+          <IconButton
+            style={{marginRight: '0px', position: 'absolute', top: '0px', right: '0px'}}
+            onClick={editPost.bind(null, post.id)}>
+            <EditIcon />
+          </IconButton>
+        }
+        {media &&
+          <CardContent>
+            <Media type={media.type} url={media.url} fixedRatio={false} />
+          </CardContent>
+        }
+        <CardContent noTopPadding={true} textLayout={true}>
+          {post.content}
+        </CardContent>
+        <CardContent noTopPadding={true}>
+          <div style={style.metaData}>
+            {writtenByAlias}
+            <span style={{ float: 'right' }}>
+              {moment(post.created_at).fromNow()}
+            </span>
+          </div>
+        </CardContent>
+      </div>
     </Card>
   )
 }
@@ -65,6 +71,15 @@ const style = {
   base: {},
   hidden: {
     opacity: 0.5
+  },
+  cardContainer: {
+    margin: '0 auto',
+    maxWidth: styleVariables.defaults.maxWidthContent
+  },
+  metaData: {
+    opacity: '0.6',
+    paddingTop: styleVariables.spacer.base,
+    borderTop: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`
   }
 }
 

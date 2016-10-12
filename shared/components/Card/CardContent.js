@@ -27,6 +27,16 @@ function CardText (props) {
       paddingLeft: styleVariables.spacer.base
     }
   }
+
+  if (props.textLayout === true) {
+    styling = {
+      ...styling,
+      whiteSpace: 'pre-line',
+      margin: '0 auto',
+      maxWidth: styleVariables.defaults.maxWidthText
+    }
+  }
+
   return (
     <div style={styling}>
       { props.children }
@@ -35,7 +45,8 @@ function CardText (props) {
 }
 
 CardText.propTypes = {
-  noTopPadding: PropTypes.bool
+  noTopPadding: PropTypes.bool,
+  text: PropTypes.bool
 }
 
 export default Radium(
