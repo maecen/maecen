@@ -17,7 +17,8 @@ export default class Card extends Component {
 
 Card.defaultProps = {
   style: {
-    marginBottom: styleVariables.spacer.quart,
+    marginBottom: styleVariables.spacer.base,
+    boxShadow: 'none',
     // relative because absolute positioned edit buttons
     position: 'relative'
   }

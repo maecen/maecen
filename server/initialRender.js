@@ -7,6 +7,7 @@ import { I18nextProvider } from 'react-i18next'
 import serialize from 'serialize-javascript'
 import { StyleRoot } from 'radium'
 
+import styleVariables from '../shared/components/styleVariables'
 import User from './models/User'
 import i18n from './i18n-server'
 import getRoutes from '../shared/routes'
@@ -151,7 +152,7 @@ function renderTemplate (html, initialState, i18n) {
       min-height: 100%;
       margin: 0;
       padding: 0;
-      background-color: hsl(210, 5%, 95%);`
+      background-color: ${styleVariables.color.background};`
   }
   return `
     <!DOCTYPE html>

@@ -44,9 +44,10 @@ const style = {
     marginRight: '0px'
   },
   card: {
+    boxShadow: 'none',
+    cursor: 'pointer',
     marginBottom: spacer,
-    paddingBottom: spacer,
-    cursor: 'pointer'
+    paddingBottom: spacer
   },
   description: {
     height: descriptionHeight,

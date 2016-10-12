@@ -54,12 +54,10 @@ class HomeView extends Component {
                 <Button
                   label={t('maecenate.create')}
                   primary={true}
+                  last={true}
                   onClick={this.handleCreateMaecenate}
                 />
               </div>
-              <Link to='/about'>
-                <Button primary={true} last={true} label={t('aboutMaecen')} />
-              </Link>
             </div>
           : <div id='mc_embed_signup'>
               <div style={style.tagline}>{t('curiousEmail')}</div>
@@ -157,9 +155,11 @@ class HomeView extends Component {
   }
 }
 
+const { color, spacer } = styleVariables
+
 const style = {
   home: {
-    color: 'white',
+    color: color.textColor,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -178,7 +178,7 @@ const style = {
   },
   marginBottom: {
     display: 'inline-block',
-    marginBottom: styleVariables.spacer.half
+    marginBottom: spacer.half
   }
 }
 

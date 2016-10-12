@@ -16,11 +16,14 @@ export default {
   },
   color: {
     alert: 'rgb(244, 67, 54)',
-    bodyText: 'white',
+    background: 'hsl(210, 5%, 92%)',
+    bodyText: 'hsl(210, 5%, 30%)',
     cardText: 'hsl(0, 0%, 13%)',
-    icon: 'rgba(255,255,255,0.6)',
     gray: 'rgb(200,200,200)',
-    primary: 'hsl(190, 100%, 30%)'
+    headerBG: 'hsl(210, 8%, 87%)',
+    icon: 'rgba(255,255,255,0.6)',
+    primary: 'hsl(190, 100%, 30%)',
+    white: 'white'
   },
   font: {
     size: {
@@ -53,6 +56,11 @@ export default {
       lg: '40px',
       xl: '60px'
     }
+  },
+  defaults: {
+    maxWidth: '70rem',
+    padding: '0 0.5rem',
+    margin: '0 auto'
   },
   media: {
     lg: mediaSizes.lg,

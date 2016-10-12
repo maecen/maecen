@@ -36,6 +36,7 @@ function Footer (props) {
             value={lang}
             onChange={changeLang}
             style={style.selectField}
+            iconStyle={style.selectIcon}
             labelStyle={style.selectLabel}
             underlineStyle={style.selectUnderline}
           >
@@ -58,15 +59,18 @@ function Footer (props) {
   )
 }
 
-const { spacer, icon } = styleVariables
+const { spacer, icon, defaults, color } = styleVariables
 const style = {
   footer: {
-    padding: `${spacer.base} 0px ${spacer.base}`,
+    padding: `${spacer.base} 0px 0px`,
     color: styleVariables.color.bodyText
   },
   footerContent: {
+    alignItems: 'center',
     display: 'flex',
-    alignItems: 'center'
+    margin: defaults.margin,
+    maxWidth: defaults.maxWidth,
+    padding: defaults.padding
   },
   selectLabel: {
     width: icon.size.sm,
@@ -79,10 +83,13 @@ const style = {
   },
   selectField: {
     marginRight: spacer.base,
-    width: '50px'
+    width: '44px'
   },
   selectUnderline: {
     display: 'none'
+  },
+  selectIcon: {
+    fill: color.textColor
   },
   footerLink: {
     cursor: 'pointer',

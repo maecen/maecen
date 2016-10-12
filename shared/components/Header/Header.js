@@ -95,8 +95,19 @@ function Header (props, context) {
   )
 }
 
-const { color, spacer, icon } = styleVariables
+const { color, spacer, icon, defaults } = styleVariables
 const style = {
+  main: {
+    backgroundColor: color.headerBG,
+    marginBottom: spacer.quadrouple,
+    padding: '.5vw 0'
+    // boxShadow: '0 0 20px rgba(0,0,0,.03), 0 0 10px rgba(0,0,0,.06), 0 0 1px rgba(0,0,0,.2)'
+  },
+  wrapper: {
+    margin: defaults.margin,
+    maxWidth: defaults.maxWidth,
+    padding: defaults.padding
+  },
   icon: {
     width: icon.size.lg,
     height: icon.size.lg
@@ -104,18 +115,8 @@ const style = {
   logo: {
     color: color.bodyText
   },
-  iconColor: color.icon,
+  iconColor: color.bodyText,
   homeIconColor: color.bodyText,
-  main: {
-    marginBottom: spacer.base,
-    padding: '1vw 0',
-    backgroundColor: 'red'
-  },
-  wrapper: {
-    padding: '0 .5rem',
-    margin: '0 auto',
-    maxWidth: '70rem'
-  },
   rightmenu: {
     float: 'right',
     marginLeft: spacer.base,
