@@ -1,10 +1,14 @@
+// Imports
 import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
+
 import styleVariables from '../styleVariables'
-import * as Flags from '../Graphics/Flags'
+
+// Components
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import { browserHistory } from 'react-router'
+import * as Flags from '../Graphics/Flags'
+import { TextLink } from '../../components/Link'
 
 const languages = {
   da: {
@@ -15,14 +19,6 @@ const languages = {
     name: 'English',
     flag: <Flags.EnglishFlag />
   }
-}
-
-function gotoTerms () {
-  browserHistory.push('/terms')
-}
-
-function gotoAbout () {
-  browserHistory.push('/about')
 }
 
 function Footer (props) {
@@ -47,12 +43,13 @@ function Footer (props) {
             )}
           </SelectField>
         }
-        <div
-          style={style.footerLink}
-          onClick={gotoTerms}>{t('terms')}</div>
-        <div
-          style={style.footerLink}
-          onClick={gotoAbout}>{t('aboutMaecen')}</div>
+
+        <TextLink to='/terms' style={style.footerLink}>
+          {t('terms')}
+        </TextLink>
+        <TextLink to='/about' style={style.footerLink}>
+          {t('aboutMaecen')}
+        </TextLink>
       </div>
     </footer>
   )
@@ -86,6 +83,7 @@ const style = {
   },
   footerLink: {
     cursor: 'pointer',
+    color: '#fff',
     paddingRight: spacer.base,
     paddingTop: spacer.half,
     paddingBottom: spacer.quart

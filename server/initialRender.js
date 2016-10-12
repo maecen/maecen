@@ -135,7 +135,7 @@ function renderTemplate (html, initialState, i18n) {
     }
 
     a {
-      color: white;
+      color: hsl(190, 100%, 30%);
       text-decoration: none;
     }
   `
