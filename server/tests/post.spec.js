@@ -79,10 +79,11 @@ test.failing('POST /api/posts/create with image', async t => {
   const maecenate = await createDummyMaecenate()
 
   const mediaId = uuid.v1()
-  await knex('media').insert({
+  await knex('files').insert({
     id: mediaId,
     type: 'image/jpg',
-    url: 'https://fakeurl.com'
+    url: 'https://fakeurl.com',
+    role: 'MEDIA'
   })
 
   const errData = {

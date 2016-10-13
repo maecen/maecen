@@ -1,6 +1,5 @@
 import Joi from 'joi'
 import uuid from 'node-uuid'
-import { uploadStream } from '../util/fileUploader'
 import { joiValidation } from '../util/ctrlHelpers'
 import { bookshelf } from '../database'
 
@@ -33,19 +32,6 @@ const Media = bookshelf.Model.extend({
     return joiValidation(this.toJSON(true), schema)
   }
 })
-
-Media.uploadStream = function (stream, attr) {
-  let media = new Media(attr)
-  media.generateId()
-  const path = `media/${media.id}`
-  return media.validate().then(() => {
-    const type = attr.type.startsWith('video') ? 'video' : 'image'
-    return uploadStream(stream, path, type)
-  }).then((result) => {
-    media.set('url', result.secure_url)
-    return media.save(null, { method: 'insert' })
-  })
-}
 
 export default Media
 

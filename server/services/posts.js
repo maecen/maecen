@@ -8,7 +8,7 @@ import { joiValidation } from '../util/ctrlHelpers'
 import { postStatus } from '../../shared/config'
 
 // Services
-import { claimMedia, deleteUnusedMedia } from './media'
+import { claimFiles, deleteUnusedFiles, populatePostsWithFiles } from './files'
 import { fetchMaecenates } from './maecenates'
 import { fetchActiveUserSubPeriods } from './subscriptions'
 
@@ -25,36 +25,13 @@ const schema = Joi.object({
   status: Joi.string().only(Object.keys(postStatus)).required()
 }).or('media', 'content')
 
-// Private methods
-// ===============
-function populateMedia (posts) {
-  const postIds = posts.map(post => post.id)
-  return knex('media').where('obj_id', 'in', postIds)
-    .andWhere('obj_type', 'post')
-    .then(media => {
-      return posts.map(post => ({
-        ...post,
-        media: media.filter(m => m.obj_id === post.id)
-      }))
-    })
-}
-
 // Database Calls
 // ==============
 export function fetchPost (id) {
-  return Promise.all([
-    knex('posts').where({ id }).limit(1),
-    knex('media').where('obj_id', id).andWhere('obj_type', 'post').select('id', 'type', 'url')
-  ]).then((args) => {
-    const [[post], media] = args
-    if (post) {
-      return {
-        ...post,
-        media
-      }
-    } else {
-      return null
-    }
+  return knex('posts').where({ id }).limit(1)
+  .then(posts => populatePostsWithFiles(knex, posts))
+  .then(([post]) => {
+    return post || null
   })
 }
 
@@ -66,36 +43,38 @@ export function createPost (knex, data, userId) {
   })
 
   return joiValidation(post, schema, true)
-    .then(() => {
-      const media = data.media || []
-      const mediaIds = media.filter(o => typeof o === 'string')
+  .then(() => {
+    const fileIds = getFilesFromData(data)
 
-      return knex.transaction(trx => {
-        return trx('posts').insert(post.without('media')).then(() => {
-          if (mediaIds) {
-            return claimMedia(mediaIds, 'post', post.id, trx)
-          }
-        }).then(() => post.id)
+    return knex.transaction(trx => {
+      return trx('posts').insert(post.without('media', 'file'))
+      .then(() => {
+        if (fileIds) {
+          return claimFiles(trx, fileIds, 'post', post.id)
+        }
       })
+      .then(() => post.id)
     })
+  })
 }
 
 export function updatePost (id, data) {
   data = Immutable(data)
-  return joiValidation(data, schema, true).then(() => {
-    const media = data.media || []
-    const mediaIds = media.filter(o => typeof o === 'string')
-
-    data = data.without('media', 'id')
+  return joiValidation(data, schema, true)
+  .then(() => {
+    const fileIds = getFilesFromData(data)
+    data = data.without('media', 'file', 'id')
 
     return knex.transaction(trx => {
-      return trx('posts').where({ id }).update(data).then(() => {
-        if (mediaIds) {
-          return claimMedia(mediaIds, 'post', id, trx)
+      return trx('posts').where({ id }).update(data)
+      .then(() => {
+        if (fileIds) {
+          return claimFiles(trx, fileIds, 'post', id)
         }
-      }).then(() => {
-        if (mediaIds.length > 0) {
-          return deleteUnusedMedia('post', id, mediaIds, trx)
+      })
+      .then(() => {
+        if (fileIds.length > 0) {
+          return deleteUnusedFiles(trx, 'post', id, fileIds)
         }
       })
     })
@@ -111,12 +90,13 @@ export function fetchSupportedMaecenatePosts (userId) {
         this.where('id', 'in', maecenateIds)
       }),
       knex('posts')
-        .where('maecenate', 'in', maecenateIds)
-        .where('status', postStatus.PUBLISHED)
-        .orderBy('created_at', 'desc')
-        .limit(10)
-        .then(populateMedia)
-    ]).then((result) => {
+      .where('maecenate', 'in', maecenateIds)
+      .where('status', postStatus.PUBLISHED)
+      .orderBy('created_at', 'desc')
+      .limit(10)
+      .then(populatePostsWithFiles)
+    ])
+    .then((result) => {
       const [maecenates, posts] = result
       return {
         maecenates,
@@ -125,4 +105,13 @@ export function fetchSupportedMaecenatePosts (userId) {
       }
     })
   })
+}
+
+const getFilesFromData = (data) => {
+  const media = data.media || []
+  const files = data.file || []
+  return [
+    ...media.filter(o => typeof o === 'string'),
+    ...files.filter(o => typeof o === 'string')
+  ]
 }

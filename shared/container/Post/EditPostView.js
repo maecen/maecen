@@ -8,7 +8,7 @@ import Immutable from 'seamless-immutable'
 
 // Utils
 import { postStatus } from '../../config'
-import { mediaUpload } from '../../lib/fileHandler'
+import { mediaUpload, fileUpload } from '../../lib/fileHandler'
 
 // Actions & Selectors
 import * as Actions from '../../actions'
@@ -28,12 +28,14 @@ class EditPostView extends Component {
       isSubmitting: false,
       mediaPreview: null,
       uploadProgress: 0,
-      media: []
+      media: [],
+      files: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateModel = this.updateModel.bind(this)
     this.mediaChange = this.mediaChange.bind(this)
+    this.fileChange = this.fileChange.bind(this)
     this.toggleVisible = this.toggleVisible.bind(this)
   }
 
@@ -72,6 +74,15 @@ class EditPostView extends Component {
     })
   }
 
+  fileChange (files) {
+    this.setState({ files })
+    fileUpload(files, {
+      setState: this.setState.bind(this)
+    }).then((data) => {
+      this.updateModel(['file'], data.result)
+    })
+  }
+
   handleSubmit (e) {
     e.preventDefault()
     const { dispatch, maecenate } = this.props
@@ -101,6 +112,7 @@ class EditPostView extends Component {
           errors={this.state.errors}
           uploadProgress={this.state.uploadProgress}
           mediaChange={this.mediaChange}
+          fileChange={this.fileChange}
           isSubmitting={this.state.isSubmitting}
           toggleVisible={this.toggleVisible}
           editMode={true}

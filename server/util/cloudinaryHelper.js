@@ -59,3 +59,7 @@ export function deleteFile (imageUrl) {
     resolve()
   })
 }
+
+export function belongsToService (url) {
+  return url.startsWith('https://res.cloudinary.com')
+}
