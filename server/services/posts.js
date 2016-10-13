@@ -16,7 +16,7 @@ import { fetchActiveUserSubPeriods } from './subscriptions'
 // =============================
 const schema = Joi.object({
   id: Joi.string().guid(),
-  title: Joi.string(),
+  title: Joi.string().allow(null, ''),
   maecenate: Joi.string().guid().required(),
   author: Joi.string().guid().required(),
   author_alias: Joi.string().required(),
