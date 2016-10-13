@@ -81,7 +81,6 @@
     "radium": "^0.18.1",
     "react": "^15.3.1",
     "react-dom": "^15.0.1",
-    "react-flexbox-grid": "^0.9.6",
     "react-i18next": "^1.4.0",
     "react-redux": "^4.1.2",
     "react-router": "^2.7.0",
