@@ -125,7 +125,10 @@
     "see": "See posts",
     "title": "Title",
     "writtenByAlias": "By: {{alias}}",
-    "setVisible": "Visible for maecens"
+    "setVisible": "Visible for maecens",
+    "downloadAttachment": "Download attachment:",
+    "attachmentUpload": "Upload attachment",
+    "attachmentReplace": "Replace attachment"
   },
   "user": {
     "alias": "Alias",

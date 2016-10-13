@@ -26,6 +26,7 @@ function PostForm (props) {
     errors,
     onChangeMaecenate,
     mediaChange,
+    fileChange,
     uploadProgress,
     isSubmitting,
     toggleVisible,
@@ -33,11 +34,16 @@ function PostForm (props) {
   } = props
 
   const hasMedia = Boolean(post.media && post.media.length)
+  const hasFile = Boolean(post.file)
 
   const editMode = Boolean(props.editMode)
   const titleStr = editMode ? t('post.edit') : t('post.create')
   const submitStr = editMode ? t('post.saveEdit') : t('post.create')
   const mediaStr = hasMedia ? t('media.replace') : t('media.upload')
+
+  const fileStr = hasFile
+    ? t('post.attachmentReplace')
+    : t('post.attachmentUpload')
 
   return (
     <Row>
@@ -72,6 +78,14 @@ function PostForm (props) {
                 label={mediaStr}
                 accept='video/*,image/*'
                 onChange={mediaChange} />
+
+              <br />
+
+              <FileDropzone
+                multiple={false}
+                label={fileStr}
+                accept='*'
+                onChange={fileChange} />
 
               <LinearProgressDeterminate
                 value={uploadProgress} />
@@ -117,6 +131,7 @@ PostForm.propTypes = {
   errors: PropTypes.object,
   onChangeMaecenate: PropTypes.func,
   mediaChange: PropTypes.func.isRequired,
+  fileChange: PropTypes.func.isRequired,
   uploadProgress: PropTypes.number.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   toggleVisible: PropTypes.func.isRequired,

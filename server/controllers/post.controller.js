@@ -24,6 +24,7 @@ export function createPost (req, res, next) {
 
 export function editPost (req, res, next) {
   const { post } = req.body
+
   return service.updatePost(post.id, post).then(() => {
     return service.fetchPost(post.id)
   }).then(post => {

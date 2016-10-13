@@ -9,7 +9,7 @@ import find from 'lodash/find'
 
 // Utils
 import { postStatus, isBrowser } from '../../config'
-import { mediaUpload } from '../../lib/fileHandler'
+import { mediaUpload, fileUpload } from '../../lib/fileHandler'
 
 // Actions & Selectors
 import * as Actions from '../../actions'
@@ -32,12 +32,14 @@ class CreatePostView extends Component {
       isSubmitting: false,
       mediaPreview: null,
       uploadProgress: 0,
-      media: []
+      media: [],
+      files: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateModel = this.updateModel.bind(this)
     this.mediaChange = this.mediaChange.bind(this)
+    this.fileChange = this.fileChange.bind(this)
     this.onChangeMaecenate = this.onChangeMaecenate.bind(this)
     this.toggleVisible = this.toggleVisible.bind(this)
   }
@@ -100,6 +102,15 @@ class CreatePostView extends Component {
     })
   }
 
+  fileChange (files) {
+    this.setState({ files })
+    fileUpload(files, {
+      setState: this.setState.bind(this)
+    }).then((data) => {
+      this.updateModel(['file'], data.result)
+    })
+  }
+
   handleSubmit (e) {
     e.preventDefault()
     const { dispatch, maecenates } = this.props
@@ -136,6 +147,7 @@ class CreatePostView extends Component {
           onChangeMaecenate={this.onChangeMaecenate}
           uploadProgress={this.state.uploadProgress}
           mediaChange={this.mediaChange}
+          fileChange={this.fileChange}
           toggleVisible={this.toggleVisible}
           isSubmitting={this.state.isSubmitting}
         />

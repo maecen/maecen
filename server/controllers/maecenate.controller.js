@@ -1,6 +1,8 @@
 // Imports
 import { normalizeResponse } from '../util/ctrlHelpers'
 
+import { postStatus } from '../../shared/config'
+
 // Services
 import * as service from '../services/maecenates'
 import * as subscriptionService from '../services/subscriptions'
@@ -9,7 +11,10 @@ import {
   emailToSupporters
 } from '../services/emailSender'
 import * as emailService from '../services/email'
-import { postStatus } from '../../shared/config'
+import {
+  populateMaecenatesWithMedia,
+  populatePostsWithFiles
+} from '../services/files'
 
 export function getMaecenate (req, res, next) {
   const { slug } = req.params
@@ -40,7 +45,7 @@ export function getAdminDetails (req, res, next) {
 export function getMaecenatesOverview (req, res, next) {
   const { knex } = req.app.locals
   return service.fetchMaecenatesOverview(knex)
-    .then(maecenates => service.populateMaecenatesWithMedia(knex, maecenates))
+    .then(maecenates => populateMaecenatesWithMedia(knex, maecenates))
     .then(maecenates => res.json(normalizeResponse({ maecenates })))
 }
 
@@ -147,18 +152,8 @@ export function getFeed (req, res, next) {
 
       return feedQuery
     })
-    .then(posts => {
-      const postIds = posts.map(post => post.id)
-      return knex('media').where('obj_id', 'in', postIds).andWhere('obj_type', 'post')
-        .then(media =>
-          res.json(normalizeResponse({
-            posts: posts.map(post => ({
-              ...post,
-              media: media.filter(m => m.obj_id === post.id)
-            }))
-          }))
-        )
-    })
+    .then(posts => populatePostsWithFiles(knex, posts))
+    .then(posts => res.json(normalizeResponse({ posts })))
     .catch(next)
 }
 

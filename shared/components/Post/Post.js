@@ -6,18 +6,20 @@ import moment from 'moment'
 
 // Utils
 import { postStatus } from '../../config'
+import cropCloudy from '../../lib/cropCloudy'
+import styleVariables from '../styleVariables'
 
 // Components
-import styleVariables from '../styleVariables'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import IconButton from 'material-ui/IconButton'
+import { TextLink } from '../Link'
 import { Card, CardContent, CardBigTitle, CardHeader } from '../Card'
-import cropCloudy from '../../lib/cropCloudy'
 import Media from '../Media/Media'
 
 function Post (props, context) {
   const { post, maecenate, editPost, t, showMaecenateTitle } = props
   const media = post.media && post.media[0]
+  const file = post.file
   const writtenByAlias = t('post.writtenByAlias', { alias: post.author_alias })
 
   const baseStyle = Object.assign({}, style.base,
@@ -53,6 +55,16 @@ function Post (props, context) {
         }
         <CardContent noTopPadding={true} textLayout={true}>
           {post.content}
+
+          {file &&
+            <div style={style.fileDownload}>
+              {t('post.downloadAttachment')}
+              &nbsp;
+              <TextLink to={file.url} rel='external'>
+                {file.filename}
+              </TextLink>
+            </div>
+          }
         </CardContent>
         <CardContent noTopPadding={true}>
           <div style={style.metaData}>
@@ -80,6 +92,9 @@ const style = {
     opacity: '0.6',
     paddingTop: styleVariables.spacer.base,
     borderTop: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`
+  },
+  fileDownload: {
+    paddingTop: styleVariables.spacer.base
   }
 }
 
