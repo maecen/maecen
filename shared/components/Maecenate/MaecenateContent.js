@@ -32,41 +32,39 @@ function MaecenateContent (props) {
   return (
     <div style={style.mainContainer}>
       <Card>
-        <div style={style.cardContainer}>
-          <div style={style.titleWrap}>
-            <Avatar
-              src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-              size={Number(avatar.size)}
-              style={style.avatar}
-            />
-            <CardBigTitle>
-              { title }
-            </CardBigTitle>
-          </div>
-          <CardHeader
-            title="Expand virker ikke lige nu..."
-            // style={style.header}
-            actAsExpander={true}
-            showExpandableButton={true}
+        <CardHeader
+          style={style.header}
+          actAsExpander={true}
+          showExpandableButton={true}
+        />
+        <div style={style.titleWrap}>
+          <Avatar
+            src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+            size={Number(avatar.size)}
+            style={style.avatar}
           />
-          {isAuthUserOwner &&
-            <IconButton
-              style={style.editIcon}
-              onTouchTap={editMaecenate} >
-              <EditIcon />
-            </IconButton>
-          }
-          {maecenate.active ||
-            <CardContent style={style.closedMessage}>
-              { t('maecenate.closedSupporterMessage') }
-            </CardContent>
-          }
-          <CardContent expandable={true}>
-            { maecenate.cover &&
-              <Media type={cover.type} url={cover.url} fixedRatio={true} />
-            }
+          <CardBigTitle>
+            { title }
+          </CardBigTitle>
+        </div>
+        {isAuthUserOwner &&
+          <IconButton
+            style={style.editIcon}
+            onTouchTap={editMaecenate} >
+            <EditIcon />
+          </IconButton>
+        }
+        {maecenate.active ||
+          <CardContent style={style.closedMessage}>
+            { t('maecenate.closedSupporterMessage') }
           </CardContent>
-          <CardContent expandable={true} textLayout={true}>
+        }
+        <CardContent expandable={true} style={style.cardContainer}>
+          <div style={style.line}></div>
+          { maecenate.cover &&
+            <Media type={cover.type} url={cover.url} fixedRatio={true} />
+          }
+          <CardContent textLayout={true} style={style.description}>
             <div style={style.subtitle}>
               { teaser }
             </div>
@@ -83,7 +81,7 @@ function MaecenateContent (props) {
               </div>
             }
           </CardContent>
-        </div>
+        </CardContent>
       </Card>
       { posts.map(post => (
         <Post
@@ -104,14 +102,24 @@ const style = {
   },
   cardContainer: {
     margin: '0 auto',
-    maxWidth: defaults.maxWidthContent
+    maxWidth: defaults.maxWidthContent,
+    boxSizing: 'border-box'
+  },
+  description: {
+    padding: `${spacer.base} 0px`
   },
   titleWrap: {
     display: 'flex',
     alignItems: 'center',
-    margin: `0px ${spacer.base} ${spacer.base}`,
-    padding: `${spacer.double} 0px ${spacer.base}`,
-    borderBottom: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`
+    margin: '0 auto',
+    maxWidth: defaults.maxWidthContent,
+    padding: `${spacer.double} ${spacer.base} ${spacer.base}`,
+    boxSizing: 'border-box'
+  },
+  line: {
+    borderBottom: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`,
+    marginBottom: spacer.base,
+    transform: `translate(0, -${spacer.base})`
   },
   avatar: {
     borderRadius: avatar.radius,
@@ -126,7 +134,7 @@ const style = {
   header: {
     position: 'absolute',
     right: '0px',
-    top: spacer.onePointFive
+    top: spacer.double
   },
   closedMessage: {
     fontWeight: font.weight.subtitle,
