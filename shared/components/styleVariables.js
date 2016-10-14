@@ -12,7 +12,8 @@ export default {
     default: '.3s ease'
   },
   avatar: {
-    radius: '0px'
+    radius: '0px',
+    size: '50'
   },
   border: {
     radius: '4px',
@@ -65,8 +66,8 @@ export default {
   },
   defaults: {
     maxWidth: '70rem',
-    maxWidthText: '40rem',
-    maxWidthContent: '60rem',
+    maxWidthText: '35rem',
+    maxWidthContent: '55rem',
     padding: '0 0.5rem',
     margin: '0 auto'
   },
