@@ -78,7 +78,7 @@ function Header (props, context) {
               </span>
           : <IconButton
               onTouchTap={getAccessAction} >
-              <Burn color='rgba(255,255,255,0.25)'/>
+              <Burn color={style.iconColor}/>
             </IconButton>
           }
         </div>

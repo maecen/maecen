@@ -13,8 +13,9 @@ import styleVariables from '../styleVariables'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit'
 import IconButton from 'material-ui/IconButton'
 import { TextLink } from '../Link'
-import { Card, CardContent, CardBigTitle, CardHeader } from '../Card'
+import { Card, CardContent, CardBigTitle, CardTitle } from '../Card'
 import Media from '../Media/Media'
+import Avatar from 'material-ui/Avatar'
 
 function Post (props, context) {
   const { post, maecenate, editPost, t, showMaecenateTitle } = props
@@ -31,14 +32,15 @@ function Post (props, context) {
       <div style={style.cardContainer}>
         {showMaecenateTitle === false
           ? null
-          : <Link to={`/${maecenate.slug}`}>
-              <CardHeader
-                title={maecenate.title}
-                avatar={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+          : <Link to={`/${maecenate.slug}`} style={style.link}>
+              <Avatar
+                src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+                style={style.avatar}
               />
+              <CardTitle style={style.maecenateTitle}>{ maecenate.title }</CardTitle>
             </Link>
         }
-        <CardBigTitle>
+        <CardBigTitle style={style.postTitle}>
           { post.title }
         </CardBigTitle>
         {editPost &&
@@ -49,9 +51,7 @@ function Post (props, context) {
           </IconButton>
         }
         {media &&
-          <CardContent>
-            <Media type={media.type} url={media.url} fixedRatio={false} />
-          </CardContent>
+          <Media type={media.type} url={media.url} fixedRatio={false} />
         }
         <CardContent noTopPadding={true} textLayout={true}>
           {post.content}
@@ -79,7 +79,20 @@ function Post (props, context) {
   )
 }
 
+const { spacer, border } = styleVariables
+
 const style = {
+  link: {
+    padding: spacer.base,
+    display: 'flex',
+    alignItems: 'center'
+  },
+  avatar: {
+    borderRadius: styleVariables.avatar.radius
+  },
+  maecenateTitle: {
+    padding: `0px ${spacer.base}`
+  },
   base: {},
   hidden: {
     opacity: 0.5
@@ -88,13 +101,20 @@ const style = {
     margin: '0 auto',
     maxWidth: styleVariables.defaults.maxWidthContent
   },
+  postTitle: {
+    borderTop: `${border.thickness} solid ${styleVariables.color.background}`,
+    borderBottom: 'none',
+    padding: `${spacer.base} 0px 0px`,
+    margin: `0px ${spacer.base}`
+  },
   metaData: {
     opacity: '0.6',
-    paddingTop: styleVariables.spacer.base,
-    borderTop: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`
+    fontWeight: '300',
+    paddingTop: spacer.base,
+    borderTop: `${border.thickness} solid ${styleVariables.color.background}`
   },
   fileDownload: {
-    paddingTop: styleVariables.spacer.base
+    paddingTop: spacer.base
   }
 }
 
