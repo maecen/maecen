@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
-import { isBrowser } from '../config'
 
 import styleVariables from '../components/styleVariables'
 import UserFeedView from '../container/UserFeedView'
@@ -33,10 +32,6 @@ class HomeView extends Component {
 
   renderDefaultHome () {
     const { t } = this.props
-    let letMeSee = false
-    if (isBrowser) {
-      letMeSee = window.localStorage.getItem('LetMeSee') === 'true'
-    }
 
     return (
       <div style={style.home}>
@@ -44,102 +39,18 @@ class HomeView extends Component {
           viewBox='0 0 832 997'
           icon='maecen-detail'
         />
-        {letMeSee
-          ? <div>
-              <div style={style.tagline}>{t('tagline')}</div>
-              <Link to='/maecenates' style={style.marginBottom}>
-                <Button primary={true} label={t('maecenate.seeAll')} />
-              </Link>
-              <div style={style.marginBottom}>
-                <Button
-                  label={t('maecenate.create')}
-                  primary={true}
-                  last={true}
-                  onClick={this.handleCreateMaecenate}
-                />
-              </div>
-            </div>
-          : <div id='mc_embed_signup'>
-              <div style={style.tagline}>{t('curiousEmail')}</div>
-              <form
-                action='//maecen.us9.list-manage.com/subscribe/post?u=1e4624f4f555b78ee9644d7c9&amp,id=a04ee31e14'
-                method='post'
-                id='mc-embedded-subscribe-form'
-                name='mc-embedded-subscribe-form'
-                target='_blank'
-                style={{marginBottom: '1rem'}}
-                noValidate>
-                <div id='mc_embed_signup_scroll'
-                  style={{
-                    maxWidth: '20rem',
-                    margin: '0 auto',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    borderColor: styleVariables.color.primary,
-                    borderWidth: '2px',
-                    borderRadius: '2px',
-                    borderStyle: 'solid'
-                  }}>
-                  <input type='email'
-                    name='EMAIL'
-                    id='mce-EMAIL'
-                    placeholder={t('user.emailPlaceholder')}
-                    style={{
-                      flexGrow: '2',
-                      padding: '0 0.6rem',
-                      width: '100%',
-                      display: 'inline-block',
-                      outline: 'none',
-                      height: '2.2rem',
-                      lineHeight: '2.2rem',
-                      border: '0px'
-                    }}
-                  />
-                  <input type='submit'
-                    value={t('signUp')}
-                    name='subscribe'
-                    id='mc-embedded-subscribe'
-                    style={{
-                      backgroundColor: styleVariables.color.primary,
-                      borderWidth: '0px',
-                      borderRadius: '0px',
-                      color: 'white',
-                      display: 'inline-block',
-                      height: '2.2rem',
-                      lineHeight: '2.2rem',
-                      padding: '0 0.8rem',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      flexShrink: '0',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      margin: '0px',
-                      cursor: 'pointer'
-                    }}
-                  />
-                  <div style={{position: 'absolute', left: '-5000px'}} aria-hidden='true'>
-                    <input type='text'
-                      name='b_1e4624f4f555b78ee9644d7c9_a04ee31e14'
-                      tabIndex='-1'
-                      value=''/>
-                  </div>
-                  <div id='mce-responses'>
-                    <div
-                      id='mce-error-response'
-                      style={{display: 'none'}}>
-                    </div>
-                    <div
-                      id='mce-success-response'
-                      style={{display: 'none'}}>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <Link to='/about'>
-                <Button primary={true} last={true} label={t('aboutMaecen')} />
-              </Link>
-            </div>
-        }
+          <div style={style.tagline}>{t('tagline')}</div>
+          <div>
+            <Link to='/maecenates' style={style.marginBottom}>
+              <Button primary={true} label={t('maecenate.seeAll')} />
+            </Link>
+            <Button
+              label={t('maecenate.create')}
+              primary={true}
+              last={true}
+              onClick={this.handleCreateMaecenate}
+            />
+          </div>
       </div>
     )
   }
@@ -155,7 +66,7 @@ class HomeView extends Component {
   }
 }
 
-const { color, spacer } = styleVariables
+const { color } = styleVariables
 
 const style = {
   home: {
@@ -175,10 +86,6 @@ const style = {
     letterSpacing: '.02rem',
     marginBottom: '3rem',
     marginTop: '3rem'
-  },
-  marginBottom: {
-    display: 'inline-block',
-    marginBottom: spacer.half
   }
 }
 
