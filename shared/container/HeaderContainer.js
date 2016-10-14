@@ -2,8 +2,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { isBrowser } from '../config'
-
 // Actions & Selectors
 import * as Actions from '../actions'
 import { getUserMaecenates } from '../selectors/maecenate'
@@ -13,7 +11,6 @@ import {
 
 // Components
 import Header from '../components/Header/Header'
-import { browserHistory } from 'react-router'
 
 class HeaderContainer extends Component {
   constructor (props) {
@@ -45,20 +42,8 @@ class HeaderContainer extends Component {
     dispatch(Actions.requireAuth())
   }
 
-  getAccess () {
-    if (isBrowser) {
-      window.localStorage.setItem('LetMeSee', 'true')
-      browserHistory.push('/')
-    }
-  }
-
   render () {
     const hideFab = Boolean(this.props.children.props.route.hideFab)
-
-    let hasAccess = false
-    if (isBrowser) {
-      hasAccess = window.localStorage.getItem('LetMeSee') === 'true'
-    }
 
     return <Header
       hasAuth={this.props.hasAuth}
@@ -69,8 +54,6 @@ class HeaderContainer extends Component {
       homeUrl='/'
       adminMaecenates={this.props.adminMaecenates}
       hideFab={hideFab}
-      getAccessAction={this.getAccess}
-      hasAccess={hasAccess}
     />
   }
 }
