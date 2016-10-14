@@ -112,6 +112,14 @@ function MaecenateForm (props) {
               <br />
 
               <div style={{textAlign: 'right'}}>
+                {!editMode &&
+                  <Button
+                    onClick={window.history.back.bind(window.history)}
+                    label={t('action.cancel')}
+                    flat={true}
+                    disabled={isSubmitting === true}
+                  />
+                }
                 <Button type='submit'
                   style={{marginTop: '16px'}}
                   primary={true}

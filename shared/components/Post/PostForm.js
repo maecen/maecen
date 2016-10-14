@@ -9,13 +9,13 @@ import { postStatus } from '../../config'
 import Checkbox from 'material-ui/Checkbox'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import { Row, Cell } from '../../components/Grid'
-import { Card, CardContent, CardTitle, CardActions } from '../../components/Card'
-import Form from '../../components/Form/Form'
-import TextField from '../../components/Form/TextField'
-import Button from '../../components/Form/Button'
-import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
-import FileDropzone from '../../components/Form/FileDropzone'
+import { Row, Cell } from '../Grid'
+import { Card, CardContent, CardTitle, CardActions } from '../Card'
+import Form from '../Form/Form'
+import TextField from '../Form/TextField'
+import Button from '../Form/Button'
+import LinearProgressDeterminate from '../Progress/LinearProgress'
+import FileDropzone from '../Form/FileDropzone'
 
 function PostForm (props) {
   const {
@@ -109,6 +109,15 @@ function PostForm (props) {
 
             </CardContent>
             <CardActions style={{textAlign: 'right'}}>
+              {!editMode &&
+                <Button
+                  onClick={window.history.back.bind(window.history)}
+                  label={t('action.cancel')}
+                  flat={true}
+                  disabled={isSubmitting === true}
+                />
+              }
+
               <Button
                 type='submit'
                 label={submitStr}
