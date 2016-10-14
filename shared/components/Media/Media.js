@@ -23,7 +23,9 @@ const style = {
     backgroundColor: 'black'
   },
   mediaDefault: {
-    width: '100%',
+    maxWidth: '100%',
+    display: 'block',
+    maxHeight: '90vh',
     padding: styleVariables.spacer.base,
     boxSizing: 'border-box'
   },

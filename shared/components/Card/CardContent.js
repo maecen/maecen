@@ -32,7 +32,6 @@ function CardText (props) {
     styling = {
       ...styling,
       whiteSpace: 'pre-line',
-      margin: '0 auto',
       maxWidth: styleVariables.defaults.maxWidthText
     }
   }
