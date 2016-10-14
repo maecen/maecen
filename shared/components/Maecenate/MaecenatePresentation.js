@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import styleVariables from '../styleVariables'
+import style from './MaecenateStyle'
 import { Card, CardContent, CardBigTitle } from '../Card'
 import { translate } from 'react-i18next'
 import Button from '../Form/Button'
@@ -92,67 +92,6 @@ function MaecenatePresentation (props) {
       </Card>
     </div>
   )
-}
-
-const { spacer, font, color, border, defaults, avatar } = styleVariables
-const style = {
-  mainContainer: {
-    width: '100%'
-  },
-  cardContainer: {
-    margin: '0 auto',
-    maxWidth: defaults.maxWidthContent
-  },
-  titleWrap: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: `0px ${spacer.base} ${spacer.base}`,
-    padding: `${spacer.double} 0px ${spacer.base}`,
-    borderBottom: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`
-  },
-  avatar: {
-    borderRadius: avatar.radius,
-    marginRight: spacer.base
-  },
-  editIcon: {
-    marginRight: '0px',
-    position: 'absolute',
-    top: '0px',
-    right: '0px'
-  },
-  header: {
-    position: 'absolute',
-    right: '0px',
-    top: spacer.onePointFive
-  },
-  closedMessage: {
-    fontWeight: font.weight.subtitle,
-    textAlign: 'center'
-  },
-  subtitle: {
-    fontWeight: font.weight.subtitle,
-    marginBottom: spacer.base
-  },
-  url: {
-    marginTop: spacer.base
-  },
-  link: {
-    color: color.primary,
-    textDecoration: 'none'
-  },
-  supportWrap: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    borderTop: `${border.thickness} solid ${color.background}`,
-    paddingTop: spacer.double,
-    paddingBottom: spacer.base
-  },
-  button: {
-    flexShrink: '0',
-    marginLeft: 'auto'
-  }
 }
 
 MaecenatePresentation.propTypes = {
