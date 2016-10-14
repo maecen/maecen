@@ -8,6 +8,7 @@ const style = {
     position: 'relative',
     paddingBottom: '56.25%',
     height: '0px',
+    lineHeight: '0px',
     overflow: 'hidden',
     marginBottom: styleVariables.spacer.quart
   },
@@ -23,7 +24,8 @@ const style = {
   },
   mediaDefault: {
     width: '100%',
-    marginBottom: styleVariables.spacer.base
+    padding: styleVariables.spacer.base,
+    boxSizing: 'border-box'
   },
   video: {
     backgroundColor: 'black',
@@ -49,14 +51,11 @@ export default function Media (props, context) {
     )
   } else {
     return (
-      <div>
-        { startsWith(props.type, 'video')
-          ? <video src={cropCloudy(props.url, 'video')} controls
-            style={{...style.video, ...style.mediaDefault}}/>
-          : <img src={cropCloudy(props.url, 'post')}
-            style={style.mediaDefault} />
-        }
-      </div>
+      startsWith(props.type, 'video')
+        ? <video src={cropCloudy(props.url, 'video')} controls
+          style={{...style.video, ...style.mediaDefault}}/>
+        : <img src={cropCloudy(props.url, 'post')}
+          style={style.mediaDefault} />
     )
   }
 }

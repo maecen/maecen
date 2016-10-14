@@ -111,7 +111,7 @@ const style = {
     alignItems: 'center'
   },
   avatar: {
-    borderRadius: '0px'
+    borderRadius: styleVariables.avatar.radius
   },
   editIcon: {
     marginRight: '0px',
