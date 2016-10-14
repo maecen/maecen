@@ -31,7 +31,9 @@ const style = {
   },
   video: {
     backgroundColor: 'black',
-    maxHeight: '720px'
+    margin: styleVariables.spacer.base,
+    padding: '0px',
+    maxHeight: '90vh'
   }
 }
 
@@ -55,7 +57,7 @@ export default function Media (props, context) {
     return (
       startsWith(props.type, 'video')
         ? <video src={cropCloudy(props.url, 'video')} controls
-          style={{...style.video, ...style.mediaDefault}}/>
+          style={{...style.mediaDefault, ...style.video}}/>
         : <img src={cropCloudy(props.url, 'post')}
           style={style.mediaDefault} />
     )
