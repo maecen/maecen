@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
 
 // Utils
-import { postStatus } from '../../config'
+import { postStatus, isBrowser } from '../../config'
 
 // Components
 import Checkbox from 'material-ui/Checkbox'
@@ -41,6 +41,8 @@ function PostForm (props) {
   const titleStr = editMode ? t('post.edit') : t('post.create')
   const submitStr = editMode ? t('post.saveEdit') : t('post.create')
   const mediaStr = hasMedia ? t('media.replace') : t('media.upload')
+
+  const goBack = isBrowser && window.history.back.bind(window.history)
 
   const fileStr = hasFile
     ? t('post.attachmentReplace')
@@ -109,14 +111,12 @@ function PostForm (props) {
 
             </CardContent>
             <CardActions style={{textAlign: 'right'}}>
-              {!editMode &&
-                <Button
-                  onClick={window.history.back.bind(window.history)}
-                  label={t('action.cancel')}
-                  flat={true}
-                  disabled={isSubmitting === true}
-                />
-              }
+              <Button
+                onClick={goBack}
+                label={t('action.cancel')}
+                flat={true}
+                disabled={isSubmitting === true}
+              />
 
               <Button
                 type='submit'
