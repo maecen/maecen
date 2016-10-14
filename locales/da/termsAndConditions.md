@@ -17,7 +17,7 @@ Hvis du betaler f.eks. 20kr/md går de 19kr direkte til Mæcenatet.
 
 Mæcen.net ejes 100% af  DiGiDi a..m.b.a., der er et andelsselskab, ejet i lige andele af mere end 3.500 andelshavere.
 Mæcen.net projektet er derfor Non Profit, og alle indtægter går til drift og forsat udvikling af Mæcen projektet.  
-[Læs mere om Mæcen-projektet og om hvordan du kommer igang](https://beta.maecen.net/about "Om mæcen.net")
+[Læs mere om Mæcen-projektet og om hvordan du kommer igang](/about "Om mæcen.net")
 
 Kontakt Mæcen.net
 ---------------
