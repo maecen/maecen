@@ -4,6 +4,7 @@ exports.up = (knex, Promise) => {
 
   if (client === 'postgresql') {
     return knex.schema.raw('ALTER TABLE media RENAME TO files')
+    .raw('ALTER TABLE files ALTER type TYPE varchar(50)')
     .table('files', table => {
       table.string('role', 50)
       table.string('filename', 255)
@@ -18,7 +19,7 @@ exports.up = (knex, Promise) => {
       table.uuid('obj_id')
       table.string('obj_type', 30)
       table.string('url', 255)
-      table.string('type', 20)
+      table.string('type', 50)
       table.string('role', 50)
       table.string('filename', 255)
       table.timestamp('created_at').defaultTo(knex.fn.now())

@@ -21,7 +21,7 @@ const schema = {
   obj_id: Joi.string().guid(),
   obj_type: Joi.string(),
   url: Joi.string().max(255),
-  type: Joi.string().max(20),
+  type: Joi.string().max(50),
   role: Joi.string().only(Object.keys(fileRoles)),
   filename: Joi.string().allow('', null)
 }
