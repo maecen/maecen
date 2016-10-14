@@ -11,6 +11,9 @@ export default {
   animation: {
     default: '.3s ease'
   },
+  avatar: {
+    radius: '0px'
+  },
   border: {
     radius: '4px',
     thickness: '2px'
