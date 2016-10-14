@@ -48,6 +48,7 @@ function MaecenatePresentation (props) {
             </CardContent>
           }
           <CardContent>
+            <div style={style.line}></div>
             {cover &&
               <Media type={cover.type} url={cover.url} fixedRatio={true} />
             }
