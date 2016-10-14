@@ -6,14 +6,12 @@ import styleVariables from '../styleVariables'
 const style = {
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
-  textAlign: 'center',
   overflow: 'hidden',
   lineHeight: styleVariables.font.lineHeight.heading,
   fontSize: styleVariables.font.size.h1,
   fontWeight: styleVariables.font.weight.body,
-  padding: `${styleVariables.spacer.double} 0 ${styleVariables.spacer.base}`,
-  margin: styleVariables.spacer.base,
-  borderBottom: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`,
+  margin: '0px',
+  padding: '0px',
   [styleVariables.breakpoint.md]: {
     fontSize: styleVariables.font.size.h1Big,
     fontWeight: styleVariables.font.weight.heading

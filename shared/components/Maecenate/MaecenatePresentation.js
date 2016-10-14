@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import styleVariables from '../styleVariables'
+import style from './MaecenateStyle'
 import { Card, CardContent, CardBigTitle } from '../Card'
 import { translate } from 'react-i18next'
 import Button from '../Form/Button'
@@ -30,9 +30,11 @@ function MaecenatePresentation (props) {
     <div style={style.mainContainer}>
       <Card>
         <div style={style.cardContainer}>
-          <CardBigTitle>
-            { title }
-          </CardBigTitle>
+          <div style={style.titleWrap}>
+            <CardBigTitle>
+              { title }
+            </CardBigTitle>
+          </div>
           {isAuthUserOwner &&
             <IconButton
               style={style.editIcon}
@@ -46,6 +48,7 @@ function MaecenatePresentation (props) {
             </CardContent>
           }
           <CardContent>
+            <div style={style.line}></div>
             {cover &&
               <Media type={cover.type} url={cover.url} fixedRatio={true} />
             }
@@ -90,51 +93,6 @@ function MaecenatePresentation (props) {
       </Card>
     </div>
   )
-}
-
-const { spacer, font, color, border, defaults } = styleVariables
-const style = {
-  mainContainer: {
-    width: '100%'
-  },
-  cardContainer: {
-    margin: '0 auto',
-    maxWidth: defaults.maxWidthContent
-  },
-  editIcon: {
-    marginRight: '0px',
-    position: 'absolute',
-    top: '0px',
-    right: '0px'
-  },
-  closedMessage: {
-    fontWeight: font.weight.subtitle,
-    textAlign: 'center'
-  },
-  subtitle: {
-    fontWeight: font.weight.subtitle,
-    marginBottom: spacer.base
-  },
-  url: {
-    marginTop: spacer.base
-  },
-  link: {
-    color: color.primary,
-    textDecoration: 'none'
-  },
-  supportWrap: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    borderTop: `${border.thickness} solid ${color.background}`,
-    paddingTop: spacer.double,
-    paddingBottom: spacer.base
-  },
-  button: {
-    flexShrink: '0',
-    marginLeft: 'auto'
-  }
 }
 
 MaecenatePresentation.propTypes = {

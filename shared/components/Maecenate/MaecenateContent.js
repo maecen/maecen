@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
 
-import styleVariables from '../styleVariables'
+import style from './MaecenateStyle'
 import { Card, CardHeader, CardBigTitle, CardContent } from '../Card'
 import Post from '../Post/Post'
 import Avatar from 'material-ui/Avatar'
@@ -32,41 +32,39 @@ function MaecenateContent (props) {
   return (
     <div style={style.mainContainer}>
       <Card>
-        <div style={style.cardContainer}>
-          <div style={style.titleWrap}>
-            <Avatar
-              src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-              size={60}
-              style={style.avatar}
-            />
-            <CardBigTitle>
-              { title }
-            </CardBigTitle>
-          </div>
-          <CardHeader
-            title="Expand virker ikke lige nu..."
-            // style={style.header}
-            actAsExpander={true}
-            showExpandableButton={true}
+        <CardHeader
+          style={style.header}
+          actAsExpander={true}
+          showExpandableButton={true}
+        />
+        <div style={style.titleWrap}>
+          <Avatar
+            src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+            size={Number(style.avatarSize)}
+            style={style.avatar}
           />
-          {isAuthUserOwner &&
-            <IconButton
-              style={style.editIcon}
-              onTouchTap={editMaecenate} >
-              <EditIcon />
-            </IconButton>
-          }
-          {maecenate.active ||
-            <CardContent style={style.closedMessage}>
-              { t('maecenate.closedSupporterMessage') }
-            </CardContent>
-          }
-          <CardContent expandable={true}>
-            { maecenate.cover &&
-              <Media type={cover.type} url={cover.url} fixedRatio={true} />
-            }
+          <CardBigTitle>
+            { title }
+          </CardBigTitle>
+        </div>
+        {isAuthUserOwner &&
+          <IconButton
+            style={style.editIcon}
+            onTouchTap={editMaecenate} >
+            <EditIcon />
+          </IconButton>
+        }
+        {maecenate.active ||
+          <CardContent style={style.closedMessage}>
+            { t('maecenate.closedSupporterMessage') }
           </CardContent>
-          <CardContent expandable={true} textLayout={true}>
+        }
+        <CardContent expandable={true} style={style.cardContainer}>
+          <div style={style.line}></div>
+          { maecenate.cover &&
+            <Media type={cover.type} url={cover.url} fixedRatio={true} />
+          }
+          <CardContent textLayout={true} style={style.description}>
             <div style={style.subtitle}>
               { teaser }
             </div>
@@ -83,7 +81,7 @@ function MaecenateContent (props) {
               </div>
             }
           </CardContent>
-        </div>
+        </CardContent>
       </Card>
       { posts.map(post => (
         <Post
@@ -95,63 +93,6 @@ function MaecenateContent (props) {
       ))}
     </div>
   )
-}
-
-const { spacer, font, color, border, defaults } = styleVariables
-const style = {
-  mainContainer: {
-    width: '100%'
-  },
-  cardContainer: {
-    margin: '0 auto',
-    maxWidth: defaults.maxWidthContent
-  },
-  titleWrap: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  avatar: {
-    borderRadius: styleVariables.avatar.radius
-  },
-  editIcon: {
-    marginRight: '0px',
-    position: 'absolute',
-    top: '0px',
-    right: '0px'
-  },
-  header: {
-    position: 'absolute',
-    right: '0px',
-    top: styleVariables.spacer.onePointFive
-  },
-  closedMessage: {
-    fontWeight: font.weight.subtitle,
-    textAlign: 'center'
-  },
-  subtitle: {
-    fontWeight: font.weight.subtitle,
-    marginBottom: spacer.base
-  },
-  url: {
-    marginTop: spacer.base
-  },
-  link: {
-    color: color.primary,
-    textDecoration: 'none'
-  },
-  supportWrap: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    borderTop: `${border.thickness} solid ${color.background}`,
-    paddingTop: spacer.double,
-    paddingBottom: spacer.base
-  },
-  button: {
-    flexShrink: '0',
-    marginLeft: 'auto'
-  }
 }
 
 MaecenateContent.propTypes = {
