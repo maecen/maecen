@@ -94,7 +94,7 @@ export function fetchSupportedMaecenatePosts (userId) {
       .where('status', postStatus.PUBLISHED)
       .orderBy('created_at', 'desc')
       .limit(10)
-      .then(populatePostsWithFiles)
+      .then(posts => populatePostsWithFiles(knex, posts))
     ])
     .then((result) => {
       const [maecenates, posts] = result

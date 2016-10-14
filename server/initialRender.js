@@ -172,7 +172,7 @@ function renderTemplate (html, initialState, i18n) {
         <title>Mæcen</title>
         <style>${globalStyle}</style>
         <link
-          href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700'
+          href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,300'
           rel='stylesheet' type='text/css'>
         <link rel="apple-touch-icon" href="/assets/favicon/app-icon.png">
         <link rel="icon" type="image/png"
