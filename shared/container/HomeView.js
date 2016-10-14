@@ -41,15 +41,19 @@ class HomeView extends Component {
         />
           <div style={style.tagline}>{t('tagline')}</div>
           <div>
-            <Link to='/maecenates' style={style.marginBottom}>
-              <Button primary={true} label={t('maecenate.seeAll')} />
-            </Link>
-            <Button
-              label={t('maecenate.create')}
-              primary={true}
-              last={true}
-              onClick={this.handleCreateMaecenate}
-            />
+            <span style={style.buttonPadding}>
+              <Link to='/maecenates' style={style.marginBottom}>
+                <Button primary={true} last={true} label={t('maecenate.seeAll')} />
+              </Link>
+            </span>
+            <span style={style.buttonPadding}>
+              <Button
+                label={t('maecenate.create')}
+                primary={true}
+                last={true}
+                onClick={this.handleCreateMaecenate}
+              />
+            </span>
           </div>
       </div>
     )
@@ -69,6 +73,9 @@ class HomeView extends Component {
 const { color } = styleVariables
 
 const style = {
+  buttonPadding: {
+    padding: styleVariables.spacer.quart
+  },
   home: {
     color: color.textColor,
     display: 'flex',
