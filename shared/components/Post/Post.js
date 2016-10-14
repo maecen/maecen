@@ -32,15 +32,13 @@ function Post (props, context) {
       <div style={style.cardContainer}>
         {showMaecenateTitle === false
           ? null
-          : <CardContent>
-              <Link to={`/${maecenate.slug}`}>
-                <Avatar
-                  src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-                  style={style.avatar}
-                />
-                <CardTitle>{ maecenate.title }</CardTitle>
-              </Link>
-            </CardContent>
+          : <Link to={`/${maecenate.slug}`} style={style.link}>
+              <Avatar
+                src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
+                style={style.avatar}
+              />
+              <CardTitle style={style.maecenateTitle}>{ maecenate.title }</CardTitle>
+            </Link>
         }
         <CardBigTitle style={style.postTitle}>
           { post.title }
@@ -84,8 +82,16 @@ function Post (props, context) {
 const { spacer, border } = styleVariables
 
 const style = {
+  link: {
+    padding: spacer.base,
+    display: 'flex',
+    alignItems: 'center'
+  },
   avatar: {
     borderRadius: styleVariables.avatar.radius
+  },
+  maecenateTitle: {
+    padding: `0px ${spacer.base}`
   },
   base: {},
   hidden: {
@@ -99,7 +105,7 @@ const style = {
     borderTop: `${border.thickness} solid ${styleVariables.color.background}`,
     borderBottom: 'none',
     padding: `${spacer.base} 0px 0px`,
-    margin: '0px'
+    margin: `0px ${spacer.base}`
   },
   metaData: {
     opacity: '0.6',
