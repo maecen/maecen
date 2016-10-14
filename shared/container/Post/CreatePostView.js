@@ -31,7 +31,8 @@ class CreatePostView extends Component {
       errors: null,
       isSubmitting: false,
       mediaPreview: null,
-      uploadProgress: 0,
+      mediaUploadProgress: 0,
+      fileUploadProgress: 0,
       media: [],
       files: []
     }
@@ -96,7 +97,8 @@ class CreatePostView extends Component {
   mediaChange (files) {
     this.setState({ media: files })
     mediaUpload(files, {
-      setState: this.setState.bind(this)
+      setState: this.setState.bind(this),
+      uploadProgressProp: 'mediaUploadProgress'
     }).then((data) => {
       this.updateModel(['media'], data.result)
     })
@@ -105,7 +107,8 @@ class CreatePostView extends Component {
   fileChange (files) {
     this.setState({ files })
     fileUpload(files, {
-      setState: this.setState.bind(this)
+      setState: this.setState.bind(this),
+      uploadProgressProp: 'fileUploadProgress'
     }).then((data) => {
       this.updateModel(['file'], data.result)
     })
@@ -145,7 +148,8 @@ class CreatePostView extends Component {
           updateModel={this.updateModel}
           errors={this.state.errors}
           onChangeMaecenate={this.onChangeMaecenate}
-          uploadProgress={this.state.uploadProgress}
+          mediaUploadProgress={this.state.mediaUploadProgress}
+          fileUploadProgress={this.state.fileUploadProgress}
           mediaChange={this.mediaChange}
           fileChange={this.fileChange}
           toggleVisible={this.toggleVisible}

@@ -27,7 +27,8 @@ function PostForm (props) {
     onChangeMaecenate,
     mediaChange,
     fileChange,
-    uploadProgress,
+    fileUploadProgress,
+    mediaUploadProgress,
     isSubmitting,
     toggleVisible,
     t
@@ -79,7 +80,8 @@ function PostForm (props) {
                 accept='video/*,image/*'
                 onChange={mediaChange} />
 
-              <br />
+              <LinearProgressDeterminate
+                value={mediaUploadProgress} />
 
               <FileDropzone
                 multiple={false}
@@ -88,7 +90,7 @@ function PostForm (props) {
                 onChange={fileChange} />
 
               <LinearProgressDeterminate
-                value={uploadProgress} />
+                value={fileUploadProgress} />
 
               <TextField
                 path={['content']}
@@ -132,7 +134,8 @@ PostForm.propTypes = {
   onChangeMaecenate: PropTypes.func,
   mediaChange: PropTypes.func.isRequired,
   fileChange: PropTypes.func.isRequired,
-  uploadProgress: PropTypes.number.isRequired,
+  mediaUploadProgress: PropTypes.number.isRequired,
+  fileUploadProgress: PropTypes.number.isRequired,
   isSubmitting: PropTypes.bool.isRequired,
   toggleVisible: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired
