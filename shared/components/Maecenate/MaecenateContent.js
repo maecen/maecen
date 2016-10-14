@@ -36,7 +36,7 @@ function MaecenateContent (props) {
           <div style={style.titleWrap}>
             <Avatar
               src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
-              size={60}
+              size={Number(avatar.size)}
               style={style.avatar}
             />
             <CardBigTitle>
@@ -97,7 +97,7 @@ function MaecenateContent (props) {
   )
 }
 
-const { spacer, font, color, border, defaults } = styleVariables
+const { spacer, font, color, border, defaults, avatar } = styleVariables
 const style = {
   mainContainer: {
     width: '100%'
@@ -108,10 +108,14 @@ const style = {
   },
   titleWrap: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: `0px ${spacer.base} ${spacer.base}`,
+    padding: `${spacer.double} 0px ${spacer.base}`,
+    borderBottom: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`
   },
   avatar: {
-    borderRadius: styleVariables.avatar.radius
+    borderRadius: avatar.radius,
+    marginRight: spacer.base
   },
   editIcon: {
     marginRight: '0px',
@@ -122,7 +126,7 @@ const style = {
   header: {
     position: 'absolute',
     right: '0px',
-    top: styleVariables.spacer.onePointFive
+    top: spacer.onePointFive
   },
   closedMessage: {
     fontWeight: font.weight.subtitle,

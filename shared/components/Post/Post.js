@@ -36,7 +36,7 @@ function Post (props, context) {
               <Avatar
                 src={cropCloudy(maecenate.logo.url, 'logo-tiny')}
                 style={style.avatar}
-                size={styleVariables.avatar.size}
+                size={Number(avatar.size)}
               />
               <CardTitle style={style.maecenateTitle}>{ maecenate.title }</CardTitle>
             </Link>
@@ -80,7 +80,7 @@ function Post (props, context) {
   )
 }
 
-const { spacer, border } = styleVariables
+const { spacer, border, avatar } = styleVariables
 
 const style = {
   extraSpace: {
@@ -94,7 +94,7 @@ const style = {
     borderBottom: `${border.thickness} solid ${styleVariables.color.background}`
   },
   avatar: {
-    borderRadius: styleVariables.avatar.radius
+    borderRadius: avatar.radius
   },
   maecenateTitle: {
     padding: `0px ${spacer.base}`
@@ -110,8 +110,7 @@ const style = {
   postTitle: {
     borderBottom: 'none',
     padding: `${spacer.base} 0px 0px`,
-    margin: `0px ${spacer.base}`,
-    textAlign: 'left'
+    margin: `0px ${spacer.base}`
   },
   metaData: {
     opacity: '0.6',

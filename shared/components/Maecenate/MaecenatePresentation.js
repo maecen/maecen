@@ -30,9 +30,11 @@ function MaecenatePresentation (props) {
     <div style={style.mainContainer}>
       <Card>
         <div style={style.cardContainer}>
-          <CardBigTitle>
-            { title }
-          </CardBigTitle>
+          <div style={style.titleWrap}>
+            <CardBigTitle>
+              { title }
+            </CardBigTitle>
+          </div>
           {isAuthUserOwner &&
             <IconButton
               style={style.editIcon}
@@ -92,7 +94,7 @@ function MaecenatePresentation (props) {
   )
 }
 
-const { spacer, font, color, border, defaults } = styleVariables
+const { spacer, font, color, border, defaults, avatar } = styleVariables
 const style = {
   mainContainer: {
     width: '100%'
@@ -101,11 +103,27 @@ const style = {
     margin: '0 auto',
     maxWidth: defaults.maxWidthContent
   },
+  titleWrap: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: `0px ${spacer.base} ${spacer.base}`,
+    padding: `${spacer.double} 0px ${spacer.base}`,
+    borderBottom: `${styleVariables.border.thickness} solid ${styleVariables.color.background}`
+  },
+  avatar: {
+    borderRadius: avatar.radius,
+    marginRight: spacer.base
+  },
   editIcon: {
     marginRight: '0px',
     position: 'absolute',
     top: '0px',
     right: '0px'
+  },
+  header: {
+    position: 'absolute',
+    right: '0px',
+    top: spacer.onePointFive
   },
   closedMessage: {
     fontWeight: font.weight.subtitle,
