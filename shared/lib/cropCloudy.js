@@ -22,7 +22,7 @@ export default function (url, type) {
       glue = 'upload/w_80,h_80,c_fill'
       break
     case 'post':
-      glue = 'upload/w_1000'
+      glue = 'upload/w_1200'
       break
     default:
       glue = 'upload'
