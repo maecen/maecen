@@ -99,7 +99,11 @@
     "saveEdit": "Gem ændringer",
     "see": "Se indlæg",
     "title": "Titel",
-    "writtenByAlias": "Af: {{alias}}"
+    "writtenByAlias": "Af: {{alias}}",
+    "setVisible": "Synlig for mæcener",
+    "downloadAttachment": "Download fil:",
+    "attachmentUpload": "Upload fil",
+    "attachmentReplace": "Erstat fil"
   },
   "support": {
     "belowMin": "Beløbet er mindre end det månedlige minimum",

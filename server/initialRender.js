@@ -7,6 +7,7 @@ import { I18nextProvider } from 'react-i18next'
 import serialize from 'serialize-javascript'
 import { StyleRoot } from 'radium'
 
+import styleVariables from '../shared/components/styleVariables'
 import User from './models/User'
 import i18n from './i18n-server'
 import getRoutes from '../shared/routes'
@@ -138,24 +139,25 @@ function renderTemplate (html, initialState, i18n) {
       color: hsl(190, 100%, 30%);
       text-decoration: none;
     }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: ${styleVariables.font.weight.heading};
+    }
   `
   const style = {
     html: `
       overflow-x: hidden;
+      color: ${styleVariables.color.textColor};
       font-family: Roboto, sans-serif;
       font-size: 16px;
       min-height: 100%;
       margin: 0;
       padding: 0;`,
     body: `
-      background-image: url('/assets/img/bg.svg');
       min-height: 100%;
       margin: 0;
       padding: 0;
-      background-color: #202020;
-      background-position: 50%;
-      background-size: cover;
-      background-attachment: fixed;`
+      background-color: ${styleVariables.color.background};`
   }
   return `
     <!DOCTYPE html>
@@ -170,7 +172,7 @@ function renderTemplate (html, initialState, i18n) {
         <title>Mæcen</title>
         <style>${globalStyle}</style>
         <link
-          href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,700'
+          href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,300'
           rel='stylesheet' type='text/css'>
         <link rel="apple-touch-icon" href="/assets/favicon/app-icon.png">
         <link rel="icon" type="image/png"

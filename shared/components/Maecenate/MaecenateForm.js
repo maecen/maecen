@@ -1,13 +1,18 @@
+// Imports
 import React from 'react'
 import { translate } from 'react-i18next'
 
-import { Row, Cell } from '../../components/Grid'
-import LinearProgressDeterminate from '../../components/Progress/LinearProgress'
-import Form from '../../components/Form/Form'
-import TextField from '../../components/Form/TextField'
-import Button from '../../components/Form/Button'
-import FileDropzone from '../../components/Form/FileDropzone'
-import { Card, CardContent, CardTitle } from '../../components/Card'
+// Utils
+import { isBrowser } from '../../config'
+
+// Components
+import { Row, Cell } from '../Grid'
+import LinearProgressDeterminate from '../Progress/LinearProgress'
+import Form from '../Form/Form'
+import TextField from '../Form/TextField'
+import Button from '../Form/Button'
+import FileDropzone from '../Form/FileDropzone'
+import { Card, CardContent, CardTitle } from '../Card'
 
 function MaecenateForm (props) {
   const {
@@ -38,6 +43,8 @@ function MaecenateForm (props) {
   const uploadCoverStr = maecenate.cover_media
     ? t('maecenate.replaceCoverLabel')
     : t('maecenate.uploadCoverLabel')
+
+  const goBack = isBrowser && window.history.back.bind(window.history)
 
   return (
     <Row>
@@ -112,6 +119,12 @@ function MaecenateForm (props) {
               <br />
 
               <div style={{textAlign: 'right'}}>
+                <Button
+                  onClick={goBack}
+                  label={t('action.cancel')}
+                  flat={true}
+                  disabled={isSubmitting === true}
+                />
                 <Button type='submit'
                   style={{marginTop: '16px'}}
                   primary={true}

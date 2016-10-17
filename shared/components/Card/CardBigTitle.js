@@ -10,8 +10,8 @@ const style = {
   lineHeight: styleVariables.font.lineHeight.heading,
   fontSize: styleVariables.font.size.h1,
   fontWeight: styleVariables.font.weight.body,
-  padding: 0,
-  margin: styleVariables.spacer.base,
+  margin: '0px',
+  padding: '0px',
   [styleVariables.breakpoint.md]: {
     fontSize: styleVariables.font.size.h1Big,
     fontWeight: styleVariables.font.weight.heading

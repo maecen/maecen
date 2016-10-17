@@ -5,7 +5,7 @@ import app from '../../index'
 import { knex } from '../database'
 import Maecenate from '../models/Maecenate'
 import User from '../models/User'
-import Post from '../models/Post'
+import * as postService from '../services/posts'
 
 const userId = '7965a310-20f1-11e6-b599-5b176d8b99fd'
 const base = {
@@ -13,7 +13,8 @@ const base = {
 }
 const postData = {
   title: 'Some title',
-  author_alias: 'John'
+  author_alias: 'John',
+  status: 'PUBLISHED'
 }
 
 test.beforeEach(t =>
@@ -40,16 +41,16 @@ function createDummyMaecenate (creator) {
 }
 
 function createDummyPost (nr, maecenate) {
-  let post = new Post({
+  let post = {
     title: 'Some title' + nr,
     content: 'some content' + nr,
     maecenate: maecenate,
     author_alias: 'John',
-    author: userId,
-    created_at: Date.now() + nr * 1000
-  })
-  post.generateId()
-  return post.save(null, { method: 'insert', force: true })
+    created_at: Date.now() + nr * 1000,
+    status: 'PUBLISHED'
+  }
+
+  return postService.createPost(knex, post, userId)
 }
 
 test('POST /api/posts/create', async t => {
@@ -78,10 +79,11 @@ test.failing('POST /api/posts/create with image', async t => {
   const maecenate = await createDummyMaecenate()
 
   const mediaId = uuid.v1()
-  await knex('media').insert({
+  await knex('files').insert({
     id: mediaId,
     type: 'image/jpg',
-    url: 'https://fakeurl.com'
+    url: 'https://fakeurl.com',
+    role: 'MEDIA'
   })
 
   const errData = {
@@ -140,15 +142,16 @@ test('POST /api/posts/create for non owners', async t => {
 test('GET /api/maecenates/:slug/feed', async t => {
   const maecenate = await createDummyMaecenate()
 
-  const post1 = await createDummyPost(1, maecenate.id)
-  const post2 = await createDummyPost(2, maecenate.id)
+  const post1Id = await createDummyPost(1, maecenate.id)
+  const post2Id = await createDummyPost(2, maecenate.id)
 
   const res = await request(app)
     .get(`/api/maecenates/${maecenate.get('slug')}/feed`)
+    .set(base)
     .expect(200)
 
   t.is(res.body.result.length, 2)
   // Make sure the order of the posts are returned descending by created_at
-  t.deepEqual(res.body.result, [post2.id, post1.id])
+  t.deepEqual(res.body.result, [post2Id, post1Id])
 })
 

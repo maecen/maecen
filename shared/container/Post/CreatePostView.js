@@ -1,3 +1,4 @@
+// Imports
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
@@ -6,30 +7,42 @@ import Immutable from 'seamless-immutable'
 import { translate } from 'react-i18next'
 import find from 'lodash/find'
 
-import { isBrowser } from '../../config'
+// Utils
+import { postStatus, isBrowser } from '../../config'
+import { mediaUpload, fileUpload } from '../../lib/fileHandler'
+
+// Actions & Selectors
 import * as Actions from '../../actions'
-import { mediaUpload } from '../../lib/fileHandler'
 import { getUserMaecenates } from '../../selectors/maecenate'
 import { getAuthUser, getAuthUserId } from '../../selectors/user'
 
+// Components
 import PostForm from '../../components/Post/PostForm'
 
 class CreatePostView extends Component {
 
   constructor (props) {
     super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.updateModel = this.updateModel.bind(this)
-    this.mediaChange = this.mediaChange.bind(this)
-    this.onChangeMaecenate = this.onChangeMaecenate.bind(this)
+
     this.state = {
-      post: Immutable({ }),
+      post: Immutable({
+        status: postStatus.PUBLISHED
+      }),
       errors: null,
       isSubmitting: false,
       mediaPreview: null,
-      uploadProgress: 0,
-      media: []
+      mediaUploadProgress: 0,
+      fileUploadProgress: 0,
+      media: [],
+      files: []
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.updateModel = this.updateModel.bind(this)
+    this.mediaChange = this.mediaChange.bind(this)
+    this.fileChange = this.fileChange.bind(this)
+    this.onChangeMaecenate = this.onChangeMaecenate.bind(this)
+    this.toggleVisible = this.toggleVisible.bind(this)
   }
 
   componentDidMount () {
@@ -42,6 +55,13 @@ class CreatePostView extends Component {
 
   updateModel (path, value) {
     this.setState({ post: this.state.post.setIn(path, value) })
+  }
+
+  toggleVisible (event, check) {
+    const status = check ? postStatus.PUBLISHED : postStatus.HIDDEN
+    this.setState({
+      post: this.state.post.set('status', status)
+    })
   }
 
   setAuthorAlias (props) {
@@ -77,9 +97,20 @@ class CreatePostView extends Component {
   mediaChange (files) {
     this.setState({ media: files })
     mediaUpload(files, {
-      setState: this.setState.bind(this)
+      setState: this.setState.bind(this),
+      uploadProgressProp: 'mediaUploadProgress'
     }).then((data) => {
       this.updateModel(['media'], data.result)
+    })
+  }
+
+  fileChange (files) {
+    this.setState({ files })
+    fileUpload(files, {
+      setState: this.setState.bind(this),
+      uploadProgressProp: 'fileUploadProgress'
+    }).then((data) => {
+      this.updateModel(['file'], data.result)
     })
   }
 
@@ -117,8 +148,11 @@ class CreatePostView extends Component {
           updateModel={this.updateModel}
           errors={this.state.errors}
           onChangeMaecenate={this.onChangeMaecenate}
-          uploadProgress={this.state.uploadProgress}
+          mediaUploadProgress={this.state.mediaUploadProgress}
+          fileUploadProgress={this.state.fileUploadProgress}
           mediaChange={this.mediaChange}
+          fileChange={this.fileChange}
+          toggleVisible={this.toggleVisible}
           isSubmitting={this.state.isSubmitting}
         />
       : <div>Loading...</div>

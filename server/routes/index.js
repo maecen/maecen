@@ -3,7 +3,7 @@ import initialRender from '../initialRender'
 import UserRoutes from '../routes/user.routes'
 import MaecenateRoutes from '../routes/maecenate.routes'
 import PostRoutes from '../routes/post.routes'
-import MediaRoutes from '../routes/media.routes'
+import FileRoutes from '../routes/file.routes'
 import TransactionRoutes from '../routes/transaction.routes'
 import SubscriptionRoutes from '../routes/subscription.routes'
 import * as errors from '../routes/errors'
@@ -16,7 +16,7 @@ export default function configRoutes (app) {
   router.use('/api/users', UserRoutes)
   router.use('/api/maecenates', MaecenateRoutes)
   router.use('/api/posts', PostRoutes)
-  router.use('/api/media', MediaRoutes)
+  router.use('/api/files', FileRoutes)
   router.use('/api/transactions', TransactionRoutes)
   router.use('/api/subscriptions', SubscriptionRoutes)
 
