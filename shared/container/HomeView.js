@@ -41,19 +41,19 @@ class HomeView extends Component {
         />
           <div style={style.tagline}>{t('tagline')}</div>
           <div>
-            <span style={style.buttonPadding}>
+            <div style={style.buttonPadding}>
               <Link to='/maecenates' style={style.marginBottom}>
                 <Button primary={true} last={true} label={t('maecenate.seeAll')} />
               </Link>
-            </span>
-            <span style={style.buttonPadding}>
+            </div>
+            <div style={style.buttonPadding}>
               <Button
                 label={t('maecenate.create')}
                 primary={true}
                 last={true}
                 onClick={this.handleCreateMaecenate}
               />
-            </span>
+            </div>
           </div>
       </div>
     )
@@ -74,7 +74,8 @@ const { color } = styleVariables
 
 const style = {
   buttonPadding: {
-    padding: styleVariables.spacer.quart
+    padding: styleVariables.spacer.quart,
+    display: 'inline-block'
   },
   home: {
     color: color.textColor,
