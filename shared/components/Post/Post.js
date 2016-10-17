@@ -52,7 +52,9 @@ function Post (props, context) {
           </IconButton>
         }
         {media &&
-          <Media type={media.type} url={media.url} fixedRatio={false} />
+          <CardContent>
+            <Media type={media.type} url={media.url} fixedRatio={false} />
+          </CardContent>
         }
         <CardContent noTopPadding={true} textLayout={true}>
           {post.content}

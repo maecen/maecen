@@ -19,21 +19,13 @@ const style = {
     top: '0px',
     width: '100%'
   },
-  coverVideo: {
-    backgroundColor: 'black'
-  },
   mediaDefault: {
     maxWidth: '100%',
     display: 'block',
-    maxHeight: '90vh',
-    padding: styleVariables.spacer.base,
-    boxSizing: 'border-box'
+    maxHeight: '90vh'
   },
   video: {
-    backgroundColor: 'black',
-    margin: styleVariables.spacer.base,
-    padding: '0px',
-    maxHeight: '90vh'
+    backgroundColor: 'black'
   }
 }
 
@@ -43,7 +35,7 @@ export default function Media (props, context) {
       <div style={style.cover}>
         {props.url && startsWith(props.type, 'video')
           ? <video
-              style={{...style.coverMedia, ...style.coverVideo}}
+              style={{...style.coverMedia, ...style.video}}
               src={cropCloudy(props.url, 'video')}
             controls />
           : <img
