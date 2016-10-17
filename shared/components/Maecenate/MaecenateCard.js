@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 import styleVariables from '../styleVariables'
-import { Card, CardContent } from '../Card'
+import { Card, CardContent, CardBigTitle } from '../Card'
 import Media from '../Media/Media'
 
 function MaecenateCard (props, context) {
@@ -16,7 +16,7 @@ function MaecenateCard (props, context) {
       <CardContent>
         <Media type={cover.type} url={cover.url} fixedRatio={true} />
       </CardContent>
-      <h2 style={style.title}>{title}</h2>
+      <CardBigTitle style={style.title}>{title}</CardBigTitle>
       <CardContent style={style.description}>
         {teaser}
       </CardContent>
@@ -27,7 +27,7 @@ function MaecenateCard (props, context) {
 const descriptionLineCount = 3
 const descriptionHeight =
   styleVariables.font.lineHeight.body * descriptionLineCount - 0.2 + 'em'
-const { font, spacer, color, border } = styleVariables
+const { spacer, color, border } = styleVariables
 const style = {
   avatar: {
     marginTop: spacer.base,
@@ -40,7 +40,7 @@ const style = {
     cursor: 'pointer',
     marginBottom: spacer.base,
     paddingBottom: spacer.base,
-    borderRadius: styleVariables.border.radius
+    borderRadius: border.radius
   },
   description: {
     height: descriptionHeight,
@@ -55,7 +55,6 @@ const style = {
   title: {
     margin: `0 ${spacer.base}`,
     textAlign: 'center',
-    fontSize: font.size.h2Big,
     borderTop: `${border.thickness} solid ${color.background}`,
     borderBottom: `${border.thickness} solid ${color.background}`,
     padding: `${spacer.quart} 0`
