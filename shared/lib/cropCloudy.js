@@ -9,7 +9,7 @@ export default function (url, type) {
 
   switch (type) {
     case 'video':
-      glue = 'upload/w_720,h_720,f_mp4,c_fit'
+      glue = 'upload/w_848,h_720,f_mp4,c_fit'
       path = urlSplitted[1]
       break
     case 'cover':
