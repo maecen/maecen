@@ -17,12 +17,14 @@ export const epaySoapUrl = 'https://ssl.ditonlinebetalingssystem.dk/remote/subsc
 // =========
 export const SUPPORT_MAECENATE = {
   id: 'SUPPORT_MAECENATE',
-  shortId: 'S'
+  shortId: 'S',
+  description: (title) => `Subscription start to '${title}'`
 }
 
 export const REFRESH_MAECENATE = {
   id: 'REFRESH_MAECENATE',
-  shortId: 'R'
+  shortId: 'R',
+  description: (title) => `Subscription renewal to '${title}'`
 }
 
 // Database Calls
@@ -54,14 +56,22 @@ export function createPayment (knex, {
     status: 'started'
   }
 
-  return knex('transactions').insert(transaction).then(() => {
-    return {
-      merchantnumber: process.env.EPAY_MERCANT_NUMBER,
-      amount: String(amount),
-      currency,
-      group: 'Maecen',
-      orderid: transaction.order_id
-    }
+  return Promise.all([
+    knex('maecenates').where({ id: maecenateId }),
+    knex('users').where({ id: userId })
+  ])
+  .then(([[maecenate], [user]]) => {
+    const userInfo = `${user.email} : ${user.first_name} ${user.last_name}`
+    return knex('transactions').insert(transaction).then(() => {
+      return {
+        description: paymentType.description(maecenate.title) + ' - ' + userInfo,
+        merchantnumber: process.env.EPAY_MERCANT_NUMBER,
+        amount: String(amount),
+        currency,
+        group: 'Maecen',
+        orderid: transaction.order_id
+      }
+    })
   })
 }
 
