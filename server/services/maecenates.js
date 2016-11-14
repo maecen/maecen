@@ -121,7 +121,7 @@ export function fetchMaecenateAdminDetails (knex, query) {
   .then(maecenate => {
     return knex('transactions')
     .sum('amount as totalEarned')
-    .where({ maecenate: maecenate.id })
+    .where({ maecenate: maecenate.id, status: 'success' })
     .then(result => ({
       id: maecenate.id,
       totalEarned: Number(result[0].totalEarned),
