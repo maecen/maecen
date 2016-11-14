@@ -162,6 +162,7 @@ export function csvExtract (req, res, next) {
     .innerJoin('maecenates', 'transactions.maecenate', 'maecenates.id')
     .innerJoin('users as creator', 'maecenates.creator', 'creator.id')
     .innerJoin('users as supporter', 'transactions.user', 'supporter.id')
+    .where('transactions.status', 'success')
     .then((data) => {
       // Write out the date in a good format
       data = data.map(transaction => ({
