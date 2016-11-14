@@ -1,12 +1,20 @@
+// Imports
 import { normalizeResponse } from '../util/ctrlHelpers'
+
+import { postStatus } from '../../shared/config'
+
+// Services
 import * as service from '../services/maecenates'
 import * as subscriptionService from '../services/subscriptions'
-import { knex } from '../database'
 import {
   emailMaecenateDeactivated,
   emailToSupporters
 } from '../services/emailSender'
 import * as emailService from '../services/email'
+import {
+  populateMaecenatesWithMedia,
+  populatePostsWithFiles
+} from '../services/files'
 
 export function getMaecenate (req, res, next) {
   const { slug } = req.params
@@ -37,7 +45,7 @@ export function getAdminDetails (req, res, next) {
 export function getMaecenatesOverview (req, res, next) {
   const { knex } = req.app.locals
   return service.fetchMaecenatesOverview(knex)
-    .then(maecenates => service.populateMaecenatesWithMedia(knex, maecenates))
+    .then(maecenates => populateMaecenatesWithMedia(knex, maecenates))
     .then(maecenates => res.json(normalizeResponse({ maecenates })))
 }
 
@@ -77,6 +85,7 @@ export function editMaecenate (req, res, next) {
 }
 
 export function getMaecenateSupporters (req, res, next) {
+  const { knex } = req.app.locals
   const { slug } = req.params
   const maecenateIdQuery = knex('maecenates').where({ slug }).select('id').limit(1)
 
@@ -118,28 +127,34 @@ export function deactivateMaecenate (req, res, next) {
 }
 
 export function getFeed (req, res, next) {
+  const { knex } = req.app.locals
+  const { userId } = req.user
   const { slug } = req.params
-  let posts = null
 
   const maecenateQuery = knex('maecenates').where('slug', slug).select('id')
-  return knex('posts')
-  .where('maecenate', 'in', maecenateQuery)
-  .orderBy('created_at', 'desc')
-  .then((res) => {
-    posts = res
-    const postIds = posts.map(post => post.id)
-    return knex('media').where('obj_id', 'in', postIds)
-      .andWhere('obj_type', 'post')
-  })
-  .then(media => {
-    posts = posts.map(post => ({
-      ...post,
-      media: media.filter(m => m.obj_id === post.id)
-    }))
+  let feedQuery = knex('posts')
+    .where('maecenate', 'in', maecenateQuery)
+    .orderBy('created_at', 'desc')
 
-    res.json(normalizeResponse({ posts }))
-  })
-  .catch(next)
+  return Promise.all([
+    service.userIsSupporterBySlug(knex, slug, userId),
+    service.userIsAdminBySlug(knex, slug, userId)
+  ])
+    .then(([isSupporter, isAdmin]) => {
+      if (isSupporter === false && isAdmin === false) {
+        const error = { _: 'maecenate.userIsNotSupporter' }
+        throw error
+      }
+
+      if (isAdmin === false) {
+        feedQuery = feedQuery.where('status', postStatus.PUBLISHED)
+      }
+
+      return feedQuery
+    })
+    .then(posts => populatePostsWithFiles(knex, posts))
+    .then(posts => res.json(normalizeResponse({ posts })))
+    .catch(next)
 }
 
 export function sendEmailToSupporters (req, res, next) {
@@ -149,12 +164,11 @@ export function sendEmailToSupporters (req, res, next) {
 
   const formattedMessage = message.replace(/\n/g, '<br />')
 
-  return emailToSupporters(knex, maecenateId, subject,
-    formattedMessage)
-  .then(() =>
-    res.json({
-      success: true
-    })
-  )
-  .catch(next)
+  return emailToSupporters(knex, maecenateId, subject, formattedMessage)
+    .then(() =>
+      res.json({
+        success: true
+      })
+    )
+    .catch(next)
 }

@@ -29,6 +29,7 @@ function CardTitle (props) {
 CardTitle.defaultProps = {
   titleStyle: {
     fontSize: styleVariables.font.size.h1,
+    fontWeight: styleVariables.font.weight.heading,
     lineHeight: styleVariables.font.lineHeight.heading
   },
   subtitleStyle: {

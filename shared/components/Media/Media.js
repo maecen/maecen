@@ -8,6 +8,7 @@ const style = {
     position: 'relative',
     paddingBottom: '56.25%',
     height: '0px',
+    lineHeight: '0px',
     overflow: 'hidden',
     marginBottom: styleVariables.spacer.quart
   },
@@ -18,16 +19,13 @@ const style = {
     top: '0px',
     width: '100%'
   },
-  coverVideo: {
-    backgroundColor: 'black'
-  },
   mediaDefault: {
-    width: '100%',
-    marginBottom: styleVariables.spacer.base
+    maxWidth: '100%',
+    display: 'block',
+    maxHeight: '90vh'
   },
   video: {
-    backgroundColor: 'black',
-    maxHeight: '720px'
+    backgroundColor: 'black'
   }
 }
 
@@ -37,7 +35,7 @@ export default function Media (props, context) {
       <div style={style.cover}>
         {props.url && startsWith(props.type, 'video')
           ? <video
-              style={{...style.coverMedia, ...style.coverVideo}}
+              style={{...style.coverMedia, ...style.video}}
               src={cropCloudy(props.url, 'video')}
             controls />
           : <img
@@ -49,14 +47,11 @@ export default function Media (props, context) {
     )
   } else {
     return (
-      <div>
-        { startsWith(props.type, 'video')
-          ? <video src={cropCloudy(props.url, 'video')} controls
-            style={{...style.video, ...style.mediaDefault}}/>
-          : <img src={cropCloudy(props.url, 'post')}
-            style={style.mediaDefault} />
-        }
-      </div>
+      startsWith(props.type, 'video')
+        ? <video src={cropCloudy(props.url, 'video')} controls
+          style={{...style.mediaDefault, ...style.video}}/>
+        : <img src={cropCloudy(props.url, 'post')}
+          style={style.mediaDefault} />
     )
   }
 }

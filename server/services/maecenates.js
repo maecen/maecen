@@ -2,7 +2,6 @@
 import Joi from 'joi'
 import uuid from 'node-uuid'
 import Immutable from 'seamless-immutable'
-import mapKeys from 'lodash/mapKeys'
 import axios from 'axios'
 import { slugify } from 'strman'
 
@@ -10,7 +9,6 @@ import { slugify } from 'strman'
 import { host, PUBLIC_SUPPORTER_THRESHOLD } from '../../shared/config'
 import { knex } from '../database'
 import { joiValidation } from '../util/ctrlHelpers'
-import { claimMedia, deleteUnusedMedia } from './media'
 
 // Services
 import {
@@ -18,6 +16,11 @@ import {
   fetchActiveUserSubPeriodForMaecenate,
   fetchActiveSubPeriodsForMaecenate
 } from './subscriptions'
+import {
+  claimFiles,
+  deleteUnusedFiles,
+  populateMaecenatesWithMedia
+} from './files'
 
 // Schema validation of the data
 // =============================
@@ -51,7 +54,7 @@ export const createMaecenate = (knex, userId, data) => {
     return knex.transaction(trx => {
       const maecenate = data.without('cover', 'logo')
       return trx('maecenates').insert(maecenate).then(() => {
-        return claimMedia(mediaIds, 'maecenate', id, trx)
+        return claimFiles(trx, mediaIds, 'maecenate', id)
       })
     })
     .then(() => id)
@@ -71,9 +74,9 @@ export const updateMaecenate = (knex, id, data) => {
       return knex.transaction(trx => {
         const maecenate = data.without('cover', 'logo', 'id')
         return trx('maecenates').where({ id }).update(maecenate).then(() => {
-          return claimMedia(mediaIds, 'maecenate', id, trx)
+          return claimFiles(trx, mediaIds, 'maecenate', id)
         }).then(() => {
-          return deleteUnusedMedia('maecenate', id, mediaIds, trx)
+          return deleteUnusedFiles(trx, 'maecenate', id, mediaIds)
         })
       })
     })
@@ -84,36 +87,29 @@ export function fetchMaecenate (where, userId) {
   let maecenate = null
 
   return knex('maecenates')
-    .select('*')
-    .select(function () {
-      supportersQuery(this).as('supporters')
-    })
-    .where(where).limit(1)
-    .then((result) => {
-      if (result.length === 0) {
-        const error = { _responseStatus: 404 }
-        throw error
-      }
-      maecenate = result[0]
-    })
-    .then(() =>
-      Promise.all([
-        knex('media').where({ id: maecenate.logo_media }).limit(1),
-        knex('media').where({ id: maecenate.cover_media }).limit(1),
-        fetchActiveUserSubPeriodForMaecenate(knex, userId, maecenate.id)
-      ])
-    )
-    .then(([[logoMedia], [coverMedia], supports]) => {
-      return {
-        maecenate: {
-          ...maecenate,
-          supporters: Number(maecenate.supporters),
-          logo: logoMedia,
-          cover: coverMedia
-        },
-        supports
-      }
-    })
+  .select('*')
+  .select(function () {
+    supportersQuery(this).as('supporters')
+  })
+  .where(where).limit(1)
+  .then((result) => {
+    if (result.length === 0) {
+      const error = { _responseStatus: 404 }
+      throw error
+    }
+    return populateMaecenatesWithMedia(knex, result)
+  })
+  .then(result => {
+    maecenate = result[0]
+    return fetchActiveUserSubPeriodForMaecenate(knex, userId, maecenate.id)
+  })
+  .then(supports => ({
+    maecenate: {
+      ...maecenate,
+      supporters: Number(maecenate.supporters) // Force number type
+    },
+    supports
+  }))
 }
 
 export function fetchMaecenateWithoutMedia (query) {
@@ -125,7 +121,7 @@ export function fetchMaecenateAdminDetails (knex, query) {
   .then(maecenate => {
     return knex('transactions')
     .sum('amount as totalEarned')
-    .where({ maecenate: maecenate.id })
+    .where({ maecenate: maecenate.id, status: 'success' })
     .then(result => ({
       id: maecenate.id,
       totalEarned: Number(result[0].totalEarned),
@@ -143,20 +139,6 @@ export const fetchMaecenatesOverview = (knex) => {
     .where('active', true)
     .where(PUBLIC_SUPPORTER_THRESHOLD, '<=', supportersQuery(knex))
 }
-
-export const populateMaecenatesWithMedia = (knex, maecenates) =>
-  knex('media')
-    .where('obj_type', 'maecenate')
-    .andWhere('obj_id', 'in', maecenates.map(obj => obj.id))
-    .select('id', 'url', 'type', 'created_at')
-    .then(media => {
-      const mappedMedia = mapKeys(media, (o) => o.id)
-      return maecenates.map((maecenate) => ({
-        ...maecenate,
-        logo: mappedMedia[maecenate.logo_media],
-        cover: mappedMedia[maecenate.cover_media]
-      }))
-    })
 
 export function fetchSupportedMaecenates (userId) {
   let subPeriods = null
@@ -201,6 +183,24 @@ export function userIsAdminBySlug (knex, slug, userId) {
   return knex('maecenates').where({ slug, creator: userId })
   .select('id')
   .then(res => res[0] ? res[0].id : false)
+}
+
+export function userIsSupporterBySlug (knex, slug, userId, date) {
+  date = date || new Date()
+
+  const maecenateId = knex('maecenates').where({ slug })
+    .limit(1)
+    .select('id')
+
+  return knex('subscriptions')
+    .select('subscriptions.id')
+    .innerJoin('sub_periods', 'sub_periods.subscription', 'subscriptions.id')
+    .limit(1)
+    .where('maecenate', maecenateId)
+    .where('user', userId)
+    .where('sub_periods.start', '<=', date)
+    .where('sub_periods.end', '>', date)
+    .then(res => Boolean(res[0]))
 }
 
 export const activeExists = (knex, maecenateId) => {

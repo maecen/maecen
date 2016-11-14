@@ -1,3 +1,4 @@
+// Imports
 import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
@@ -5,12 +6,16 @@ import axios from 'axios'
 import { translate } from 'react-i18next'
 import Immutable from 'seamless-immutable'
 
-import * as Actions from '../../actions'
-import { mediaUpload } from '../../lib/fileHandler'
+// Utils
+import { postStatus } from '../../config'
+import { mediaUpload, fileUpload } from '../../lib/fileHandler'
 
+// Actions & Selectors
+import * as Actions from '../../actions'
 import { getPostById } from '../../selectors/post'
 import { getMaecenateByPost } from '../../selectors/maecenate'
 
+// Components
 import PostForm from '../../components/Post/PostForm'
 
 class EditPostView extends Component {
@@ -22,13 +27,17 @@ class EditPostView extends Component {
       errors: null,
       isSubmitting: false,
       mediaPreview: null,
-      uploadProgress: 0,
-      media: []
+      mediaUploadProgress: 0,
+      fileUploadProgress: 0,
+      media: [],
+      files: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.updateModel = this.updateModel.bind(this)
     this.mediaChange = this.mediaChange.bind(this)
+    this.fileChange = this.fileChange.bind(this)
+    this.toggleVisible = this.toggleVisible.bind(this)
   }
 
   componentWillMount () {
@@ -50,12 +59,30 @@ class EditPostView extends Component {
     this.setState({ post: this.state.post.setIn(path, value) })
   }
 
+  toggleVisible (event, check) {
+    const status = check ? postStatus.PUBLISHED : postStatus.HIDDEN
+    this.setState({
+      post: this.state.post.set('status', status)
+    })
+  }
+
   mediaChange (files) {
     this.setState({ media: files })
     mediaUpload(files, {
-      setState: this.setState.bind(this)
+      setState: this.setState.bind(this),
+      uploadProgressProp: 'mediaUploadProgress'
     }).then((data) => {
       this.updateModel(['media'], data.result)
+    })
+  }
+
+  fileChange (files) {
+    this.setState({ files })
+    fileUpload(files, {
+      setState: this.setState.bind(this),
+      uploadProgressProp: 'fileUploadProgress'
+    }).then((data) => {
+      this.updateModel(['file'], data.result)
     })
   }
 
@@ -86,9 +113,12 @@ class EditPostView extends Component {
           handleSubmit={this.handleSubmit}
           updateModel={this.updateModel}
           errors={this.state.errors}
-          uploadProgress={this.state.uploadProgress}
+          mediaUploadProgress={this.state.mediaUploadProgress}
+          fileUploadProgress={this.state.fileUploadProgress}
           mediaChange={this.mediaChange}
+          fileChange={this.fileChange}
           isSubmitting={this.state.isSubmitting}
+          toggleVisible={this.toggleVisible}
           editMode={true}
         />
       : <div>Loading...</div>

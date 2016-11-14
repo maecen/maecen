@@ -124,7 +124,11 @@
     "saveEdit": "Save edits",
     "see": "See posts",
     "title": "Title",
-    "writtenByAlias": "By: {{alias}}"
+    "writtenByAlias": "By: {{alias}}",
+    "setVisible": "Visible for maecens",
+    "downloadAttachment": "Download attachment:",
+    "attachmentUpload": "Upload attachment",
+    "attachmentReplace": "Replace attachment"
   },
   "user": {
     "alias": "Alias",

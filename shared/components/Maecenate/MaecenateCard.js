@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react'
 
 import styleVariables from '../styleVariables'
-import { Card, CardContent, CardTitle } from '../Card'
-import cropCloudy from '../../lib/cropCloudy'
+import { Card, CardContent, CardBigTitle } from '../Card'
 import Media from '../Media/Media'
-import Avatar from 'material-ui/Avatar'
 
 function MaecenateCard (props, context) {
   const {
@@ -15,16 +13,10 @@ function MaecenateCard (props, context) {
 
   return (
     <Card style={style.card}>
-      <div style={style.header}>
-        <Avatar
-          src={cropCloudy(logo.url, 'logo-tiny')}
-          size={60}
-          style={style.avatar}
-        />
-        <CardTitle title={title} oneLine={true}
-          subtitleStyle={style.headerSubtitle} />
-      </div>
-      <Media type={cover.type} url={cover.url} fixedRatio={true} />
+      <CardContent>
+        <Media type={cover.type} url={cover.url} fixedRatio={true} />
+      </CardContent>
+      <CardBigTitle style={style.title}>{title}</CardBigTitle>
       <CardContent style={style.description}>
         {teaser}
       </CardContent>
@@ -35,35 +27,37 @@ function MaecenateCard (props, context) {
 const descriptionLineCount = 3
 const descriptionHeight =
   styleVariables.font.lineHeight.body * descriptionLineCount - 0.2 + 'em'
-const spacer = styleVariables.spacer.base
+const { spacer, color, border } = styleVariables
 const style = {
   avatar: {
-    marginTop: spacer,
-    marginBottom: spacer,
-    marginLeft: spacer,
+    marginTop: spacer.base,
+    marginBottom: spacer.base,
+    marginLeft: spacer.base,
     marginRight: '0px'
   },
   card: {
-    marginBottom: spacer,
-    paddingBottom: spacer,
-    cursor: 'pointer'
+    boxShadow: 'none',
+    cursor: 'pointer',
+    marginBottom: spacer.base,
+    paddingBottom: spacer.base,
+    borderRadius: border.radius
   },
   description: {
     height: descriptionHeight,
     display: 'block',
     overflow: 'hidden',
     padding: '0px',
-    marginTop: spacer,
-    marginRight: spacer,
-    marginLeft: spacer,
+    marginTop: spacer.base,
+    marginRight: spacer.base,
+    marginLeft: spacer.base,
     marginBottom: '0px'
   },
-  header: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  headerSubtitle: {
-    display: 'none'
+  title: {
+    margin: `0 ${spacer.base}`,
+    textAlign: 'center',
+    borderTop: `${border.thickness} solid ${color.background}`,
+    borderBottom: `${border.thickness} solid ${color.background}`,
+    padding: `${spacer.quart} 0`
   }
 }
 

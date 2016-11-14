@@ -11,24 +11,34 @@ export default {
   animation: {
     default: '.3s ease'
   },
+  avatar: {
+    radius: '0px',
+    size: '50'
+  },
   border: {
-    radius: '3px'
+    radius: '4px',
+    thickness: '2px'
   },
   color: {
     alert: 'rgb(244, 67, 54)',
-    bodyText: 'white',
+    background: 'hsl(210, 8%, 92%)',
+    bodyText: 'hsl(210, 5%, 30%)',
     cardText: 'hsl(0, 0%, 13%)',
-    icon: 'rgba(255,255,255,0.6)',
     gray: 'rgb(200,200,200)',
-    primary: 'hsl(190, 100%, 30%)'
+    headerBG: 'hsl(210, 10%, 87%)',
+    icon: 'rgba(255,255,255,0.6)',
+    primary: 'hsl(320, 100%, 35%)',
+    white: 'white'
   },
   font: {
     size: {
       bodySmall: '12px',
       body: `${defaultUnit}px`,
       bodyLarge: '18px',
-      h1: '24px',
-      h1Big: '40px'
+      h1: '30px',
+      h1Big: '40px',
+      h2: '26px',
+      h2Big: '32px'
     },
     weight: {
       heading: '300',
@@ -53,6 +63,13 @@ export default {
       lg: '40px',
       xl: '60px'
     }
+  },
+  defaults: {
+    maxWidth: '70rem',
+    maxWidthText: '35rem',
+    maxWidthContent: '55rem',
+    padding: '0 0.5rem',
+    margin: '0 auto'
   },
   media: {
     lg: mediaSizes.lg,

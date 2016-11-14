@@ -204,7 +204,8 @@ test('GET cronRefreshSubscriptions', async t => {
   const subPeriods = await knex('sub_periods')
   t.is(subPeriods.length, 2)
 
-  // As we're trying to refresh a subscription which already is refreshed this
-  // will throw an error
-  await t.throws(subscriptionService.refreshExpiringSubscriptions(knex))
+  // Trying to refresh again still preserves the sup_periods at 2
+  await subscriptionService.refreshExpiringSubscriptions(knex)
+  const newSubPeriods = await knex('sub_periods')
+  t.is(newSubPeriods.length, 2)
 })

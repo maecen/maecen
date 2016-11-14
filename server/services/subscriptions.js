@@ -8,6 +8,7 @@
  * period.
  **/
 import uuid from 'node-uuid'
+import promiseLimit from 'promise-limit'
 import moment from 'moment'
 import * as transactionService from './transactions'
 import {
@@ -173,11 +174,8 @@ export function refreshMaecenateSubscription (knex, subscriptionId) {
         currency: subInfo.currency
       }).then((transaction) => {
         if (transaction) {
-          return createSubPeriod(
-            knex, subscriptionId, transaction, tomorrow, 1
-          ).then(() => {
-            return emailSupportReceipt(knex, transaction.id)
-          })
+          return createSubPeriod(knex, subscriptionId, transaction, tomorrow, 1)
+          .then(() => emailSupportReceipt(knex, transaction.id))
         }
       })
     })
@@ -185,29 +183,26 @@ export function refreshMaecenateSubscription (knex, subscriptionId) {
 }
 
 export function refreshExpiringSubscriptions (knex) {
+  const limit = promiseLimit(1)
   const tomorrow = moment(new Date()).set({
     millisecond: 0, second: 0, minute: 0, hour: 0
   }).add(1, 'days')
+
   return knex('subscriptions')
   .select('subscriptions.id')
   .innerJoin('sub_periods', 'subscription', 'subscriptions.id')
   .where('sub_periods.end', '=', tomorrow.toDate())
   .where('subscriptions.renew', true)
   .then(subscriptions => {
-    let lastPromise = null
-    for (let { id } of subscriptions) {
-      if (lastPromise === null) {
-        lastPromise = refreshMaecenateSubscription(knex, id)
-      } else {
-        lastPromise.then(function (id) {
-          return refreshMaecenateSubscription(knex, id)
-        }.bind(null, id))
-      }
-      lastPromise.catch((err) => {
-        console.log(`[ERROR PAYMENT] Could not refresh ${id}`, err, err.stack)
-      })
-    }
-    return lastPromise
+    return Promise.all(subscriptions.map((subscription) =>
+      limit(() =>
+        refreshMaecenateSubscription(knex, subscription.id)
+        .catch((err) => {
+          console.log(`[ERROR PAYMENT] Could not refresh ${subscription.id}`,
+            err, err.stack && err.stack())
+        })
+      )
+    ))
   })
 }
 
@@ -218,12 +213,8 @@ export function stopSubscription (knex, userId, maecenateId) {
     user: userId,
     renew: true
   })
-  .update({
-    renew: false
-  })
-  .then((res) => {
-    console.log(res)
-  })
+  .update({ renew: false })
+  .then(console.log)
 }
 
 export function updateSubscription (knex, userId, maecenateId, amount) {

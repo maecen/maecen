@@ -1,8 +1,31 @@
-import React, { Component } from 'react'
+import React from 'react'
 import LinearProgress from 'material-ui/LinearProgress'
 import styleVariables from '../styleVariables'
 
-const style = {
+export default function LinearProgressDeterminate ({
+  style,
+  ...props
+}) {
+  const progress = props.value
+  const rootStyle = progress === 100 || progress === 0
+    ? elStyle.done
+    : elStyle.move
+
+  return (
+    <LinearProgress
+      mode='determinate'
+      style={{...style, ...elStyle.base, ...rootStyle}}
+      {...props}
+    />
+  )
+}
+
+const elStyle = {
+  base: {
+    background: styleVariables.color.background,
+    borderRadius: styleVariables.border.radius,
+    transition: styleVariables.animation.default
+  },
   done: {
     opacity: '0',
     visibility: 'hidden'
@@ -10,24 +33,5 @@ const style = {
   move: {
     opacity: '1',
     visibility: 'visible'
-  }
-}
-export default class LinearProgressDeterminate extends Component {
-  render () {
-    const progress = this.props.value
-    return (
-      <LinearProgress
-        mode='determinate' {...this.props}
-        style={ progress === 100 || progress === 0 ? style.done : style.move }
-      />
-    )
-  }
-}
-
-LinearProgressDeterminate.defaultProps = {
-  style: {
-    backgroundColor: 'none',
-    borderRadius: styleVariables.border.radius,
-    transition: styleVariables.animation.default
   }
 }

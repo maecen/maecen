@@ -25,12 +25,12 @@ test.afterEach.always(t => knex.migrate.rollback())
 
 test('POST /api/maecenates/create', async t => {
   const logoId = uuid.v1()
-  await knex('media').insert({
-    id: logoId, type: 'image/jpg', url: 'https://fakeurl.com' })
+  await knex('files').insert({
+    id: logoId, type: 'image/jpg', url: 'https://fakeurl.com', role: 'MEDIA' })
 
   const coverId = uuid.v1()
-  await knex('media').insert({
-    id: coverId, type: 'image/jpg', url: 'https://fakeurl.com' })
+  await knex('files').insert({
+    id: coverId, type: 'image/jpg', url: 'https://fakeurl.com', role: 'MEDIA' })
 
   const maecenateData = {
     title: 'Some Maecenate',

@@ -17,7 +17,7 @@ Hvis du betaler f.eks. 20kr/md går de 19kr direkte til Mæcenatet.
 
 Mæcen.net ejes 100% af  DiGiDi a..m.b.a., der er et andelsselskab, ejet i lige andele af mere end 3.500 andelshavere.
 Mæcen.net projektet er derfor Non Profit, og alle indtægter går til drift og forsat udvikling af Mæcen projektet.  
-[Læs mere om Mæcen-projektet og om hvordan du kommer igang](https://beta.maecen.net/about "Om mæcen.net")
+[Læs mere om Mæcen-projektet og om hvordan du kommer igang](/about "Om mæcen.net")
 
 Kontakt Mæcen.net
 ---------------
@@ -48,12 +48,12 @@ Såfremt denne minimumsbetaling ændres af ejeren af Mæcenatet, vil det IKKE p�
 
 Stop din støtte her og nu.
 ----------------------
-Du kan altid afslutte din støtte til et Mæcenat uden yderligere varsel hvorefter der ikke vil blive trukket yderligere beløb fra din konto. [Det kan du gøre her](https://beta.maecen.net/profile "Profil side").  
+Du kan altid afslutte din støtte til et Mæcenat uden yderligere varsel hvorefter der ikke vil blive trukket yderligere beløb fra din konto. [Det kan du gøre her](/profile "Profil side").  
 Betalinger der allerede er gennemført refunderes ikke, men du vil fortsat have adgang til Mæcenatet indtil den periode du har betalt for udløber.  
 
 Ændring af betalingsoplysninger
 ----------------------------
-Hvis du skifter kreditkort eller ønsker at anvende et andet kort på Mæcen, kan du foretage ændringer på din [Profil](https://beta.maecen.net/profile "Profil side").  Bemærk, at du kan kun have et kort tilknyttet en profil. Ønsker du at anvende forskellige betalingskort til forskellige Mæcenater, skal du oprette flere profiler.  Dine kortinformationer bliver ikke gemt af Mæcen.net
+Hvis du skifter kreditkort eller ønsker at anvende et andet kort på Mæcen, kan du foretage ændringer på din [Profil](/profile "Profil side").  Bemærk, at du kan kun have et kort tilknyttet en profil. Ønsker du at anvende forskellige betalingskort til forskellige Mæcenater, skal du oprette flere profiler.  Dine kortinformationer bliver ikke gemt af Mæcen.net
 
 Personlige informationer er dine informationer
 ------------------------------

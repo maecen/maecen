@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import { Row, Cell } from '../components/Grid'
 
 // Actions & Selectors
 import { getPosts } from '../selectors/post'
@@ -30,41 +29,39 @@ class UserFeedView extends Component {
     const { posts, t } = this.props
 
     return (
-      <Row>
-        <Cell narrowLayout={true}>
-          <h1 style={style.title}>{t('feed.yourNews')}</h1>
-          { posts.length !== 0
-            ? posts.map(post =>
-                <Post
-                  key={post.id}
-                  post={post}
-                  maecenate={post.maecenate}
+      <div style={style.container}>
+        <h1 style={style.h1}>{t('feed.yourNews')}</h1>
+        { posts.length !== 0
+          ? posts.map(post =>
+              <Post
+                key={post.id}
+                post={post}
+                maecenate={post.maecenate}
+              />
+            )
+          : <div>
+              <div style={style.getStarted}>{t('feed.getStarted')}</div>
+              <Link to='/maecenates'>
+                <Button
+                  label={t('feed.findMaecenate')}
+                  primary={true}
+                  icon={<SearchIcon />}
                 />
-              )
-            : <div>
-                <div style={style.getStarted}>{t('feed.getStarted')}</div>
-                <Link to='/maecenates'>
-                  <Button
-                    label={t('feed.findMaecenate')}
-                    primary={true}
-                    icon={<SearchIcon />}
-                  />
-                </Link>
-              </div>
-            }
-        </Cell>
-      </Row>
+              </Link>
+            </div>
+          }
+      </div>
     )
   }
 }
 
 const style = {
-  title: {
-    fontSize: styleVariables.font.size.h1,
-    color: styleVariables.color.bodyText,
-    lineHeight: '1.2',
-    fontWeight: '300',
-    marginTop: '0px'
+  container: {
+    width: '100%'
+  },
+  h1: {
+    fontSize: styleVariables.font.size.h1Big,
+    marginTop: '0'
   },
   getStarted: {
     color: styleVariables.color.bodyText,

@@ -63,6 +63,7 @@ export function fetchMaecenatePosts (slug) {
     dispatch(setPosts([], null))
     return apiRequest(state, `/maecenates/${slug}/feed`)
       .then(data => dispatch(fetchMaecenatePostsSuccess(data)))
+      .catch(() => {})
   }
 }
 
