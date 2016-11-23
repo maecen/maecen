@@ -32,9 +32,9 @@ export const calculateFee = (cardIssuer, amount) => {
     return fee
   } else if (type === 'L') {
     if (paymentType === paymentTypes.DANKORT) {
-      if (amount > 500) {
+      if (amount > 50000) {
         return DANKORT_FEES[2]
-      } else if (amount > 50) {
+      } else if (amount > 5000) {
         return DANKORT_FEES[1]
       } else {
         return DANKORT_FEES[0]
