@@ -199,7 +199,7 @@ export function refreshExpiringSubscriptions (knex) {
         refreshMaecenateSubscription(knex, subscription.id)
         .catch((err) => {
           console.log(`[ERROR PAYMENT] Could not refresh ${subscription.id}`,
-            err, err.stack && err.stack())
+            err, err.stack)
         })
       )
     ))

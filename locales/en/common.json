@@ -25,7 +25,7 @@
   "website": "Website",
   "zipCode": "Zip code",
   "currency": {
-    "amount_DKK": "{{count}} DKK"
+    "amount_DKK": "{{count, 0,0.00}} kr"
   },
   "action": {
     "cancel": "Cancel",
@@ -99,7 +99,9 @@
     "howMuch": "Enter your monthly support in DKK",
     "join": "Support",
     "joinMaecenate": "Become Maecen for {{title}}",
-    "monthlyAmount": "Monthly amount",
+    "monthlySupport": "Monthly support",
+    "monthlyFee": "Monthly card fee",
+    "monthlyTotal": "Total monthly amunt",
     "minimumAmount": "Minimum $t(currency.amount)",
     "subscriptionExplanation": "The amount will be withdrawn from your card each month until you choose to cancel your support.",
     "success": "You are now Maecen for {{title}}",

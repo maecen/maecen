@@ -88,7 +88,7 @@ test('Support maecenates', async t => {
   const txnid = '123456789'
   const cbRes = await request(app)
     .get(`/api/transactions/payment-callback?txnid=${txnid}&orderid=${orderId}` +
-         `&amount=${amount}&subscriptionid=1234567&cardno=444444XXXXXX4000`)
+         `&amount=${amount}&subscriptionid=1234567&cardno=444444XXXXXX4000&paymenttype=4`)
 
   t.is(cbRes.status, 200)
   t.is(cbRes.body.success, true)

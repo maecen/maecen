@@ -6,6 +6,7 @@ import axios from 'axios'
 import { browserHistory } from 'react-router'
 
 import EpayWindow from '../lib/EpayWindow'
+import * as Epay from '../lib/epay'
 import styleVariables from '../components/styleVariables'
 
 // Actions
@@ -37,6 +38,8 @@ class MaecenateSupportView extends Component {
     this.state = {
       amount: '',
       amountError: null,
+      feeAmount: '',
+      totalAmount: '',
       errors: {},
       success: false,
       display: 'amount', // amount | confirm
@@ -128,7 +131,15 @@ class MaecenateSupportView extends Component {
     }
 
     if (hasSavedPaymentCard && display === 'amount') {
-      this.setState({display: 'confirm'})
+      // We need to prive amount in cents
+      const centAmount = this.state.amount * 100
+      const { user } = this.props
+      const fee = Epay.calculateFee(user.payment_card_issuer, centAmount)
+      this.setState({
+        display: 'confirm',
+        feeAmount: fee,
+        totalAmount: fee + centAmount
+      })
       return
     }
 
@@ -180,7 +191,7 @@ class MaecenateSupportView extends Component {
 
   renderPayment () {
     const { maecenate, hasAuth, t, user } = this.props
-    const { amount } = this.state
+    const { totalAmount, feeAmount, amount } = this.state
     const continueLabel = hasAuth
       ? t('support.continueToPayment')
       : t('action.continue')
@@ -270,10 +281,26 @@ class MaecenateSupportView extends Component {
                     </TableRow>
                     <TableRow>
                       <TableRowColumn>
-                        {t('support.monthlyAmount')}
+                        {t('support.monthlySupport')}
                       </TableRowColumn>
                       <TableRowColumn>
-                        {t('currency.amount', {count: amount, context: 'DKK'})}
+                        {t('currency.amount', {count: Number(amount), context: 'DKK'})}
+                      </TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                      <TableRowColumn>
+                        {t('support.monthlyFee')}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {t('currency.amount', {count: feeAmount / 100, context: 'DKK'})}
+                      </TableRowColumn>
+                    </TableRow>
+                    <TableRow>
+                      <TableRowColumn style={{ fontWeight: 'bold' }}>
+                        {t('support.monthlyTotal')}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {t('currency.amount', {count: totalAmount / 100, context: 'DKK'})}
                       </TableRowColumn>
                     </TableRow>
                     <TableRow>

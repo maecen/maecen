@@ -1,23 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { TableRowColumn as MaterialRowCol } from 'material-ui/Table'
 
 import styleVariables from '../styleVariables'
 
-export default class TableRowColumn extends Component {
-  render () {
-    return (
-      <MaterialRowCol {...this.props}>
-        { this.props.children }
-      </MaterialRowCol>
-    )
-  }
-}
-
 const spacer = styleVariables.spacer
-
-TableRowColumn.defaultProps = {
-  style: {
+const TableRowColumn = ({ style, ...props }) => {
+  const elStyle = {
     paddingLeft: spacer.half,
-    paddingRight: spacer.half
+    paddingRight: spacer.half,
+    ...style
   }
+
+  return (
+    <MaterialRowCol style={elStyle} {...props}>
+      { props.children }
+    </MaterialRowCol>
+  )
 }
+
+export default TableRowColumn

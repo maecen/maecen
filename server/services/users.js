@@ -9,7 +9,7 @@ export function fetchUser (knex, id) {
 }
 
 export function savePaymentInfo (
-  knex, userId, epaySubscriptionId, cardNumber
+  knex, userId, epaySubscriptionId, cardNumber, cardIssuer
 ) {
   // Get and replace all but the last four characters with * and then
   // get the last four characters
@@ -21,7 +21,8 @@ export function savePaymentInfo (
   .where({ id: userId })
   .update({
     epay_subscription_id: epaySubscriptionId,
-    payment_card: cardStart + cardEnd
+    payment_card: cardStart + cardEnd,
+    payment_card_issuer: cardIssuer
   })
 }
 

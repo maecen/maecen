@@ -31,7 +31,7 @@
     "update": "Opdater"
   },
   "currency": {
-    "amount_DKK": "{{count}} kr"
+    "amount_DKK": "{{count, 0,0.00}} kr"
   },
   "error": {
     "noUserWithEmail": "Der eksisterer ingen bruger med denne email",
@@ -115,7 +115,9 @@
     "join": "Bliv mæcen",
     "joinMaecenate": "Bliv mæcen for {{title}}",
     "minimumAmount": "Minimum $t(currency.amount)",
-    "monthlyAmount": "Månedligt beløb",
+    "monthlySupport": "Månedlig støtte",
+    "monthlyFee": "Månedligt kort gebyr",
+    "monthlyTotal": "Samlet månedligt beløb",
     "subscriptionExplanation": "Beløbet bliver automatisk trukket fra dit kort hver måned. Du kan til enhver tid afbryde din støtte.",
     "success": "Du er nu mæcen for {{title}}",
     "acceptTerms": "Accepter abonnementsbetingelserne",

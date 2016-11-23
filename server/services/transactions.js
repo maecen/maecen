@@ -1,6 +1,7 @@
 import uuid from 'node-uuid'
 import soap from 'soap'
 import request from 'request'
+import * as epayUtil from '../../shared/lib/epay'
 
 const requestWithProxy = request.defaults({
   proxy: `${process.env.PROXIMO_URL}:80`,
@@ -41,32 +42,35 @@ export function createPayment (knex, {
   amount,
   currency,
   status
-}) {
-  status = status || 'started'
-
-  const transaction = {
-    id: uuid.v1(),
-    order_id: paymentType.shortId + generateUnique(7),
-    epay_id: 0,
-    type: paymentType.id,
-    amount: amount,
-    currency,
-    user: userId,
-    maecenate: maecenateId,
-    status: 'started'
-  }
-
+}, includeFeeInEpay = false) {
   return Promise.all([
     knex('maecenates').where({ id: maecenateId }),
     knex('users').where({ id: userId })
   ])
   .then(([[maecenate], [user]]) => {
+    const transaction = {
+      id: uuid.v1(),
+      order_id: paymentType.shortId + generateUnique(7),
+      epay_id: 0,
+      type: paymentType.id,
+      amount,
+      currency,
+      user: userId,
+      maecenate: maecenateId,
+      status: status || 'started',
+      fee: user.payment_card_issuer && epayUtil.calculateFee(user.payment_card_issuer, amount) || null
+    }
+
     const userInfo = `${user.email} : ${user.first_name} ${user.last_name}`
     return knex('transactions').insert(transaction).then(() => {
+      const epayAmount = (includeFeeInEpay
+        ? amount + transaction.fee
+        : amount
+      )
       return {
         description: paymentType.description(maecenate.title) + ' - ' + userInfo,
         merchantnumber: process.env.EPAY_MERCANT_NUMBER,
-        amount: String(amount),
+        amount: String(epayAmount),
         currency,
         group: 'Maecen',
         orderid: transaction.order_id
@@ -84,10 +88,11 @@ export function verifyPayment (knex, orderId, amount) {
   })
 }
 
-export function paymentSuccess (knex, orderId, epayId) {
+export function paymentSuccess (knex, orderId, epayId, fee) {
   return knex('transactions').where({ order_id: orderId }).limit(1).update({
     status: 'success',
-    epay_id: Number(epayId)
+    epay_id: Number(epayId),
+    fee
   }).then(() => {
     return knex('transactions').where({ order_id: orderId }).limit(1)
   }).then(result => result[0])
@@ -113,7 +118,7 @@ export function authorizePayment (knex, {
     maecenateId,
     amount,
     currency
-  }).then(epayOptions => {
+  }, true).then(epayOptions => {
     const epayPaymentParams = {
       ...epayOptions,
       subscriptionid: epaySubscriptionId,

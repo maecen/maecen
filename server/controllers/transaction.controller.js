@@ -5,6 +5,7 @@ import * as maecenateService from '../services/maecenates'
 import * as subscriptionService from '../services/subscriptions'
 import * as userService from '../services/users'
 import { emailSupportReceipt } from '../services/emailSender'
+import * as epayUtil from '../../shared/lib/epay'
 
 export function maecenateInitiatePayment (req, res, next) {
   const { knex } = req.app.locals
@@ -19,35 +20,36 @@ export function maecenateInitiatePayment (req, res, next) {
     activeSubPeriod,
     maecenateService.activeExists(knex, maecenateId)
   ])
-    .then(([period, activeMaecenateExists]) => {
-      // The user already has an active period stop payment
-      if (period) {
-        const error = { _: 'maecenate.alreadySupported' }
-        throw error
-      }
+  .then(([period, activeMaecenateExists]) => {
+    // The user already has an active period stop payment
+    if (period) {
+      const error = { _: 'maecenate.alreadySupported' }
+      throw error
+    }
 
-      if (activeMaecenateExists === false) {
-        const error = { _: 'maecenate.doesNotExist' }
-        throw error
-      }
+    if (activeMaecenateExists === false) {
+      const error = { _: 'maecenate.doesNotExist' }
+      throw error
+    }
 
-      return userService.fetchPaymentInfo(knex, userId)
-        .then(info => {
-          // Use the old payment options if they exist, and the user hasn't
-          // chosen to setup a new payment card
-          if (info.epay_subscription_id && setupNewCard !== true) {
-            return authorizeMaecenateSubscription(
-              knex, userId, info.epay_subscription_id, maecenateId, amount)
-              .then(result => res.json({ paymentComplete: result }))
-          } else {
-            return setupFirstTimePayment(knex, userId, maecenateId, amount)
-              .then(epayPaymentParams =>
-                res.json({ paymentComplete: false, epayPaymentParams })
-              )
-          }
-        })
+    return userService.fetchPaymentInfo(knex, userId)
+    .then(info => {
+      // Use the old payment options if they exist, and the user hasn't
+      // chosen to setup a new payment card
+      if (info.epay_subscription_id && setupNewCard !== true) {
+        return authorizeMaecenateSubscription(
+          knex, userId, info.epay_subscription_id, maecenateId, amount
+        )
+        .then(result => res.json({ paymentComplete: result }))
+      } else {
+        return setupFirstTimePayment(knex, userId, maecenateId, amount)
+        .then(epayPaymentParams =>
+          res.json({ paymentComplete: false, epayPaymentParams })
+        )
+      }
     })
-    .catch(next)
+  })
+  .catch(next)
 }
 
 function setupFirstTimePayment (knex, userId, maecenateId, amount) {
@@ -58,16 +60,16 @@ function setupFirstTimePayment (knex, userId, maecenateId, amount) {
     amount,
     currency: 'DKK'
   })
-    .then(epayOptions => ({
-      ...epayOptions,
-      windowid: String(process.env.EPAY_WINDOW_ID),
-      paymentcollection: '1',
-      lockpaymentcollection: '1',
-      instantcallback: '1',
-      subscription: '1',
-      instantcapture: '1', // We take the money right away
-      callbackurl: `${apiURL}/transactions/payment-callback`
-    }))
+  .then(epayOptions => ({
+    ...epayOptions,
+    windowid: String(process.env.EPAY_WINDOW_ID),
+    paymentcollection: '1',
+    lockpaymentcollection: '1',
+    instantcallback: '1',
+    subscription: '1',
+    instantcapture: '1', // We take the money right away
+    callbackurl: `${apiURL}/transactions/payment-callback`
+  }))
 }
 
 function authorizeMaecenateSubscription (
@@ -82,14 +84,14 @@ function authorizeMaecenateSubscription (
     amount,
     currency: 'DKK'
   })
-    .then(transaction => {
-      if (transaction) {
-        return subscriptionService.startSubscription(knex, transaction)
-          .then(() => emailSupportReceipt(knex, transaction.id))
-          .then(() => true)
-      }
-      return false
-    })
+  .then(transaction => {
+    if (transaction) {
+      return subscriptionService.startSubscription(knex, transaction)
+      .then(() => emailSupportReceipt(knex, transaction.id))
+      .then(() => true)
+    }
+    return false
+  })
 }
 
 export function paymentCallback (req, res, next) {
@@ -98,12 +100,20 @@ export function paymentCallback (req, res, next) {
     txnid,
     orderid,
     subscriptionid,
-    cardno
+    cardno,
+    paymenttype
   } = req.query
 
   const amount = Number(req.query.amount)
+  const fee = Number(req.query.txnfee)
+  const bin = req.query.cardno.substr(0, 6)
 
-  return service.verifyPayment(knex, orderid, amount)
+  return epayUtil.getIssuerFromPaymentTypeAndBin(
+    Number(paymenttype),
+    bin
+  )
+  .then((cardIssuer) => {
+    return service.verifyPayment(knex, orderid, amount)
     .then(({valid, verified}) => {
       // The payment is already verified
       if (verified === true) {
@@ -112,21 +122,28 @@ export function paymentCallback (req, res, next) {
 
       // The payment is valid
       if (valid === true) {
-        return service.paymentSuccess(knex, orderid, txnid)
-          .then(transaction =>
-            userService.savePaymentInfo(knex, transaction.user, subscriptionid, cardno)
-              .then(() => subscriptionService.startSubscription(knex, transaction))
-              .then(() => emailSupportReceipt(knex, transaction.id))
+        return service.paymentSuccess(knex, orderid, txnid, fee)
+        .then(transaction =>
+          userService.savePaymentInfo(
+            knex,
+            transaction.user,
+            subscriptionid,
+            cardno,
+            cardIssuer
           )
-          .then(() => res.json({ success: true }))
+          .then(() => subscriptionService.startSubscription(knex, transaction))
+          .then(() => emailSupportReceipt(knex, transaction.id))
+        )
+        .then(() => res.json({ success: true }))
 
       // The payment is __not__ valid
       } else {
         return service.paymentFailed(knex, orderid)
-          .then(support => res.json({ success: false }))
+        .then(support => res.json({ success: false }))
       }
     })
-    .catch(next)
+  })
+  .catch(next)
 }
 
 export function cronRefreshSubscriptions (req, res, next) {
@@ -157,6 +174,7 @@ export function csvExtract (req, res, next) {
       'supporter.country as supporterCountry',
       'amount',
       'currency',
+      'fee',
       'type'
     )
     .innerJoin('maecenates', 'transactions.maecenate', 'maecenates.id')
@@ -181,6 +199,7 @@ export function csvExtract (req, res, next) {
         'supporterCountry',
         'amount',
         'currency',
+        'fee',
         'type'
       ]
 

@@ -4,6 +4,7 @@ import { getToken } from '../util/fetchData'
 import * as service from '../services/users'
 import * as postService from '../services/posts'
 import * as maecenateService from '../services/maecenates'
+import * as epayUtil from '../../shared/lib/epay'
 import User from '../models/User'
 import { emailForgotPassword } from '../services/emailSender'
 
@@ -114,16 +115,10 @@ export function forgotPassword (req, res, next) {
   const { email } = req.body
 
   return service.createAccessToken(knex, email)
-  .then(({token, userId}) => {
-    console.log(token, userId)
-
-    return emailForgotPassword(knex, token, userId)
-    .then(() => {
-      return res.json({
-        success: true
-      })
-    })
-  }).catch(next)
+  .then(({token, userId}) =>
+    emailForgotPassword(knex, token, userId)
+    .then(() => res.json({ success: true }))
+  ).catch(next)
 }
 
 export function hasPermission (req, res, next) {
@@ -206,11 +201,18 @@ export function getNewCardParams (req, res, next) {
 export function newCardCallback (req, res, next) {
   const { userId } = req.user
   const { knex } = req.app.locals
-  const { subscriptionid, cardno } = req.query
+  const { subscriptionid, cardno, paymenttype } = req.query
+  const bin = req.query.cardno.substr(0, 6)
 
-  service.savePaymentInfo(knex, userId, subscriptionid, cardno)
+  return epayUtil.getIssuerFromPaymentTypeAndBin(
+    Number(paymenttype),
+    bin
+  )
+  .then((cardIssuer) => {
+    return service.savePaymentInfo(knex, userId, subscriptionid, cardno, cardIssuer)
     .then(() => res.json({ success: true }))
-    .catch(next)
+  })
+  .catch(next)
 }
 
 // Helper functions (not exported)
