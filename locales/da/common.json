@@ -43,8 +43,8 @@
     "findMaecenate": "Find et Mæcenat at støtte"
   },
   "media": {
-    "upload": "Upload medie",
-    "replace": "Erstat medie"
+    "upload": "Upload video eller billede",
+    "replace": "Erstat video eller billede"
   },
   "maecenate": {
     "alreadySupported": "Du støtter allerede dette Mæcenat",
@@ -102,8 +102,8 @@
     "writtenByAlias": "Af: {{alias}}",
     "setVisible": "Synlig for mæcener",
     "downloadAttachment": "Download fil:",
-    "attachmentUpload": "Upload fil",
-    "attachmentReplace": "Erstat fil"
+    "attachmentUpload": "Vedhæft en fil",
+    "attachmentReplace": "Erstat vedhæftet fil"
   },
   "support": {
     "belowMin": "Beløbet er mindre end det månedlige minimum",
