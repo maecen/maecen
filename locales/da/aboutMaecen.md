@@ -1,6 +1,8 @@
 # Om Mæcen.net projektet
 
 Mæcen.net er en ægte deleøkonomisk platform, der giver brugerne mulighed for at oprette egne Mæcenater og at støtte andres ved en faste månedlige betalinger. [Se priser og vilkår](https://maecen.net/terms)
+Et Mæcenat består af en præsentation, som alle kan se, og en indholdsside, men tekster, billeder og videoer, som man kun kan få adgang til hvis man betaler, og dermed blive Mæcen.
+[Opret et gratis Mæcenat, og se hvordan det virker](https://maecen.net/maecenate/create)
 
 Mange kreative mennesker og virksomheder arbejder med at skabe indhold til Internettet.  
 Vi lever, som kreative, i den illusion, at vi stiller vores indhold gratis til rådighed for Internettets brugere, ved at lægge indholdet frit til rådighed på de store sociale medier.  
