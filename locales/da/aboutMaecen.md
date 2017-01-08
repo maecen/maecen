@@ -11,7 +11,7 @@ Men uden det indhold som kreative mennesker dagligt bidrager med, ville disse pl
 Formålet med Mæcen.net er at skabe en fællesejet uafhængig global platform, hvor vi faktisk kan betale for det indhold vi modtager. 
 Og hvor vi får mulighed for at skabe en indtægt ved at at producere netop det indhold, som vi selv ønsker at skabe. 
 Uden filtrering og censur.  
-Bilv Mæcen for selve Mæcenprojektet, og støt den videre udvikling
+Bilv Mæcen for selve Mæcenprojektet, og støt den videre udvikling [Støt](https://maecen.net/maecen-project)
 
 ### Cooperativ platform
 Mæcen.net er ejet og drevet af andelselskabet DiGiDi a.m.b.a. Alle de mere end 3.500 andelshavere har én andel hver og én stemme.
