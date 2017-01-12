@@ -103,11 +103,7 @@
     "setVisible": "Vis indlæg",
     "downloadAttachment": "Download fil:",
     "attachmentUpload": "Vedhæft en fil",
-<<<<<<< HEAD
-    "attachmentReplace": "Erstat den vedhæftede fil"
-=======
     "attachmentReplace": "Erstat vedhæftet fil"
->>>>>>> bf005ddb29fe92cd0f2988867670120b56d7ebed
   },
   "support": {
     "belowMin": "Beløbet er mindre end det månedlige minimum",
