@@ -36,11 +36,13 @@ export function updateAuthUser (req, res, next) {
     data.password = data.new_password
   }
   delete data.new_password
+  delete data.payment_card_issuer
+  delete data.payment_card
 
   return User.where('id', userId).fetch().then(user => {
     user.set(data)
     if (data.password) {
-      user.hashPassword().then(() => {
+      return user.hashPassword().then(() => {
         return user.save()
       })
     } else {

@@ -23,7 +23,8 @@ const schema = {
   zip_code: Joi.number().integer().min(1000).allow(null, ''),
   language: Joi.string().allow(null, ''),
   epay_subscription_id: Joi.number().allow(null, ''),
-  payment_card: Joi.string().allow(null, '')
+  payment_card: Joi.string().allow(null, ''),
+  payment_card_issuer: Joi.string().allow(null, '')
 }
 
 const User = bookshelf.Model.extend({
