@@ -108,10 +108,21 @@ export function fetchSupportedMaecenatePosts (userId) {
 }
 
 const getFilesFromData = (data) => {
-  const media = data.media || []
-  const files = data.file || []
+  const media = ensureArray(data.media)
+  const files = ensureArray(data.file)
+  console.log(data)
   return [
     ...media.filter(o => typeof o === 'string'),
     ...files.filter(o => typeof o === 'string')
   ]
+}
+
+const ensureArray = (obj) => {
+  if (obj == null) {
+    return []
+  } else if (typeof obj === 'object' && obj instanceof Array) {
+    return obj
+  } else {
+    return [obj]
+  }
 }
