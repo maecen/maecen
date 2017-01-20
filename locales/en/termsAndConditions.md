@@ -1,6 +1,7 @@
 Welcome to Maecen.net
 ====================
-Maecen [mεˈseˀn]: A person who supports an artist, a specific project, an organisation etc. financially.
+Maecen [mεˈseˀn]: A person who supports an artist, a specific project, an organisation etc. financially.<br>
+DKK10 = $1.43 = €1.34
 
 About the Maecen.net project
 --------------------
@@ -13,11 +14,13 @@ Maecen.net is 100% owned by DiGiDi a.m.b.a, a co-op owned in equal shares by mor
 
 Contact Maecen.net
 --------------------
-Maecen is 100% owned and run by: 
-De Kreatives Uafhængige Andelsselskab a.m.b.a. DiGiDi - Digital Distribution
-(The Creatives Independent Co-op a.m.b.a 
-+45 27 29 18 14 CVR: DK-27628389
-Hallelevvej 15, 4200 Slagelse, Danmark www.digidi.org maecen@digidi.org
+Maecen is 100% owned and run by:<br>
+DiGiDi - Digital Distribution<br>
+De Kreatives Uafhængige Andelsselskab a.m.b.a.<br>
+(The Creatives Independent Co-op a.m.b.a.)<br>
++45 27 29 18 14 CVR: DK-27628389<br>
+Hallelevvej 15, 4200 Slagelse, Danmark <br>
+www.digidi.org maecen@digidi.org
 
 Terms and conditions
 ====================
