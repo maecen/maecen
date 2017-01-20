@@ -8,7 +8,7 @@ The Maecen.net project
 Maecen.net is a true sharing-economy platform, allowing its users to create their own Maecenates and engage in the support of others.<br>
 By supporting a Maecenate through a recurring monthly payment, you become a Maecen for that specific Maecenate and gain access to its exclusive content.<br><br>
 <b>Creating a Maecenate is free.</b><br>
-The owner(s) of a Maecenate will chose the monthly price for new Maecens, and will receive the full amount except for 1DKK per Maecen per month, that will go to the `Maecen Project´ itself.<br>
+The owner(s) of a Maecenate will chose the monthly price for new Maecens, and will receive the full amount except for 1DKK per Maecen per month, that will go to the `Maecen Project` itself.<br>
 If you pay (example) 20DKK per month, the 19DKK will go directly to the Maecenate.<br>
 
 Maecen.net is 100% owned by DiGiDi a.m.b.a, a co-op owned in equal shares by more than 3.500 shareholders. Maecen.net in turn is Non Profit, and all income goes to operational costs and improvement/development of the Maecen Project. <br>
@@ -23,11 +23,11 @@ De Kreatives Uafhængige Andelsselskab a.m.b.a.<br>
 (The Creatives Independent Co-op a.m.b.a.)<br>
 +45 27 29 18 14 CVR: DK-27628389<br>
 Hallelevvej 15, 4200 Slagelse, Danmark <br>
-<a href="http://www.digidi.org/" target="_blank">www.digidi.org</a> maecen@digidi.org
+<a href="http://www.digidi.org/">www.digidi.org</a> maecen@digidi.org
 
 Terms and conditions
 ====================
-Below you’ll find the terms that you accept when you support or create a Maecenate.<br> 
+Below you’ll find the terms that you accept when you support or create a Maecenate.<br>
 Should changes be made to those terms and conditions, you’ll be notified via email no later than one month before the implementation of those changes. Changes will not have any effect on your payments until you actively accept them.
 
 When you support a Maecenate
@@ -41,7 +41,7 @@ You will receive an email receipt every time a payment is made.
 Change of support amount or subscription
 ---------------------------------------
 You can, at any time log in to your profile on Maecen.net and change the amount by which you support a specific Maecenate, so long as it doesn’t fall below the minimum amount set by the creator(s) of the Maecenate. <br>
-Should the creator(s) at any time chose to change the minimum amount, it will not affect your payment until you accept the update. 
+Should the creator(s) at any time chose to change the minimum amount, it will not affect your payment until you accept the update.
 
 Cancel your support here and now
 ----------------------------------
@@ -62,16 +62,14 @@ When you support a Maecenate, you gain access to exclusive content. This content
 
 When you create a Maecenate
 ============================
-By creating a Maecenate, you are eligible to receive recurring payments from those people, Maecens, who’ve chosen to support your cause.<br> 
+By creating a Maecenate, you are eligible to receive recurring payments from those people, Maecens, who’ve chosen to support your cause.<br>
 Everyone, including individuals, organisations, companies and corporations can create a Maecenate.
 It is free of charge to create a new Maecenate, but…
 -------------------------------------------------------
-You yourself decide upon the minimum amount that any new supporter should pay monthly, to become your Maecen. From this amount 1DKK including taxes is withdrawn for every active Maecen that supports your Maecenate. The rest will be deposited to you. 
+You yourself decide upon the minimum amount that any new supporter should pay monthly, to become your Maecen. From this amount 1DKK including taxes is withdrawn for every active Maecen that supports your Maecenate. The rest will be deposited to you.
 Deposits will happen on your request, however no more than once per calendar month, into your bank- or PayPal account. Amounts below 300DKK will be deposited with a one-month delay.  <br>
 Notice that all income from Maecen.net is eligible for taxation as it is regarded as subscription payments and not as donations.  
 Only legal content for which you own the rights.
 -------------------------------------------
 As owner(s) of a Maecenate you can give your Maecens access to exclusive content in the shape of text, images, music and videos. When you upload material to Maecen.net you vouch for the legality of the content you use, including copyright for the music, pictures, video, texts etc. so no 3rd party is violated. <br>
 Maecen.net cannot in any way be held accountable for any use of illegal material or material that is made available without the necessary rights in place, and reserves the right to, without further notice, close or suspend the access to any kind of material or account, should any dispute arise between you and a 3rd party.
-
-
