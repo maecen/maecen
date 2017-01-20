@@ -48,12 +48,12 @@ You can, at any time, cancel your support to any Maecenate without further notic
 Payments that have already been processed will not be eligible for a refund. You will however, have access to the Maecenates exclusive page for the remainder of your subscription period.
 Change of payment information
 -------------------------------
-If you for any reason wish to use a different credit card on Maecen.net, you can change its information on your [Profile](/profile "Profile page"). Notice that you can only have one card linked to your user at a time. If you want to use multiple cards for multiple Maecenates, you have to create a unique profile for each of the cards. Your card information will not be recorded by Maecen.net
+If you for any reason wish to use a different credit card on Maecen.net, you can change its information on your [Profile](/profile "Profile page"). Notice that you can only have one card linked to your user at a time. If you want to use multiple cards for multiple Maecenates, you have to create a unique profile for each of the cards. <br>Your card information will not be recorded by Maecen.net
 Personal information is YOUR information.
 -------------------------------------------
 The information you give to Maecen will not be shared, sold or in any way handed down to a 3rd party. <br>
-Maecen will not use your information for internal analysis or datamining. So for instance you will not see any “Users who supported this project also supports…etc.” Maecen will utilize one cookie with its sole purpose of allowing you to remain logged in to your account on your device(s). 
-The owner(s) of the Maecenate(s) that you support will have access to your contact information, so they can send you emails. No one will be able to see which Maecenates you support, or how much you support them with.   
+Maecen will not use your information for internal analysis or datamining. So for instance you will not see any “Users who supported this project also supports…etc.” Maecen will utilize one cookie with its sole purpose of allowing you to remain logged in to your account on your device(s). <br>
+The owner(s) of the Maecenate(s) that you support will have access to your contact information, so they can send you emails. No one will be able to see which Maecenates you support, or how much you support them with.   <br>
 Maecen.net is compatible with the Tor browser. www.torproject.org/download/download
 You are not allowed to share the exclusive content
 ----------------------------------------------------
@@ -61,16 +61,16 @@ When you support a Maecenate, you gain access to exclusive content. This content
 
 When you create a Maecenate
 ============================
-By creating a Maecenate, you are eligible to receive recurring payments from those people, Maecens, who’ve chosen to support your cause. 
+By creating a Maecenate, you are eligible to receive recurring payments from those people, Maecens, who’ve chosen to support your cause.<br> 
 Everyone, including individuals, organisations, companies and corporations can create a Maecenate.
 It is free of charge to create a new Maecenate, but…
 -------------------------------------------------------
 You yourself decide upon the minimum amount that any new supporter should pay monthly, to become your Maecen. From this amount 1DKK including taxes is withdrawn for every active Maecen that supports your Maecenate. The rest will be deposited to you. 
-Deposits will happen on your request, however no more than once per calendar month, into your bank- or PayPal account. Amounts below 300DKK will be deposited with a one-month delay.  
+Deposits will happen on your request, however no more than once per calendar month, into your bank- or PayPal account. Amounts below 300DKK will be deposited with a one-month delay.  <br>
 Notice that all income from Maecen.net is eligible for taxation as it is regarded as subscription payments and not as donations.  
 Only legal content for which you own the rights.
 -------------------------------------------
-As owner(s) of a Maecenate you can give your Maecens access to exclusive content in the shape of text, images, music and videos. When you upload material to Maecen.net you vouch for the legality of the content you use, including copyright for the music, pictures, video, texts etc. so no 3rd party is violated. 
+As owner(s) of a Maecenate you can give your Maecens access to exclusive content in the shape of text, images, music and videos. When you upload material to Maecen.net you vouch for the legality of the content you use, including copyright for the music, pictures, video, texts etc. so no 3rd party is violated. <br>
 Maecen.net cannot in any way be held accountable for any use of illegal material or material that is made available without the necessary rights in place, and reserves the right to, without further notice, close or suspend the access to any kind of material or account, should any dispute arise between you and a 3rd party.
 
 
