@@ -3,7 +3,7 @@ Welcome to Maecen.net
 Maecen [mεˈseˀn]: A person who supports an artist, a specific project, an organisation etc. financially.<br>
 DKK10 = $1.43 = €1.34
 
-About the Maecen.net project
+The Maecen.net project
 --------------------
 Maecen.net is a true sharing-economy platform, allowing its users to create their own Maecenates and engage in the support of others.<br>
 By supporting a Maecenate through a recurring monthly payment, you become a Maecen for that specific Maecenate and gain access to its exclusive content.<br>
@@ -11,7 +11,7 @@ Creating a Maecenate is free.<br>
 The owner(s) of a Maecenate will chose the monthly price for new Maecens, and will receive the full amount except for 1DKK per Maecen per month, that will go to the `Maecen Project´ itself.<br>
 If you pay (example) 20DKK per month, the 19DKK will go directly to the Maecenate.<br>
 Maecen.net is 100% owned by DiGiDi a.m.b.a, a co-op owned in equal shares by more than 3.500 shareholders. Maecen.net in turn is Non Profit, and all income goes to operational costs and improvement/development of the Maecen Project. <br>
-[How to create a Maecenate](/about "About maecen.net")
+[About The Maecen Projevt and how to create a Maecenate](/about "About maecen.net")
 
 
 Contact Maecen.net
