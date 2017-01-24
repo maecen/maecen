@@ -1,4 +1,4 @@
 About Mæcen.net
 ====================
-
-Here can Henrik write some markdown, si :) 
+This page is under construction
+[Please read Terms for general information](https://maecen.net/terms)
