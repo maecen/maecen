@@ -24,7 +24,7 @@ If you create a Maecenate, it’s up to you if you want to display ads or sponso
 Maecen.net will not hand down, share or sell information on the users or user behaviour to a third-party. No kind of analysis will be generated on the count of the information you deliver about yourself or your behaviour on Mæcen.net 
 This means that you won’t receive information like ´Users who support this Maecenate also supports this once´ and so on… Like you also cannot see how many or which users are supporting a specific Maecenate. 
 ### Open Source
-Maecen is built upon an open source platform. If you wish to be connected to the development-team, and help to further improve Mæcen.net, you are more than welcome to contact maecen@digidi.dk 
+Maecen is built upon an open source platform. If you wish to be connected to the development-team, and help to further improve Mæcen.net, you are more than welcome to contact maecen@digidi.org 
 ### Free Flow
 Free Flow is the principle to reduce the amount of joints between distributor and buyer. Examples could be middlemen or instances which exercise a form of filtering or censorship. When you support a Maecenate your payment will go directly to the person who created the Maecenate. The Mæcen.net project claims a fixed payment per Maecen, per month. 
 As of now, that amount is 1 kroner (0.13€) but as the number of people who use Maecen increases, the lower this amount in turn can become, as the goal of Mæcen.net is to exactly pay out as much as possible to the creators of its content. 
