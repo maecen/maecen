@@ -3,14 +3,14 @@ Velkommen til Mæcen.net
 
 *Mæcen [mεˈseˀn]: En person der yder økonomisk støtte til en kunstner, et bestemt projekt, en organisation el.lign.*
 
-Om Mæcen.net projektet
+Mæcen.net projektet
 --------------------
 
 Mæcen.net er en ægte deleøkonomisk platform, der giver brugerne mulighed for at oprette egne Mæcenater og at støtte andres
   
 Ved at støtte et bestemt Mæcenat med en fast periodevis (månedlig) betaling, bliver man Mæcen for det pågældende Mæcenat og får adgang til Mæcenatets eksklusive indholdsside.
   
-Det er gratis at oprette et Mæcenat.
+<b>Det er gratis at oprette et Mæcenat.</b>
 
 Ejeren (-ne) af et Mæcenat fastsætter selv prisen, og modtager den fulde betaling fra sine Mæcener, bortset fra 1kr pr Mæcen pr måned, som betales til ’Mæcen Projektet’.   
 Hvis du betaler f.eks. 20kr/md går de 19kr direkte til Mæcenatet.
