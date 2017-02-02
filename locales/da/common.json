@@ -114,7 +114,7 @@
     "howMuch": "Hvor meget vil du støtte med pr. måned?",
     "join": "Bliv mæcen",
     "joinMaecenate": "Bliv mæcen for {{title}}",
-    "minimumAmount": "Minimum $t(currency.amount)",
+    "minimumAmount": "Minimum $t(currency.amount)pr. måned",
     "monthlySupport": "Månedlig støtte",
     "monthlyFee": "Månedligt kort gebyr",
     "monthlyTotal": "Samlet månedligt beløb",
