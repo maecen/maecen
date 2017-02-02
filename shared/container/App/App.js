@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import styleVariables from '../../components/styleVariables'
 
@@ -10,6 +11,11 @@ import styleVariables from '../../components/styleVariables'
 import HeaderContainer from '../HeaderContainer'
 import FooterContainer from '../FooterContainer'
 import AuthDialogContainer from '../Dialogs/AuthDialogContainer'
+
+// Needed for onTouchTap
+// Check this repo:
+// https://github.com/zilverline/react-tap-event-plugin
+injectTapEventPlugin()
 
 const themeColor = styleVariables.color.primary
 const muiTheme = getMuiTheme({
