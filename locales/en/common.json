@@ -102,7 +102,7 @@
     "monthlySupport": "Monthly support",
     "monthlyFee": "Monthly card fee",
     "monthlyTotal": "Total monthly amunt",
-    "minimumAmount": "Minimum $t(currency.amount)",
+    "minimumAmount": "Minimum $t(currency.amount) per month",
     "subscriptionExplanation": "The amount will be withdrawn from your card each month until you choose to cancel your support.",
     "success": "You are now Maecen for {{title}}",
     "acceptTerms": "Accept subscription conditions",
