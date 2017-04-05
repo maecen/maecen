@@ -1,5 +1,5 @@
 import simpelBufferStream from 'simple-bufferstream'
-import { storage } from 'google-cloud'
+import storage from '@google-cloud/storage'
 
 // Initiate google cloud api
 const GCLOUD_PRIVATE_KEY = (process.env.GCLOUD_private_key || '')
