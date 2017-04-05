@@ -22,7 +22,7 @@ in: `CREATE DATABASE maecen`.
 Finally you enter the following in your `.env` file to connect the application
 with the database:
 ```
-SQL_DATABASE_CONNECTION=postgresql://postgres@localhost:5433/maecen
+MYSQL_DATABASE_CONNECTION=postgresql://postgres@localhost:5433/maecen
 ```
 Simple as that! (not)
 
