@@ -39,22 +39,15 @@ class HomeView extends Component {
           viewBox='0 0 832 997'
           icon='maecen-detail'
         />
-          <div style={style.tagline}>{t('tagline')}</div>
-          <div>
-            <div style={style.buttonPadding}>
-              <Link to='/maecenates' style={style.marginBottom}>
-                <Button primary={true} last={true} label={t('maecenate.seeAll')} />
-              </Link>
-            </div>
-            <div style={style.buttonPadding}>
-              <Button
-                label={t('maecenate.create')}
-                primary={true}
-                last={true}
-                onClick={this.handleCreateMaecenate}
-              />
-            </div>
-          </div>
+        <div style={style.tagline}>{t('tagline')}</div>
+        <div style={style.buttonPadding}>
+          <Button
+            label={t('maecenate.create')}
+            primary={true}
+            last={true}
+            onClick={this.handleCreateMaecenate}
+          />
+        </div>
       </div>
     )
   }
