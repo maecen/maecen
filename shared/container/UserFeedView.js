@@ -41,11 +41,10 @@ class UserFeedView extends Component {
             )
           : <div>
               <div style={style.getStarted}>{t('feed.getStarted')}</div>
-              <Link to='/maecenates'>
+              <Link to='/maecenate/create'>
                 <Button
-                  label={t('feed.findMaecenate')}
+                  label={t('maecenate.create')}
                   primary={true}
-                  icon={<SearchIcon />}
                 />
               </Link>
             </div>

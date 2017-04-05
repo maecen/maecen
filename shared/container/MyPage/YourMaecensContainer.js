@@ -71,13 +71,9 @@ class YourMaecensContainer extends Component {
           </List>
         }
         <CardContent style={{textAlign: 'right'}}>
-          <Link to='/maecenates'>
-            <Button
-              primary={true}
-              label={t('maecenate.seeAll')}
-              last={true}
-            />
-          </Link>
+        {maecenates.length === 0 &&
+          <p>{t('user.maecenatesWillAppear')}</p>
+        }
         </CardContent>
 
         <UserSupportDialog

@@ -150,6 +150,7 @@
     "loginPassword": "Password",
     "loginPasswordPlaceholder": "Your password",
     "maecenatesSupported": "You are Maecen for",
+    "maecenatesWillAppear": "If you support a Maecenate it will appear here",
     "noMaecenatesSupported": "You are not a Maecen yet",
     "password": "Password",
     "passwordForgot": "Forgot password?",

@@ -60,15 +60,6 @@ function Header (props, context) {
                 onClick={loginAction}
               />
             : <span>
-                <Link to={allMaecenatesUrl}>
-                  <IconButton
-                    style={style.btnStyle}
-                    iconStyle={style.btnIconStyle}
-                    touchRippleColor={style.homeIconColor}
-                  >
-                    <SearchIcon color={style.iconColor}/>
-                  </IconButton>
-                </Link>
                 <Link to={myPageUrl}>
                   <IconButton
                     style={style.btnStyle}
