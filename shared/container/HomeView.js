@@ -9,6 +9,7 @@ import styleVariables from '../components/styleVariables'
 import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
 import Button from '../components/Form/Button'
+import HomeInfo from './HomeInfo';
 
 class HomeView extends Component {
   constructor (props) {
@@ -48,6 +49,7 @@ class HomeView extends Component {
             onClick={this.handleCreateMaecenate}
           />
         </div>
+        <HomeInfo/>
       </div>
     )
   }
