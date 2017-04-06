@@ -7,7 +7,7 @@ import { Row, Cell } from '../components/Grid'
 import { Card, CardContent } from '../components/Card'
 
 // Services
-import fetchStaticContent from '../lib/staticContent'
+import { fetchStaticMarkdown } from '../lib/staticContent'
 
 class AboutView extends Component {
 
@@ -18,7 +18,7 @@ class AboutView extends Component {
 
   componentDidMount () {
     const lang = this.context.i18n.language
-    fetchStaticContent(lang, 'aboutMaecen')
+    fetchStaticMarkdown(lang, 'aboutMaecen')
     .then((content) => {
       this.setState({ content })
     })
