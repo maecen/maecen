@@ -3,7 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
-import { I18nextProvider } from 'react-i18next'
+import { I18nextProvider, loadNamespaces } from 'react-i18next'
 import serialize from 'serialize-javascript'
 import { StyleRoot } from 'radium'
 
@@ -38,7 +38,8 @@ export default function initialRender (req, res, next) {
     // ==============
     const locale = req.language
     const resources = i18n.getResourceBundle(locale, 'common')
-    const i18nClient = {locale, resources}
+    const frontpage = i18n.getResourceBundle(locale, 'frontpage')
+    const i18nClient = {locale, frontpage, resources}
     const i18nServer = i18n.cloneInstance()
     i18nServer.changeLanguage(locale)
 

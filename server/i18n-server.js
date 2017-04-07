@@ -13,7 +13,7 @@ export default i18n
     fallbackLng: 'en',
 
     // have a common namespace used around the full app
-    ns: ['common'],
+    ns: ['common', 'frontpage'],
     defaultNS: 'common',
 
     debug: false,
