@@ -23,7 +23,7 @@ marked.setOptions({
   renderer
 })
 
-export default function fetchStaticContent (language, content) {
+export function fetchStaticContent (language, content) {
   return axios(`${localesURL}/${language}/${content}.md`)
   .then(result => marked(result.data))
 }

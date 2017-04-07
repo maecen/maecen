@@ -7,7 +7,7 @@ import { Row, Cell } from '../components/Grid'
 import { Card, CardContent } from '../components/Card'
 
 // Services
-import fetchStaticContent from '../lib/staticContent'
+import { fetchStaticContent } from '../lib/staticContent'
 
 class TermsView extends Component {
 

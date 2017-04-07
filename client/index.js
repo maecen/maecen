@@ -22,6 +22,8 @@ injectTapEventPlugin()
 i18n.changeLanguage(window.__i18n.locale)
 i18n.addResourceBundle(window.__i18n.locale, 'common',
   window.__i18n.resources, true)
+i18n.addResourceBundle(window.__i18n.locale, 'frontpage',
+  window.__i18n.frontpage, true)
 
 const initialState = mapInitialState(window.__INITIAL_STATE__)
 
