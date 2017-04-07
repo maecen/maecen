@@ -20,14 +20,6 @@ class HomeView extends Component {
     this.handleCreateMaecenate = this.handleCreateMaecenate.bind(this)
   }
 
-  componentDidMount () {
-    const lang = this.context.i18n.language
-    fetchStaticJson(lang, 'frontpage')
-    .then((content) => {
-      this.setState({ content })
-    })
-  }
-
   handleCreateMaecenate () {
     const { dispatch, hasAuth } = this.props
     const path = '/maecenate/create'
@@ -60,7 +52,7 @@ class HomeView extends Component {
             onClick={this.handleCreateMaecenate}
           />
         </div>
-        <HomeInfo content={this.state.content}/>
+        <HomeInfo />
       </div>
     )
   }
