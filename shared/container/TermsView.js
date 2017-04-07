@@ -7,7 +7,7 @@ import { Row, Cell } from '../components/Grid'
 import { Card, CardContent } from '../components/Card'
 
 // Services
-import { fetchStaticMarkdown } from '../lib/staticContent'
+import { fetchStaticContent } from '../lib/staticContent'
 
 class TermsView extends Component {
 
@@ -18,7 +18,7 @@ class TermsView extends Component {
 
   componentDidMount () {
     const lang = this.context.i18n.language
-    fetchStaticMarkdown(lang, 'termsAndConditions')
+    fetchStaticContent(lang, 'termsAndConditions')
     .then((content) => {
       this.setState({ content })
     })

@@ -5,8 +5,6 @@ import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
 
-import { fetchStaticJson } from '../lib/staticContent'
-
 import styleVariables from '../components/styleVariables'
 import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
@@ -16,7 +14,6 @@ import HomeInfo from './HomeInfo';
 class HomeView extends Component {
   constructor (props) {
     super(props)
-    this.state = { content: null }
     this.handleCreateMaecenate = this.handleCreateMaecenate.bind(this)
   }
 
@@ -97,8 +94,7 @@ const style = {
 
 HomeView.need = []
 HomeView.contextTypes = {
-  router: React.PropTypes.object,
-  i18n: React.PropTypes.object.isRequired
+  router: React.PropTypes.object
 }
 
 
