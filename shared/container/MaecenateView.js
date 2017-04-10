@@ -13,6 +13,8 @@ import { isAuthUserMaecenateSupporter } from '../selectors/support'
 import { getPosts } from '../selectors/post'
 import * as Actions from '../actions'
 
+import Helmet from 'react-helmet'
+
 import {
   MaecenatePresentation,
   MaecenateContent
@@ -65,9 +67,18 @@ class MaecenateView extends Component {
 
   renderContent () {
     const { maecenate, posts, isAuthUserOwner, isSupporter } = this.props
+    const { title, teaser, cover } = maecenate
     const forcePresentation = Boolean(this.props.route.presentation)
     const showMaecenateTitle = Boolean(this.props.route.showMaecenateTitle)
     const showContent = !forcePresentation && (isAuthUserOwner || isSupporter)
+
+    return (
+      <Helmet>
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
+        <meta property="og:image" content={cover} />
+      </Helmet>
+    )
 
     if (showContent) {
       return (

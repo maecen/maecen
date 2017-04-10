@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import Helmet from 'react-helmet'
 
 import styleVariables from '../../components/styleVariables'
 
@@ -37,7 +38,9 @@ function App (props) {
   return (
     <MuiThemeProvider muiTheme={muiTheme}>
       <div>
-
+        <Helmet>
+          <title>Mæcen</title>
+        </Helmet>
         <div style={style.main}>
           <HeaderContainer>
             { props.children }

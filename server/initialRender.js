@@ -6,6 +6,7 @@ import { match, RouterContext } from 'react-router'
 import { I18nextProvider, loadNamespaces } from 'react-i18next'
 import serialize from 'serialize-javascript'
 import { StyleRoot } from 'radium'
+import Helmet from 'react-helmet'
 
 import styleVariables from '../shared/components/styleVariables'
 import User from './models/User'
@@ -68,13 +69,14 @@ export default function initialRender (req, res, next) {
               </Provider>
             </I18nextProvider>
           )
+          const helmet = Helmet.renderStatic()
           const finalState = store.getState()
 
           if (finalState.app.pageStatus === 404) {
             return res.status(404).send('Not Found')
           }
 
-          const renderedTemplate = renderTemplate(html, finalState, i18nClient)
+          const renderedTemplate = renderTemplate(html, finalState, i18nClient, helmet)
 
           res.status(200).end(renderedTemplate)
         }).catch(next)
@@ -127,7 +129,7 @@ function getAuthenticatedUser (userId, clearCookie) {
   })
 }
 
-function renderTemplate (html, initialState, i18n) {
+function renderTemplate (html, initialState, i18n, helmet) {
   const globalStyle = `
     [type=reset],
     [type=submit],
@@ -170,7 +172,8 @@ function renderTemplate (html, initialState, i18n) {
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="theme-color" content="#262626">
         <!-- TODO we need to translate this -->
-        <title>Mæcen</title>
+        ${helmet.title.toString()}
+        <meta property="og:type" content="website" />
         <style>${globalStyle}</style>
         <link
           href='https://fonts.googleapis.com/css?family=Roboto:400,500,300italic,300'
