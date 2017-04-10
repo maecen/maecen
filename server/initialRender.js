@@ -173,6 +173,7 @@ function renderTemplate (html, initialState, i18n, helmet) {
         <meta name="theme-color" content="#262626">
         <!-- TODO we need to translate this -->
         ${helmet.title.toString()}
+        ${helmet.meta.toString()}
         <meta property="og:type" content="website" />
         <style>${globalStyle}</style>
         <link
