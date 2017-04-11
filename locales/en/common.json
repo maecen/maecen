@@ -75,6 +75,7 @@
     "update": "Update {{maecenate}}",
     "uploadLogoLabel": "Upload Logo",
     "replaceLogoLabel": "Replace Logo",
+    "resultingUrl": "Your URL address",
     "uploadCoverLabel": "Upload picture or video",
     "replaceCoverLabel": "Replace picture or video",
     "viewPresentation": "See your presentation",

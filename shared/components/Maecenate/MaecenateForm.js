@@ -4,6 +4,7 @@ import { translate } from 'react-i18next'
 
 // Utils
 import { isBrowser } from '../../config'
+import { slugify } from 'strman'
 
 // Components
 import { Row, Cell } from '../Grid'
@@ -46,6 +47,14 @@ function MaecenateForm (props) {
 
   const goBack = isBrowser && window.history.back.bind(window.history)
 
+  const getUrl = (name) => {
+    if(!isBrowser) return name
+    let protocol = window.location.protocol
+    let location = window.location.hostname
+    let path = name && slugify(name.replace(/\//g, '-'))
+    return `${protocol}//${location}/${path}`
+  }
+
   return (
     <Row>
       <Cell narrowLayout={true}>
@@ -64,6 +73,11 @@ function MaecenateForm (props) {
               <TextField
                 path={['title']}
                 label={t('title')} />
+              {maecenate.title &&
+              <TextField
+                value={getUrl(maecenate.title)}
+                label={t('maecenate.resultingUrl')}
+                disabled={true} />}
               <br />
 
               <FileDropzone
