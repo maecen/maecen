@@ -13,6 +13,8 @@ import { isAuthUserMaecenateSupporter } from '../selectors/support'
 import { getPosts } from '../selectors/post'
 import * as Actions from '../actions'
 
+import cropCloudy from '../lib/cropCloudy'
+
 import Helmet from 'react-helmet'
 
 import {
@@ -67,7 +69,7 @@ class MaecenateView extends Component {
 
   renderContent () {
     const { maecenate, posts, isAuthUserOwner, isSupporter } = this.props
-    const { title, teaser, cover } = maecenate
+    const { title, teaser, logo } = maecenate
     const forcePresentation = Boolean(this.props.route.presentation)
     const showMaecenateTitle = Boolean(this.props.route.showMaecenateTitle)
     const showContent = !forcePresentation && (isAuthUserOwner || isSupporter)
@@ -76,7 +78,7 @@ class MaecenateView extends Component {
       <Helmet>
         <title>{title}</title>
         <meta property="og:title" content={title} />
-        <meta property="og:image" content={cover.url} />
+        <meta property="og:image" content={cropCloudy(logo.url,'logo')} />
         <meta property="og:description" content={teaser} />
       </Helmet>
     )
