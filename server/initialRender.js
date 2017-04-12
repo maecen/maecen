@@ -89,7 +89,9 @@ export default function initialRender (req, res, next) {
 
 function initializeStore (data, req) {
   const authUser = data.authUserEntity || null
-  const { protocol, hostname, path } = req
+  const { hostname, path } = req
+  const protocol = 'https'
+  const fullUrl = `${protocol}://${hostname + path}`
 
   return configureStore(mapInitialState({
     users: {

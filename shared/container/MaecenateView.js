@@ -82,6 +82,7 @@ class MaecenateView extends Component {
         <meta property="og:image" content={cropCloudy(logo.url,'logo')} />
         <meta property="og:description" content={teaser} />
         <meta property="og:url" content={request.fullUrl} />
+        <meta property="twitter:card" content="summary" />
       </Helmet>
     )
 
