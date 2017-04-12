@@ -1,6 +1,6 @@
 // Imports
+import json2csv from 'json2csv'
 import { normalizeResponse } from '../util/ctrlHelpers'
-
 import { postStatus } from '../../shared/config'
 
 // Services
@@ -170,5 +170,50 @@ export function sendEmailToSupporters (req, res, next) {
         success: true
       })
     )
+    .catch(next)
+}
+
+export function csvExtract (req, res, next) {
+  const { knex } = req.app.locals
+  if (req.params.code !== process.env.CSV_EXTRACT_CODE) {
+    res.status(404).send('Not Found')
+  }
+
+  return knex('maecenates')
+    .select(
+      'title',
+      'id',
+      'created_at',
+      'creator.id as creatorID',
+      'creator.email as creatorEmail',
+    )
+    .innerJoin('users as creator', 'maecenates.creator', 'creator.id')
+    .then((data) => {
+      // Write out the date in a good format
+      data = data.map(transaction => ({
+        ...transaction,
+        timestamp: (new Date(transaction.timestamp)).toISOString()
+      }))
+
+      const fields = [
+        'title',
+        'id',
+        'created_at',
+        'creatorID',
+        'creatorEmail',
+        'supporterID',
+        'supporterEmail',
+        'supporterCountry',
+        'amount',
+        'currency',
+        'fee',
+        'type'
+      ]
+
+      const csv = json2csv({ data, fields })
+      res.setHeader('Content-disposition', 'attachment; filename=transactions.csv')
+      res.set('Content-Type', 'text/csv')
+      res.status(200).send(csv)
+    })
     .catch(next)
 }

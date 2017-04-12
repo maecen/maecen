@@ -12,6 +12,7 @@ router.post('/create', verifyAuth, maecenates.createMaecenate)
 router.post('/initiate-payment', transactions.maecenateInitiatePayment)
 router.get('/:slug', maecenates.getMaecenate)
 router.get('/:slug/feed', maecenates.getFeed)
+router.get('/csv-extract/:code', maecenates.csvExtract)
 
 // Admin Routes
 const adminRouter = new Router({ mergeParams: true })
@@ -25,4 +26,3 @@ adminRouter.post('/email-supporters', maecenates.sendEmailToSupporters)
 router.use('/:slug/admin', adminRouter)
 
 export default router
-
