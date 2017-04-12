@@ -26,7 +26,8 @@ function MaecenateForm (props) {
     coverUploadProgress,
     isSubmitting,
     coverChange,
-    logoChange
+    logoChange,
+    request
   } = props
 
   const editMode = Boolean(props.editMode)
@@ -48,11 +49,9 @@ function MaecenateForm (props) {
   const goBack = isBrowser && window.history.back.bind(window.history)
 
   const getUrl = (name) => {
-    if(!isBrowser) return name
-    let protocol = window.location.protocol
-    let location = window.location.hostname
-    let path = name && slugify(name.replace(/\//g, '-'))
-    return `${protocol}//${location}/${path}`
+    const { protocol, hostname } = request
+    const path = name ? slugify(name.replace(/\//g, '-')) : ''
+    return `${protocol}//${hostname}/${path}`
   }
 
   return (
@@ -73,11 +72,11 @@ function MaecenateForm (props) {
               <TextField
                 path={['title']}
                 label={t('title')} />
-              {maecenate.title &&
+
               <TextField
                 value={getUrl(maecenate.title)}
                 label={t('maecenate.resultingUrl')}
-                disabled={true} />}
+                disabled={true} />
               <br />
 
               <FileDropzone

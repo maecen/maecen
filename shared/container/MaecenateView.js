@@ -9,6 +9,7 @@ import {
   getMaecenateBySlug,
   isAuthUserMaecenateOwner
 } from '../selectors/maecenate'
+import { getRequestDetails } from '../selectors/app'
 import { isAuthUserMaecenateSupporter } from '../selectors/support'
 import { getPosts } from '../selectors/post'
 import * as Actions from '../actions'
@@ -68,7 +69,7 @@ class MaecenateView extends Component {
   }
 
   renderContent () {
-    const { maecenate, posts, isAuthUserOwner, isSupporter } = this.props
+    const { maecenate, posts, isAuthUserOwner, isSupporter, request } = this.props
     const { title, teaser, logo } = maecenate
     const forcePresentation = Boolean(this.props.route.presentation)
     const showMaecenateTitle = Boolean(this.props.route.showMaecenateTitle)
@@ -80,6 +81,7 @@ class MaecenateView extends Component {
         <meta property="og:title" content={title} />
         <meta property="og:image" content={cropCloudy(logo.url,'logo')} />
         <meta property="og:description" content={teaser} />
+        <meta property="og:url" content={request.fullUrl} />
       </Helmet>
     )
 
@@ -122,7 +124,8 @@ function mapStateToProps (state, props) {
     hasAuth: isAuthorized(state),
     isAuthUserOwner: isMaecenateOwner(state, props),
     isSupporter: isSupporter(state, props),
-    posts: getPosts(state, props)
+    posts: getPosts(state, props),
+    request: getRequestDetails(state)
   }
 }
 

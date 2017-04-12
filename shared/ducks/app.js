@@ -11,7 +11,13 @@ export const actionTypes = {
 // Reducer
 const reducer = (state = Immutable({
   pageStatus: 200,
-  requireAuthorization: false
+  requireAuthorization: false,
+  request: {
+    protocol: null,
+    hostname: null,
+    path: null,
+    fullUrl: null
+  }
 }), action) => {
   switch (action.type) {
     case usersActionTypes.SET_AUTH:

@@ -32,7 +32,7 @@ export default function initialRender (req, res, next) {
 
     // Initial Data
     // ============
-    const store = initializeStore(data)
+    const store = initializeStore(data, req)
     const routes = getRoutes(store)
 
     // Language Setup
@@ -87,8 +87,9 @@ export default function initialRender (req, res, next) {
   }).catch(next)
 }
 
-function initializeStore (data) {
+function initializeStore (data, req) {
   const authUser = data.authUserEntity || null
+  const { protocol, hostname, path } = req
 
   return configureStore(mapInitialState({
     users: {
@@ -104,6 +105,14 @@ function initializeStore (data) {
       posts: {},
       media: {},
       maecenates: {}
+    },
+    app: {
+      request: {
+        protocol,
+        hostname,
+        path,
+        fullUrl: `${protocol}://${hostname + path}`
+      }
     }
   }))
 }

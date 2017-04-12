@@ -15,6 +15,8 @@ import * as Actions from '../../actions'
 import {
   getMaecenateBySlug
 } from '../../selectors/maecenate'
+import { getRequestDetails } from '../../selectors/app'
+
 import { MaecenateForm } from '../../components/Maecenate'
 
 class EditMaecenateView extends Component {
@@ -131,6 +133,7 @@ class EditMaecenateView extends Component {
           isSubmitting={this.state.isSubmitting === true}
           coverChange={this.coverChange}
           logoChange={this.logoChange}
+          request={this.props.request}
         />
       : <div>Loading...</div>
     )
@@ -143,11 +146,11 @@ EditMaecenateView.need = [(params) => {
 
 function mapStateToProps (state, props) {
   return {
-    maecenate: getMaecenateBySlug(state, props)
+    maecenate: getMaecenateBySlug(state, props),
+    request: getRequestDetails(state)
   }
 }
 
 export default translate(['common'])(
   connect(mapStateToProps)(EditMaecenateView)
 )
-

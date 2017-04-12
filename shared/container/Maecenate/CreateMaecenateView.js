@@ -8,6 +8,8 @@ import { mediaUpload } from '../../lib/fileHandler'
 import * as Actions from '../../actions'
 
 import { MaecenateForm } from '../../components/Maecenate'
+import { getRequestDetails } from '../../selectors/app'
+
 
 class CreateMaecenateView extends Component {
 
@@ -97,6 +99,7 @@ class CreateMaecenateView extends Component {
         areWeSubmitting={this.state.isSubmitting === true}
         coverChange={this.coverChange}
         logoChange={this.logoChange}
+        request={this.props.request}
       />
     )
   }
@@ -104,8 +107,10 @@ class CreateMaecenateView extends Component {
 
 CreateMaecenateView.need = []
 
-function mapStateToProps (store) {
-  return { }
+function mapStateToProps (state) {
+  return {
+    request: getRequestDetails(state)
+  }
 }
 
 export default translate(['common'])(
