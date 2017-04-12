@@ -76,7 +76,8 @@ class MaecenateView extends Component {
       <Helmet>
         <title>{title}</title>
         <meta property="og:title" content={title} />
-        <meta property="og:image" content={cover} />
+        <meta property="og:image" content={cover.url} />
+        <meta property="og:description" content={teaser} />
       </Helmet>
     )
 
