@@ -51,7 +51,7 @@ function MaecenateForm (props) {
   const getUrl = (name) => {
     const { protocol, hostname } = request
     const path = name ? slugify(name.replace(/\//g, '-')) : ''
-    return `${protocol}//${hostname}/${path}`
+    return `${protocol}://${hostname}/${path}`
   }
 
   return (
