@@ -179,35 +179,34 @@ export function csvExtract (req, res, next) {
     res.status(404).send('Not Found')
   }
 
+  const date = new Date
+
   return knex('maecenates')
     .select(
       'title',
-      'id',
-      'created_at',
+      'maecenates.id',
       'creator.id as creatorID',
       'creator.email as creatorEmail',
+      'supporters'
     )
     .innerJoin('users as creator', 'maecenates.creator', 'creator.id')
+    .innerJoin('subscriptions', 'subscriptions.maecenate', 'maecenates.id')
+    .innerJoin('sub_periods as supporters', 'supporters.subscription', 'subscriptions.id')
+    .where('supporters.start', '<=', date)
+    .where('supporters.end', '>', date)
     .then((data) => {
       // Write out the date in a good format
       data = data.map(transaction => ({
         ...transaction,
-        timestamp: (new Date(transaction.timestamp)).toISOString()
+        supporters: transaction.supporters.length
       }))
 
       const fields = [
         'title',
         'id',
-        'created_at',
         'creatorID',
         'creatorEmail',
-        'supporterID',
-        'supporterEmail',
-        'supporterCountry',
-        'amount',
-        'currency',
-        'fee',
-        'type'
+        'supporters'
       ]
 
       const csv = json2csv({ data, fields })
