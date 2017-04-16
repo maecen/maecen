@@ -192,10 +192,8 @@ export function csvExtract (req, res, next) {
     .innerJoin('users as creator', 'maecenates.creator', 'creator.id')
     .innerJoin('subscriptions', 'subscriptions.maecenate', 'maecenates.id')
     .innerJoin('sub_periods as supporters', 'supporters.subscription', 'subscriptions.id')
-    .where('supporters.start', '<=', date)
-    .where('supporters.end', '>', date)
+
     .then((data) => {
-      // Write out the date in a good format
       data = data.map(transaction => ({
         ...transaction,
         supporters: transaction.supporters.length

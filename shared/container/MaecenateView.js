@@ -71,23 +71,14 @@ class MaecenateView extends Component {
   renderContent () {
     const { maecenate, posts, isAuthUserOwner, isSupporter, request } = this.props
     const { title, teaser, logo } = maecenate
+
     const forcePresentation = Boolean(this.props.route.presentation)
     const showMaecenateTitle = Boolean(this.props.route.showMaecenateTitle)
     const showContent = !forcePresentation && (isAuthUserOwner || isSupporter)
-
-    return (
-      <Helmet>
-        <title>{title}</title>
-        <meta property="og:title" content={title} />
-        <meta property="og:image" content={cropCloudy(logo.url,'logo')} />
-        <meta property="og:description" content={teaser} />
-        <meta property="og:url" content={request.fullUrl} />
-        <meta property="twitter:card" content="summary" />
-      </Helmet>
-    )
+    let content = null;
 
     if (showContent) {
-      return (
+      content = (
         <MaecenateContent
           maecenate={maecenate}
           showMaecenateTitle={showMaecenateTitle}
@@ -98,7 +89,7 @@ class MaecenateView extends Component {
         />
       )
     } else {
-      return (
+      content = (
         <MaecenatePresentation
           maecenate={maecenate}
           supportMaecenate={this.supportMaecenate}
@@ -107,6 +98,20 @@ class MaecenateView extends Component {
         />
       )
     }
+
+    return (
+      <div>
+        <Helmet>
+          <title>{title}</title>
+          <meta property="og:title" content={title} />
+          <meta property="og:image" content={cropCloudy(logo.url,'logo')} />
+          <meta property="og:description" content={teaser} />
+          <meta property="og:url" content={request.fullUrl} />
+          <meta property="twitter:card" content="summary" />
+        </Helmet>
+        {content}
+      </div>
+    )
   }
 }
 
