@@ -6,7 +6,7 @@ import { translate } from 'react-i18next'
 import cropCloudy from '../../lib/cropCloudy'
 
 // Components
-import ActionInfo from 'material-ui/svg-icons/action/info-outline'
+import ActionInfo from 'material-ui/svg-icons/action/settings'
 import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 import ListItem from '../List/ListItem'
