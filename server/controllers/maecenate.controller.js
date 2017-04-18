@@ -187,12 +187,11 @@ export function csvExtract (req, res, next) {
       'maecenates.id',
       'creator.id as creatorID',
       'creator.email as creatorEmail',
-      'supporters'
+      //'supporters'
     )
     .innerJoin('users as creator', 'maecenates.creator', 'creator.id')
-    .innerJoin('subscriptions', 'subscriptions.maecenate', 'maecenates.id')
-    .innerJoin('sub_periods as supporters', 'supporters.subscription', 'subscriptions.id')
-
+    //.innerJoin('subscriptions', 'subscriptions.maecenate', 'maecenates.id')
+    //.innerJoin('sub_periods as supporters', 'supporters.subscription', 'subscriptions.id')
     .then((data) => {
       data = data.map(transaction => ({
         ...transaction,
@@ -204,7 +203,7 @@ export function csvExtract (req, res, next) {
         'id',
         'creatorID',
         'creatorEmail',
-        'supporters'
+        //'supporters'
       ]
 
       const csv = json2csv({ data, fields })
