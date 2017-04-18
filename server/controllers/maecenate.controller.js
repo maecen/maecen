@@ -195,7 +195,7 @@ export function csvExtract (req, res, next) {
     .then((data) => {
       data = data.map(transaction => ({
         ...transaction,
-        supporters: transaction.supporters.length
+        //supporters: transaction.supporters.length
       }))
 
       const fields = [
