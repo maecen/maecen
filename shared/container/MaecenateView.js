@@ -75,32 +75,9 @@ class MaecenateView extends Component {
     const forcePresentation = Boolean(this.props.route.presentation)
     const showMaecenateTitle = Boolean(this.props.route.showMaecenateTitle)
     const showContent = !forcePresentation && (isAuthUserOwner || isSupporter)
-    let content = null;
-
-    if (showContent) {
-      content = (
-        <MaecenateContent
-          maecenate={maecenate}
-          showMaecenateTitle={showMaecenateTitle}
-          posts={posts}
-          editPost={isAuthUserOwner && this.editPost}
-          editMaecenate={this.editMaecenate}
-          isAuthUserOwner={isAuthUserOwner}
-        />
-      )
-    } else {
-      content = (
-        <MaecenatePresentation
-          maecenate={maecenate}
-          supportMaecenate={this.supportMaecenate}
-          editMaecenate={this.editMaecenate}
-          isAuthUserOwner={isAuthUserOwner}
-        />
-      )
-    }
 
     return (
-      <div>
+      <div style={{width:'100%'}}>
         <Helmet>
           <title>{title}</title>
           <meta property="og:title" content={title} />
@@ -109,7 +86,23 @@ class MaecenateView extends Component {
           <meta property="og:url" content={request.fullUrl} />
           <meta property="twitter:card" content="summary" />
         </Helmet>
-        {content}
+        {showContent ? (
+          <MaecenateContent
+            maecenate={maecenate}
+            showMaecenateTitle={showMaecenateTitle}
+            posts={posts}
+            editPost={isAuthUserOwner && this.editPost}
+            editMaecenate={this.editMaecenate}
+            isAuthUserOwner={isAuthUserOwner}
+          />
+         ) : (
+           <MaecenatePresentation
+             maecenate={maecenate}
+             supportMaecenate={this.supportMaecenate}
+             editMaecenate={this.editMaecenate}
+             isAuthUserOwner={isAuthUserOwner}
+           />
+         )}
       </div>
     )
   }
