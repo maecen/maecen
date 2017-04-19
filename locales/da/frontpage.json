@@ -1,15 +1,15 @@
 {
     "band": [{
-            "title": "Hvad er Mæcen.com?",
-            "description": "Vi er en platform, der giver dig mulighed for at få støtte af mæcener, som en månedlig indtægt til at producere det indhold, som du selv ønsker at skabe. Uden noget som helst andet."
+            "title": "Hvad er Maecen.com?",
+            "description": "Mæcen er en ægte deleøkonomisk platform, der giver dig mulighed for, helt gratis, at oprette egne Mæcenater og at støtte andres igennem små månedlige betalinger."
         },
         {
             "title": "HVAD ER EN MÆCEN?",
-            "description": "Mæcen er oprindeligt en person der støtter kunst og videnskab økonomisk. For os er en mæcen en som ønsker at støtte et mæcenat, fordi hun ønsker at give tilbage for det hun får."
+            "description": "Mæcen, efter Gaius Meacenas, er en person der støtter kunst og videnskab økonomisk. På Maecen.com er en mæcen blot en person som ønsker at betale til et mæcenat, fordi hun ønsker at give tilbage for det hun får eller bare for at vise sin støtte."
         },
         {
             "title": "HVAD ER ET MÆCENAT?",
-            "description": "Et Mæcenat består af en præsentation, som alle kan se, og en indholdsside med tekster, billeder og videoer som man kun kan få adgang til hvis man abonnerer, og dermed bliver Mæcen"
+            "description": "Et Mæcenat består af en præsentation, som alle kan se, og en indholdsside med tekster, billeder og videoer som man kun kan få adgang til hvis man abonnerer, og dermed bliver Mæcen. Alle kan oprette et eller flere Mæcenater, også foreninger og virksomheder. "
         }
     ],
     "masonry": [
