@@ -221,6 +221,16 @@ export const fetchSupporters = (knex, maecenateId, date) => {
   .then(res => res.map(o => o.id))
 }
 
+export const supportersQuery = (knex, date) => {
+  date = date || new Date()
+  return knex.from('subscriptions')
+    .count()
+    .join('sub_periods', 'subscriptions.id', 'sub_periods.subscription')
+    .where('sub_periods.start', '<=', date)
+    .where('sub_periods.end', '>', date)
+    .whereRaw('subscriptions.maecenate = maecenates.id')
+}
+
 // Helper methods
 // ==============
 const createSlug = (name) =>
@@ -244,14 +254,4 @@ const slugIsAvailable = (slug) => {
       throw error
     }
   })
-}
-
-const supportersQuery = (knex, date) => {
-  date = date || new Date()
-  return knex.from('subscriptions')
-    .count()
-    .join('sub_periods', 'subscriptions.id', 'sub_periods.subscription')
-    .where('sub_periods.start', '<=', date)
-    .where('sub_periods.end', '>', date)
-    .whereRaw('subscriptions.maecenate = maecenates.id')
 }

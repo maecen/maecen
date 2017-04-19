@@ -179,7 +179,13 @@ export function csvExtract (req, res, next) {
     res.status(404).send('Not Found')
   }
 
-  const date = new Date
+  const fields = [
+    'title',
+    'id',
+    'creatorID',
+    'creatorEmail',
+    'supporters'
+  ]
 
   return knex('maecenates')
     .select(
@@ -187,29 +193,25 @@ export function csvExtract (req, res, next) {
       'maecenates.id',
       'creator.id as creatorID',
       'creator.email as creatorEmail',
-      //'supporters'
     )
-    .innerJoin('users as creator', 'maecenates.creator', 'creator.id')
-    //.innerJoin('subscriptions', 'subscriptions.maecenate', 'maecenates.id')
-    //.innerJoin('sub_periods as supporters', 'supporters.subscription', 'subscriptions.id')
+    .select( function(){ service.supportersQuery(this).as('supporters') })
+    .leftJoin('users as creator', 'maecenates.creator', 'creator.id')
     .then((data) => {
-      data = data.map(transaction => ({
-        ...transaction,
-        //supporters: transaction.supporters.length
-      }))
-
-      const fields = [
-        'title',
-        'id',
-        'creatorID',
-        'creatorEmail',
-        //'supporters'
-      ]
-
       const csv = json2csv({ data, fields })
+
       res.setHeader('Content-disposition', 'attachment; filename=transactions.csv')
       res.set('Content-Type', 'text/csv')
       res.status(200).send(csv)
     })
     .catch(next)
+}
+
+const supportersQuery = (knex, date) => {
+  date = date || new Date()
+  return knex.from('subscriptions')
+    .count()
+    .join('sub_periods', 'subscriptions.id', 'sub_periods.subscription')
+    .where('sub_periods.start', '<=', date)
+    .where('sub_periods.end', '>', date)
+    .whereRaw('subscriptions.maecenate = maecenates.id')
 }
