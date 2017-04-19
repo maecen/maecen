@@ -5,7 +5,7 @@
         },
         {
             "title": "HVAD ER EN MÆCEN?",
-            "description": "Mæcen, efter Gaius Meacenas, er en person der støtter kunst og videnskab økonomisk. På Maecen.com er en mæcen blot en person som ønsker at betale til et mæcenat, fordi hun ønsker at give tilbage for det hun får eller bare for at vise sin støtte."
+            "description": "En Mæcen er oprindeligt en person der støtter kunst og videnskab økonomisk, efter , efter Gaius Meacenas. På Maecen.com er en mæcen blot en person som ønsker at betale til et mæcenat, fordi hun ønsker at give tilbage for det hun får eller bare for at vise sin støtte."
         },
         {
             "title": "HVAD ER ET MÆCENAT?",
@@ -41,7 +41,7 @@
             },
             {
                 "title": "Open Source",
-                "description": "Mæcen er programmeret på en Open Source platform. Hvis du er interesseret i at blive koblet til udviklerteamet, og hjælpe med at videreudvikle Mæcen, er du mere end velkommen til at kontakte: maecen@digidi.dk"
+                "description": "Mæcen er programmeret på en Open Source platform. Hvis du er interesseret i at blive koblet til udviklerteamet og hjælpe med at videreudvikle Mæcen, er du mere end velkommen til at kontakte: maecen@digidi.dk"
             }
         ]
     ]
