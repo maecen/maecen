@@ -187,7 +187,7 @@ export function csvExtract (req, res, next) {
     'creatorEmail',
     'supporters',
     'url',
-    'status'
+    'closed'
   ]
 
   return knex('maecenates')
@@ -203,7 +203,7 @@ export function csvExtract (req, res, next) {
       data = data.map(maecenate => ({
         ...maecenate,
         url: '/' + slugify(maecenate.title.replace(/\//g, '-')),
-        status: (maecenate.active ? '' : 'closed')
+        closed: (maecenate.active === false ? 'x' : '')
       }))
 
       const csv = json2csv({ data, fields })
