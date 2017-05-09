@@ -200,7 +200,7 @@ export function csvExtract (req, res, next) {
     .leftJoin('users as creator', 'maecenates.creator', 'creator.id')
     .then((data) => {
       data = data.map(maecenate => ({
-        ...maecenate
+        ...maecenate,
         url: '/' + slugify(maecenate.title.replace(/\//g, '-'))
       }))
 
