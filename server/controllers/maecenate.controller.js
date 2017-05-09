@@ -2,6 +2,7 @@
 import json2csv from 'json2csv'
 import { normalizeResponse } from '../util/ctrlHelpers'
 import { postStatus } from '../../shared/config'
+import { slugify } from 'strman';
 
 // Services
 import * as service from '../services/maecenates'
@@ -184,7 +185,8 @@ export function csvExtract (req, res, next) {
     'id',
     'creatorID',
     'creatorEmail',
-    'supporters'
+    'supporters',
+    'url'
   ]
 
   return knex('maecenates')
@@ -197,6 +199,11 @@ export function csvExtract (req, res, next) {
     .select( function(){ service.supportersQuery(this).as('supporters') })
     .leftJoin('users as creator', 'maecenates.creator', 'creator.id')
     .then((data) => {
+      data = data.map(maecenate => ({
+        ...maecenate
+        url: '/' + slugify(maecenate.title.replace(/\//g, '-'))
+      }))
+
       const csv = json2csv({ data, fields })
 
       res.setHeader('Content-disposition', 'attachment; filename=transactions.csv')
