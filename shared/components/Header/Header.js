@@ -20,12 +20,6 @@ const MaecenIcon = (props) => (
   </SvgIcon>
 )
 
-const BetaIcon = (props) => (
-  <SvgIcon {...props}>
-    <path d="M50 424H0V298h45c8 0 15 1 21 3 6 1 11 3 15 6s8 6 10 11c2 4 3 9 3 15l-1 8a26 26 0 0 1-8 14l-8 5 9 4a24 24 0 0 1 10 14l1 9c0 12-4 21-12 27s-20 10-35 10zm150-102h-56v26h47v23h-47v29h56v24h-87V298h87v24zm74 102h-30V322h-37v-24h105v24h-38v102zm151 0h-32l-8-24h-41l-7 24h-33l46-126h29l46 126zM51 370H30v30h20l8-1 5-3 3-4 1-6-1-6-3-5-5-4-7-1zm300 7h27l-13-43-14 43zM45 322H30v29h16c6 0 11-2 14-4s4-6 4-10c0-6-1-9-4-12-3-2-8-3-15-3z" /> // eslint-disable-line max-len
-  </SvgIcon>
-)
-
 function Header (props, context) {
   const {
     hasAuth,
@@ -51,7 +45,6 @@ function Header (props, context) {
             <MaecenIcon color={style.homeIconColor} viewBox='0 0 832 687'/>
           </IconButton>
         </Link>
-        <BetaIcon style={style.BetaIcon} viewBox='0 0 426 426'/>
         <div style={style.rightmenu}>
           { hasAuth === false
             ? <Button label={t('login')}
