@@ -196,6 +196,7 @@ export function csvExtract (req, res, next) {
       'maecenates.id',
       'creator.id as creatorID',
       'creator.email as creatorEmail',
+      'active'
     )
     .select( function(){ service.supportersQuery(this).as('supporters') })
     .leftJoin('users as creator', 'maecenates.creator', 'creator.id')
