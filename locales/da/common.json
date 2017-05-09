@@ -112,7 +112,7 @@
     "confirmSupport": "Bekræft støtte",
     "confirmSupportNewCard": "Skift kreditkort",
     "continueToPayment": "Forsæt til betaling",
-    "howMuch": "Hvor meget vil du støtte med pr. måned?",
+    "howMuch": "Indtast beløbet som du vil betale pr. måned?",
     "join": "Bliv mæcen",
     "joinMaecenate": "Bliv mæcen for {{title}}",
     "minimumAmount": "Minimum $t(currency.amount) pr måned",
