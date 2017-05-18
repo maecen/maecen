@@ -104,7 +104,7 @@ const MarkdownPreview = ({ path }, { model }) => {
   function createMarkup() {
     const value = model[path] || '';
 
-    return { __html: marked(value)}
+    return { __html: marked(value, { sanitize: true })}
   }
 
   return (

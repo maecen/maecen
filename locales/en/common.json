@@ -93,7 +93,7 @@
     }
   },
   "markdown": {
-    "helpText": "This field supports markdown ",
+    "helpText": "This field supports markdown. ",
     "linkText": "Guide."
   },
   "support": {
