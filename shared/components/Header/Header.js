@@ -34,7 +34,8 @@ function Header (props, context) {
     createPostUrl,
     currLang,
     langOptions,
-    changeLang
+    changeLang,
+    showLangSwitch
   } = props
 
   return (
@@ -50,10 +51,12 @@ function Header (props, context) {
           </IconButton>
         </Link>
         <div style={style.rightmenu}>
-          <LanguageSwitch
-            lang={currLang}
-            langOptions={langOptions}
-            changeLang={changeLang}  />
+          { (hasAuth && !showLangSwitch) ||
+            <LanguageSwitch
+              lang={currLang}
+              langOptions={langOptions}
+              changeLang={changeLang}  />
+          }
           { hasAuth === false
             ? <Button label={t('login')}
                 primary={true}
