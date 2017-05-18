@@ -102,7 +102,7 @@ class MarkdownField extends Component {
 
 const MarkdownPreview = ({ path }, { model }) => {
   function createMarkup() {
-    const value = model[path] || '*placeholder*';
+    const value = model[path] || '';
 
     return { __html: marked(value)}
   }
