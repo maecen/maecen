@@ -7,6 +7,7 @@ import styleVariables from '../styleVariables'
 // Components
 import Link from '../Link'
 import Button from '../Form/Button'
+import LanguageSwitch from '../../components/Language/Switch';
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import IconButton from 'material-ui/IconButton'
@@ -30,7 +31,10 @@ function Header (props, context) {
     allMaecenatesUrl,
     myPageUrl,
     homeUrl,
-    createPostUrl
+    createPostUrl,
+    currLang,
+    langOptions,
+    changeLang
   } = props
 
   return (
@@ -46,6 +50,10 @@ function Header (props, context) {
           </IconButton>
         </Link>
         <div style={style.rightmenu}>
+          <LanguageSwitch
+            lang={currLang}
+            langOptions={langOptions}
+            changeLang={changeLang}  />
           { hasAuth === false
             ? <Button label={t('login')}
                 primary={true}

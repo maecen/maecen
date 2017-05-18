@@ -1,6 +1,8 @@
 // Imports
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+
+import without from 'lodash/without'
 
 // Actions & Selectors
 import * as Actions from '../actions'
@@ -42,8 +44,21 @@ class HeaderContainer extends Component {
     dispatch(Actions.requireAuth())
   }
 
+  changeLang (event, index, value) {
+    const { i18n } = this.context
+    const currLang = i18n.language
+    const lang = value
+    const { dispatch } = this.props
+    dispatch(Actions.changeLanguage(lang, currLang))
+  }
+
   render () {
     const hideFab = Boolean(this.props.children.props.route.hideFab)
+
+    const { i18n } = this.context
+    const langOptions = without(i18n.options.whitelist, 'cimode')
+    const currLang = i18n.language
+    const showLangSwitch = Boolean(this.props.children.props.route.showLangSwitch)
 
     return <Header
       hasAuth={this.props.hasAuth}
@@ -54,6 +69,10 @@ class HeaderContainer extends Component {
       homeUrl='/'
       adminMaecenates={this.props.adminMaecenates}
       hideFab={hideFab}
+      changeLang={this.changeLang.bind(this)}
+      langOptions={langOptions}
+      currLang={currLang}
+      showLangSwitch={showLangSwitch}
     />
   }
 }
@@ -66,6 +85,10 @@ function mapStateToProps (state) {
     user: getAuthUser(state),
     adminMaecenates: getMaecenates(state)
   }
+}
+
+HeaderContainer.contextTypes = {
+  i18n: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps)(HeaderContainer)

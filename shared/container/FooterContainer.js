@@ -8,27 +8,11 @@ import Footer from '../components/Footer/Footer'
 import { isAuthorized, getAuthUser } from '../selectors/user'
 
 class FooterContainer extends Component {
-  changeLang (event, index, value) {
-    const { i18n } = this.context
-    const currLang = i18n.language
-    const lang = value
-    const { dispatch } = this.props
-    dispatch(Actions.changeLanguage(lang, currLang))
-  }
-
   render () {
-    const { i18n } = this.context
-    const langOptions = without(i18n.options.whitelist, 'cimode')
-    const currLang = i18n.language
-    const showLangSwitch = Boolean(this.props.children.props.route.showLangSwitch)
     return (
       <Footer
         hasAuth={this.props.hasAuth}
-        user={this.props.user}
-        showLangSwitch={showLangSwitch}
-        lang={currLang}
-        langOptions={langOptions}
-        changeLang={this.changeLang.bind(this)} />
+        user={this.props.user} />
     )
   }
 }
