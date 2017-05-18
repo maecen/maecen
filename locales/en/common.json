@@ -93,8 +93,8 @@
     }
   },
   "markdown": {
-    "helpText": "Needs translation",
-    "linkText": "Guide"
+    "helpText": "This field supports markdown ",
+    "linkText": "Guide."
   },
   "support": {
     "belowMin": "The amount is below the monthly mininum",
