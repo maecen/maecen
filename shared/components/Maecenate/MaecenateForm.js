@@ -9,10 +9,7 @@ import { slugify } from 'strman'
 // Components
 import { Row, Cell } from '../Grid'
 import LinearProgressDeterminate from '../Progress/LinearProgress'
-import Form from '../Form/Form'
-import TextField from '../Form/TextField'
-import Button from '../Form/Button'
-import FileDropzone from '../Form/FileDropzone'
+import Form, { TextField, Button, MarkdownField, FileDropzone } from '../Form'
 import { Card, CardContent, CardTitle } from '../Card'
 
 function MaecenateForm (props) {
@@ -110,12 +107,10 @@ function MaecenateForm (props) {
                 maxLength='140' />
               <br />
 
-              <TextField
+              <MarkdownField
                 path={['description']}
                 label={t('maecenate.description')}
-                placeholder={t('maecenate.descriptionPlaceholder')}
-                multiLine={true} />
-              <br />
+                placeholder={t('maecenate.descriptionPlaceholder')} />
 
               <TextField
                 path={['url']}

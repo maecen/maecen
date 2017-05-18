@@ -31,6 +31,7 @@
     "cancel": "Cancel",
     "continue": "Continue",
     "edit": "Edit",
+    "preview": "Preview",
     "update": "Update"
   },
   "error": {
@@ -61,7 +62,7 @@
     "closeAcceptance": "I understand that I will deactivate this maecenate, and that this can only be undone by writing an email to Maecen.",
     "dashboard": "Dashboard",
     "description": "Description",
-    "descriptionPlaceholder": "Description of the Maecenate",
+    "descriptionPlaceholder": "Describe your Maecenate",
     "edit": "Edit {{maecenate}}",
     "linkToPresentation": "Share this link: ",
     "ownersCannotSupport": "You are the owner of this Maecenate, so you can not become a Maecen for it",
@@ -90,6 +91,10 @@
       "emailSubject": "Subject",
       "sendEmail": "Send email!"
     }
+  },
+  "markdown": {
+    "helpText": "Needs translation",
+    "linkText": "Guide"
   },
   "support": {
     "belowMin": "The amount is below the monthly mininum",

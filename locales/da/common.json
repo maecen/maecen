@@ -28,6 +28,7 @@
     "cancel": "Annuller",
     "continue": "Fortsæt",
     "edit": "Rediger",
+    "preview": "Forhåndsvis",
     "update": "Opdater"
   },
   "currency": {
@@ -60,8 +61,8 @@
     "closeAcceptance": "ADVARSEL: Jeg forstår at jeg nu deaktiverer mæcenatet, og at det kun kan aktiveres igen ved at skrive en email til Mæcen.",
     "create": "Opret nyt Mæcenat",
     "dashboard": "Dashboard",
-    "description": "Lang beskrivelse",
-    "descriptionPlaceholder": "Beskrivelse af dit Mæcenatet",
+    "description": "Beskrivelse",
+    "descriptionPlaceholder": "Beskriv dit Mæcenatet",
     "edit": "Redigér {{maecenate}}",
     "linkToPresentation": "Del dette link til præsentationen: ",
     "ownersCannotSupport": "Du ejer dette Mæcenat så du kan ikke blive Mæcen for det",
@@ -105,6 +106,10 @@
     "downloadAttachment": "Download fil:",
     "attachmentUpload": "Vedhæft en fil",
     "attachmentReplace": "Erstat vedhæftet fil"
+  },
+  "markdown": {
+    "helpText": "Dette felt understøtter markdown. ",
+    "linkText": "Vejledning"
   },
   "support": {
     "belowMin": "Beløbet er mindre end det månedlige minimum",
