@@ -9,7 +9,7 @@ import { TextLink } from '../../components/Link'
 
 
 function Footer (props) {
-  const { hasAuth, t } = props
+  const { t } = props
 
   return (
     <footer style={style.footer}>

@@ -59,7 +59,7 @@ const style = {
     lineHeight: 0
   },
   field: {
-    marginRight: spacer.base,
+    marginTop: '-4px',
     width: '44px'
   },
   underline: {

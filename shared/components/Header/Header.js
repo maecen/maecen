@@ -115,7 +115,9 @@ const style = {
   rightmenu: {
     float: 'right',
     marginLeft: spacer.base,
-    marginTop: spacer.half
+    marginTop: spacer.half,
+    display: 'flex',
+    alignItems: 'center'
   },
   fabWrap: {
     padding: spacer.half,

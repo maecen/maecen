@@ -10,9 +10,7 @@ import { isAuthorized, getAuthUser } from '../selectors/user'
 class FooterContainer extends Component {
   render () {
     return (
-      <Footer
-        hasAuth={this.props.hasAuth}
-        user={this.props.user} />
+      <Footer />
     )
   }
 }
