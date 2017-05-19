@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import marked from 'marked'
 
 import style from './MaecenateStyle'
 import { Card, CardContent, CardBigTitle } from '../Card'
@@ -57,7 +58,9 @@ function MaecenatePresentation (props) {
             <div style={style.subtitle}>
               { teaser }
             </div>
-            { description }
+            <div style={style.description} dangerouslySetInnerHTML={{
+              __html: marked(description, { sanitize: true })
+            }}></div>
             {url &&
               <div style={style.url}>
                 {t('website')}:

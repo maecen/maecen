@@ -77,7 +77,7 @@ class MarkdownField extends Component {
                 name={this.props.label}
                 onFocus={this.onFocusHandler}
                 onBlur={this.onBlurHandler}
-                rowsMax={12}
+                rowsMax={20}
                 path={this.props.path}
                 multiLine={true} />
               <span style={style.helpText}>

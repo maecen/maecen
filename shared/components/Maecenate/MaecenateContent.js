@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { translate } from 'react-i18next'
+import marked from 'marked'
 
 import style from './MaecenateStyle'
 import { Card, CardHeader, CardBigTitle, CardContent } from '../Card'
@@ -68,7 +69,9 @@ function MaecenateContent (props) {
             <div style={style.subtitle}>
               { teaser }
             </div>
-            { description }
+            <div dangerouslySetInnerHTML={{
+              __html: marked(description, { sanitize: true })
+            }}></div>
             {url &&
               <div style={style.url}>
                 {t('website')}:

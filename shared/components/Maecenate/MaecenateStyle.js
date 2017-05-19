@@ -11,7 +11,8 @@ export default {
     boxSizing: 'border-box'
   },
   description: {
-    padding: `${spacer.base} 0px`
+    padding: `${spacer.base} 0px`,
+    lineHeight: '1.2'
   },
   titleWrap: {
     display: 'flex',

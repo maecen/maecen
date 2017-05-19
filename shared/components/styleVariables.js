@@ -66,7 +66,7 @@ export default {
   },
   defaults: {
     maxWidth: '70rem',
-    maxWidthText: '35rem',
+    maxWidthText: '55rem',
     maxWidthContent: '55rem',
     padding: '0 0.5rem',
     margin: '0 auto'

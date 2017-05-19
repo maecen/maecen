@@ -11,9 +11,7 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import { Row, Cell } from '../Grid'
 import { Card, CardContent, CardTitle, CardActions } from '../Card'
-import Form from '../Form/Form'
-import TextField from '../Form/TextField'
-import Button from '../Form/Button'
+import Form, { TextField, Button, MarkdownField } from '../Form/'
 import LinearProgressDeterminate from '../Progress/LinearProgress'
 import FileDropzone from '../Form/FileDropzone'
 
@@ -94,10 +92,9 @@ function PostForm (props) {
               <LinearProgressDeterminate
                 value={fileUploadProgress} />
 
-              <TextField
+              <MarkdownField
                 path={['content']}
-                placeholder={t('post.content')}
-                multiLine={true} />
+                label={t('post.content')} />
 
               <TextField
                 path={['author_alias']}

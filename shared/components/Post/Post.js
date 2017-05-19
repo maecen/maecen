@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { translate } from 'react-i18next'
 import moment from 'moment'
+import marked from 'marked'
 
 // Utils
 import { postStatus } from '../../config'
@@ -57,7 +58,9 @@ function Post (props, context) {
           </CardContent>
         }
         <CardContent noTopPadding={true} textLayout={true}>
-          {post.content}
+          <div style={style.description} dangerouslySetInnerHTML={{
+            __html: marked(post.content, { sanitize: true })
+          }}></div>
 
           {file &&
             <div style={style.fileDownload}>
