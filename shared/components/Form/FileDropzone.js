@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import Button from './Button'
 import styleVariables from '../styleVariables'
 
+import { isBrowser } from '../../config'
+
 class FileDropzone extends Component {
   constructor (props) {
     super(props)
@@ -15,7 +17,7 @@ class FileDropzone extends Component {
     this.onDragOver = this.onDragOver.bind(this)
     this.onDragLeave = this.onDragLeave.bind(this)
 
-    if(window.FileReader) {
+    if(isBrowser) {
       this.reader = new window.FileReader()
       this.reader.onloadend = this.updateSrc.bind(this)
     }
