@@ -3,7 +3,6 @@ import Button from './Button'
 import styleVariables from '../styleVariables'
 
 class FileDropzone extends Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -16,8 +15,10 @@ class FileDropzone extends Component {
     this.onDragOver = this.onDragOver.bind(this)
     this.onDragLeave = this.onDragLeave.bind(this)
 
-    this.reader = new FileReader()
-    this.reader.onloadend = this.updateSrc.bind(this)
+    if(window.FileReader) {
+      this.reader = new window.FileReader()
+      this.reader.onloadend = this.updateSrc.bind(this)
+    }
   }
 
   onDragLeave (e) {
@@ -70,7 +71,7 @@ class FileDropzone extends Component {
   }
 
   checkForAndGenerateThumbnail(file) {
-    if(file.type.match('image.*')) {
+    if(this.reader && file.type.match('image.*')) {
       this.reader.readAsDataURL(file)
     }
   }
