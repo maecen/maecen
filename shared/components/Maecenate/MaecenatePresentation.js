@@ -58,9 +58,11 @@ function MaecenatePresentation (props) {
             <div style={style.subtitle}>
               { teaser }
             </div>
-            <div style={style.description} dangerouslySetInnerHTML={{
-              __html: marked(description, { sanitize: true })
-            }}></div>
+            { description &&
+              <div style={style.description} dangerouslySetInnerHTML={{
+                __html: marked(description, { sanitize: true })
+              }}></div>
+            }
             {url &&
               <div style={style.url}>
                 {t('website')}:

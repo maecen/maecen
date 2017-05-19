@@ -58,10 +58,11 @@ function Post (props, context) {
           </CardContent>
         }
         <CardContent noTopPadding={true} textLayout={true}>
-          <div style={style.description} dangerouslySetInnerHTML={{
-            __html: marked(post.content, { sanitize: true })
-          }}></div>
-
+          { post.content &&
+            <div style={style.description} dangerouslySetInnerHTML={{
+              __html: marked(post.content, { sanitize: true })
+            }}></div>
+          }
           {file &&
             <div style={style.fileDownload}>
               {t('post.downloadAttachment')}
