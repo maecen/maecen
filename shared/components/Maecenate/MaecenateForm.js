@@ -36,19 +36,26 @@ function MaecenateForm (props) {
     ? t('maecenate.update', { maecenate: maecenate.title })
     : t('maecenate.create')
 
-  const uploadLogoStr = maecenate.logo_media
-    ? t('maecenate.replaceLogoLabel')
-    : t('maecenate.uploadLogoLabel')
-  const uploadCoverStr = maecenate.cover_media
-    ? t('maecenate.replaceCoverLabel')
-    : t('maecenate.uploadCoverLabel')
-
   const goBack = isBrowser && window.history.back.bind(window.history)
 
   const getUrl = (name) => {
     const { protocol, hostname } = request
     const path = name ? slugify(name.replace(/\//g, '-')) : ''
     return `${protocol}://${hostname}/${path}`
+  }
+
+  const style = {
+    logoWrapper: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center'
+    },
+    titleWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '0 1rem',
+      flexGrow: '1'
+    }
   }
 
   return (
@@ -66,23 +73,32 @@ function MaecenateForm (props) {
               updateModel={updateModel}
               errors={errors}>
 
-              <TextField
-                path={['title']}
-                label={t('title')} />
+              <div style={style.logoWrapper}>
+                <FileDropzone
+                  multiple={false}
+                  label={t('maecenate.uploadLogoLabel')}
+                  accept='image/*'
+                  onChange={logoChange}
+                  error={errors && errors.logo_media}
+                  width='100px'
+                  height='100px'
+                />
+              <div style={style.titleWrapper}>
+                  <TextField
+                    path={['title']}
+                    label={t('title')}
+                    multiLine={true} />
+                  <TextField
+                    value={getUrl(maecenate.title)}
+                    label={t('maecenate.resultingUrl')}
+                    multiLine={true}
+                    disabled={true} />
+                  <br />
+                </div>
 
-              <TextField
-                value={getUrl(maecenate.title)}
-                label={t('maecenate.resultingUrl')}
-                disabled={true} />
-              <br />
 
-              <FileDropzone
-                multiple={false}
-                label={uploadLogoStr}
-                accept='image/*'
-                onChange={logoChange}
-                error={errors && errors.logo_media}
-              />
+              </div>
+
 
               <LinearProgressDeterminate
                 value={logoUploadProgress}
@@ -90,10 +106,12 @@ function MaecenateForm (props) {
 
               <FileDropzone
                 multiple={false}
-                label={uploadCoverStr}
+                label={t('maecenate.uploadCoverLabel')}
                 accept='video/*,image/*'
                 onChange={coverChange}
                 error={errors && errors.cover_media}
+                width='100%'
+                height='200px'
               />
 
               <LinearProgressDeterminate
