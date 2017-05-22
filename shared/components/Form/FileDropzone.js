@@ -65,7 +65,6 @@ class FileDropzone extends Component {
       this.props.onChange(files)
     }
 
-    // each(files, this._createPreview)
   }
 
   onClick () {
@@ -84,8 +83,10 @@ class FileDropzone extends Component {
 
   render () {
     const label = this.props.label || 'Upload File'
-    const { error } = this.props
+    const { error, width, height } = this.props
     const { src } = this.state
+    const size = this.dropzone ? this.dropzone.getBoundingClientRect() : null;
+    const landscapeMode = size ? size.width > size.height : false
 
     const style = {
       dropZone: {
@@ -93,7 +94,7 @@ class FileDropzone extends Component {
         display: 'inline-block',
         marginBottom: styleVariables.spacer.half,
         marginTop: styleVariables.spacer.base,
-        width: this.props.width
+        width: width
       },
       error: {
         color: styleVariables.color.alert,
@@ -106,19 +107,22 @@ class FileDropzone extends Component {
       buttonWrapper: {
         overflow: 'hidden',
         position: 'relative',
-        padding: '1px 0 1px'
+        padding: '1px 0 1px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
       },
       image: {
-        width: '100%',
-        height: 'auto',
+        width: landscapeMode ? '100%' : 'auto',
+        height: landscapeMode ? 'auto' : '100%',
         position: 'absolute'
       },
       button: {
         border: '1px solid #e0e0e0',
         borderRadius: '3px',
-        height: this.props.height,
+        height: height,
         width: '100%',
-        marginTop: '-1px'
+        margin: '-1px 0 1px 0',
       }
     }
     return (
@@ -128,6 +132,7 @@ class FileDropzone extends Component {
         onDragLeave={this.onDragLeave}
         onDragOver={this.onDragOver}
         onDrop={this.onDrop}
+        ref={dropzone => this.dropzone = dropzone }
       >
 
         <input style={style.input}
