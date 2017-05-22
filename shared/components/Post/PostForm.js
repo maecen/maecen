@@ -78,7 +78,9 @@ function PostForm (props) {
                 multiple={false}
                 label={mediaStr}
                 accept='video/*,image/*'
-                onChange={mediaChange} />
+                onChange={mediaChange}
+                width={'100%'}
+                height={'200px'}/>
 
               <LinearProgressDeterminate
                 value={mediaUploadProgress} />

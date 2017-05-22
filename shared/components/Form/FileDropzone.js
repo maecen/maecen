@@ -122,7 +122,6 @@ class FileDropzone extends Component {
         borderRadius: '3px',
         height: height,
         width: '100%',
-        margin: '-1px 0 1px 0',
       }
     }
     return (
@@ -147,7 +146,7 @@ class FileDropzone extends Component {
             { src &&
               <img src={src} style={ style.image } alt='Preview'/>
             }
-            <Button label={src ? ' ' : label} flat={true} style={style.button} />
+            <Button label={src ? ' ' : label} flat={true} last style={style.button} />
           </div>
         }
 
