@@ -7,10 +7,22 @@ import { isBrowser } from '../../config'
 class FileDropzone extends Component {
   constructor (props) {
     super(props)
+    let src = null
+    let message = ''
+
+    const mediaIsImage = props.media && props.media.type.match('image.*')
+
+    // If we're given a single image, then let's display it.
+    if(mediaIsImage) {
+      src = props.media.url;
+    } else if (props.media && props.media.filename) {
+      message = props.media.filename;
+    }
+
     this.state = {
       isDragActive: false,
-      message: '',
-      src: null
+      message,
+      src
     }
     this.onClick = this.onClick.bind(this)
     this.onDrop = this.onDrop.bind(this)
@@ -55,8 +67,14 @@ class FileDropzone extends Component {
     if (files.length === 0) {
       this.setState({ message: '', src: null })
     } else if (files.length === 1) {
-      this.checkForAndGenerateThumbnail(files[0])
-      this.setState({ message: files[0].name })
+      let newState = { message: files[0].name }
+
+      // If we're not dealing with an image, let's remove the src.
+      if(!this.checkForAndGenerateThumbnail(files[0])) {
+        newState.src = ''
+      }
+
+      this.setState(newState)
     } else if (files.length > 1) {
       this.setState({ message: `${files.length} files picked`, src: null })
     }
@@ -74,7 +92,9 @@ class FileDropzone extends Component {
   checkForAndGenerateThumbnail(file) {
     if(this.reader && file.type.match('image.*')) {
       this.reader.readAsDataURL(file)
+      return true
     }
+    return false
   }
 
   updateSrc() {
@@ -177,7 +197,8 @@ FileDropzone.propTypes = {
   onChange: PropTypes.func,
   children: PropTypes.node,
   height: PropTypes.string,
-  width: PropTypes.string
+  width: PropTypes.string,
+  src: PropTypes.string
 }
 
 export default FileDropzone

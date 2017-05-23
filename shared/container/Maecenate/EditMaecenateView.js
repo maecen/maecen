@@ -38,8 +38,8 @@ class EditMaecenateView extends Component {
   componentWillMount () {
     const maecenate = pick(this.props.maecenate, [
       'title',
-      'logo_media',
-      'cover_media',
+      'logo',
+      'cover',
       'teaser',
       'description',
       'url',

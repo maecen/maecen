@@ -32,8 +32,12 @@ function PostForm (props) {
     t
   } = props
 
-  const hasMedia = Boolean(post.media && post.media.length)
+  let firstMedia
+  const { media } = post
+  const hasMedia = Boolean(media && media.length)
   const hasFile = Boolean(post.file)
+
+  if(hasMedia) firstMedia = media[0]
 
   const editMode = Boolean(props.editMode)
   const titleStr = editMode ? t('post.edit') : t('post.create')
@@ -79,6 +83,7 @@ function PostForm (props) {
                 label={mediaStr}
                 accept='video/*,image/*'
                 onChange={mediaChange}
+                media={firstMedia}
                 width={'100%'}
                 height={'200px'}/>
 

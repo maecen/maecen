@@ -27,6 +27,7 @@ function MaecenateForm (props) {
     request
   } = props
 
+  console.log(maecenate.cover, maecenate.logo)
   const editMode = Boolean(props.editMode)
 
   const titleStr = editMode
@@ -35,6 +36,13 @@ function MaecenateForm (props) {
   const submitStr = editMode
     ? t('maecenate.update', { maecenate: maecenate.title })
     : t('maecenate.create')
+
+  const uploadLogoStr = maecenate.logo
+    ? t('maecenate.replaceLogoLabel')
+    : t('maecenate.uploadLogoLabel')
+const uploadCoverStr = maecenate.cover
+    ? t('maecenate.replaceCoverLabel')
+    : t('maecenate.uploadCoverLabel')
 
   const goBack = isBrowser && window.history.back.bind(window.history)
 
@@ -76,10 +84,11 @@ function MaecenateForm (props) {
               <div style={style.logoWrapper}>
                 <FileDropzone
                   multiple={false}
-                  label={t('maecenate.uploadLogoLabel')}
+                  label={uploadLogoStr}
                   accept='image/*'
                   onChange={logoChange}
                   error={errors && errors.logo_media}
+                  media={maecenate.logo}
                   width='100px'
                   height='100px'
                 />
@@ -106,10 +115,11 @@ function MaecenateForm (props) {
 
               <FileDropzone
                 multiple={false}
-                label={t('maecenate.uploadCoverLabel')}
+                label={uploadCoverStr}
                 accept='video/*,image/*'
                 onChange={coverChange}
                 error={errors && errors.cover_media}
+                media={maecenate.cover}
                 width='100%'
                 height='200px'
               />
