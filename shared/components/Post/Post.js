@@ -59,7 +59,7 @@ function Post (props, context) {
         }
         <CardContent noTopPadding={true} textLayout={true}>
           { post.content &&
-            <div style={style.description} dangerouslySetInnerHTML={{
+            <div className='markdown-container' style={style.description} dangerouslySetInnerHTML={{
               __html: marked(post.content, { sanitize: true })
             }}></div>
           }

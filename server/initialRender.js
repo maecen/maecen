@@ -157,6 +157,10 @@ function renderTemplate (html, initialState, i18n, helmet) {
     h1, h2, h3, h4, h5, h6 {
       font-weight: ${styleVariables.font.weight.heading};
     }
+
+    .markdown-container img{
+      max-width: 100%;
+    }
   `
   const style = {
     html: `

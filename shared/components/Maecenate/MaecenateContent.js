@@ -70,7 +70,7 @@ function MaecenateContent (props) {
               { teaser }
             </div>
             { description &&
-              <div style={style.description} dangerouslySetInnerHTML={{
+              <div className='markdown-container' style={style.description} dangerouslySetInnerHTML={{
                 __html: marked(description, { sanitize: true })
               }}></div>
             }
