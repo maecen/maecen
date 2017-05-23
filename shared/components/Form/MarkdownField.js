@@ -53,7 +53,6 @@ class MarkdownField extends Component {
     return (
       <div style={style.container}>
         <div style={style.topbar}>
-          <span style={{color:textColor}}>{this.props.label}</span>
           <div style={style.buttons}>
             <Button
               label={t('action.edit')}
@@ -75,6 +74,7 @@ class MarkdownField extends Component {
             <div>
               <TextField
                 name={this.props.label}
+                placeholder={this.props.label}
                 onFocus={this.onFocusHandler}
                 onBlur={this.onBlurHandler}
                 rowsMax={20}
