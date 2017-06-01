@@ -39,7 +39,7 @@
     "passwordIncorrect": "Dette kodeord passer ikke til email adressen"
   },
   "feed": {
-    "getStarted": "Tak for din interesse og tilmelding. For at se indlæg skal du støtte mindst ét Mæcenat.",
+    "getStarted": "Tak for din interesse og tilmelding. Indlæg fra Mæcenater du støtter vil blive vist på denne side.",
     "yourNews": "Seneste indlæg",
     "findMaecenate": "Find et Mæcenat at støtte"
   },
