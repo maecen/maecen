@@ -1,11 +1,11 @@
 {
     "band": [{
-            "title": "Hvad er Maecen.com?",
-            "description": "Mæcen er en ægte deleøkonomisk platform, der giver dig mulighed for, helt gratis, at oprette egne Mæcenater og at støtte andres igennem små månedlige betalinger."
+            "title": "Hvad er Mæcen.dk?",
+            "description": "Mæcen er en ægte deleøkonomisk platform, der giver dig mulighed for, helt gratis, at oprette egne Mæcenater og at støtte andres igennem faste månedlige betalinger. Brug Mæcen til at lave en støtteforening, tage betaling for journalistisk indhold, skabe en fanklub eller blot til at opkræve kontingent"
         },
         {
             "title": "HVAD ER EN MÆCEN?",
-            "description": "En Mæcen er oprindeligt en person der støtter kunst og videnskab økonomisk, efter Gaius Meacenas. På Maecen.com er en mæcen blot en person som ønsker at betale til et mæcenat, fordi hun ønsker at give tilbage for det hun får eller bare for at vise sin støtte."
+            "description": "En Mæcen er oprindeligt en person der støtter kunst og videnskab økonomisk, opkaldt efter Gaius Meacenas. På Maecen.com er en Mæcen også en person som ønsker at støtte et Mæcenat, fordi hun ønsker at betale for det hun modtager eller måske blot for at vise sin støtte."
         },
         {
             "title": "HVAD ER ET MÆCENAT?",
@@ -15,7 +15,7 @@
     "masonry": [
         [{
                 "title": "Co-operativ platform",
-                "description": "Maecen.com er ejet og drevet af andelsselskabet DiGiDi a.m.b.a. Alle de mere end 3.500 andelshavere har én andel hver og én stemme. Der er ingen investorer, stiftere eller andre kapitalinteresser i projektet."
+                "description": "Maecen.com er ejet og drevet af andelsselskabet DiGiDi a.m.b.a. Alle de mere end 3.500 andelshavere har én andel hver og én stemme.Der er ingen investorer, stiftere eller andre kapitalinteresser i projektet."
             },
             {
                 "title": "Ægte deleøkonomi",
@@ -28,7 +28,7 @@
         ],
         [{
                 "title": "Free speech",
-                "description": "På Mæcen er der ingen censur eller filtrering, så længe indholdet lever op til den danske lovgivning, der er en af de mest åbne, hvad angår ytringsfrihed. Ved at betale direkte til de der skrive indholdet, kan man også udgå den form for censur, eller filtrering, der almindeligvis finder sted i medierne. Det kan være at indholdet filtreres efter en redaktionel linje eller af hensynet til sponsorer, annoncører eller andre økonomiske interesser. Ved at betale direkte til den skabende, uanset om det er en journalist eller et band, kan man sikre, at netop dem man støtter, forsat har mulighed for at udtrykke sig på deres helt egen måde."
+                "description": "På Maecen.com er der ingen censur eller filtrering, så længe indholdet lever op til den danske lovgivning, der er en af de mest åbne, hvad angår ytringsfrihed. Ved at betale direkte til de der skaber indholdet, kan man også udgå den form for censur eller filtrering der almindeligvis finder sted i medierne. Det er almindeligt at indholdet filtreres efter en redaktionel linje eller af hensynet til sponsorer, annoncører eller andre økonomiske interesser. Ved at betale direkte til den skabende, uanset om det er en journalist, en forfatter, en blogger eller et band, kan man sikre, at netop dem som man støtter, har mulighed for at udtrykke sig på deres helt egen måde."
             },
             {
                 "title": "Free flow",
