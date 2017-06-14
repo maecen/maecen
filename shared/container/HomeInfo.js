@@ -14,7 +14,7 @@ const HomeInfo = (props, context) => {
   let collumns = content.masonry.map(Collumn)
 
   return (
-    <div>
+    <div style={style.container}>
       <Row style={style.band}> {blocks} </Row>
       <Row style={style.masonry}> {collumns} </Row>
     </div>
@@ -44,6 +44,9 @@ const Collumn = (blocks, key) => {
 }
 
 const style = {
+  container: {
+    width: '100%'
+  },
   masonry: {
     marginTop: '2rem'
   },
