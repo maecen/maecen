@@ -5,6 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Helmet from 'react-helmet'
+import Radium from 'radium'
 
 import styleVariables from '../../components/styleVariables'
 
@@ -80,7 +81,8 @@ const style = {
     paddingBottom: spacer.quadrouple,
     margin: defaults.margin,
     width: defaults.maxWidth,
-    maxWidth: '100%'
+    maxWidth: '100%',
+    flexDirection: 'column'
   }
 }
 
@@ -97,4 +99,6 @@ function mapStateToProps (store) {
   }
 }
 
-export default connect(mapStateToProps)(App)
+const StyledApp = Radium(App)
+
+export default connect(mapStateToProps)(StyledApp)

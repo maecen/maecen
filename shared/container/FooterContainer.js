@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import without from 'lodash/without'
 import * as Actions from '../actions'
 import Footer from '../components/Footer/Footer'
+import Radium from 'radium'
 
 import { isAuthorized, getAuthUser } from '../selectors/user'
 
@@ -27,5 +28,5 @@ FooterContainer.contextTypes = {
 }
 
 export default translate(['common'])(
-  connect(mapStateToProps)(FooterContainer)
+  connect(mapStateToProps)(Radium(FooterContainer))
 )
