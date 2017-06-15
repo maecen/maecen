@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
-import Radium from 'radium';
-import i18n from 'react-i18next';
-import { Row, Cell } from '../components/Grid';
-import styleVariables from '../components/styleVariables';
+import React from 'react'
+import Radium from 'radium'
+import { Row, Cell } from '../components/Grid'
+import styleVariables from '../components/styleVariables'
 
 const HomeInfo = (props, context) => {
   const lang = context.i18n.language
   const content = context.i18n.store.data[lang].frontpage
 
-  if(!content || !content.band || !content.masonry) return null
+  if (!content || !content.band || !content.masonry) return null
 
   let blocks = content.band.map(Block)
   let collumns = content.masonry.map(Collumn)
@@ -53,18 +52,18 @@ const style = {
   band: {
     backgroundColor: styleVariables.color.primary,
     color: styleVariables.color.white,
-    marginTop: '5rem',
+    marginTop: '5rem'
   },
   block: {
     textAlign: 'left',
     padding: '1rem 2rem',
-    lineHeight: '1.5rem',
+    lineHeight: '1.5rem'
   },
   heading: {
     textTransform: 'uppercase'
   },
   paragraph: {
-    marginTop: '1rem',
+    marginTop: '1rem'
   }
 }
 
@@ -72,4 +71,4 @@ HomeInfo.contextTypes = {
   i18n: React.PropTypes.object.isRequired
 }
 
-export default HomeInfo;
+export default Radium(HomeInfo)

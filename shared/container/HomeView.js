@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { Link, browserHistory } from 'react-router'
+import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import * as Actions from '../actions'
 import { isAuthorized } from '../selectors/user'
+import Radium from 'radium'
 
 import styleVariables from '../components/styleVariables'
 import UserFeedView from '../container/UserFeedView'
 import Icon from '../components/Graphics/Icon'
 import Button from '../components/Form/Button'
-import HomeInfo from './HomeInfo';
+import HomeInfo from './HomeInfo'
 
 class HomeView extends Component {
   constructor (props) {
@@ -105,5 +106,5 @@ function mapStateToProps (state) {
 }
 
 export default translate(['common'])(
-  connect(mapStateToProps)(HomeView)
+  connect(mapStateToProps)(Radium(HomeView))
 )
