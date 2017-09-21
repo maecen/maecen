@@ -1,11 +1,10 @@
 # Om Mæcen.com projektet
 
 Mæcen.dk er en ægte deleøkonomisk platform, der giver brugerne mulighed for at oprette egne Mæcenater og at støtte andres ved en faste månedlige betalinger. <br><br>
-Et Mæcenat består af en præsentation, som alle kan se, og en indholdsside med tekster, billeder og videoer som man kun kan få adgang til hvis man abonnerer, og dermed bliver Mæcen. [Se eksempel](https://maecen.com/maecen-project)<br>
-[Opret et gratis Mæcenat](https://maecen.net/maecenate/create) - [Se video om hvordan du gør](https://vimeo.com/233825477)<br>
-<a href="http://example.com/" target="_blank">example</a><br><br>
-Skriv meget gerne til Mæcen-projektet hvis du har spørgsmål på maecen@digidi.dk
-
+Et Mæcenat består af en præsentation, som alle kan se, og en indholdsside med tekster, billeder og videoer som man kun kan få adgang til hvis man abonnerer, og dermed bliver Mæcen. <br>[Se eksempel](https://maecen.com/maecen-project) - 
+[Opret et gratis Mæcenat](https://maecen.net/maecenate/create) - <a href="https://vimeo.com/233825477/" target="_blank">Video: sådan gør du</a><br><br>
+Skriv meget gerne til Mæcen-projektet hvis du har spørgsmål eller idéer maecen@digidi.dk
+<br><br>
 Du fastsætter selv hvor meget man som minimum skal betale for at støtte dit projekt, og betaler kun 1kr om måneden til Mæcen-projektet. Hvis du f.eks. anmoder om 10kr som minimumsbetaling, betaler du kun 1 kr til Mæcen-projektet. Også selvom din Mæcen vælger at betale mere. [Se priser og vilkår](https://maecen.net/terms)
 <br><br>
 Mange kreative mennesker og virksomheder arbejder med at skabe indhold til Internettet.
