@@ -80,7 +80,8 @@ Du fastsætter selv hvor meget dine Mæcener skal betale for støtte dit Mæcena
 Ud af dette beløb trækkes 1kr, incl moms, pr måned for hver aktiv Mæcen som støtter dit Mæcenat. resten udbetales til dig.  
 Der udbetales på din anmodning, højst en gang pr kalendermåned, til en bankkonto eller en paypal konto.  Beløb under 300kr overføres til næste måned.
 
-Bemærk at indtægterne fra Mæcen.net er momspligtige for virksomheder og skattepligtige for privat personer, da betalingerne bliver betragtet som abonnementsbetaling (og ikke som donationer).
+Bemærk at indtægterne fra Mæcen.dk er momspligtige for virksomheder og skattepligtige for privat personer, hvis der er tale om et forhold, hvor der leveres indhold det tilsvarer betalingen. F.eks. artikler, musik eller film, da der så er tale om et abonnement og ikke en medlemsskab eller en donation. 
+Foreninger og organisationer der modtager donationer eller anvender Mæcen.dk til at opkræve kontingent er som udgangspunkt ikke momspligtige. 
 
 Kun lovligt indhold du har rettigheder til.
 -------------------------------------
