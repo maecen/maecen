@@ -21,7 +21,7 @@ Mæcen.dk projektet er derfor Non Profit, og alle indtægter går til drift og f
 
 Kontakt Mæcen.dk
 ---------------
-Mæcen ejes og drives af  
+Mæcen.dk ejes og drives af  
 De Kreatives Uafhængige Andelsselskab a.m.b.a. DiGiDi - Digital Distribution +45 27 29 18 14 CVR: DK-27628389  
 Hallelevvej 15, 4200 Slagelse, Danmark <a href="http://www.digidi.dk/" target="_blank">www.digidi.dk</a> maecen@digidi.org  
 
