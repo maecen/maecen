@@ -237,7 +237,12 @@ const createSlug = (name) =>
   name && slugify(name.replace(/\//g, '-'))
 
 const validateMaecenate = (prev, next) => {
-  return joiValidation(next, schema, true).then(() => {
+  // We're validating that the new object with the changes will
+  // satisfy the complete Joi schema. This way it's possible to 
+  // only update part of the maecenate.
+  const newState = Object.assign({}, prev, next)
+
+  return joiValidation(newState, schema, true).then(() => {
     if (prev === null || prev.slug !== next.slug) {
       return slugIsAvailable(next.slug)
     }
