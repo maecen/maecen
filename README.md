@@ -44,3 +44,16 @@ https://github.com/maecen/maecen-webapp/blob/development/client/assets/js/locali
 - All actions that ends with the _List_ (fetchMaecenateList) creates an action
   which should treat the list of id's it returns as the one that should be used
   to display on the page.
+
+## How to start with the Docker?
+
+1. Add file `.env` in  the root of the project with content:
+
+```
+COMPOSE_PROJECT_NAME=maecen
+DATABASE_URL=postgresql://postgres:123@db:5432/maecen
+```
+
+2. `docker-compose up`
+
+That's all! Now you can open http://localhost:3000/ and start working.

@@ -1,0 +1,25 @@
+version: '3.6'
+services:
+  db:
+    build :
+      context: ./
+      dockerfile: ./.docker/Dockerfile-postgres
+
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 123
+
+  express-server :
+    build :
+      context: ./
+      dockerfile: ./.docker/Dockerfile-express
+
+    volumes:
+      - ./:/home/node
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      - db

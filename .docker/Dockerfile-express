@@ -1,0 +1,11 @@
+FROM node:latest
+
+RUN apt-get update && apt-get install -y mc less vim postgresql-client
+
+ADD ./.docker/express/start.sh /root/start.sh
+RUN chmod 0777 /root/start.sh
+
+WORKDIR /home/node
+
+EXPOSE 3000
+CMD ["/root/start.sh"]
