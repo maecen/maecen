@@ -27,7 +27,7 @@ export default {
     gray: 'rgb(200,200,200)',
     headerBG: 'hsl(210, 10%, 87%)',
     icon: 'rgba(255,255,255,0.6)',
-    primary: 'hsl(320, 100%, 35%)',
+    primary: 'hsla(54, 41%, 67%, 1)',
     white: 'white'
   },
   font: {
